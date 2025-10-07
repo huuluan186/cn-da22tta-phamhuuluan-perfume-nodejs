@@ -7,7 +7,7 @@ const Footer = () => {
                 <h1>Footer</h1>
             </div> 
             <div className='text-center bg-[#032119]'>
-                <p>© {new Date().getFullYear()} Cine+. All rights reserved.</p>
+                <p>©{new Date().getFullYear()} Perfumora.vn | All rights reserved.</p>
             </div>
         </div>
     )
