@@ -6,7 +6,7 @@ const Footer = () => {
             <div className='container'>
                 <h1>Footer</h1>
             </div> 
-            <div className='text-center bg-[#032119]'>
+            <div className='text-center bg-secondary'>
                 <p>©{new Date().getFullYear()} Perfumora.vn | All rights reserved.</p>
             </div>
         </div>

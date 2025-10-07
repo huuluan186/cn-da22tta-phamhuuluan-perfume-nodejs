@@ -9,7 +9,7 @@ const Home = () => {
         <div className="min-h-screen flex flex-col wrapper">
             {/* Header + Navbar */}
             <div className="sticky top-0 z-50 w-full flex flex-col">
-                <div className="container bg-primary text-white w-full border-b border-gray-300">
+                <div className="container bg-primary text-white w-full border-gray-300">
                     <Header />
                 </div>
                 <div className="container bg-contentBg w-full border-b border-gray-200">

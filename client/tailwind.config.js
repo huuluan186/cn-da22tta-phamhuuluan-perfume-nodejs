@@ -10,6 +10,7 @@ module.exports = {
                 primary: '#07503D',
                 light: '#F5F5F5',
                 contentBg: "#FFF",
+                secondary: '#032119',
             },
             container: {
                 center: true,          // căn giữa tự động
