@@ -1,9 +1,9 @@
-import React from 'react'
-
+import { bannerImages } from "../constants/bannerImages";
+import { BannerSlider } from "../components";
 const Homepage = () => {
     return (
-        <div>
-            <h1>Homepage</h1>
+        <div className="w-full mx-auto">
+            <BannerSlider slides={bannerImages} />
         </div>
     );
 }
