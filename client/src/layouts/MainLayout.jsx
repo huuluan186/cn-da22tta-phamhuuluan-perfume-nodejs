@@ -23,7 +23,7 @@ const Home = () => {
             </main>
 
             {/* Footer */}
-            <footer className="mt-auto bg-primary text-white">
+            <footer className="mt-auto bg-primary text-white text-sm">
                 <Footer/>
             </footer>
         </div>

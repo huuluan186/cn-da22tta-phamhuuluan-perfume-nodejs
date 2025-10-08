@@ -10,7 +10,7 @@ const SearchBar = ({
     rounded = '',
     width = '',
     height = '',
-    placeholder = 'Tìm kiếm sản phẩm...',
+    placeholder = '',
     
 }) => {
     const [query, setQuery] = useState('');
@@ -22,7 +22,7 @@ const SearchBar = ({
         >
             <input 
                 type="text" 
-                placeholder="Tìm kiếm sản phẩm..." 
+                placeholder={placeholder} 
                 spellCheck="false"
                 className="w-full p-2 focus:outline-none text-gray-500"
                 value={query}
