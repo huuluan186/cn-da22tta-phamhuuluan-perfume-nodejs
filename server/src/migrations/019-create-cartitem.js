@@ -54,6 +54,5 @@ export async function up(queryInterface, Sequelize) {
 }
 
 export async function down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint('CartItems', 'unique_cart_product_variant');
     await queryInterface.dropTable('CartItems');
 }
