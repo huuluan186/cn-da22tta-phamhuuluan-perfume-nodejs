@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 import connectDatabase from './src/config/connectDB.js';
-//import todoRoutes from './src/routes/todo.route.js';
+import mainRouter from './src/routes/index.route.js';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -21,7 +21,13 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-//app.use('/api/v1', todoRoutes);
+// chỉ mount /api một lần duy nhất
+app.use('/api', mainRouter);
+
+// optional route để test server
+app.use('/', (req, res) => {
+    res.send('✅ Server is running...');
+});
 
 const port = process.env.PORT || 5000;
 
