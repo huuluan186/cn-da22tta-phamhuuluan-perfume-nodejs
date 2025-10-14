@@ -33,7 +33,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
         },
         wardId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: true,
             references: {
                 model: 'Wards',
