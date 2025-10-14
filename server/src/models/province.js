@@ -13,16 +13,20 @@ export default (sequelize, DataTypes) => {
     }
     Province.init({
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,       
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
+        },
+        slug: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         countryId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
     },

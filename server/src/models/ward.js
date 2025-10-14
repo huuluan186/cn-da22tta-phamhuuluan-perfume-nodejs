@@ -13,17 +13,21 @@ export default (sequelize, DataTypes) => {
     }
     Ward.init({
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,       
         },
-        name: {
-            type: DataTypes.STRING,
+        provinceId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        provinceId: {
+        name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
+        },
+        slug: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
     },
     {

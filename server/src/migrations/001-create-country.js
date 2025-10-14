@@ -3,8 +3,9 @@
 export async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('Countries', {
         id: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true,
         },
         name: {

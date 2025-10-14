@@ -13,8 +13,9 @@ export default (sequelize, DataTypes) => {
     }
     Country.init({
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true,       
         },
         name: {

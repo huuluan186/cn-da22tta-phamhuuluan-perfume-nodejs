@@ -5,19 +5,23 @@ export async function up(queryInterface, Sequelize) {
         id: {
             allowNull: false,
             primaryKey: true,
-            type: Sequelize.STRING,
-        },
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false,
+            type: Sequelize.INTEGER,
         },
         provinceId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             references: {
                 model: 'Provinces',
                 key: 'id',
             },
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        slug: {
+            type: Sequelize.STRING,
+            allowNull: true,
         },
         createdAt: {
             allowNull: false,

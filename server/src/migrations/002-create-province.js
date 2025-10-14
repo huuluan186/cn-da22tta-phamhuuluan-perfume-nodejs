@@ -5,14 +5,18 @@ export async function up(queryInterface, Sequelize) {
         id: {
             allowNull: false,
             primaryKey: true,
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
         },
         name: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
+        },
+        slug: {
+            type: Sequelize.STRING,
+            allowNull: true,
         },
         countryId: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             references: {
                 model: 'Countries', 
