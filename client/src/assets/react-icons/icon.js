@@ -1,6 +1,6 @@
-import { FiSearch} from 'react-icons/fi';
+import { FiSearch, FiEye, FiEyeOff} from 'react-icons/fi';
 import { FaHeart } from "react-icons/fa6";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaFacebookF, FaGoogle  } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight  } from "react-icons/md";
 
 const icons = {
@@ -9,6 +9,10 @@ const icons = {
     FaShoppingCart,
     MdKeyboardArrowDown,
     MdKeyboardArrowRight,
+    FiEye,
+    FiEyeOff,
+    FaFacebookF,
+    FaGoogle 
 }
 
 export default icons;
