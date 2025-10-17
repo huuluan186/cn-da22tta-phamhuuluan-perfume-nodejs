@@ -35,8 +35,7 @@ const LoginForm = () => {
 
     return (
         <form 
-            onSubmit={handleSubmit}
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)]  rounded-md px-16 py-8'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
                 ĐĂNG NHẬP TÀI KHOẢN
@@ -81,11 +80,12 @@ const LoginForm = () => {
                     Bạn chưa có tài khoản?{" "}
                     <span
                         className="text-primary cursor-pointer hover:underline"
-                        onClick={() => navigate(path.LOGIN)}
+                        onClick={() => navigate(path.REGISTER)}
                     >
                         Đăng ký tại đây
                     </span>
                 </p>
+                <p className="text-primary cursor-pointer hover:underline">Quên mật khẩu? </p>
                 <p className="font-semibold">Hoặc đăng nhập bằng: </p>
             </div>
 
@@ -108,7 +108,6 @@ const LoginForm = () => {
                     hoverBg="hover:bg-blue-500"
                 />
             </div>
-        
         </form>
     )
 }
