@@ -2,6 +2,8 @@ import {SearchBar, DropdownMenu, CartDropdownContent} from '../index'
 import logo from '../../assets/images/Perfumora_Logo_Artistic_3-removebg-preview.png'
 import icons from '../../assets/react-icons/icon'
 import { accountMenuItems } from "../../constants/menuItems";
+import { useNavigate } from "react-router-dom";  
+import { path } from '../../constants/path';
 
 const {FaHeart, FaShoppingCart, MdKeyboardArrowDown} = icons;
 const cartItems = [
@@ -10,6 +12,7 @@ const cartItems = [
 ];
 
 const Header = () => {
+    const navigate = useNavigate()
     return (
         <div className='flex justify-between items-center py-4'>
             {/* LEFT: Search */}
@@ -37,8 +40,19 @@ const Header = () => {
                         <div>
                             <p className="font-semibold">Xin chào, Khách</p>
                             <p className="text-xs">
-                                <span className="font-bold cursor-pointer hover:underline">Đăng nhập</span> hoặc{" "}
-                                <span className="font-bold cursor-pointer hover:underline">Đăng ký</span>
+                                <span 
+                                    className="font-bold cursor-pointer hover:underline"
+                                    onClick={() => navigate(path.LOGIN)}
+                                >
+                                    Đăng nhập 
+                                </span> 
+                                {" "}hoặc{" "}
+                                <span 
+                                    className="font-bold cursor-pointer hover:underline" 
+                                    onClick={() => navigate(path.REGISTER)}
+                                >
+                                    Đăng ký
+                                </span>
                             </p>
                         </div>
                         <MdKeyboardArrowDown className="w-5 h-5 text-contentBg mt-1" />
