@@ -40,7 +40,13 @@ const Header = () => {
                         <div>
                             <p className="font-semibold">Xin chào, Khách</p>
                             <p className="text-xs">
-                                <span className="font-bold cursor-pointer hover:underline">Đăng nhập</span> hoặc{" "}
+                                <span 
+                                    className="font-bold cursor-pointer hover:underline"
+                                    onClick={() => navigate(path.LOGIN)}
+                                >
+                                    Đăng nhập 
+                                </span> 
+                                {" "}hoặc{" "}
                                 <span 
                                     className="font-bold cursor-pointer hover:underline" 
                                     onClick={() => navigate(path.REGISTER)}
