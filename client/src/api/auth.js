@@ -9,3 +9,11 @@ export const apiRegister = async (payload) => {
     }
 }
 
+export const apiLogin = async (payload) => {
+    try {
+        const response = await axiosConfig.post('/api/auth/login', payload)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
