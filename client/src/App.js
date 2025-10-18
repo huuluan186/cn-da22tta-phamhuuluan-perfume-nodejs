@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer, Bounce } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
 import { Homepage, Register, Login } from './pages/index'
 import { MainLayout } from "./layouts/index";
@@ -13,6 +15,21 @@ function App() {
                     <Route path={path.LOGIN} element={<Login/>} />
                 </Route>
             </Routes>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                className="custom-toast-container"
+            />
         </div>
     );
 }

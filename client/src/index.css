@@ -15,3 +15,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.custom-toast-container {
+  top: 80px !important; /* Mặc định là 1rem (~16px), đổi thành thấp xuống xíu */
+}

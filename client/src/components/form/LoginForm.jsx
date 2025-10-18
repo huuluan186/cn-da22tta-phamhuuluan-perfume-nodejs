@@ -1,37 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
 import { validateLogin } from "../../utils/validateForm";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
+import { useDispatch, useSelector  } from "react-redux";
+import { login } from '../../store/actions/auth'
+import { toast } from "react-toastify";
 
 const {FaFacebookF, FaGoogle} = icons
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+    const dispatch = useDispatch();
+    const { isLoggedIn, msg, errorToggle } = useSelector(state => state.auth)
+
+    const [payload, setPayload] = useState({
         email: "",
         password: "",
     });
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // 🔍 Gọi hàm validateRegister
-        const { valid, errors: formErrors } = validateLogin(formData);
+        const { valid, errors: formErrors } = validateLogin(payload);
         if (!valid) {
             setErrors(formErrors);
-            console.log("❌ Validate lỗi:", formErrors);
             return;
         }
-        // ✅ Nếu không có lỗi
+        // Xóa lỗi cũ (nếu có)
         setErrors({});
-        console.log("✅ Form hợp lệ, chuẩn bị gọi API...");
+        try {
+            await dispatch(login(payload))
+        } catch (error) {
+            throw error
+        }
     }
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            toast.success(msg);
+            navigate(path.HOME);
+        } else if (msg) {
+            toast.error(msg || "Đăng nhập thất bại!");
+        }
+    }, [isLoggedIn, msg, errorToggle, navigate]);
 
     return (
         <form 
@@ -46,7 +64,7 @@ const LoginForm = () => {
                 type="email"
                 name="email"
                 required={true}
-                value={formData.email}
+                value={payload.email}
                 onChange={handleChange}
                 error={errors.email}
                 setError={setErrors}
@@ -57,7 +75,7 @@ const LoginForm = () => {
                 type="password"
                 name="password"
                 required={true}
-                value={formData.password}
+                value={payload.password}
                 onChange={handleChange}
                 error={errors.password}
                 setError={setErrors}
