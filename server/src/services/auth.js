@@ -71,3 +71,50 @@ export const loginService = async ({ email, password }) => {
         throw error
     }
 }
+
+export const socialLoginService = async (payload) => {
+    try {
+        console.log('*** Social login payload:', payload);
+
+        if (!payload.email || !payload.providerUserId) {
+            return { err: 1, msg: 'Missing required fields' };
+        }
+
+        // Kiểm tra có user chưa
+        let user = await db.User.findOne({ where: { email: payload.email } });
+
+        if (!user) {
+            // Nếu chưa có thì tạo user mới
+            user = await db.User.create({
+                id: payload.providerUserId, // tạm dùng ID Google
+                firstname: payload.profile.displayName.split(' ')[0],
+                lastname: payload.profile.displayName.split(' ').slice(1).join(' '),
+                email: payload.email,
+                password: 'social_login', // placeholder
+            });
+        }
+
+        // Kiểm tra AuthProvider (google/facebook)
+        await db.AuthProvider.findOrCreate({
+            where: { providerUserId: payload.providerUserId, provider: payload.provider },
+            defaults: {
+                id: payload.providerUserId,
+                userId: user.id,
+                email: payload.email,
+                accessToken: payload.accessToken,
+                refreshToken: payload.refreshToken,
+            },
+        });
+
+        const token = jwt.sign(
+            { id: user.id, email: user.email, isAdmin: user.isAdmin },
+            process.env.SECRET_KEY,
+            { expiresIn: '1h' }
+        );
+
+        return { err: 0, msg: 'Đăng nhập thành công qua Google', token };
+    } catch (error) {
+        console.error('Social login error:', error);
+        return { err: 1, msg: 'Lỗi khi đăng nhập qua Google' };
+    }
+};

@@ -8,7 +8,11 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // Mỗi AuthProvider thuộc về 1 User
+            AuthProvider.belongsTo(models.User, {
+                foreignKey: 'userId',
+                as: 'user',
+            });
         }
     }
     AuthProvider.init({
@@ -40,11 +44,11 @@ export default (sequelize, DataTypes) => {
             },
         },
         accessToken: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: true,
         },
         refreshToken: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: true,
         },
     },
