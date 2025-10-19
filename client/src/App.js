@@ -5,7 +5,18 @@ import { path } from "./constants/path";
 import { Homepage, Register, Login } from './pages/index'
 import { Callback } from "./components/index";
 import { MainLayout } from "./layouts/index";
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getCurrentUser } from "./store/actions/user";
+
 function App() {
+    const dispatch = useDispatch();
+    const { isLoggedIn } = useSelector(state => state.auth)
+
+    useEffect(() => {
+        isLoggedIn && dispatch(getCurrentUser())
+    }, [isLoggedIn])
+
     return (
         <div className="min-h-screen bg-light">
             <Routes>
