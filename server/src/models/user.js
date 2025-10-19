@@ -29,6 +29,13 @@ export default (sequelize, DataTypes) => {
                 as: 'orders',           
                 onDelete: 'CASCADE',
             });
+
+            // 1 User có nhiều AuthProvider (Google, Facebook,...)
+            User.hasMany(models.AuthProvider, {
+                foreignKey: 'userId',
+                as: 'authProviders',
+                onDelete: 'CASCADE',
+            });
         }
     }
     User.init({
