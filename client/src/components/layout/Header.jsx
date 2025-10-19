@@ -16,6 +16,7 @@ const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.user);
 
     return (
         <div className='flex justify-between items-center py-4'>
@@ -42,7 +43,12 @@ const Header = () => {
                     transition-shadow duration-200 ease-in-out
                     hover:bg-primary hover:shadow-[0_0_10px_rgba(0,0,0,0.2)]">
                         <div>
-                            <p className="font-semibold">Xin chào, Khách</p>
+                            <p 
+                                className="font-semibold max-w-48 truncate" 
+                                title={`${user?.firstname} ${user?.lastname}`}
+                            >
+                                Xin chào, {user?.firstname} {user?.lastname}
+                            </p>
                             {!isLoggedIn && (
                                 <p className="text-xs">
                                     <span 
