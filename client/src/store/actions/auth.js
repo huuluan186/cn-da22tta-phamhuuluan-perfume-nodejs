@@ -2,6 +2,15 @@ import actionTypes from './actionTypes'
 import { apiLogin } from '../../api/auth' 
 import { jwtDecode } from 'jwt-decode'
 
+export const loginSuccess = (payload) => ({
+    type: actionTypes.LOGIN_SUCCESS,
+    data: {
+        token: payload.token,
+        isAdmin: jwtDecode(payload.token).isAdmin,
+        msg: payload.msg,
+    },
+});
+
 export const login = (payload) => async (dispatch) => {
     try {
         const response = await apiLogin(payload);

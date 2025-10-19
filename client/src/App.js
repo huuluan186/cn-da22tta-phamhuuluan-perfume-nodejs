@@ -3,6 +3,7 @@ import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
 import { Homepage, Register, Login } from './pages/index'
+import { Callback } from "./components/index";
 import { MainLayout } from "./layouts/index";
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                     <Route path={path.REGISTER} element={<Register/>} />
                     <Route path={path.LOGIN} element={<Login/>} />
+                    <Route path={path.CALLBACK} element={<Callback/>} />
                 </Route>
             </Routes>
 

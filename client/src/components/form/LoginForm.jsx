@@ -25,6 +25,14 @@ const LoginForm = () => {
         setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/google';
+    };
+
+    const handleFacebookLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/facebook';
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         // 🔍 Gọi hàm validateRegister
@@ -43,13 +51,27 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token && !isLoggedIn) {
+            // Trường hợp tab mới: dispatch lại LOGIN_SUCCESS với msg rỗng
+            const { jwtDecode } = require("jwt-decode"); 
+            const decoded = jwtDecode(token);
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                data: {
+                    token,
+                    isAdmin: decoded.isAdmin,
+                    msg: "", // Đặt msg rỗng để tránh toast
+                },
+            });
+        }
         if (isLoggedIn) {
-            toast.success(msg);
+            if(msg) toast.success(msg);
             navigate(path.HOME);
         } else if (msg) {
             toast.error(msg || "Đăng nhập thất bại!");
         }
-    }, [isLoggedIn, msg, errorToggle, navigate]);
+    }, [isLoggedIn, msg, errorToggle, navigate, dispatch]);
 
     return (
         <form 
@@ -115,6 +137,7 @@ const LoginForm = () => {
                     bgColor="bg-[#E76F5C]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-red-500"
+                    onClick={handleGoogleLogin}
                     
                 />
                 <Button 
@@ -124,6 +147,7 @@ const LoginForm = () => {
                     bgColor="bg-[#627AAD]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-blue-500"
+                    onClick={handleFacebookLogin}
                 />
             </div>
         </form>

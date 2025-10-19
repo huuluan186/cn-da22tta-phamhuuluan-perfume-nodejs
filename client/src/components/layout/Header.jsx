@@ -5,7 +5,6 @@ import { accountMenuItems } from "../../constants/menuItems";
 import { useNavigate } from "react-router-dom";  
 import { path } from '../../constants/path';
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/actions/auth";
 
 const {FaHeart, FaShoppingCart, MdKeyboardArrowDown} = icons;
 const cartItems = [
@@ -17,11 +16,6 @@ const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector(state => state.auth);
-
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate(path.HOME);
-    };
 
     return (
         <div className='flex justify-between items-center py-4'>
@@ -72,12 +66,11 @@ const Header = () => {
                     </div>
 
                     {/* Menu dropdown */}
-                    {isLoggedIn && (
-                        <DropdownMenu
-                            items={accountMenuItems(navigate, dispatch)}
-                            align="right"
-                        />
-                    )}
+                    <DropdownMenu
+                        items={accountMenuItems(navigate, dispatch, isLoggedIn)}
+                        align="right"
+                    />
+                    
                 </div>
                 
                 <div className="h-12 border-l border-gray-400"></div>
