@@ -48,6 +48,14 @@ const RegisterForm = () => {
         }
     }
 
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/google';
+    };
+
+    const handleFacebookLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/facebook';
+    };
+
     return (
         <form 
             className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8'
@@ -139,19 +147,23 @@ const RegisterForm = () => {
                 <Button 
                     text={'Google'}
                     textSize="text-sm"
+                    width="w-72"
                     IcBefore={FaGoogle}
                     bgColor="bg-[#E76F5C]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-red-500"
+                    onClick={handleGoogleLogin}
                     
                 />
                 <Button 
                     text={'Facebook'}
                     textSize="text-sm"
+                    width="w-72"
                     IcBefore={FaFacebookF}
                     bgColor="bg-[#627AAD]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-blue-500"
+                    onClick={handleFacebookLogin}
                 />
             </div>
         
