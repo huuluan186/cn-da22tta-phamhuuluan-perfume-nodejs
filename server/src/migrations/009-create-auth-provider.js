@@ -30,11 +30,11 @@ export async function up(queryInterface, Sequelize) {
             unique: true
         },
         accessToken: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: true,
         },
         refreshToken: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT('long'),
             allowNull: true,
         },
         createdAt: {

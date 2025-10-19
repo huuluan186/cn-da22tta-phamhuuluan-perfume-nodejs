@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { validateRegister } from "../../utils/validateForm";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
+import { apiRegister } from "../../api/auth";
+import { toast } from "react-toastify";
 
 const {FaFacebookF, FaGoogle} = icons
 
 const RegisterForm = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+
+    const [payload, setPayload] = useState({
         firstname: "",
         lastname: "",
         email: "",
@@ -19,22 +22,39 @@ const RegisterForm = () => {
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // 🔍 Gọi hàm validateRegister
-        const { valid, errors: formErrors } = validateRegister(formData);
+        // Gọi hàm validateRegister
+        const { valid, errors: formErrors } = validateRegister(payload);
         if (!valid) {
             setErrors(formErrors);
-            console.log("❌ Validate lỗi:", formErrors);
             return;
         }
-        // ✅ Nếu không có lỗi
+        // Xóa lỗi cũ (nếu có)
         setErrors({});
-        console.log("✅ Form hợp lệ, chuẩn bị gọi API...");
+        const { confirmPassword, ...data } = payload;
+        try {
+            const response = await apiRegister(data)
+            if(response?.data?.err === 0) {
+                toast.success(response?.data?.msg)
+                navigate(path.LOGIN)
+            }
+            else toast.error(response?.data?.msg || 'Đăng ký thất bại!')
+        } catch (error) {
+            toast.error(error?.response?.data?.msg || "Đăng ký thất bại!");
+        }
     }
+
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/google';
+    };
+
+    const handleFacebookLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/facebook';
+    };
 
     return (
         <form 
@@ -49,7 +69,7 @@ const RegisterForm = () => {
                     label="Họ"
                     name="firstname"
                     required={true}
-                    value={formData.firstname}
+                    value={payload.firstname}
                     onChange={handleChange}
                     error={errors.firstname}
                     setError={setErrors}
@@ -58,7 +78,7 @@ const RegisterForm = () => {
                     label="Tên"
                     name="lastname"
                     required={true}
-                    value={formData.lastname}
+                    value={payload.lastname}
                     onChange={handleChange}
                     error={errors.lastname}
                     setError={setErrors}
@@ -70,7 +90,7 @@ const RegisterForm = () => {
                 type="email"
                 name="email"
                 required={true}
-                value={formData.email}
+                value={payload.email}
                 onChange={handleChange}
                 error={errors.email}
                 setError={setErrors}
@@ -81,7 +101,7 @@ const RegisterForm = () => {
                 type="password"
                 name="password"
                 required={true}
-                value={formData.password}
+                value={payload.password}
                 onChange={handleChange}
                 error={errors.password}
                 setError={setErrors}
@@ -92,7 +112,7 @@ const RegisterForm = () => {
                 type="password"
                 name="confirmPassword"
                 required={true}
-                value={formData.confirmPassword}
+                value={payload.confirmPassword}
                 onChange={handleChange}
                 error={errors.confirmPassword}
                 setError={setErrors}
@@ -127,19 +147,23 @@ const RegisterForm = () => {
                 <Button 
                     text={'Google'}
                     textSize="text-sm"
+                    width="w-72"
                     IcBefore={FaGoogle}
                     bgColor="bg-[#E76F5C]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-red-500"
+                    onClick={handleGoogleLogin}
                     
                 />
                 <Button 
                     text={'Facebook'}
                     textSize="text-sm"
+                    width="w-72"
                     IcBefore={FaFacebookF}
                     bgColor="bg-[#627AAD]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-blue-500"
+                    onClick={handleFacebookLogin}
                 />
             </div>
         

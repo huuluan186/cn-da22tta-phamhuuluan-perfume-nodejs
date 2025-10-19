@@ -1,3 +1,4 @@
+import authReducer from "./authReducer";
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
@@ -11,11 +12,11 @@ const commonConfig = {
 const authConfig={
     ...commonConfig,
     key:'auth',
-    whitelist:[], // Chỉ lưu trữ các trường này trong authReducer
+    whitelist:['isLoggedIn', 'isAdmin'], 
 }
 
 const rootReducer = combineReducers({
-    //auth: persistReducer(authConfig,authReducer),
+    auth: persistReducer(authConfig,authReducer),
 })
 
 export default rootReducer;

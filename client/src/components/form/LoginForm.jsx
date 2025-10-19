@@ -1,37 +1,77 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
 import { validateLogin } from "../../utils/validateForm";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
+import { useDispatch, useSelector  } from "react-redux";
+import { login } from '../../store/actions/auth'
+import { toast } from "react-toastify";
 
 const {FaFacebookF, FaGoogle} = icons
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+    const dispatch = useDispatch();
+    const { isLoggedIn, msg, errorToggle } = useSelector(state => state.auth)
+
+    const [payload, setPayload] = useState({
         email: "",
         password: "",
     });
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    const handleGoogleLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/google';
+    };
+
+    const handleFacebookLogin = () => {
+        window.location.href = 'http://localhost:5000/api/auth/facebook';
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // 🔍 Gọi hàm validateRegister
-        const { valid, errors: formErrors } = validateLogin(formData);
+        const { valid, errors: formErrors } = validateLogin(payload);
         if (!valid) {
             setErrors(formErrors);
-            console.log("❌ Validate lỗi:", formErrors);
             return;
         }
-        // ✅ Nếu không có lỗi
+        // Xóa lỗi cũ (nếu có)
         setErrors({});
-        console.log("✅ Form hợp lệ, chuẩn bị gọi API...");
+        try {
+            await dispatch(login(payload))
+        } catch (error) {
+            throw error
+        }
     }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token && !isLoggedIn) {
+            // Trường hợp tab mới: dispatch lại LOGIN_SUCCESS với msg rỗng
+            const { jwtDecode } = require("jwt-decode"); 
+            const decoded = jwtDecode(token);
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                data: {
+                    token,
+                    isAdmin: decoded.isAdmin,
+                    msg: "", // Đặt msg rỗng để tránh toast
+                },
+            });
+        }
+        if (isLoggedIn) {
+            if(msg) toast.success(msg);
+            navigate(path.HOME);
+        } else if (msg) {
+            toast.error(msg || "Đăng nhập thất bại!");
+        }
+    }, [isLoggedIn, msg, errorToggle, navigate, dispatch]);
 
     return (
         <form 
@@ -46,7 +86,7 @@ const LoginForm = () => {
                 type="email"
                 name="email"
                 required={true}
-                value={formData.email}
+                value={payload.email}
                 onChange={handleChange}
                 error={errors.email}
                 setError={setErrors}
@@ -57,7 +97,7 @@ const LoginForm = () => {
                 type="password"
                 name="password"
                 required={true}
-                value={formData.password}
+                value={payload.password}
                 onChange={handleChange}
                 error={errors.password}
                 setError={setErrors}
@@ -97,6 +137,7 @@ const LoginForm = () => {
                     bgColor="bg-[#E76F5C]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-red-500"
+                    onClick={handleGoogleLogin}
                     
                 />
                 <Button 
@@ -106,6 +147,7 @@ const LoginForm = () => {
                     bgColor="bg-[#627AAD]"
                     hoverText="hover:none"
                     hoverBg="hover:bg-blue-500"
+                    onClick={handleFacebookLogin}
                 />
             </div>
         </form>

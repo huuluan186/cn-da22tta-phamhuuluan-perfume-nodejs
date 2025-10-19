@@ -4,6 +4,7 @@ import icons from '../../assets/react-icons/icon'
 import { accountMenuItems } from "../../constants/menuItems";
 import { useNavigate } from "react-router-dom";  
 import { path } from '../../constants/path';
+import { useSelector, useDispatch } from "react-redux";
 
 const {FaHeart, FaShoppingCart, MdKeyboardArrowDown} = icons;
 const cartItems = [
@@ -13,6 +14,9 @@ const cartItems = [
 
 const Header = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const { isLoggedIn } = useSelector(state => state.auth);
+
     return (
         <div className='flex justify-between items-center py-4'>
             {/* LEFT: Search */}
@@ -39,26 +43,34 @@ const Header = () => {
                     hover:bg-primary hover:shadow-[0_0_10px_rgba(0,0,0,0.2)]">
                         <div>
                             <p className="font-semibold">Xin chào, Khách</p>
-                            <p className="text-xs">
-                                <span 
-                                    className="font-bold cursor-pointer hover:underline"
-                                    onClick={() => navigate(path.LOGIN)}
-                                >
-                                    Đăng nhập 
-                                </span> 
-                                {" "}hoặc{" "}
-                                <span 
-                                    className="font-bold cursor-pointer hover:underline" 
-                                    onClick={() => navigate(path.REGISTER)}
-                                >
-                                    Đăng ký
-                                </span>
-                            </p>
+                            {!isLoggedIn && (
+                                <p className="text-xs">
+                                    <span 
+                                        className="font-bold cursor-pointer hover:underline"
+                                        onClick={() => navigate(path.LOGIN)}
+                                    >
+                                        Đăng nhập 
+                                    </span> 
+                                    {" "}hoặc{" "}
+                                    <span 
+                                        className="font-bold cursor-pointer hover:underline" 
+                                        onClick={() => navigate(path.REGISTER)}
+                                    >
+                                        Đăng ký
+                                    </span>
+                                </p>
+                            )}
+                            
                         </div>
                         <MdKeyboardArrowDown className="w-5 h-5 text-contentBg mt-1" />
                     </div>
+
                     {/* Menu dropdown */}
-                    <DropdownMenu items={accountMenuItems} align="right" />
+                    <DropdownMenu
+                        items={accountMenuItems(navigate, dispatch, isLoggedIn)}
+                        align="right"
+                    />
+                    
                 </div>
                 
                 <div className="h-12 border-l border-gray-400"></div>
