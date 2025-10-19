@@ -15,6 +15,14 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        dateOfBirth: {
+            type: Sequelize.DATEONLY,
+            allowNull: true,          
+        },
+        gender:{
+            type: Sequelize.ENUM('male', 'female', 'other'), 
+            allowNull: true,
+        },
         password: {
             type: Sequelize.STRING,
             allowNull: false,
