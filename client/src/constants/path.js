@@ -2,6 +2,8 @@ export const path={
     HOME:'/',
     REGISTER: '/account/register',
     LOGIN:'/account/login',
+    ACCOUNT: '/account',
+    ORDERS_HISTORY: 'orders',
     CALLBACK: '/auth/callback',
     INTRODUCE:'/gioi-thieu-ve-perfumora',
     PERFUME:'/nuoc-hoa/all',

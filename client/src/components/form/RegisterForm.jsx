@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
-import { validateRegister } from "../../utils/validateForm";
+import { validateRegister } from "../../utils";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
 import { apiRegister } from "../../api/auth";

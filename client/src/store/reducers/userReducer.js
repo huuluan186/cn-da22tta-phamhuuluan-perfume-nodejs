@@ -20,6 +20,19 @@ const userReducer = (state = initState, action) => {
                 user: null,
                 msg: action.msg || 'Failed to get current user',
             }
+        case actionTypes.UPDATE_USER_PROFILE_SUCCESS:
+            return {
+                ...state,
+                user: action.currentUserData.user || state.user, 
+                msg: action.currentUserData.msg || 'Cập nhật thành công',
+                update: true, 
+            };
+        case actionTypes.UPDATE_USER_PROFILE_FAIL:
+            return {
+                ...state,
+                msg: action.msg || 'Cập nhật thất bại',
+                update: false,
+            };
         case actionTypes.LOGOUT:
             return {
                 ...state,

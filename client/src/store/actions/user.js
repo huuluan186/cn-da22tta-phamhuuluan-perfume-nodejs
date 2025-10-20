@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { apiGetCurrentUser } from '../../api/user'
+import { apiGetCurrentUser, apiUpdateCurrentUser } from '../../api/user'
 import { logout } from './auth';
 
 export const getCurrentUser = () => async (dispatch) => {
@@ -34,3 +34,28 @@ export const getCurrentUser = () => async (dispatch) => {
         }
     }
 };
+
+export const updateUserProfile = (data) => async (dispatch) => {
+    try {
+        const response = await apiUpdateCurrentUser(data);
+        console.log("response action update user profile: ", response);
+        if(response?.data?.err === 0){
+            dispatch({
+                type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
+                currentUserData: response.data,
+            });
+            // Tự động lấy lại thông tin người dùng mới nhất (tùy chọn)
+            dispatch(getCurrentUser());
+        }else {
+            dispatch({
+                type: actionTypes.UPDATE_USER_PROFILE_FAIL,
+                msg: response?.data?.msg || 'Failed to update user profile',
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.UPDATE_USER_PROFILE_FAIL,
+            msg: error.message || 'Error updating user profile',
+        });
+    }
+}

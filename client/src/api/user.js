@@ -8,3 +8,12 @@ export const apiGetCurrentUser = async () => {
         throw error
     }
 }
+
+export const apiUpdateCurrentUser = async (data) => {
+    try {
+        const response = await axiosConfig.put('/api/users/me', data)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
