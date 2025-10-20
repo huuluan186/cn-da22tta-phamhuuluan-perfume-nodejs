@@ -52,6 +52,17 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        dateOfBirth: {
+            type: DataTypes.DATEONLY,
+            allowNull: true,          
+            validate: {
+                isDate: true,         
+            },
+        },
+        gender:{
+            type: DataTypes.ENUM('male', 'female', 'other'), 
+            allowNull: true,
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
