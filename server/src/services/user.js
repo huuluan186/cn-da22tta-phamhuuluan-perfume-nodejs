@@ -19,3 +19,35 @@ export const getCurrentUserService  = async (userId) => {
         throw error
     }
 }
+
+export const updateCurrentUserService = async (userId, updateData) => {
+    try {
+        const user = await db.User.findByPk(userId);
+        if (!user){
+            return {
+                err: 1,
+                msg: 'User not found!',
+                user: null
+            }
+        }
+        
+        const allowedFields = ['firstname', 'lastname', 'dateOfBirth', 'gender']
+
+        // Lọc dữ liệu cập nhật để chỉ giữ các trường hợp lệ
+        const filteredData = {};
+        for (const  key of allowedFields) {
+            if (updateData[key] !== undefined && updateData[key] !== null && updateData[key] !== ''){
+                filteredData[key] = updateData[key];
+            }
+        }
+
+        await user.update(filteredData);
+
+        return {
+            err: 0,
+            msg: 'User info updated successfully',
+        }
+    } catch (error) {
+        throw error;
+    }
+}
