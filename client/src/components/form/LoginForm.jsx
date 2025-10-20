@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
-import { validateLogin } from "../../utils/validateForm";
+import { validateLogin } from "../../utils";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
 import { useDispatch, useSelector  } from "react-redux";

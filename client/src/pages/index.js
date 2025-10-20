@@ -1,3 +1,5 @@
 export {default as Homepage} from "./Homepage"
-export {default as Register} from "./Register"
-export {default as Login} from "./Login"
+export {default as Register} from "./auth/Register"
+export {default as Login} from "./auth/Login"
+export {default as AccountInfo} from "./account/AccountInfo"
+export {default as OrderHistory} from "./account/OrderHistory"
