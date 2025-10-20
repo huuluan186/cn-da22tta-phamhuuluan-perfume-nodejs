@@ -11,15 +11,25 @@ export const getCurrentUser = () => async (dispatch) => {
                 type: actionTypes.GET_CURRENT_USER_SUCCESS,
                 currentUserData: response.data
             })
-        }else dispatch(logout())
+        }else {
+            // Lỗi từ server (như user không tồn tại hoặc token hết hạn)
+            dispatch({
+                type: actionTypes.GET_CURRENT_USER_FAIL,
+                currentUserData: null,
+                msg: response?.data?.msg || 'Failed to get user'
+            });
+            if (response?.data?.msg?.includes('expired')) {
+                dispatch(logout());
+            }
+        }
     } catch (error) {
         dispatch({
-            type: actionTypes.GET_CURRENT_USER_SUCCESS,
+            type: actionTypes.GET_CURRENT_USER_FAIL,
             currentUserData: null,
-            msg: error
+            msg: error.message
         })
         //Khi token hết hạn thì sẽ logout
-        if (error.err === 1 && error.msg.includes('expired')) {
+        if (error.response?.data?.err === 1 && error.response?.data?.msg?.includes('expired')) {
             dispatch(logout());
         }
     }
