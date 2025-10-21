@@ -1,6 +1,18 @@
 import db from '../models/index.js'
-import { Op } from 'sequelize'
+import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import nodemailer from 'nodemailer';
+
+const hashPassword= password => bcrypt.hashSync(password,bcrypt.genSaltSync(12));
+
+// Cấu hình transporter cho nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Hoặc dịch vụ email khác
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
 
 export const getCurrentUserService  = async (userId) => {
     try {
@@ -51,3 +63,89 @@ export const updateCurrentUserService = async (userId, updateData) => {
         throw error;
     }
 }
+
+export const changePasswordService = async (userId, data) => {
+    try {
+        const { oldPassword, newPassword } = data;
+        const user = await db.User.findByPk(userId);
+        if (!user) {
+            return {
+                err: 1,
+                msg: 'User not found!',
+                user: null
+            };
+        }
+        //Kiểm tra mật khẩu cũ
+        const isMatch = bcrypt.compareSync(oldPassword, user.password);
+        if (!isMatch) {
+            return {
+                err: 1,
+                msg: 'Old password is incorrect!',
+            };
+        }
+
+        // Hash mật khẩu mới và cập nhật
+        await user.update({ password: hashPassword(newPassword) });
+        return {
+            err: 0,
+            msg: 'Password changed successfully!',
+        };
+    } catch (error) {
+        throw error
+    }
+}
+
+export const forgotPasswordService = async (email) => {
+    try {
+        const user = await db.User.findOne({ where: { email } });
+        if (!user) {
+            return {
+                err: 1,
+                msg: 'Email not found!',
+            };
+        }
+
+        // Tạo token reset (hiệu lực 1 giờ) nếu email tồn tại
+        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' });
+
+        return {
+            err: 0,
+            msg: 'Email found! Please use the token to reset your password.',
+            token: resetToken
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const resetPasswordService = async (token, newPassword) => {
+    try {
+        // Xác minh token
+        const decoded = jwt.verify(token, process.env.JWT_RESET_SECRET);
+        const userId = decoded.id;
+
+        const user = await db.User.findByPk(userId);
+        if (!user) {
+            return {
+                err: 1,
+                msg: 'Invalid or expired token!',
+            };
+        }
+
+        // Hash mật khẩu mới và cập nhật
+        await user.update({ password: hashPassword(newPassword) });
+
+        return {
+            err: 0,
+            msg: 'Password reset successfully!',
+        };
+    } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return {
+                err: 1,
+                msg: 'Reset token has expired!',
+            };
+        }
+        throw error;
+    }
+};
