@@ -3,13 +3,41 @@ import { breadcrumbMap } from "../../constants/breadcrumbs";
 import { path } from "../../constants/path";
 
 const Breadcrumb = () => {
-  const { pathname } = useLocation();
+    const { pathname } = useLocation();
 
-  // Lấy breadcrumb riêng cho path hiện tại
-  const customTrail = breadcrumbMap[pathname] || [];
+    // Hàm ánh xạ pathname với key trong breadcrumbMap
+    const getBreadcrumbKey = () => {
+        // Kiểm tra tuyến tĩnh
+        if (breadcrumbMap[pathname]) {
+            return pathname;
+        }
 
-  // Luôn thêm "Trang chủ" ở đầu
-  const breadcrumbs = [breadcrumbMap[path.HOME], ...customTrail];
+        // Xử lý các tuyến động
+        const dynamicRoutes = Object.keys(breadcrumbMap).filter((key) =>
+            key.includes(":")
+        );
+
+        for (const route of dynamicRoutes) {
+            // Chuyển đổi route thành regex (thay :param bằng [^/]+)
+            const pattern = `^${route.replace(/:[^/]+/g, "[^/]+")}$`;
+            const regex = new RegExp(pattern);
+            if (regex.test(pathname)) {
+                return route;
+            }
+        }
+
+        // Trả về null nếu không khớp
+        return null;
+    };
+
+    // Lấy breadcrumb riêng cho path hiện tại
+    const customTrail = getBreadcrumbKey() ? breadcrumbMap[getBreadcrumbKey()] || [] : [];
+
+    // Luôn thêm "Trang chủ" ở đầu (trừ khi là trang chủ)
+    const breadcrumbs =
+        pathname === path.HOME
+            ? breadcrumbMap[path.HOME]
+            : [breadcrumbMap[path.HOME][0], ...customTrail];
 
     return (
         <nav className="text-sm text-gray-600 my-2">

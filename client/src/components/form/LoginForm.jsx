@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const {FaFacebookF, FaGoogle} = icons
 
-const LoginForm = () => {
+const LoginForm = ({ onForgotPassword }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isLoggedIn, msg, errorToggle } = useSelector(state => state.auth)
@@ -75,7 +75,7 @@ const LoginForm = () => {
 
     return (
         <form 
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8 my-12'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
                 ĐĂNG NHẬP TÀI KHOẢN
@@ -125,7 +125,12 @@ const LoginForm = () => {
                         Đăng ký tại đây
                     </span>
                 </p>
-                <p className="text-primary cursor-pointer hover:underline">Quên mật khẩu? </p>
+                <p 
+                    className="text-primary cursor-pointer hover:underline"
+                    onClick={onForgotPassword}
+                >
+                    Quên mật khẩu?
+                </p>
                 <p className="font-semibold">Hoặc đăng nhập bằng: </p>
             </div>
 

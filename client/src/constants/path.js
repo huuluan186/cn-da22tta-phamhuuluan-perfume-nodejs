@@ -3,6 +3,8 @@ export const path={
     REGISTER: '/account/register',
     LOGIN:'/account/login',
     ACCOUNT: '/account',
+    FORGOT_PASSWORD: '/account/login#recover',
+    RESET_PASSWORD: '/account/reset/:userId/:token',
     ORDERS_HISTORY: 'orders',
     CALLBACK: '/auth/callback',
     INTRODUCE:'/gioi-thieu-ve-perfumora',

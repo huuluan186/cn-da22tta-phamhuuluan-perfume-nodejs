@@ -64,3 +64,42 @@ export const validateLogin = (data) => {
         errors,
     };
 };
+
+export const validateForgotPassword = (data) => {
+    const errors = {};
+
+    // Email
+    if (!data.email?.trim()) {
+        errors.email = "Email không được để trống";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+        errors.email = "Email không hợp lệ";
+    }
+
+    return {
+        valid: Object.keys(errors).length === 0,
+        errors,
+    };
+};
+
+export const validateResetPassword = (data) => {
+    const errors = {};
+
+    // Mật khẩu
+    if (!data.newPassword?.trim()) {
+        errors.newPassword = "Mật khẩu không được để trống";
+    } else if (data.newPassword.length < 6) {
+        errors.newPassword = "Mật khẩu phải có ít nhất 6 ký tự";
+    }
+
+    // Xác nhận mật khẩu
+    if (!data.confirmPassword?.trim()) {
+        errors.confirmPassword = "Vui lòng nhập lại mật khẩu";
+    } else if (data.confirmPassword !== data.newPassword) {
+        errors.confirmPassword = "Mật khẩu nhập lại không khớp";
+    }
+
+    return {
+        valid: Object.keys(errors).length === 0,
+        errors,
+    };
+};
