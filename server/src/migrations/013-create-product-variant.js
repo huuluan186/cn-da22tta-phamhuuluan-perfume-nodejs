@@ -7,7 +7,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             primaryKey: true,
         },
-        product: {
+        productId: {
             type: Sequelize.STRING,
             allowNull: false,
             references: {
