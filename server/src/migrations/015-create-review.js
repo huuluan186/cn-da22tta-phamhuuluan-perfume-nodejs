@@ -7,11 +7,11 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             primaryKey: true,
         },
-        productId: {
+        orderItemId: { 
             type: Sequelize.STRING,
             allowNull: false,
             references: {
-                model: 'Products',
+                model: 'OrderItems',
                 key: 'id',
             },
             onDelete: 'CASCADE',

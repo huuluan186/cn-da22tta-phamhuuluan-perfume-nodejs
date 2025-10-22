@@ -30,21 +30,21 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             defaultValues: 1,
         },
-    price: {
-        type: Sequelize.DECIMAL(12,2),
-        allowNull: false,
-    },
-    createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-    },
-    updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-    },
-});
+        priceAtTime: {
+            type: Sequelize.DECIMAL(12,2),
+            allowNull: false,
+        },
+        createdAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        },
+        updatedAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+                    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        },
+    });
 
     await queryInterface.addConstraint('CartItems', {
         fields: ['cartId', 'productVariantId'],

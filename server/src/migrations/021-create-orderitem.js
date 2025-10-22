@@ -34,7 +34,7 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
         },
-            createdAt: {
+        createdAt: {
             allowNull: false,
             type: Sequelize.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
