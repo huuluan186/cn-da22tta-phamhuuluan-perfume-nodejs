@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true,       
         },
-        productId: {
+        orderItemId: {
             type: DataTypes.STRING,
             allowNull: false,
         },
