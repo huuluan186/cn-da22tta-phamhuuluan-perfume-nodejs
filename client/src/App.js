@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword } from './pages/index'
 import { Callback } from "./components/index";
 import { MainLayout, AccountLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +26,7 @@ function App() {
                     <Route path={path.REGISTER} element={<Register/>} />
                     <Route path={path.LOGIN} element={<Login/>} />
                     <Route path={path.CALLBACK} element={<Callback/>} />
+                    <Route path={path.RESET_PASSWORD} element={<ResetPassword/>} />
                     <Route path={path.ACCOUNT} element={<AccountLayout/>} >
                         <Route index element={<AccountInfo />} />
                         <Route path={path.ACCOUNT} element={<AccountInfo/>} />
