@@ -90,7 +90,7 @@ export const socialLoginService = async (payload) => {
                 firstname: payload.profile.displayName.split(' ')[0],
                 lastname: payload.profile.displayName.split(' ').slice(1).join(' '),
                 email: payload.email,
-                password: 'social_login', // placeholder
+                password: hashPassword('social_login'), // placeholder
             });
         }
 
