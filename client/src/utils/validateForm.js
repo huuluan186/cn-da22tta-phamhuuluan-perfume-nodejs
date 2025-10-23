@@ -86,7 +86,33 @@ export const validateResetPassword = (data) => {
 
     // Mật khẩu
     if (!data.newPassword?.trim()) {
-        errors.newPassword = "Mật khẩu không được để trống";
+        errors.newPassword = "Mật khẩu mới không được để trống";
+    } else if (data.newPassword.length < 6) {
+        errors.newPassword = "Mật khẩu phải có ít nhất 6 ký tự";
+    }
+
+    // Xác nhận mật khẩu
+    if (!data.confirmPassword?.trim()) {
+        errors.confirmPassword = "Vui lòng nhập lại mật khẩu";
+    } else if (data.confirmPassword !== data.newPassword) {
+        errors.confirmPassword = "Mật khẩu nhập lại không khớp";
+    }
+
+    return {
+        valid: Object.keys(errors).length === 0,
+        errors,
+    };
+};
+
+export const validateChangePassword = (data) => {
+    const errors = {};
+
+    // Mật khẩu cũ
+    if (!data.oldPassword?.trim()) errors.oldPassword = "Mật khẩu cũ không được để trống";
+
+     //Mật khẩu mới
+     if (!data.newPassword?.trim()) {
+        errors.newPassword = "Mật khẩu mới không được để trống";
     } else if (data.newPassword.length < 6) {
         errors.newPassword = "Mật khẩu phải có ít nhất 6 ký tự";
     }
