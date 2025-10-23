@@ -40,8 +40,22 @@ const AccountLayout = () => {
                                 Đơn hàng của bạn
                             </NavLink>
                         </li>
-                        <li></li>
-                        <li></li>
+                        <li>
+                            <NavLink
+                                to={path.CHANGE_PASSWORD}
+                                className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
+                            >
+                                Đổi mật khẩu
+                            </NavLink>
+                        </li>
+                         <li>
+                            <NavLink
+                                to={path.HOME}
+                                className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
+                            >
+                                Sổ địa chỉ
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
                 

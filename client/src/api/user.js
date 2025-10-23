@@ -35,3 +35,12 @@ export const apiResetPassword = async (resetData) => {
         throw error
     }
 }
+
+export const apiChangePassword = async (data) => {
+    try {
+        const response = await axiosConfig.put('/api/users/me/password', data)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
