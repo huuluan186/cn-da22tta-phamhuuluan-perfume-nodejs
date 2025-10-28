@@ -14,6 +14,13 @@ export default (sequelize, DataTypes) => {
                 foreignKey: 'userId',
                 as: 'user',
             });
+
+            // 1 Address thuộc về 1 Ward
+            Address.belongsTo(models.Ward, {
+                foreignKey: 'wardId',
+                as: 'ward',
+            });
+
         }
     }
     Address.init({
@@ -37,16 +44,13 @@ export default (sequelize, DataTypes) => {
         phone: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                len: [9, 15], 
-            },
         },
         addressLine: {
             type: DataTypes.STRING,
             allowNull: false, // số nhà, tên đường
         },
         wardId: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true,
         },
         zipCode: {
