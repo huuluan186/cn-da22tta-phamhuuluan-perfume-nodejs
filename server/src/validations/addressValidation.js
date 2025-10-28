@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 export const validateAddressByCountry = (addressInstance) => {
     const { countryId, provinceId, wardId, addressLine } = addressInstance;
 
@@ -17,3 +19,22 @@ export const validateAddressByCountry = (addressInstance) => {
         }
     }
 };
+
+export const addressSchema = Joi.object({
+    receiverName: Joi.string().required().messages({
+        'string.empty': 'Tên người nhận không được để trống',
+        'any.required': 'Tên người nhận là bắt buộc',
+    }),
+    phone: Joi.string().required().messages({
+        'string.empty': 'Số điện thoại không được để trống',
+        'any.required': 'Số điện thoại là bắt buộc',
+    }),
+    addressLine: Joi.string().required().messages({
+        'string.empty': 'Địa chỉ không được để trống',
+        'any.required': 'Địa chỉ là bắt buộc',
+    }),
+    wardId: Joi.allow(null, '').optional(),
+    label: Joi.string().allow(null, '').optional(),
+    isDefault: Joi.boolean().optional(),
+    zipCode: Joi.string().allow(null, '').optional(),
+});

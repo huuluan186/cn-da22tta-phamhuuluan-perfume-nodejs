@@ -1,5 +1,6 @@
 import * as service from '../services/user.js'
-import { validateData, changePasswordSchema, resetPasswordSchema, forgotPasswordSchema  } from '../validations/userValidation.js';
+import { changePasswordSchema, resetPasswordSchema, forgotPasswordSchema  } from '../validations/userValidation.js';
+import { validateData } from '../validations/validation.js';
 
 export const getCurrentUserController = async (req, res) => {
     try {

@@ -35,9 +35,8 @@ export const loginSchema = Joi.object({
 });
 
 export const changePasswordSchema = Joi.object({
-    oldPassword: Joi.string().min(6).required().messages({
+    oldPassword: Joi.string().required().messages({
         'string.empty': 'Mật khẩu cũ không được để trống',
-        'string.min': 'Mật khẩu cũ phải có ít nhất 6 ký tự',
         'any.required': 'Thiếu trường oldPassword'
     }),
     newPassword: Joi.string().min(6).required().messages({
@@ -66,13 +65,3 @@ export const resetPasswordSchema = Joi.object({
         'any.required': 'Thiếu trường newPassword'
     })
 });
-
-// hàm tổng quát, có thể tái sử dụng cho mọi schema
-export const validateData = (schema, data) => {
-    const { error, value } = schema.validate(data, { abortEarly: false });
-    if (error) {
-        const msg = error.details.map(d => d.message).join(', ');
-        return { valid: false, msg };
-    }
-    return { valid: true, data: value };
-};

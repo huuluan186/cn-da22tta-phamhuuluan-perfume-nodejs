@@ -32,5 +32,3 @@ export const verifyToken = (req, res, next) => {
         return res.status(500).json({ err: -1, msg: 'Internal server error' });
     }
 };
-
-export default verifyToken;

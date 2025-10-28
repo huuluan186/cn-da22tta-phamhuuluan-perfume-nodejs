@@ -8,7 +8,12 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // 1 Country có nhiều Province
+            Country.hasMany(models.Province, {
+                foreignKey: 'countryId',
+                as: 'provinces',
+                onDelete: 'CASCADE',
+            });
         }
     }
     Country.init({

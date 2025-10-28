@@ -1,18 +1,8 @@
 import db from '../models/index.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import nodemailer from 'nodemailer';
 
 const hashPassword= password => bcrypt.hashSync(password,bcrypt.genSaltSync(12));
-
-// Cấu hình transporter cho nodemailer
-const transporter = nodemailer.createTransport({
-    service: 'gmail', // Hoặc dịch vụ email khác
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
 
 export const getCurrentUserService  = async (userId) => {
     try {
@@ -47,7 +37,7 @@ export const updateCurrentUserService = async (userId, updateData) => {
 
         // Lọc dữ liệu cập nhật để chỉ giữ các trường hợp lệ
         const filteredData = {};
-        for (const  key of allowedFields) {
+        for (const key of allowedFields) {
             if (updateData[key] !== undefined && updateData[key] !== null && updateData[key] !== ''){
                 filteredData[key] = updateData[key];
             }
