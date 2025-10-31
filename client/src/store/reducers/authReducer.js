@@ -1,10 +1,7 @@
 import actionTypes from "../actions/actionTypes";
 
 const initState = {
-    isLoggedIn:false,
-    token:null,
     msg:'',
-    isAdmin: null,
     errorToggle: false
 }
 
@@ -13,28 +10,23 @@ const authReducer = (state=initState,action)=>{
         case actionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: true,  // Chỉ đăng nhập thành công mới là true
-                token: action.data.token,
-                isAdmin: action.data.isAdmin,
-                msg: action.data.msg,
+                msg: action.data || '',
+                //errorToggle: false
             };
         case actionTypes.LOGIN_FAIL:
             return{
                 ...state,
-                isLoggedIn: false,
-                msg: action.data,
-                token:null,
-                isAdmin:null,
+                msg: action.data || 'Login failed',
                 errorToggle:!state.errorToggle
             };
-        case actionTypes.LOGOUT:
-            return{
+        case actionTypes.LOGIN_REQUEST: // **thêm để reset msg cũ**
+            return {
                 ...state,
-                isLoggedIn:false,
-                msg:'',
-                isAdmin:null,
-                token:null
-            };
+                msg: ''
+            }
+        case actionTypes.LOGOUT:
+            console.log(">>> RESET authReducer khi logout");
+            return {...initState};
         default:
             return state;
     }

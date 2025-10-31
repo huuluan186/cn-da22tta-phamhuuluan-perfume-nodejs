@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
-import { validateRegister } from "../../utils/validateForm";
+import { validateRegister } from "../../utils";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
 import { apiRegister } from "../../api/auth";
@@ -58,7 +58,7 @@ const RegisterForm = () => {
 
     return (
         <form 
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8 my-12'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
                 ĐĂNG KÝ TÀI KHOẢN
@@ -120,6 +120,7 @@ const RegisterForm = () => {
 
            <div className="py-4">
                 <Button 
+                    type="submit"
                     text={"Đăng ký"}
                     textSize={'text-lg'}
                     hoverBg={'hover:bg-green-800'}

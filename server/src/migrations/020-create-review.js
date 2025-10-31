@@ -1,56 +1,58 @@
 'use strict';
 
 export async function up(queryInterface, Sequelize) {
-    await queryInterface.createTable('OrderItems', {
+    await queryInterface.createTable('Reviews', {
         id: {
+            type: Sequelize.STRING,
             allowNull: false,
             primaryKey: true,
-            type: Sequelize.STRING,
         },
-        orderId: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            references: {
-                model: 'Orders',
-                key: 'id'
-            },
-            onDelete: 'CASCADE'
-        },
-        productVariantId: {
+        orderItemId: { 
             type: Sequelize.STRING,
             allowNull: false,
             references: {
-                model: 'ProductVariants',
-                    key: 'id'
+                model: 'OrderItems',
+                key: 'id',
+            },
+            onDelete: 'CASCADE',
+        },
+        userId: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            references: {
+                model: 'Users',
+                key: 'id',
             },
             onDelete: 'CASCADE'
         },
-        quantity: {
+        title: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        content: {
+            type: Sequelize.TEXT,
+            allowNull: false,
+        },
+        rating: {
             type: Sequelize.INTEGER,
-            allowNull: false,
-            defaultValues: 1
+            allowNull: true,
         },
-        priceAtOrder: {
-            type: Sequelize.DECIMAL(12, 2),
-            allowNull: false,
-        },
-            createdAt: {
+        createdAt: {
             allowNull: false,
             type: Sequelize.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updatedAt: {
             allowNull: false,
             type: Sequelize.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         deletedAt: {
-            type: Sequelize.DATE, 
+            type: Sequelize.DATE,
             allowNull: true,
         },
     });
 }
-
 export async function down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('OrderItems');
+    await queryInterface.dropTable('Reviews');
 }

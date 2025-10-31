@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
-import { validateLogin } from "../../utils/validateForm";
+import { validateLogin } from "../../utils";
 import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
 import { useDispatch, useSelector  } from "react-redux";
@@ -10,10 +10,13 @@ import { toast } from "react-toastify";
 
 const {FaFacebookF, FaGoogle} = icons
 
-const LoginForm = () => {
+const LoginForm = ({ onForgotPassword }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoggedIn, msg, errorToggle } = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.user);
+    const { msg: loginMsg, errorToggle } = useSelector(state => state.auth) 
+
+    const isLoggedIn = !!user;
 
     const [payload, setPayload] = useState({
         email: "",
@@ -51,31 +54,18 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token && !isLoggedIn) {
-            // Trường hợp tab mới: dispatch lại LOGIN_SUCCESS với msg rỗng
-            const { jwtDecode } = require("jwt-decode"); 
-            const decoded = jwtDecode(token);
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                data: {
-                    token,
-                    isAdmin: decoded.isAdmin,
-                    msg: "", // Đặt msg rỗng để tránh toast
-                },
-            });
-        }
+        //if (!submitted) return; // chỉ chạy khi đã submit form
         if (isLoggedIn) {
-            if(msg) toast.success(msg);
+            if(loginMsg) toast.success(loginMsg);
             navigate(path.HOME);
-        } else if (msg) {
-            toast.error(msg || "Đăng nhập thất bại!");
+        } else if (loginMsg) {
+            toast.error(loginMsg);
         }
-    }, [isLoggedIn, msg, errorToggle, navigate, dispatch]);
+    }, [isLoggedIn, loginMsg, errorToggle, navigate]);
 
     return (
         <form 
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8 my-12'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
                 ĐĂNG NHẬP TÀI KHOẢN
@@ -105,6 +95,7 @@ const LoginForm = () => {
 
            <div className="py-4">
                 <Button 
+                    type="submit"
                     text={"Đăng nhập"}
                     textSize={'text-lg'}
                     hoverBg={'hover:bg-green-800'}
@@ -125,7 +116,12 @@ const LoginForm = () => {
                         Đăng ký tại đây
                     </span>
                 </p>
-                <p className="text-primary cursor-pointer hover:underline">Quên mật khẩu? </p>
+                <p 
+                    className="text-primary cursor-pointer hover:underline"
+                    onClick={onForgotPassword}
+                >
+                    Quên mật khẩu?
+                </p>
                 <p className="font-semibold">Hoặc đăng nhập bằng: </p>
             </div>
 

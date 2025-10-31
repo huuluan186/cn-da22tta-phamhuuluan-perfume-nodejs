@@ -15,8 +15,9 @@ const cartItems = [
 const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector(state => state.auth);
-
+    const { user } = useSelector(state => state.user);
+    const isLoggedIn = !!user;
+    
     return (
         <div className='flex justify-between items-center py-4'>
             {/* LEFT: Search */}
@@ -42,7 +43,12 @@ const Header = () => {
                     transition-shadow duration-200 ease-in-out
                     hover:bg-primary hover:shadow-[0_0_10px_rgba(0,0,0,0.2)]">
                         <div>
-                            <p className="font-semibold">Xin chào, Khách</p>
+                            <p 
+                                className="font-semibold max-w-48 truncate" 
+                                title={`${user?.firstname} ${user?.lastname}`}
+                            >
+                                Xin chào{user && `, ${user?.firstname} ${user?.lastname}`}
+                            </p>
                             {!isLoggedIn && (
                                 <p className="text-xs">
                                     <span 
@@ -59,8 +65,7 @@ const Header = () => {
                                         Đăng ký
                                     </span>
                                 </p>
-                            )}
-                            
+                            )}            
                         </div>
                         <MdKeyboardArrowDown className="w-5 h-5 text-contentBg mt-1" />
                     </div>

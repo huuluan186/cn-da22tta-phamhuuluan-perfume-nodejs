@@ -8,7 +8,18 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // 1 Ward thuộc về 1 Province
+            Ward.belongsTo(models.Province, {
+                foreignKey: 'provinceId',
+                as: 'province',
+            });
+
+            // 1 Ward có nhiều Address
+            Ward.hasMany(models.Address, {
+                foreignKey: 'wardId',
+                as: 'addresses',
+                onDelete: 'SET NULL',
+            });
         }
     }
     Ward.init({

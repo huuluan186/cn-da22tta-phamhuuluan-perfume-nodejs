@@ -4,7 +4,6 @@ import { Outlet, useLocation} from "react-router-dom";
 
 const Home = () => {
     const location = useLocation();
-    const isLoginPage = location.pathname === path.LOGIN;
     const isHomePage = location.pathname === path.HOME;
 
     return (
@@ -27,7 +26,7 @@ const Home = () => {
             )}
             
             {/* Main content */}
-            <main className={`flex-grow ${isLoginPage ? "bg-login min-h-screen flex justify-center items-center" : "bg-light container-fluid"}`}>
+            <main className={`flex-grow bg-light container-fluid`}>
                 <Outlet />
             </main>
 

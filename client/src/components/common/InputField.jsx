@@ -12,6 +12,7 @@ const InputField = ({
     error,
     setError,
     required = false,
+    isDisable = false,
 }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +37,7 @@ const InputField = ({
                     value={value}
                     onChange={handleChange}
                     required={required}
+                    disabled={isDisable}
                     className={`w-full border rounded-md p-2 focus:outline-gray-400 ${
                     error ? "border-red-500" : "border-gray-300"
                     }`}
