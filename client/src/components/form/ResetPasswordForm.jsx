@@ -74,6 +74,7 @@ const ResetPasswordForm = ({ token }) => {
             </div>
             <div className="mt-7">
                 <Button 
+                    type="submit"
                     text={"Đặt lại mật khẩu"}
                     width="w-40"
                     rounded="rounded-sm"

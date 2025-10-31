@@ -69,6 +69,7 @@ const ForgotPassword = ({ onBack }) => {
             />
             <div className="py-5">
                 <Button
+                    type="submit"
                     text={"LẤY LẠI MẬT KHẨU"}
                     textSize={"text-lg"}
                     hoverBg={"hover:bg-green-800"}

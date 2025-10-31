@@ -77,6 +77,7 @@ const ChangePasswordForm = () => {
             </div>
             <div className='flex flex-col items-start mt-5'>
                 <Button
+                    type='submit'
                     text={'Đặt lại mật khẩu'}
                     width='w-40'
                     hoverBg='hover:bg-green-800'

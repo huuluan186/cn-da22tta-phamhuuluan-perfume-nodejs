@@ -8,14 +8,12 @@ dotenv.config();
  */
 export const verifyToken = (req, res, next) => {
     try {
-        // Lấy token từ header Authorization: "Bearer <token>"
-        const authHeader = req.headers.authorization;
+        const token =
+            req.cookies?.token ||
+            (req.headers.authorization && req.headers.authorization.split(' ')[1]);
 
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ err: 1, msg: 'Access token is missing or invalid format' });
-        }
+        if (!token) return res.status(401).json({ err: 1, msg: 'Access token is missing or invalid format' });
 
-        const token = authHeader.split(' ')[1];
 
         // Xác thực token
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
@@ -23,9 +21,8 @@ export const verifyToken = (req, res, next) => {
                 const msg = err.name === 'TokenExpiredError' ? 'Access token has expired' : 'Invalid access token';
                 return res.status(401).json({ err: 1, msg });
             }
-
             // Lưu thông tin user vào req để controller dùng
-            req.user = decoded;
+            req.user = decoded; //lưu userId, isAdmin
             next();
         });
     } catch (error) {

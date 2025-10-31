@@ -11,12 +11,17 @@ import { getCurrentUser } from "./store/actions/user";
 
 function App() {
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector(state => state.auth)
+    //const { user } = useSelector(state => state.user)
 
+    // Khi App mount, luôn fetch user từ cookie HttpOnly
     useEffect(() => {
-        isLoggedIn && dispatch(getCurrentUser())
-    }, [isLoggedIn])
+        // Chỉ gọi /me nếu không đang ở trang callback
+        if (window.location.pathname !== path.CALLBACK) {
+            dispatch(getCurrentUser());
+        }
+    }, [dispatch]);
 
+    
     return (
         <div className="min-h-screen bg-light">
             <Routes>

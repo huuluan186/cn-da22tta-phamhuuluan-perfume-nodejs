@@ -120,6 +120,7 @@ const RegisterForm = () => {
 
            <div className="py-4">
                 <Button 
+                    type="submit"
                     text={"Đăng ký"}
                     textSize={'text-lg'}
                     hoverBg={'hover:bg-green-800'}

@@ -17,3 +17,12 @@ export const apiLogin = async (payload) => {
         throw error
     }
 }
+
+export const apiLogout = async () => {
+    try {
+        const response = await axiosConfig.post('/api/auth/logout', )
+        return response;
+    } catch (error) {
+        throw error
+    }
+}

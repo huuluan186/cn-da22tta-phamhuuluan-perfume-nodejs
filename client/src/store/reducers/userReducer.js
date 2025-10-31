@@ -11,13 +11,13 @@ const userReducer = (state = initState, action) => {
         case actionTypes.GET_CURRENT_USER_SUCCESS:
             return {
                 ...state,
-                user: action.currentUserData.user || null,
-                msg: action.currentUserData.msg || '',
+                user: action.currentUserData?.user || null,
+                msg: action.currentUserData?.msg || '',
             }
         case actionTypes.GET_CURRENT_USER_FAIL:
             return {
                 ...state,
-                user: null,
+                user: action.currentUserData?.user || null,
                 msg: action.msg || 'Failed to get current user',
             }
         case actionTypes.UPDATE_USER_PROFILE_SUCCESS:
@@ -34,12 +34,8 @@ const userReducer = (state = initState, action) => {
                 update: false,
             };
         case actionTypes.LOGOUT:
-            return {
-                ...state,
-                user: null,
-                msg:'',
-                update:false,
-            }
+            console.log(">>> RESET userReducer khi logout");
+            return initState;
         default:
             return state;
     }

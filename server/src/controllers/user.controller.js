@@ -4,7 +4,7 @@ import { validateData } from '../validations/validation.js';
 
 export const getCurrentUserController = async (req, res) => {
     try {
-        const { id } = req.user // Lấy ID người dùng từ token
+        const { id } = req.user; // Lấy ID người dùng từ token
         const response = await service.getCurrentUserService(id)
         return res.status(response.err ? 404 : 200).json(response);
     } catch (error) {

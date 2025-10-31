@@ -49,7 +49,6 @@ export const registerService = async ({ firstname, lastname, password, email, is
 
 export const loginService = async ({ email, password }) => {
     try {
-
         const response = await db.User.findOne({ where: {email}, raw: true });
         if (!response) return ({ err: 1, msg: `Email không tồn tại!`, token: null });
 
@@ -74,7 +73,7 @@ export const loginService = async ({ email, password }) => {
 
 export const socialLoginService = async (payload) => {
     try {
-        console.log('*** Social login payload:', payload);
+        //console.log('*** Social login payload:', payload);
 
         if (!payload.email || !payload.providerUserId) {
             return { err: 1, msg: 'Missing required fields' };
@@ -112,9 +111,9 @@ export const socialLoginService = async (payload) => {
             { expiresIn: '1h' }
         );
 
-        return { err: 0, msg: 'Đăng nhập thành công qua Google', token };
+        return { err: 0, msg: 'Đăng nhập thành công qua Auth Provider', token };
     } catch (error) {
         console.error('Social login error:', error);
-        return { err: 1, msg: 'Lỗi khi đăng nhập qua Google' };
+        return { err: 1, msg: 'Lỗi khi đăng nhập qua Auth Provider' };
     }
 };

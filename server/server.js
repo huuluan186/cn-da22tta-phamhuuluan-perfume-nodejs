@@ -1,27 +1,30 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors'
 import connectDatabase from './src/config/connectDB.js';
 import mainRouter from './src/routes/index.route.js';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import passport from './src/config/passport.config.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+import cookieParser from 'cookie-parser';
 
 const app = express()
 
 app.use(cors({
     origin:process.env.CLIENT_URL,
-    methods:["POST","GET","PUT","DELETE"]
+    credentials: true, // cho phép gửi cookie hoặc auth headers có credentials
 }))
+
+app.use(cookieParser());
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+// 🚫 Ngăn cache cho toàn bộ response API
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    next();
+}, mainRouter)
 // chỉ mount /api một lần duy nhất
 app.use(passport.initialize());
 app.use('/api', mainRouter);

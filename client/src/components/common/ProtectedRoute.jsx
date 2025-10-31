@@ -3,14 +3,20 @@ import { useSelector } from "react-redux";
 import { path } from "../../constants/path";
 
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
-    const { isLoggedIn, isAdmin } = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.user);
     const location = useLocation();
 
-    if (!isLoggedIn) return <Navigate to={path.LOGIN} state={{ from: location }} replace />;
+    // Nếu chưa có user, redirect về login
+    if (!user) {
+        return <Navigate to={path.LOGIN} state={{ from: location }} replace />;
+    }
 
-    if (requireAdmin && isAdmin !== requireAdmin)  return <Navigate to={path.HOME} replace />;
+    // Nếu route yêu cầu admin mà user không phải admin
+    if (requireAdmin && !user.isAdmin) {
+        return <Navigate to={path.HOME} replace />;
+    }
 
     return children;
-}
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

@@ -13,7 +13,10 @@ const {FaFacebookF, FaGoogle} = icons
 const LoginForm = ({ onForgotPassword }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoggedIn, msg, errorToggle } = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.user);
+    const { msg: loginMsg, errorToggle } = useSelector(state => state.auth) 
+
+    const isLoggedIn = !!user;
 
     const [payload, setPayload] = useState({
         email: "",
@@ -51,27 +54,14 @@ const LoginForm = ({ onForgotPassword }) => {
     }
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token && !isLoggedIn) {
-            // Trường hợp tab mới: dispatch lại LOGIN_SUCCESS với msg rỗng
-            const { jwtDecode } = require("jwt-decode"); 
-            const decoded = jwtDecode(token);
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                data: {
-                    token,
-                    isAdmin: decoded.isAdmin,
-                    msg: "", // Đặt msg rỗng để tránh toast
-                },
-            });
-        }
+        //if (!submitted) return; // chỉ chạy khi đã submit form
         if (isLoggedIn) {
-            if(msg) toast.success(msg);
+            if(loginMsg) toast.success(loginMsg);
             navigate(path.HOME);
-        } else if (msg) {
-            toast.error(msg || "Đăng nhập thất bại!");
+        } else if (loginMsg) {
+            toast.error(loginMsg);
         }
-    }, [isLoggedIn, msg, errorToggle, navigate, dispatch]);
+    }, [isLoggedIn, loginMsg, errorToggle, navigate]);
 
     return (
         <form 
@@ -105,6 +95,7 @@ const LoginForm = ({ onForgotPassword }) => {
 
            <div className="py-4">
                 <Button 
+                    type="submit"
                     text={"Đăng nhập"}
                     textSize={'text-lg'}
                     hoverBg={'hover:bg-green-800'}

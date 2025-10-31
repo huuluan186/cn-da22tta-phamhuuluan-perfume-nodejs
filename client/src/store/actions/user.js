@@ -11,27 +11,29 @@ export const getCurrentUser = () => async (dispatch) => {
                 type: actionTypes.GET_CURRENT_USER_SUCCESS,
                 currentUserData: response.data
             })
-        }else {
+        } else {
             // Lỗi từ server (như user không tồn tại hoặc token hết hạn)
             dispatch({
                 type: actionTypes.GET_CURRENT_USER_FAIL,
                 currentUserData: null,
-                msg: response?.data?.msg || 'Failed to get user'
+                //msg: response?.data?.msg || 'Failed to get user'
             });
             if (response?.data?.msg?.includes('expired')) {
                 dispatch(logout());
             }
         }
+        return response?.data;
     } catch (error) {
         dispatch({
             type: actionTypes.GET_CURRENT_USER_FAIL,
             currentUserData: null,
-            msg: error.message
+            //msg: error.message
         })
         //Khi token hết hạn thì sẽ logout
         if (error.response?.data?.err === 1 && error.response?.data?.msg?.includes('expired')) {
             dispatch(logout());
         }
+        return { data: { err: 1, msg: 'Lỗi khi lấy thông tin người dùng' } };
     }
 };
 
@@ -42,7 +44,7 @@ export const updateUserProfile = (data) => async (dispatch) => {
         if(response?.data?.err === 0){
             dispatch({
                 type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
-                currentUserData: response.data,
+                currentUserData: response.data.user
             });
             // Tự động lấy lại thông tin người dùng mới nhất (tùy chọn)
             dispatch(getCurrentUser());
