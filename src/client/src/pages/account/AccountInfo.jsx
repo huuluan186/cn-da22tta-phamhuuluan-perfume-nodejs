@@ -4,6 +4,9 @@ import { capitalizeWords, formatDate, formatDateForInput } from "../../utils"
 import { Button, InputField } from "../../components";
 import { updateUserProfile } from "../../store/actions/user";
 import { toast } from "react-toastify";
+import icons from '../../assets/react-icons/icon'
+
+const { MdCancel } = icons
 
 const genderMap = {
     male: "nam",
@@ -98,8 +101,21 @@ const AccountInfo = () => {
             {/* Modal chỉnh sửa */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-contentBg p-6 rounded-lg shadow-lg w-full max-w-xl">
-                        <h3 className="text-lg font-semibold mb-4">CẬP NHẬT THÔNG TIN</h3>
+                    <div className="bg-contentBg px-6 py-4 rounded-lg shadow-lg w-full max-w-xl">
+                        {/* Header: Tiêu đề + Nút X + Đường line */}
+                        <div className="relative mb-6">
+                            <div className="flex justify-between items-center">
+                                <h3 className="px-4 text-lg font-semibold">CẬP NHẬT THÔNG TIN</h3>
+                                <Button 
+                                    text={<MdCancel/>}
+                                    textSize="text-2xl"
+                                    bgColor="bg:transparent"
+                                    textColor="text-red-700"
+                                    hoverText="hover:none"
+                                />
+                            </div>
+                            <div className="mt-1 h-px bg-gray-300"></div>
+                        </div>
                         <form className="space-y-4">
                             <div className="flex space-x-4">
                                 <InputField
@@ -154,8 +170,8 @@ const AccountInfo = () => {
                                     textSize="text-sm"
                                     width="w-44"
                                     rounded="rounded-sm"
-                                    bgColor="bg-red-600"
-                                    hoverBg="hover:bg-red-700"
+                                    //bgColor="bg-red-600"
+                                    hoverBg="hover:bg-green-700"
                                     hoverText="hover:none"
                                     onClick={handleSubmit}
                                 />
