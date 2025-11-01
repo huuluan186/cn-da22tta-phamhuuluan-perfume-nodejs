@@ -60,7 +60,7 @@ const AccountInfo = () => {
 
     return (
         <div className='text-gray-600'>
-            <div className="mb-6"><h2 className="text-xl font-medium">THÔNG TIN TÀI KHOẢN</h2></div>
+            <div className="mb-6"><h2 className="text-xl font-medium">ĐỔI MẬT KHẨU</h2></div>
             <div className="space-y-4">
                 <p>
                     <span className='font-bold'>Họ tên: </span>
@@ -112,6 +112,7 @@ const AccountInfo = () => {
                                     bgColor="bg:transparent"
                                     textColor="text-red-700"
                                     hoverText="hover:none"
+                                    onClick={handleCancel}
                                 />
                             </div>
                             <div className="mt-1 h-px bg-gray-300"></div>
