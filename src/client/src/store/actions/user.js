@@ -42,12 +42,12 @@ export const updateUserProfile = (data) => async (dispatch) => {
         const response = await apiUpdateCurrentUser(data);
         console.log("response action update user profile: ", response);
         if(response?.data?.err === 0){
+            const userRes = await dispatch(getCurrentUser());
             dispatch({
                 type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
-                currentUserData: response.data.user
+                currentUserData: userRes.data,
             });
-            // Tự động lấy lại thông tin người dùng mới nhất (tùy chọn)
-            dispatch(getCurrentUser());
+            return response.data;
         }else {
             dispatch({
                 type: actionTypes.UPDATE_USER_PROFILE_FAIL,

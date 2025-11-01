@@ -26,8 +26,8 @@ const userReducer = (state = initState, action) => {
         case actionTypes.UPDATE_USER_PROFILE_SUCCESS:
             return {
                 ...state,
-                user: action.currentUserData.user || state.user, 
-                msg: action.currentUserData.msg || 'Cập nhật thành công',
+                user: action.currentUserData?.user || state.user, 
+                msg: action.currentUserData?.msg || 'Cập nhật thành công',
                 update: true, 
                 loading: false
             };
