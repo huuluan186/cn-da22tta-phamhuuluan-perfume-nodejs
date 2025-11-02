@@ -1,16 +1,12 @@
 import db from '../models/index.js'
 import { nanoid } from 'nanoid';
+import { validateAddressByCountry } from '../validations/addressValidation.js'; 
 
 export const getMyAddressesService = async (userId) => {
     try {
         const user = await db.User.findByPk(userId)
-        if(!user){
-            return {
-                err: 1,
-                msg: 'User not found!',
-            }
-        }
-
+        if(!user) return { err: 1, msg: 'User not found!' }
+    
         const result = await db.Address.findAndCountAll({
             where: { userId },
             include: [
@@ -32,7 +28,7 @@ export const getMyAddressesService = async (userId) => {
 
                 }
             ],
-            order: [['createdAt', 'DESC']]
+            order: [['createdAt', 'ASC']]
         })
 
         return {
@@ -50,12 +46,10 @@ export const addUserAddressService = async (addressData) => {
         const { userId, receiverName, phone, addressLine, wardId, label, isDefault, zipCode } = addressData;
         
         const user = await db.User.findByPk(userId)
-        if(!user){
-            return {
-                err: 1,
-                msg: 'User not found!',
-            }
-        }
+        if(!user) return { err: 1, msg: 'User not found!' }
+        
+        // Validate dữ liệu theo quốc gia
+        validateAddressByCountry(addressData);
         
         // Kiểm tra ward và lấy thông tin liên quan
         let wardData = null;
@@ -145,6 +139,10 @@ export const updateUserAddressService = async (addressId, userId, updateData) =>
         // Kiểm tra address thuộc user này không?
         const address = await db.Address.findOne({ where: { id: addressId, userId } });
         if (!address) return { err: 1, msg: 'Address not found or not owned by user!' };
+
+        // Merge dữ liệu cũ và dữ liệu update để validate
+        const mergedData = { ...address.get(), ...updateData };
+        validateAddressByCountry(mergedData);
         
         let wardData = null;
         if (wardId) {
