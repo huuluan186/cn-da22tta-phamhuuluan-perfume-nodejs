@@ -4,6 +4,8 @@ import { Button } from "../../components";
 import icons from '../../assets/react-icons/icon'
 import { getMyAddresses } from "../../store/actions/address"; // API CRUD
 import {AddressModal} from "../index";
+import { apiDeleteAddress } from "../../api/user";
+import { toast } from "react-toastify";
 
 const { MdAddLocationAlt, FaRegEdit, FaTrashAlt } = icons;
 
@@ -16,6 +18,20 @@ const AddressBook = () => {
     useEffect(() => {
         dispatch(getMyAddresses());
     }, [dispatch]);
+
+    const handleDeleteAddress = async (addressId) => {
+        const confirmDelete = window.confirm("Bạn có chắc muốn xóa sổ địa chỉ này?");
+        if (!confirmDelete) return;
+        try {
+            const res = await apiDeleteAddress(addressId)
+            if(res?.data?.err === 0){
+                toast.success("Đã xoá địa chỉ thành công!");
+                dispatch(getMyAddresses());
+            } else toast.error(res?.data?.msg || "Xoá địa chỉ thất bại!");
+        } catch (error) {
+            toast.error("Lỗi: " + error.message);
+        }
+    };
 
     return (
         <div className="text-gray-600">
@@ -88,7 +104,12 @@ const AddressBook = () => {
                                     <FaRegEdit />
                             </span>
                             {!addr?.isDefault && 
-                                <span className="text-red-500 hover:text-red-700"><FaTrashAlt /></span>
+                                <span 
+                                    className="text-red-500 hover:text-red-700"
+                                    onClick={() => handleDeleteAddress(addr.id)}
+                                >
+                                    <FaTrashAlt />
+                                </span>
                             }
                             
                         </div>
