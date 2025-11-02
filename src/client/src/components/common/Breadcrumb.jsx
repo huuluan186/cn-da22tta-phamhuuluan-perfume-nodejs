@@ -5,33 +5,23 @@ import { path } from "../../constants/path";
 const Breadcrumb = () => {
     const { pathname } = useLocation();
 
-    // Hàm ánh xạ pathname với key trong breadcrumbMap
-    const getBreadcrumbKey = () => {
-        // Kiểm tra tuyến tĩnh
-        if (breadcrumbMap[pathname]) {
-            return pathname;
-        }
+     // Tìm key khớp trong breadcrumbMap (có hỗ trợ route động)
+    const findBreadcrumbKey = () => {
+        if (breadcrumbMap[pathname]) return pathname;
 
-        // Xử lý các tuyến động
-        const dynamicRoutes = Object.keys(breadcrumbMap).filter((key) =>
-            key.includes(":")
-        );
-
-        for (const route of dynamicRoutes) {
-            // Chuyển đổi route thành regex (thay :param bằng [^/]+)
-            const pattern = `^${route.replace(/:[^/]+/g, "[^/]+")}$`;
-            const regex = new RegExp(pattern);
-            if (regex.test(pathname)) {
-                return route;
+        for (const route in breadcrumbMap) {
+            if (route.includes(":")) {
+                const regex = new RegExp(`^${route.replace(/:[^/]+/g, "[^/]+")}$`);
+                if (regex.test(pathname)) return route;
             }
         }
-
-        // Trả về null nếu không khớp
         return null;
     };
 
+    const matchedKey = findBreadcrumbKey();
+
     // Lấy breadcrumb riêng cho path hiện tại
-    const customTrail = getBreadcrumbKey() ? breadcrumbMap[getBreadcrumbKey()] || [] : [];
+    const customTrail = matchedKey ? breadcrumbMap[matchedKey] || [] : [];
 
     // Luôn thêm "Trang chủ" ở đầu (trừ khi là trang chủ)
     const breadcrumbs =
@@ -42,23 +32,18 @@ const Breadcrumb = () => {
     return (
         <nav className="text-sm text-gray-600 my-2">
             <ol className="list-reset flex">
-                {breadcrumbs.map((label, index) => {
+                {breadcrumbs.map((item, index) => {
                     const isLast = index === breadcrumbs.length - 1;
-                    const link = index === 0 ? path.HOME : undefined;
-
-                    const baseClass = index === 0 ? "text-gray-500" : "text-primary";
-                    const linkClass = `${baseClass} hover:underline`;
-
                     return (
                         <li key={index} className="flex items-center">
                             {index !== 0 && <span className="mx-2">{">"}</span>}
                             {isLast ? (
-                                <span className={baseClass}>
-                                    {label}
+                                <span className='text-primary font-medium'>
+                                    {item.label}
                                 </span>
                             ) : (
-                                <Link to={link} className={linkClass}>
-                                    {label}
+                                <Link to={item.link} className='text-gray-600 hover:text-primary hover:underline'>
+                                    {item.label}
                                 </Link>
                             )}
                         </li>
