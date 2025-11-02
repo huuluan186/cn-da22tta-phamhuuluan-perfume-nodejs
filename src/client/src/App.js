@@ -2,10 +2,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook } from './pages/index'
 import { Callback, ProtectedRoute } from "./components/index";
 import { MainLayout, AccountLayout } from "./layouts/index";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentUser } from "./store/actions/user";
 
@@ -27,7 +27,6 @@ function App() {
             <Routes>
                 <Route path={path.HOME} element={<MainLayout />} >
                     <Route index element={<Homepage/>}/>
-                    <Route path="*" element={<Navigate to={path.HOME} replace />} />
                     <Route path={path.REGISTER} element={<Register/>} />
                     <Route path={path.LOGIN} element={<Login/>} />
                     <Route path={path.CALLBACK} element={<Callback/>} />
@@ -43,7 +42,9 @@ function App() {
                         <Route path={path.ACCOUNT} element={<AccountInfo/>} />
                         <Route path={path.ORDERS_HISTORY} element={<OrderHistory/>} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword/>} />
+                        <Route path={path.ADDRESSES} element={<AddressBook/>} />
                     </Route>
+                    <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
             </Routes>
 
