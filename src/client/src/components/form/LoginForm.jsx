@@ -38,7 +38,7 @@ const LoginForm = ({ onForgotPassword }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // 🔍 Gọi hàm validateRegister
+        // Gọi hàm validateRegister
         const { valid, errors: formErrors } = validateLogin(payload);
         if (!valid) {
             setErrors(formErrors);
@@ -59,7 +59,7 @@ const LoginForm = ({ onForgotPassword }) => {
             if(loginMsg) toast.success(loginMsg);
             navigate(path.HOME);
         } else if (loginMsg) {
-            toast.error(loginMsg);
+           toast.error(loginMsg);
         }
     }, [isLoggedIn, loginMsg, errorToggle, navigate]);
 

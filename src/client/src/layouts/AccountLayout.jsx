@@ -50,7 +50,7 @@ const AccountLayout = () => {
                         </li>
                          <li>
                             <NavLink
-                                to={path.HOME}
+                                to={path.ADDRESSES}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
                                 Sổ địa chỉ
