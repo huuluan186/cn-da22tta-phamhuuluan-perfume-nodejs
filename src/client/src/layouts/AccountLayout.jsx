@@ -7,6 +7,7 @@ const inactiveClass = 'cursor-pointer text-black hover:text-primary'
 
 const AccountLayout = () => {
     const {user} = useSelector(state => state.user)
+    const { addresses } = useSelector(state => state.address)
 
     return (
         <div className="container bg-contentBg py-8">
@@ -53,7 +54,7 @@ const AccountLayout = () => {
                                 to={path.ADDRESSES}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
-                                Sổ địa chỉ
+                                Sổ địa chỉ ({addresses?.count})
                             </NavLink>
                         </li>
                     </ul>
