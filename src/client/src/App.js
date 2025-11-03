@@ -11,7 +11,6 @@ import { getCurrentUser } from "./store/actions/user";
 
 function App() {
     const dispatch = useDispatch();
-    //const { user } = useSelector(state => state.user)
 
     // Khi App mount, luôn fetch user từ cookie HttpOnly
     useEffect(() => {

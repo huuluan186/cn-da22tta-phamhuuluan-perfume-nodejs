@@ -48,7 +48,7 @@ const ForgotPassword = ({ onBack }) => {
 
     return (
         <form 
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8 min-h-80 w-1/2 flex flex-col justify-center'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-10 py-8 min-h-80 w-1/2 flex flex-col justify-center'
         >
             <h2 className="text-2xl font-semibold text-center mb-4 text-primary">
                 ĐẶT LẠI MẬT KHẨU
@@ -66,6 +66,7 @@ const ForgotPassword = ({ onBack }) => {
                 onChange={handleChange}
                 error={error.forgotEmail}
                 setError={setError}
+                className="mb-3"
             />
             <div className="py-5">
                 <Button

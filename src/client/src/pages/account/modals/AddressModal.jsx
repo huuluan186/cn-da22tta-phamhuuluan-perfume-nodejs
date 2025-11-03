@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, InputField } from "../../../components";
+import { Button, InputField, SelectField, CheckRadioField } from "../../../components";
 import icons from "../../../assets/react-icons/icon";
 import { toast } from "react-toastify";
 import {
@@ -56,16 +56,9 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (formData.countryId) {
-            dispatch(getProvincesByCountry(formData.countryId));
-        }
-    }, [dispatch, formData.countryId]);
-
-    useEffect(() => {
-        if (formData.provinceId) {
-            dispatch(getWardsByProvince(formData.provinceId));
-        }
-    }, [dispatch, formData.provinceId]);
+        if (formData.countryId) dispatch(getProvincesByCountry(formData.countryId));
+        if (formData.provinceId) dispatch(getWardsByProvince(formData.provinceId));
+    }, [dispatch, formData.countryId, formData.provinceId]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -111,7 +104,9 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-contentBg px-6 py-4 rounded-lg shadow-lg w-full max-w-2xl">
+            <div 
+                className="bg-contentBg px-6 py-4 rounded-lg shadow-lg w-full max-w-2xl overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+            >
                 {/* Header */}
                 <div className="relative mb-6">
                     <div className="flex justify-between items-center">
@@ -131,8 +126,8 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                 </div>
 
                 {/* Form */}
-                <form className="space-y-2" onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-2 gap-4 mb-3">
                         <InputField
                             label="Họ tên người nhận"
                             name="receiverName"
@@ -153,7 +148,7 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 mb-3">
                         <InputField
                             label="Công ty"
                             name="label"
@@ -168,59 +163,39 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Quốc gia</label>
-                        <select
-                            name="countryId"
-                            value={formData.countryId}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-md px-3 py-2"
-                        >
-                            <option value="">--Chọn quốc gia--</option>
-                            {countries.map((c) => (
-                                <option key={c.id} value={c.id}>
-                                    {c.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <SelectField
+                        label="Quốc gia"
+                        name="countryId"
+                        value={formData.countryId}
+                        onChange={handleChange}
+                        options={countries}
+                        placeholder="--Chọn quốc gia--"
+                        className="mb-3"
+                    />
 
                     {formData.countryId === '236' && (
                         // Quốc gia/Tỉnh/Xã 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Tỉnh/thành</label>
-                                <select
-                                    name="provinceId"
-                                    value={formData.provinceId}
-                                    onChange={handleChange}
-                                    className={!formData.countryId ? SELECT_DISABLED_CLASS : SELECT_ENABLED_CLASS}
-                                >
-                                    <option value="">--Chọn Tỉnh/Thành Phố</option>
-                                    {provinces.map((p) => (
-                                        <option key={p.id} value={p.id}>
-                                            {p.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Phường/xã</label>
-                                <select
-                                    name="wardId"
-                                    value={formData.wardId}
-                                    onChange={handleChange}
-                                    disabled={!formData.provinceId}
-                                    className={!formData.provinceId ? SELECT_DISABLED_CLASS : SELECT_ENABLED_CLASS}
-                                >
-                                    <option value="">--Chọn Phường/Xã--</option>
-                                    {wards.map((w) => (
-                                        <option key={w.id} value={w.id}>
-                                            {w.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        <div className="grid grid-cols-2 gap-4 mb-3">
+                            <SelectField
+                                label="Tỉnh/thành"
+                                name="provinceId"
+                                value={formData.provinceId}
+                                onChange={handleChange}
+                                options={provinces}
+                                disabled={!formData.countryId}
+                                placeholder="--Chọn Tỉnh/Thành Phố--"
+                                className="mb-3"
+                            />
+                            <SelectField
+                                label="Phường/xã"
+                                name="wardId"
+                                value={formData.wardId}
+                                onChange={handleChange}
+                                options={wards}
+                                disabled={!formData.provinceId}
+                                placeholder="--Chọn Phường/Xã--"
+                                className="mb-3"
+                            />
                         </div>
                     )}
 
@@ -229,19 +204,19 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                         name="zipCode"
                         value={formData.zipCode}
                         onChange={handleChange}
+                        className="mb-3"
                     />
-                    <div className="flex items-center mt-6 space-x-2">
-                        <input
-                            type="checkbox"
-                            name="isDefault"
-                            checked={formData.isDefault}
-                            onChange={handleChange}
-                        />
-                        <label>Đặt là địa chỉ mặc định?</label>
-                    </div>
+                    <CheckRadioField
+                        type="checkbox"
+                        name="isDefault"
+                        label="Đặt là địa chỉ mặc định?"
+                        checked={formData.isDefault}
+                        onChange={handleChange}
+                        className="mb-3"
+                    />
 
                     {/* Nút */}
-                    <div className="flex justify-end space-x-4 mt-6">
+                    <div className="flex justify-end space-x-4 mt-5">
                         <Button
                             text={mode === "edit" ? "Cập nhật địa chỉ" : "Thêm địa chỉ"}
                             textSize="text-sm"

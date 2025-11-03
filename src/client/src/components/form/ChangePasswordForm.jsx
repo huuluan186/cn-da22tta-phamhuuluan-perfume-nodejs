@@ -43,7 +43,7 @@ const ChangePasswordForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className='w-2/3'>
+            <div className='w-2/3 space-y-4'>
                 <InputField 
                     label={'Mật khẩu cũ'}
                     type='password'

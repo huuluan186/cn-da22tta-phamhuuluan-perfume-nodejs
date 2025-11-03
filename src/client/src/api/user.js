@@ -72,3 +72,12 @@ export const apiUpdateAddress = async (addressId, updatedData) => {
         throw error
     }
 }
+
+export const apiDeleteAddress = async (addressId) => {
+    try {
+        const response = await axiosConfig.delete(`/api/users/me/addresses/${addressId}`)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
