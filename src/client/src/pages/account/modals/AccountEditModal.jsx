@@ -1,7 +1,7 @@
 import icons from '../../../assets/react-icons/icon'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Button, InputField } from '../../../components'
+import { Button, InputField, CheckRadioField } from '../../../components'
 import { toast } from 'react-toastify'
 import { capitalizeWords, formatDate, formatDateForInput } from "../../../utils"
 import { updateUserProfile } from "../../../store/actions/user";
@@ -52,7 +52,9 @@ const AccountEditModal = ({ onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-contentBg px-6 py-4 rounded-lg shadow-lg w-full max-w-xl">
+            <div 
+                className="bg-contentBg px-6 py-4 rounded-lg shadow-lg w-full max-w-xl overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
+            >
                 {/* Header: Tiêu đề + Nút X + Đường line */}
                 <div className="relative mb-6">
                     <div className="flex justify-between items-center">
@@ -68,8 +70,8 @@ const AccountEditModal = ({ onClose }) => {
                     </div>
                     <div className="mt-1 h-px bg-gray-300"></div>
                 </div>
-                <form className="space-y-4">
-                    <div className="flex space-x-4">
+                <form>
+                    <div className="flex space-x-4 mb-3">
                         <InputField
                             label="Họ"
                             name="firstname"
@@ -90,6 +92,7 @@ const AccountEditModal = ({ onClose }) => {
                         value={formData.email}
                         onChange={handleInputChange}
                         isDisable={true} // Email có thể không cho chỉnh sửa
+                        className='mb-3'
                     />
                     <InputField
                         label="Ngày sinh"
@@ -97,26 +100,26 @@ const AccountEditModal = ({ onClose }) => {
                         type="date"
                         value={formData.dateOfBirth}
                         onChange={handleInputChange}
+                        className='mb-3'
                     />
-                    <div>
+                    <div className='space-y-1'>
                         <label className="block text-sm font-medium">Giới tính:</label>
-                        <div className="flex space-x-4 mt-1">
+                        <div className="flex space-x-4">
                             {Object.keys(genderMap).map((gender) => (
-                                <label key={gender} className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="gender"
-                                        value={gender}
-                                        checked={formData.gender === gender}
-                                        onChange={handleInputChange}
-                                        className="mr-1"
-                                    />
-                                    {capitalizeWords(genderMap[gender])}
-                                </label>
+                                <CheckRadioField
+                                    key={gender}
+                                    type="radio"
+                                    name="gender"
+                                    value={gender}
+                                    label={capitalizeWords(genderMap[gender])}
+                                    checked={formData.gender === gender}
+                                    onChange={handleInputChange}
+                                    className="flex items-center mb-3"
+                                />
                             ))}
                         </div>
                     </div>
-                    <div className="flex justify-end space-x-4 h-10">
+                    <div className="flex justify-end space-x-4 mt-3">
                         <Button
                             text={"Cập nhật thông tin"}
                             textSize="text-sm"
