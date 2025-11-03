@@ -1,0 +1,5 @@
+[
+    { "name": "Nước hoa nam", "slug": "nuoc-hoa-nam", "parentId": null, "sortOrder": 1 },
+    { "name": "Nước hoa nữ", "slug": "nuoc-hoa-nu", "parentId": null, "sortOrder": 2 },
+    { "name": "Nước hoa unisex", "slug": "nuoc-hoa-unisex", "parentId": null, "sortOrder": 3 }
+]
