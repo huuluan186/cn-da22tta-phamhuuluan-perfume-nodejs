@@ -30,7 +30,7 @@ export async function up(queryInterface, Sequelize) {
         },
         addressLine:{
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         wardId: {
             type: Sequelize.INTEGER,

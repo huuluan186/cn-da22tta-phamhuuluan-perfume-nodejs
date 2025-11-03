@@ -38,6 +38,11 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.DECIMAL(12, 2),
             allowNull: false,
         },
+        shippingFee: {
+            type: DataTypes.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0.00,
+        },
         status: { //trạng thái xử lý đơn hàng
             type: DataTypes.ENUM("Pending", "Processing", "Shipped", "Completed", "Cancelled"),
             defaultValue: "Pending",

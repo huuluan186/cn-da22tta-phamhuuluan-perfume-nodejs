@@ -1,12 +1,22 @@
-import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { NavLink, Outlet } from "react-router-dom"
 import { path } from "../constants/path"
+import { getMyAddresses } from "../store/actions/address";
 
 const activeClass = 'cursor-pointer font-bold underline'
 const inactiveClass = 'cursor-pointer text-black hover:text-primary'
 
 const AccountLayout = () => {
+    const dispatch = useDispatch();
     const {user} = useSelector(state => state.user)
+    const { addresses } = useSelector(state => state.address)
+
+    useEffect(() => {
+        if (user?.id) {
+            dispatch(getMyAddresses());
+        }
+    }, [dispatch, user?.id]);
 
     return (
         <div className="container bg-contentBg py-8">
@@ -50,10 +60,10 @@ const AccountLayout = () => {
                         </li>
                          <li>
                             <NavLink
-                                to={path.HOME}
+                                to={path.ADDRESSES}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
-                                Sổ địa chỉ
+                                Sổ địa chỉ ({addresses?.count})
                             </NavLink>
                         </li>
                     </ul>

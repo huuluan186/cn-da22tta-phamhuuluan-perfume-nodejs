@@ -129,3 +129,13 @@ export const validateChangePassword = (data) => {
         errors,
     };
 };
+
+export const validateAddress = (data) => {
+    const errors = {};
+    if (!data.receiverName?.trim()) errors.receiverName = "Tên người nhận không được để trống";
+    if (!data.phone?.trim()) errors.phone = "Số điện thoại liên lạc không được để trống";
+    return {
+        valid: Object.keys(errors).length === 0,
+        errors,
+    };
+};

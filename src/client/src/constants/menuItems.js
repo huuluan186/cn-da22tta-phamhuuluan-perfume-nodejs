@@ -3,11 +3,11 @@ import { logout } from '../store/actions/auth'
 
 export const accountMenuItems = (navigate, dispatch, isLoggedIn) => [
     { label: "Tài khoản", 
-        onClick: () => {
-            navigate(path.ACCOUNT);
-        } 
+        onClick: () => { navigate(path.ACCOUNT) } 
     },
-    { label: "Sổ địa chỉ", onClick: () => console.log("Đơn hàng của tôi") },
+    { label: "Sổ địa chỉ", 
+        onClick: () => { navigate(`${path.ACCOUNT}/${path.ADDRESSES}`) }
+    },
     ...(isLoggedIn === true
     ? [
         {

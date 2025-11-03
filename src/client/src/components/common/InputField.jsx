@@ -13,6 +13,7 @@ const InputField = ({
     setError,
     required = false,
     isDisable = false,
+    className = "",
 }) => {
 
     const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +27,7 @@ const InputField = ({
     };
 
     return (
-        <div className="mt-3 flex-1">
+        <div className={`flex-1 ${className}`}>
             <label className="block text-sm font-medium mb-1">
                 {label}{required && <span className="text-red-500">*</span>}
             </label>

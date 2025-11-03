@@ -1,23 +1,14 @@
 import Joi from 'joi';
 
 export const validateAddressByCountry = (addressInstance) => {
-    const { countryId, provinceId, wardId, addressLine } = addressInstance;
+    let { countryId, provinceId, wardId } = addressInstance;
+
+    if (!countryId) countryId = 236;
 
     // Nếu là Việt Nam
-    if (countryId === 'VN') {
-        if (!provinceId) {
-            throw new Error('Phải chọn tỉnh/thành khi quốc gia là Việt Nam.');
-        }
-        if (!wardId) {
-            throw new Error('Phải chọn phường/xã khi quốc gia là Việt Nam.');
-        }
+    if (countryId !== 236) {
+        if (provinceId || wardId) throw new Error('Không được chọn tỉnh/phường khi quốc gia khác Việt Nam.');
     } 
-    // Nếu là nước khác
-    else {
-        if (!addressLine) {
-            throw new Error('Chỉ tự nhập địa chỉ chi tiết (addressLine) cho quốc gia khác.');
-        }
-    }
 };
 
 export const addressSchema = Joi.object({
@@ -29,10 +20,7 @@ export const addressSchema = Joi.object({
         'string.empty': 'Số điện thoại không được để trống',
         'any.required': 'Số điện thoại là bắt buộc',
     }),
-    addressLine: Joi.string().required().messages({
-        'string.empty': 'Địa chỉ không được để trống',
-        'any.required': 'Địa chỉ là bắt buộc',
-    }),
+    addressLine: Joi.allow(null, '').optional(),
     wardId: Joi.allow(null, '').optional(),
     label: Joi.string().allow(null, '').optional(),
     isDefault: Joi.boolean().optional(),

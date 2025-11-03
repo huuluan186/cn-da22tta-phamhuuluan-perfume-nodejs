@@ -1,5 +1,4 @@
 import { Model } from 'sequelize';
-import { validateAddressByCountry } from '../validations/addressValidation.js'; 
 
 export default (sequelize, DataTypes) => {
     class Address extends Model {
@@ -47,7 +46,7 @@ export default (sequelize, DataTypes) => {
         },
         addressLine: {
             type: DataTypes.STRING,
-            allowNull: false, // số nhà, tên đường
+            allowNull: true, // số nhà, tên đường
         },
         wardId: {
             type: DataTypes.INTEGER,
@@ -72,11 +71,6 @@ export default (sequelize, DataTypes) => {
         modelName: 'Address',
         paranoid: true,       
         deletedAt: 'deletedAt', 
-        validate: {
-            validateByCountry() {
-                validateAddressByCountry(this);
-            }
-        }
     });
     return Address;
 };

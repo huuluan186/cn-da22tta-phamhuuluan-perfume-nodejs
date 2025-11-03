@@ -38,7 +38,7 @@ const LoginForm = ({ onForgotPassword }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // 🔍 Gọi hàm validateRegister
+        // Gọi hàm validateRegister
         const { valid, errors: formErrors } = validateLogin(payload);
         if (!valid) {
             setErrors(formErrors);
@@ -59,13 +59,13 @@ const LoginForm = ({ onForgotPassword }) => {
             if(loginMsg) toast.success(loginMsg);
             navigate(path.HOME);
         } else if (loginMsg) {
-            toast.error(loginMsg);
+           toast.error(loginMsg);
         }
     }, [isLoggedIn, loginMsg, errorToggle, navigate]);
 
     return (
         <form 
-            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-16 py-8 my-12'
+            className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-10 py-8 my-12 space-y-3'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
                 ĐĂNG NHẬP TÀI KHOẢN
@@ -134,7 +134,6 @@ const LoginForm = ({ onForgotPassword }) => {
                     hoverText="hover:none"
                     hoverBg="hover:bg-red-500"
                     onClick={handleGoogleLogin}
-                    
                 />
                 <Button 
                     text={'Facebook'}

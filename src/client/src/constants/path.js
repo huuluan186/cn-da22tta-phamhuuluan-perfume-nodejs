@@ -7,6 +7,7 @@ export const path={
     RESET_PASSWORD: '/account/reset/:userId/:token',
     ORDERS_HISTORY: 'orders',
     CHANGE_PASSWORD: 'changepassword',
+    ADDRESSES: 'addresses',
     CALLBACK: '/auth/callback',
     INTRODUCE:'/gioi-thieu-ve-perfumora',
     PERFUME:'/nuoc-hoa/all',

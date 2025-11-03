@@ -44,3 +44,40 @@ export const apiChangePassword = async (data) => {
         throw error
     }
 }
+
+// ============== ADDRESS ============== //
+export const apiGetMyAddress = async () => {
+    try {
+        const response = await axiosConfig.get('/api/users/me/addresses')
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
+
+export const apiAddAddress = async (addressData) => {
+    try {
+        const response = await axiosConfig.post('/api/users/me/addresses', addressData)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
+
+export const apiUpdateAddress = async (addressId, updatedData) => {
+    try {
+        const response = await axiosConfig.put(`/api/users/me/addresses/${addressId}`, updatedData)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}
+
+export const apiDeleteAddress = async (addressId) => {
+    try {
+        const response = await axiosConfig.delete(`/api/users/me/addresses/${addressId}`)
+        return response;
+    } catch (error) {
+        throw error
+    }
+}

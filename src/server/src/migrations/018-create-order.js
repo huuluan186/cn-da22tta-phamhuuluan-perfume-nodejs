@@ -38,6 +38,11 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
         },
+        shippingFee: {
+            type: Sequelize.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0.00,
+        },
         status: {
             type: Sequelize.ENUM('Pending', 'Processing', 'Shipped', 'Completed', 'Cancelled'),
             allowNull: false,
