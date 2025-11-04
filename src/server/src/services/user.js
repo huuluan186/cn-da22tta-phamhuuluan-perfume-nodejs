@@ -38,9 +38,30 @@ export const updateCurrentUserService = async (userId, updateData) => {
         // Lọc dữ liệu cập nhật để chỉ giữ các trường hợp lệ
         const filteredData = {};
         for (const key of allowedFields) {
-            if (updateData[key] !== undefined && updateData[key] !== null && updateData[key] !== ''){
-                filteredData[key] = updateData[key];
+            const value = updateData[key];
+            if (value === '') {
+                filteredData[key] = key === 'dateOfBirth' ? null : ''; // cho phép xóa tên hoặc ngày sinh
+            } else if (value !== undefined && value !== null) {
+                filteredData[key] = value;
             }
+        }
+
+        // tên lấy từ DB lên
+        const currentFirstname = user.firstname || '';
+        const currentLastname = user.lastname || '';
+
+        // tên mới từ dữ liệu gửi lên (?? : lấy giá trị cũ nếu user không gửi trường đó)
+        const newFirstname = filteredData.firstname ?? currentFirstname;
+        const newLastname = filteredData.lastname ?? currentLastname;
+
+        // Nếu người dùng xóa 1 trong 2 nhưng vẫn giữ cái kia → cập nhật cái còn lại
+        // Nếu cả 2 đều rỗng → giữ nguyên giá trị cũ
+        if (updateData.firstname.trim() === '' && updateData.lastname.trim() === '') {
+            filteredData.firstname = currentFirstname;
+            filteredData.lastname = currentLastname;
+        } else {
+            filteredData.firstname = newFirstname;
+            filteredData.lastname = newLastname;
         }
 
         await user.update(filteredData);
