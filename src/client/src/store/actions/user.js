@@ -36,28 +36,3 @@ export const getCurrentUser = () => async (dispatch) => {
         return { data: { err: 1, msg: 'Lỗi khi lấy thông tin người dùng' } };
     }
 };
-
-export const updateUserProfile = (data) => async (dispatch) => {
-    try {
-        const response = await apiUpdateCurrentUser(data);
-        console.log("response action update user profile: ", response);
-        if(response?.data?.err === 0){
-            const userRes = await dispatch(getCurrentUser());
-            dispatch({
-                type: actionTypes.UPDATE_USER_PROFILE_SUCCESS,
-                currentUserData: userRes.data,
-            });
-            return response.data;
-        }else {
-            dispatch({
-                type: actionTypes.UPDATE_USER_PROFILE_FAIL,
-                msg: response?.data?.msg || 'Failed to update user profile',
-            });
-        }
-    } catch (error) {
-        dispatch({
-            type: actionTypes.UPDATE_USER_PROFILE_FAIL,
-            msg: error.message || 'Error updating user profile',
-        });
-    }
-}
