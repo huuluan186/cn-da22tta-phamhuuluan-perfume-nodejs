@@ -1,7 +1,7 @@
 import * as authService from '../services/auth.js'
 import { registerSchema, loginSchema } from '../validations/userValidation.js';
 import { validateData } from '../validations/validation.js';
-import { setAuthCookie, clearAuthCookie  } from "../utils/jwt.js";
+import { setAuthCookie, clearAuthCookie  } from "../utils/index.js";
 
 export const registerController = async (req, res) => {
 

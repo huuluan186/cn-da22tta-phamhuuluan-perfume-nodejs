@@ -1,15 +1,7 @@
 'use strict';
 import fs from 'fs';
 import path from 'path';
-
-function slugify(str) {
-  return String(str || '')
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
-}
+import { slugify } from '../utils/index.js';
 
 export async function up(queryInterface, Sequelize) {
   // 📂 Đọc file stats.json
