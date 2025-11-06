@@ -1,7 +1,6 @@
 'use strict';
 import fs from 'fs';
 import path from 'path';
-import { nanoid } from 'nanoid';
 
 export async function up(queryInterface, Sequelize) {
     const filePath = path.resolve('./data/categories.json');
@@ -9,7 +8,7 @@ export async function up(queryInterface, Sequelize) {
     const now = new Date();
 
     const categories = data.map(item => ({
-        id: nanoid(10), 
+        id: item.id, 
         name: item.name,
         slug: item.slug,
         parentId: item.parentId,
