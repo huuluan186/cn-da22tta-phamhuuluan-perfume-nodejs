@@ -4,7 +4,7 @@ export const getAllBrandsController = async (req, res) => {
     try {
         const {sortBy, order} = req.query;
         const result = await service.getBrandsService(sortBy, order);
-        return res.status(response.err ? 400 : 200).json(result);
+        return res.status(result.err ? 400 : 200).json(result);
     } catch (error) {
         return res.status(500).json({ 
             err: 1, 

@@ -9,7 +9,11 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // Mỗi biến thể thuộc về 1 sản phẩm
+            ProductVariant.belongsTo(models.Product, {
+                foreignKey: 'productId',
+                as: 'product',
+            });
         }
     }
     ProductVariant.init({

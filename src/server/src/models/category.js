@@ -8,7 +8,28 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // Quan hệ N-N với Product
+            Category.belongsToMany(models.Product, {
+                through: models.ProductCategory,
+                foreignKey: 'categoryId',
+                otherKey: 'productId',
+                as: 'products',
+                onDelete: 'CASCADE',
+            });
+
+            // Self-reference: 1 Category có thể có nhiều Category con
+            Category.hasMany(models.Category, {
+                foreignKey: 'parentId',
+                as: 'subcategories',
+                onDelete: 'SET NULL',
+            });
+
+            // Mỗi Category con thuộc 1 Category cha
+            Category.belongsTo(models.Category, {
+                foreignKey: 'parentId',
+                as: 'parent',
+                onDelete: 'SET NULL',
+            });
         }
     }
     Category.init({
