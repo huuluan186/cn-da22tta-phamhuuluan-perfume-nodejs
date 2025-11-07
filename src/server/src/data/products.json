@@ -1,0 +1,2024 @@
+[
+    {
+        "name": "Burberry Hero",
+        "brandId": "5",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Anh",
+        "releaseYear": 2021,
+        "fragranceGroup": "Gỗ tuyết tùng, Cây bách xù, Cam bergamot",
+        "style": "Nam tính, Mạnh mẽ, Tự do",
+        "scentNotes": "Hương đầu: Cam Bergamot; Hương giữa: Quả Bách Xù, Tiêu Đen; Hương cuối: Tuyết Tùng Atlas, Tuyết Tùng Virginia, Tuyết Tùng Himalaya",
+        "description": "Thương hiệu Burberry cho ra mắt dòng nước hoa mới mang tên Hero vào năm 2021 với nhiều hứa hẹn đây sẽ là một trong những chai nước hoa vô cùng được yêu thích bởi cánh mày râu.<br>Burberry Hero mở ra với tông mùi tươi mát của cam Bergamot, mang lại cảm giác tràn đầy sức sống của những ngày đầu xuân và có đôi chút lành lạnh trong những cơn gió của thành phố London. Hương xanh ấy sẽ được cộng hưởng thêm với những quả Bách Xù mọng nước. Xanh và tươi nhưng vẫn không thể thiếu đi được những nét nam tính mạnh mẽ nhờ có Tiêu đen. Hương cay này là một trong những nét hương nổi bật và đặc trưng có trong mỗi dòng nước hoa của thương hiệu Burberry.<br>Ngôi sao chính của Burberry Hero không phải ở tầng hương giữa mà la ở tầng hương cuối. Tổ hợp gỗ Tuyết Tùng đến từ nhiều địa danh nổi tiếng như Virginia, đỉnh Atlas và đỉnh Himalaya, nâng cấp độ nam tính, mạnh mẽ của mùi hương lên gấp bội. Burberry Hero chắc chắn sẽ thể hiện bản lĩnh của một người đàn ông dám nghĩ dám làm, sống đúng với bản chất và màu sắc riêng của chính mình.",
+        "images": [
+            {
+                "url": "sample_images/Burberry/Burberry%20Hero/burberry-hero-edt.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Burberry/Burberry%20Hero/hero-burberry-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Burberry/Burberry%20Hero/hero-burberry-4.jpg",
+                "isThumbnail": false,
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 3000000,
+                "discountPercent": 5,
+                "stockQuantity": 50
+            },
+            {
+                "volume": 50,
+                "originalPrice": 2300000,
+                "discountPercent": 9,
+                "stockQuantity": 30,
+                "weight": 0.8,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Bvlgari Omnia Crystalline EDT",
+        "brandId": "15",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Ý",
+        "releaseYear": 2005,
+        "fragranceGroup": "Hoa Cỏ Và Biển Cả",
+        "style": "Bí ẩn, Gợi cảm, Tươi sáng",
+        "scentNotes": "Hương đầu: Tre, Quả lê; Hương giữa: Hoa sen, Cây bã đậu, Trà; Hương cuối: Xạ hương, Rêu sồi, Gỗ Guaiac",
+        "description": "Bvlgari Omnia Crystalline EDT mang lại cho người dùng một hương thơm tươi mát và nhẹ nhàng, đồng thời cũng thể hiện được sự cá tính với mùi hương đầu tiên đem lại cho bạn sự trẻ trung và nữ tính, với hương của trúc và lê mang đến cảm giác xanh ngắt, tươi mát. Tiếp đó, hương hoa sen dịu dàng và êm ái khiến nàng thư thái, dễ chịu. Hương giữa còn kết hợp với vị cay nồng ấm của cây bã đậu và sự tươi tắn của Cassia. Qua đó tạo nên nét nữ tính và mềm mại của Omnia Crystalline.",
+        "images": [
+            {
+                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline/bvlgari-omnia-crystalline-eau-de-toilette.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline/bvlgari-omnia-crystalline-edt-parfumerie.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 385000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 755000,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1130000,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 65,
+                "originalPrice": 2200000,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Bvlgari Splendida Rose Rose For Women EDP",
+        "brandId": "15",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Ý",
+        "releaseYear": 2017,
+        "fragranceGroup": "Hoa hồng Đan Mạch, Quả mâm xôi, Xạ hương",
+        "style": "Nhẹ nhàng, Nữ tính, Thanh lịch",
+        "scentNotes": "Hương Đầu: Quả quýt hồng, Quả mâm xôi đen; Hương giữa: Hoa hồng Đan Mạch; Hương cuối: Cây hoắc hương, Gỗ đàn hương, Cỏ hương bài, Xạ hương",
+        "description": "Được mệnh danh là bàn tay đầy ma thuật, Sophie Labbe - chủ nhân của nhiều bộ sưu tập nước hoa nổi tiếng cho không dưới 60 hãng thời trang nổi tiếng - đã cho ra đời Splendia Rose Rose Bvlgari vào năm 2017 như một lần nữa khẳng định tên tuổi của bà.<br> Như một bài ca Nữ quyền, Splendia Rose Rose toát lên vẻ kiêu kỳ, tự tin và đầy phóng khoáng tượng trưng cho phái nữ ở xã hội hiện đại ngày nay khi bắt đầu với tông hương thanh mát, tinh nghịch từ Cam quýt và Dâu đen mọng nước.<br>Ở tầng hương thứ hai, khi Sophie Labbe thể hiện cái tôi của bà bằng cách sử dụng độc một mùi hương - Hoa hồng - cũng chính là nhân vật chính tạo nên cái tên nước hoa này. Độc lập, quyến rũ với hương thơm kích thích đến lạ, Splendia Rose Rose là một vũ khí cho bất kỳ người phụ nữ nào sở hữu được nó.<br>Đến cuối ngày, cô nàng kiêu kỳ của chúng ta cũng để lộ ra một trái tim ấm áp, được hun nóng bằng Gỗ vetiver, Gỗ bạch đàn hương và không kém tinh tế với Xạ hương cộng hưởng cùng Hoắc hương.",
+        "images": [
+            {
+                "url": "sample_images/Bvlgari/Bvlgari%20Splendida%20Rose%20Rose%20For%20Women%20EDP/bvlgari-splendida-rose-rose-eau-de-parfum.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Bvlgari/Bvlgari%20Splendida%20Rose%20Rose%20For%20Women%20EDP/splendida-rose-rose-bvlgari.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 2250000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 10,
+                "originalPrice": 295000,
+                "stockQuantity": 30
+            }
+        ]
+    },
+    {
+        "name": "Carolina Herrera Good Girl EDP",
+        "brandId": "29",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Tây Ban Nha",
+        "releaseYear": 2016,
+        "fragranceGroup": "Đậu tonka, Ca cao, Hoa huệ, Hoa nhài",
+        "style": "Quyến rũ, Nữ tính, Ngọt ngào",
+        "scentNotes": "Hương đầu: Hạnh nhân, Cà phê, Cam Bergamot, Quả chanh vàng; Hương giữa: Hoa huệ, Hoa nhài Sambac, Hoa cam, Rễ Diên vĩ, Hoa hồng Bulgaria; Hương cuối: Đậu Tonka, Cacao, Vanilla, Kẹo Praline, Gỗ đàn hương, Xạ hương, Nhựa Hổ phách, Gỗ Cashmere, Quế, Hoắc hương, Tuyết tùng",
+        "description": "Một sản phẩm không thể thiếu trên kệ tủ của bất kì cô gái sành điệu nào, Caroline Herrera Good Girl Eau de Parfum là một chiếc guốc sang trọng, biểu tượng của một quý cô ngọt ngào, thanh lịch và cũng rất mạnh mẽ.<br>Mùi hương của chai nước hoa được tạo nên bởi những điều tương phản tưởng chừng khó thể nào sánh đôi, nhưng chính những điều đó lại đem đến một sự hòa quyện hoàn hảo đến bất ngờ. Hãy tưởng tượng mà xem, Good Girl là tất thảy những sự ngọt ngào và êm dịu trên thế giới này được tổng hợp và chiết xuất lại. Tầng hương đầu tiên là mùi của Hạnh nhân ngọt bùi, cái mát mẻ của Cam Bergamot và Quả chanh vàng. Hương thơm tự nhiên, tao nhã đan xen mãnh liệt ngọt đắng tiến thẳng vào khứu giác, thúc tiến tinh thần ta và khơi gợi niềm cảm hứng cho một hành trình mới.<br>Tầng hương giữa lại đem đến một cảm giác ngọt ngào nhưng kiêu kỳ, toả sáng bởi sự kết hợp của những loài hoa khác nhau. Hương kem beo béo của Huệ hoà quyện với Hoa nhài Sambac tươi tắn, tất thảy làm nên hương thơm nữ tính nhưng không hề ủy mị, dịu dàng mà vẫn toát lên vẻ thanh lịch của Good Girl. Và rồi tầng hương cuối nào là Đậu Tonka, Vanilla hay kẹo Praline làm cho hương thơm béo ngậy, trầm ấm, có chút thoảng Hương Gỗ đầy lắng đọng, vấn vương.",
+        "images": [
+            {
+                "url": "sample_images/Carolina%20Herrera/Carolina%20Herrera%20Good%20Girl%20EDP/carolina-herrera-good-girl-eau-de-parfum-80ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Carolina%20Herrera/Carolina%20Herrera%20Good%20Girl%20EDP/carolina-herrera-good-girl-eau-de-parfum-tester.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Carolina%20Herrera/Carolina%20Herrera%20Good%20Girl%20EDP/carolina-herrera-good-girl-eau-de-parfum.jpg",
+                "sortOrder": 3  
+            }
+        ],
+        "variants": [
+            {
+                "volume": 7,
+                "originalPrice": 430000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1990000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 80,
+                "originalPrice": 3600000,
+                "stockQuantity": 30
+            }
+        ]
+    },
+    {
+        "name": "Chanel Allure Homme EDT",
+        "brandId": "2",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 1999,
+        "fragranceGroup": "Hương vani, Quả chanh vàng",
+        "style": "Tinh tế, Quyến rũ, Lãng mạn",
+        "scentNotes": "Hương đầu: Chanh, Đào, Gừng, Quýt, Hoa Oải Hương, Cam Bergamot; Hương giữa: Tiêu, Hoắc Hương, Tuyết Tùng, Cỏ hương Bài, Hoa Hồng, Hoa Nhài, Gỗ Hồng Mộc Brazil, Hoa Dành Dành, Hoa Lan Nam Phi, Tiêu Hồi Cần; Hương cuối: Vani, Đậu Tonka, Dừa, Gỗ Đàn Hương, Hổ Phách, Benzoin, Da Thuộc, Xạ Hương, Rêu Sồi",
+        "description": "Sự quyến rũ hay tốc độ của anh ấy rất quyết đoán, nhưng lại pha chút nhẹ nhàng. Thành phần được tạo ra từ bốn dòng hương chính: sự tươi mát của màu xanh lá cây, sự sắc nét ấm áp của hạt tiêu, sức mạnh và sự sang trọng của gỗ, và sự gợi cảm ấm áp của Benzoin và tonka.<br>Không có đường nét chính nào có thể được cảm nhận một cách riêng biệt, chúng cùng nhau tạo nên một tổng thể hài hòa. Bằng cách kết hợp những thành phần phức tạp, tạo nên một Chanel Allure Homme Eau de Toilette đã ghi dấu ấn vượt thời gian trong hơn 2 thập kỷ qua.",
+        "images": [
+            {
+                "url": "sample_images/Chanel/Chanel%20Allure%20Homme%20EDT/chanel-allure-homme-eau-de-toilette-50ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Allure%20Homme%20EDT/chanel-allure-homme-eau-de-toilette-100ml_2.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Allure%20Homme%20EDT/chanel-allure-homme-eau-de-toilette-100ml.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 2880000,
+                "discountPercent": 22,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3600000,
+                "discountPercent": 21,
+                "stockQuantity": 21
+            }
+        ]
+    },
+    {
+        "name": "Chanel Bleu de Chanel EDT",
+        "brandId": "2",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2010,
+        "fragranceGroup": "Bưởi, Hương nhang, Gừng, Chang vàng",
+        "style": "Sang trọng, Gợi cảm, Lịch lãm",
+        "scentNotes": "Hương đầu: Quả bưởi, Quả chanh vàng, Bạc hà, Tiêu hồng; Hương giữa: Gừng, Nhục đậu khấu, Hoa nhài, Iso E Super; Hương cuối: Nhang, Cỏ hương bài, Gỗ tuyết tùng, Gỗ đàn hương, Hoắc hương, Nhựa hương Labdanum, Xạ hương trắng",
+        "description": "Chanel Bleu de Chanel đã đem tới thế giới hương thơm một mùi hương dễ chịu. Cam chanh mở màn bằng nét đặc trưng của nốt hương Bưởi, tươi sáng mọng nước cùng Gừng thanh lịch sạch sẽ, rồi nhẹ nhàng thoang thoảng chút hương hoa. Gừng của Bleu de Chanel rõ ràng, dễ gần, đẹp và nịnh mũi. Lắng dần xuống, mùi hương của Bleu de Chanel trở nên dày và có chiều sâu hơn với Nhang mềm ngọt, cùng sự rắn chắc vững chãi của hương Gỗ, qua hương thơm từ Cỏ hương bài, Gỗ tuyết tùng và Đàn hương.<br>Bạn thấy chứ? Không cần bàn quá nhiều về mùi hương của Bleu de Chanel, một hương thơm dễ mến và đa dụng. Sự thành công của Bleu de Chanel thậm chí còn lớn đến mức tạo thành một trào lưu những mùi hương đi theo phong cách của chai nước hoa này. Tươi sáng, dễ chịu ở giai đoạn mở đầu, và tối dần về hậu hương với các nốt hương có chiều sâu như Gỗ, Hoắc hương hay Nhang, có thể tùy biến nhưng vẫn phải tuân theo một tôn chỉ tuyệt đối. Ấy là dễ mến, dễ dùng và phù hợp với mọi dịp bạn cần, còn được gọi là các “blue fragrances”.<br>Liệu Bleu de Chanel còn được các quý ông yêu thích và sử dụng đến khi nào, chẳng ai có thể biết trước được. Thế nhưng với tuổi đời đã hơn 10 năm trên thị trường, Bleu de Chanel vẫn chưa một lần rời khỏi top những mùi hương được yêu thích và bán chạy nhất, thành tích đó là đủ để chứng minh chất lượng tuyệt đối của cái tên này.",
+        "images": [
+            {
+                "url": "sample_images/Chanel/Chanel%20Bleu%20de%20Chanel%20EDT/chanel-bleu-de-chanel-eau-de-toilette-50ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Bleu%20de%20Chanel%20EDT/chanel-bleu-de-chanel-eau-de-toilette.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 3100000,
+                "discountPercent": 17,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3650000,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Chanel Chance Eau Vive",
+        "brandId": "2",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2015,
+        "fragranceGroup": "Cam đỏ, Bưởi , Hương cam chanh",
+        "style": "Tươi mới, Thanh lịch, Tinh tế",
+        "scentNotes": "Hương đầu: Quả cam đỏ, Quả bưởi, Các notes citrus; Hương giữa: Hoa nhài, Xạ hương trắng; Hương cuối: Cỏ hương bài, Gỗ tuyết tùng, Hoa diên vĩ",
+        "description": "Chanel ra mắt Chance Eau Vive vào năm 2015, dưới bàn tay của Olivier Polge, một chiếc mũi tài năng của nhà Chanel và là con trai của Jacques Polge, một nhà pha chế nước hoa quen thuộc với các fan hâm mộ của nhà Chanel. Chance Eau Vive là một flanker nằm trong bộ sưu tập Chanel Chance của hãng, với những cái tên quen thuộc nổi tiếng như Chanel Chance (2003), Chanel Chance Eau Fraiche (2007) và Chanel Chance Eau Tendre (2010), với mục tiêu là những mùi hương tươi tắn dịu dàng và dành cho các quý cô trẻ trung.<br>Olivier Polge đã kết hợp note hương bưởi lấp lánh với hương cam đỏ mọng nước, tạo ra một sự bùng nổ với các note hương citrus và kết hợp chúng với sự thanh lịch của hoa nhài và xạ hương trắng quyến rũ. Ở phần cuối của mùi hương, cỏ hương bài và gỗ tuyết tùng đem lại một cảm giác ấm cúng, nhẹ nhàng, chững chạc hơn cùng một chút phấn tươi từ đóa diên vĩ tím khiến mùi hương trở nên nữ tính, nhẹ nhàng, thanh lịch và rất tinh tế.<br>Chance Eau Vive là một mùi hương được xếp vào nhóm hương Hoa – Gỗ - Xạ hương (Floral – Woody – Musk) chuẩn mực dành cho một quý cô và được thổi vào một làn hơi tươi trẻ với những note hương cam chanh ở đầu, khiến nó rất phù hợp với các chị em trẻ trung, năng động, có thể mặc đi học, đi làm, đi chơi cùng bạn bè, thâm chí có thể là những buổi hẹn hò thông thường.",
+        "images": [
+            {
+                "url": "sample_images/Chanel/Chanel%20Chance%20Eau%20Vive/chance-eau-vive.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Chance%20Eau%20Vive/chanel-chance-eau-vive_2.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Chance%20Eau%20Vive/chanel-chance-eau-vive.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Chanel/Chanel%20Chance%20Eau%20Vive/chanel-chance-eau-vivea.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 2750000,
+                "stockQuantity": 5,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Dior J'adore EDP",
+        "brandId": "1",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 1999,
+        "fragranceGroup": "Hương hoa cỏ trái cây",
+        "style": "Gợi cảm, Sang trọng, Nữ tính",
+        "scentNotes": "Hương đầu: Hoa mộc lan, Dưa gang, Quả đào, Quả lê, Cam Bergamot, Quả quýt hồng; Hương giữa: Hoa huệ trắng, Quả mận, Hoa tím, Hoa phong lan, Hoa lan Nam Phi, Hoa nhài, Hoa linh lan thung lũng, Hoa hồng; Hương cuối: Xạ hương, Hương Va ni, Gỗ tuyết tùng, Quả mâm xôi đen",
+        "description": "Khi sử dụng nước hoa nữ Dior J'adore EDP, sự nữ tính vô hạn của bạn như luôn chực chờ thời điểm bùng phát, hương thơm nước hoa lan tỏa mạnh mẽ, như mùi hương của bông hoa hồng tươi mát chớm nở trong ánh bình minh sớm mai.",
+        "images": [
+            {
+                "url": "sample_images/Dior/Dior%20J'adore%20EDP/dior-j_adore-eau-de-parfum-100ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Dior/Dior%20J'adore%20EDP/dior-j_adore-eau-de-parfum-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Dior/Dior%20J'adore%20EDP/dior-j_adore-eau-de-parfum-30ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Dior/Dior%20J'adore%20EDP/dior-j_adore-eau-de-parfum-50ml.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Dior/Dior%20J'adore%20EDP/dior-jadore-edp.jpg",
+                "sortOrder": 5
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 475000,
+                "stockQuantity": 15,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 935000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1400000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 100,
+                "originalPrice": 4750000,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Dior Sauvage Elixir EDP",
+        "brandId": "1",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2021,
+        "fragranceGroup": "Aromatic Spicy (tone cay ấm)",
+        "style": "Nam tính, Hấp dẫn, Quyền lực",
+        "scentNotes": "Hương đầu: Quế, Bạch Đậu Khấu, Nhục Đậu Khấu và Quả Bưởi; Hương giữa: Hoa Oải Hương; Hương cuối: Gỗ Đàn Hương, Cam Thảo, Hổ Phách, Cỏ Vetiver Haiti và Cây Hoắc Hương",
+        "description": "Dior Sauvage Elixir EDP như một bản hòa âm đầy nam tính và lịch lãm. Những nốt hương đậm gia vị sẽ mang đến cho bạn sự ấn tượng rất khác của dòng nước hoa Dior Sauvage. Một mùi hương hoang dã hơn, ấm nồng hơn nhưng vẫn rất quyền lực và lôi cuốn.",
+        "images": [
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Elixir/sauvage-elixir-60ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Elixir/sauvage-elixir-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Elixir/sauvage-elixir-2.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Elixir/sauvage-elixir-4.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Elixir/sauvage-elixir.jpg",
+                "sortOrder": 5
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 675000,
+                "stockQuantity": 15,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 1335000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 30,
+                "originalPrice": 2000000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 100,
+                "originalPrice": 5550000,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Dior Sauvage Parfum",
+        "brandId": "1",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2019,
+        "fragranceGroup": "Gỗ đàn hương, Olibanum, Cam bergamot",
+        "style": "Lịch lãm, Nam tính, Lôi cuốn",
+        "scentNotes": "Hương đầu: Cam Bergamot, Quýt; Hương giữa: Gỗ đàn hương; Hương cuối: Đậu tonka, Olibanum, Vani",
+        "description": "Dior sauvage Parfum là phiên bản mới nhất trong bộ sưu tập nước hoa của nhà Dior trong dòng Sauvage, tiếp nối sự thành công của các phiên bản Sauvage EDT và Sauvage EDP. Một phiên bản mới được thiết kế đậm đà hơn nhưng vẫn giữ nguyên các ADN cốt lõi làm nên thương hiệu “Lady Killer” đình đám của Dior Sauvage. Chuyên gia Francois Demachy đã phát hành phiên bản Sauvage Parfume vào năm 2019, được lấy cảm hứng từ vùng thảo nguyên, thời điểm ánh trăng lên cao cùng bầu trời tối đen le lói ánh sáng của lửa trại.",
+        "images": [
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/dior-sauvage-parfum-100ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/dior-sauvag.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/dior-sauvage-parfum.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/sauvage-parfum-1.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/sauvage-parfum.jpg",
+                "sortOrder": 5
+            },
+            {
+                "url": "sample_images/Dior/Dior%20Sauvage%20Parfum/sauvage-edp-1.jpg",
+                "sortOrder": 6
+            }
+        ],
+        "variants": [
+            {
+                "volume": 60,
+                "originalPrice": 2950000,
+                "discountPercent": 3,
+                "stockQuantity": 10,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3950000,
+                "discountPercent": 4,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Diptyque Eau Rose",
+        "brandId": "20",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2012,
+        "fragranceGroup": "Hoa hồng, Quả vải, Quả lý chua đen",
+        "style": "Sang trọng, Gợi cảm, Ấm áp",
+        "scentNotes": "Hương đầu: Cam Bergamot, Quả lý chua đen, Quả vải; Hương giữa: Hoa nhài, Hoa phong lữ, Hoa hồng; Hương cuối: Xạ hương, Gỗ tuyết tùng, Mật ong trắng",
+        "description": "Đem tới những hương thơm dành tặng riêng cho những nữ hoàng xinh đẹp, quyến rũ. Diptyque Eau Rose như một bóng hồng dịu dàng luôn tồn tại đặc biệt bên trong các quý cô điệu đà, sang chảnh.<br>Được ra mắt vào năm 2012, Diptyque Eau Rose chẳng cần thể hiện ra bên ngoài cũng dễ dàng nhận được cái gật đầu đồng ý cùng danh hiệu nữ hoàng của những loài hoa. Vốn dĩ chai Eau Rose có được danh hiệu quyền quý này bởi vì hương Hoa hồng quyến rũ được lấy làm chủ đạo và phảng phất mạnh mẽ thu hút lấy những ánh nhìn khao khát dù cho là nam giới hay nữ giới.<br>Không vội vàng trao mình trong những giây phút ban đầu, những tinh chất Cam bergamot, Quả lý chua đen và Quả vải thay nhau lần lượt gọi mời, quấn quýt nơi đầu mũi tạo ra những cảm giác dễ chịu giúp rũ bỏ đi những mệt mỏi, căng thẳng mà sẵn sàng đón nhận những cảm xúc tuyệt vời hơn cùng Eau Rose.<br>Tạo thành từng đợt dồn dập và mạnh liệt, Eau Rose thực sự khiến cho người khác phải trầm trồ và trở nên điên loạn trước vẻ quyến rũ khó cưỡng của những nốt hương Hoa hồng, Hoa nhài và Hoa phong lữ. Không chỉ mang lại những hương thơm ngọt dịu đặc trưng, từng nốt hương như gợi lên sự khoái cảm bên trong lắp đầy trong tâm trí người xung quanh cùng những câu hỏi “Là ai?” – “Hương thơm này đến từ đâu?” – “Có phải từ cô gái vừa lướt qua ư?”.<br>Để lại sự quyến rũ của mình qua những nơi mình lướt qua, Eau Rose còn vô tình lưu lại những mùi hương của mình bằng những note hương Xạ quen thuộc hợp cùng nền Gỗ tuyết tùng để tôn lên nét lắng đọng đầy ngọt ngào của Mật ong trắng. Diptyque không chỉ gợi nhắc đến hình dáng của một quý cô giàu sang, thơm tho mà còn đem tới sự quyến rũ, gợi cảm khiến cho các chàng trai phải thèm khát đến tột cùng.",
+        "images": [
+            {
+                "url": "sample_images/Diptyque/Diptyque%Eau%Rose/diptyque_eau_rose.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Diptyque/Diptyque%Eau%Rose/diptyque_eau_rose_edt.jpg",
+                "sortOrder": 2
+            }
+            
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 3550000,
+                "discountPercent": 8,
+                "stockQuantity": 10,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Dolce & Gabbana Dolce Lily",
+        "brandId": "27",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Anh, Pháp, Đức",
+        "releaseYear": 2022,
+        "fragranceGroup": "Quả chanh dây, Hoa lily, Xạ hương",
+        "style": "Gợi cảm, Nữ tính, Thanh lịch",
+        "scentNotes": "Hương đầu: Chanh Dây, Cam Bergamot, Chanh; Hương giữa: Hoa Lily, Hoa Hồng; Hương cuối: Xạ Hương, Gỗ Đàn Hương, Vanilla",
+        "description": "Được ra đời vào năm 2022, Dolce Lily là phiên bản flanker mới nhất của Bộ Sưu Tập Dolce và là một bản nhạc được tấu lên nhằm tôn vinh sự tồn tại đầy quyến rũ của bông hoa Lily, loài hoa biểu trưng cho sự nữ tính và lòng nhân ái của phái đẹp.<br>Là một người phụ nữ hiện đại, mang trong mình nguồn năng lượng tươi mới, một khởi đầu mát mẻ của các tông hương Cam Chanh là một cách tinh tế để cùng nàng tạo ra sự tự tin, thoải mái toát ra trong bầu không khí xung quanh.<br>Cuối cùng, cô chưng cất một sự trầm ấm, nhịp nhàng. Thoải bước trên con phố với những sự tự tin, Xạ Hương xuất hiện nâng niu từng bước chân cô, Vanilla tạo ra những nét ấm áp, khơi gợi về một cô gái trẻ trung, luôn muốn tạo ra một sự cao đẹp nơi tâm hồn như những đóa hoa Lily nở rộ dưới ánh dương.",
+        "images": [
+            {
+                "url": "sample_images/Dolce%20&%20Gabbana/Dolce%20&%20Gabbana%20Dolce%20Lily/dolce-lily.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Dolce%20&%20Gabbana/Dolce%20&%20Gabbana%20Dolce%20Lily/dolce-lily-1.jpg",
+                "sortOrder": 2
+            }
+            
+        ],
+        "variants": [
+            {
+                "volume": 30,
+                "originalPrice": 1650000,
+                "discountPercent": 9,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 75,
+                "originalPrice": 2650000,
+                "discountPercent": 6,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Dolce & Gabbana Dolce Rosa Excelsa EDP",
+        "brandId": "27",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Anh, Pháp, Đức",
+        "releaseYear": 2016,
+        "fragranceGroup": "Hoa hồng, Hoa súng, Xạ hương",
+        "style": "Nữ tính, Quyến rũ, Tinh tế",
+        "scentNotes": "Hương đầu: Hoa cam, Hoa đu đủ; Hương giữa: Hoa hồng, Hoa hồng Turkish, Hoa súng, Hoa thuỷ tiên, Hoa loa kèn đỏ; Hương cuối: Xạ hương, Gỗ cashmere, Gỗ đàn hương",
+        "description": "Như một cuộc dạo chơi trong khu vườn với những hoa là hoa, đó là gói gọn những gì mà Dolce & Gabbana Dolce Rosa Excelsa Eau de Parfum sắp thể hiện với bạn đó.<br>Câu hỏi đầu tiên đặt ra khi thử Dolce Rosa Excelsa EDP, chắc hẳn sẽ là 'Khu vườn này có những loại hoa gì thế?', vì thoạt nhiên, bạn sẽ chẳng thể đoán được hương hoa nào là hương hoa nào. Ở đó hoà quyện sự thanh tươi, sắc cạnh tựa Cam chanh, với một chút ngọt đậm, mượt như Sữa, và cũng miên man hoài niệm với nét đẹp hơi 'vintage' một chút.<br>Hương hoa ấy cứ mải miết đeo đuổi đến tận cuối cùng, không thiếu mà cũng không thêm thắt gì, cứ vần vũ ta trong khu vườn đầy mê hoặc, thần kỳ thuyết phục ta rằng chẳng cần phải chỉ mặt điểm tên cho rõ ràng mà vẫn nhận ra được nét đẹp của tổng hợp các loài hoa.",
+        "images": [
+            {
+                "url": "sample_images/Dolce%20&%20Gabbana/Dolce%20&%20Gabbana%20Dolce%20Rosa%20Excelsa%20EDP/dolce-_-gabbana-rosa-excelsa.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Dolce%20&%20Gabbana/Dolce%20&%20Gabbana%20Dolce%20Rosa%20Excelsa%20EDP/dolce-_-gabbana-dolce-rosa-excelsa-eau-de-parfum1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Dolce%20&%20Gabbana/Dolce%20&%20Gabbana%20Dolce%20Rosa%20Excelsa%20EDP/dolce-_-gabbana-dolce-rosa-excelsa-eau-de-parfum-tester.jpg",
+                "sortOrder": 3
+            }
+            
+        ],
+        "variants": [
+            {
+                "volume": 75,
+                "originalPrice": 2500000,
+                "discountPercent": 12,
+                "stockQuantity": 5,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Giorgio Armani Acqua di Gio EDP",
+        "brandId": "12",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2022,
+        "fragranceGroup": "Hương Biển, Khoáng Sản, Qủa Cam",
+        "style": "Nam tính, Hiện đại, Phóng khoáng",
+        "scentNotes": "Hương đầu: Hương Biển, Quýt xanh; Hương giữa: Xô thơm, Oải hương, Chi Mỏ hạc; Hương cuối: Hương Khoáng, Cỏ Hương bài, Hoắc hương",
+        "description": "Mang trong mình hơi thở Thuỷ sinh, Giorgio Armani Acqua di Gio Eau de Parfum là vẻ đẹp của một người đàn ông cá tính, hiện đại và có đôi phần 'ướt át'. Ra mắt từ năm 2022, ấn phẩm đươc sự đón nhận nồng nhiệt của giới mộ điệu, bởi đây không chỉ là một sự kế thừa và phát huy DNA của Acqua di Gio nguyên bản, mà còn là một phiên bản hoàn chỉnh của sự giao thoa giữa giữa bản gốc và bản Essenza.<br>Ấn phẩm là sự mô tả về một không gian rộng lớn và vô tận như đang đắm mình vào biển cả, không giới hạn, không chút áp lực và không có sự hạn chế. Hương thơm của Khoáng chất kết hợp cùng Quýt xanh, dịu ngọt nhưng cực tươi mát, lại càng nhấn mạnh vẻ đẹp của biển cả. Càng về sau, hương thơm càng nồng ấm, hoang dại của Xô thơm lẫn trong cái kết cấu phức tạp của Chi Mỏ hạc, tạo nên cái trầm lắng bên trong mỗi quý ông.<br>Để rồi người đàn ông ấy quyến luyến mọi cô gái bằng sự phóng khoáng, lơ đãng của mình. Thoảng hoặc theo đó chút Cỏ Hương bài, chút Hoắc hương nồng đượm hương Gỗ đặc trưng. Những nốt hương trong Giorgio Armani Acqua di Gio EDP đan xen tựa hệt cảm xúc biến chuyển của một gã trai hiện đại, và bên trong họ là những phần tâm hồn tươi tắn, phóng khoáng.",
+        "images": [
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/acqua-di-gio-edp.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/acqua-di-gio-eau-de-parfum.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/acqua-di-gio-edp-125ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/gio-edp-75ml.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/giorgio-armani-acqua-di-gio-eau-de-parfum-50ml.jpg",
+                "sortOrder": 5
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/giorgio-armani-acqua-di-gio-eau-de-parfum-100ml.jpg",
+                "sortOrder": 6
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Acqua%20di%20Gio%20EDP/agiorgio-armani-acqua-di-gio-eau-de-parfum-full-50ml.jpg",
+                "sortOrder": 7
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 3102000,
+                "discountPercent": 10,
+                "stockQuantity": 5,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3949000,
+                "discountPercent": 1,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Giorgio Armani Code",
+        "brandId": "12",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2004,
+        "fragranceGroup": "Da thuộc, Hồi hương, Hoa olive, Đậu tonka",
+        "style": "Nam tính, Ấm áp, Quyến rũ",
+        "scentNotes": "Hương đầu: Cam Bergamot, Chanh; Hương giữa: Quả hồi, Hoa Olive, Gỗ Guaiac; Hương cuối: Da, Thuốc lá, Đậu Tonka",
+        "description": "Armani Code của Giorgio Armani là một Eau de Toilette quyến rũ dành cho người đàn ông đương đại. Hương thơm hiện đại và tinh tế dành cho nam giới này cất lên như một ly cocktail tươi mát của mùi hương Bergamot và chanh. Tựa như vị rượu mạnh thấm vào trong huyết quản, cảm giác ở khoảnh khắc tiếp theo toả ra nhẹ nhàng và ấm áp bởi hương hoa Olive, quả Hồi và Gỗ Guaiac. Như thể diễn tả một cách chuẩn xác cách mà người đàn ông trưởng thành điềm nhiên thể hiện sự hấp dẫn của mình, hơi thuốc lá tản vào không gian, kéo theo đó là hương da và đậu Tonka làm ấm dần những cảm xúc và miêu tả triệt để sức hút từ anh chàng.",
+        "images": [
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/giorgio-armani-armani-code-edt-ban-moi.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/armani-code-75ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/armani-code-125ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/armani-code.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/giorgio-armani-armani-code-30ml.jpg",
+                "sortOrder": 5
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/giorgio-code-edt-ban-moi-3-dung-tich.jpg",
+                "sortOrder": 6
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Code/giorgio-code-edt-ban-moi.jpg",
+                "sortOrder": 7
+            }
+        ],
+        "variants": [
+            {
+                "volume": 75,
+                "originalPrice": 2800000,
+                "discountPercent": 10,
+                "stockQuantity": 30,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3500000,
+                "discountPercent": 9,
+                "stockQuantity": 30
+            }
+        ]
+    },
+    {
+        "name": "Giorgio Armani Emporio Armani Stronger With You For Men",
+        "brandId": "12",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2017,
+        "fragranceGroup": "Hương vani, Bạch đậu khấu, Cây hạt dẻ",
+        "style": "Nam tính, Tinh tế, Thu hút",
+        "scentNotes": "Hương đầu: Bạch đậu khấu, Hồng tiêu, Lá hoa tím, Bạc hà; Hương giữa: Cây xô thơm, Dưa lưới, THơm, Hoa lavender, Quế; Hương cuối: Vani, Hạt dẻ nâu, Gỗ tuyết tùng, Nhựa cây Amberwood, Gỗ Guaiac",
+        "description": "Hãng Giorgio Armani đã công bố một cặp đôi hoàn toàn mới trong bộ sưu tập nước hoa danh tiếng của hãng, và được ví von là “ Tình yêu hiện đại đích thực trong khướu giác”. Phiên bản nam giới với tên gọi Emporio Armani Stronger With you và phiên bản nữ là Because It’s You được ra mắt cùng lúc nào tháng 6 năm 2017. Emporio Armani Stronger With You được ra mắt trong sự kỳ vọng lớn của hãng Armani, dưới áp lực của những dòng nước hoa danh tiếng kinh điển của hãng như Gio Giorgio Armani hay Armani Code. Với tone mùi hương hoàn toàn khác biệt so với những dòng nước hoa đã từng phát hành của hãng, Chàng trai Emporio Armani sở hữu các tầng hương phức tạp, tạo ra những cảm xúc khó phán đoán. Điều bạn dễ dàng nhận thấy nhất khi lần đầu tiên tiếp xúc với chàng Emporio chính là sự ngọt ngào độc đáo, nhưng cực kỳ nam tính trong cách gợi ý sự chú ý từ đối phương.",
+        "images": [
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Emporio%20Armani%20Stronger%20With%20You%20For%20Men/emporio-armani-stronger-with-you-giorgio-armani.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Emporio%20Armani%20Stronger%20With%20You%20For%20Men/emporio-armani-stronger-with-you-giorgio-armani-for-men.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20Emporio%20Armani%20Stronger%20With%20You%20For%20Men/giorgio-armani-emporio-armani-stronger-with-you-for-men-15ml.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 15,
+                "originalPrice": 650000,
+                "stockQuantity": 0,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2950000,
+                "discountPercent": 12,
+                "stockQuantity": 30
+            }
+        ]
+    },
+    {
+        "name": "Giorgio Armani My Way",
+        "brandId": "12",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2020,
+        "fragranceGroup": "Gỗ tuyết tùng, Hoa nhài, Hoa cam",
+        "style": "Nữ tính, Tinh tế, Sang trọng",
+        "scentNotes": "Hương đầu: Hoa cam, Cam bergamot; Hương giữa: Hoa huệ, Hoa nhài; Hương cuối: Xạ hương, Vanilla, Tuyết tùng",
+        "description": "Nếu bạn đã trót lòng yêu thích Gucci Bloom trứ danh vì tông hương thanh tao, quyến luyến của Huệ và Nhài, thì có lẽ My Way Giorgio Armani sẽ đem đến cho bạn cảm giác còn hơn cả thoả mãn nữa đấy.<br>Mở ra con đường của mình không chút e ngại, My Way đúng như tinh thần phóng khoáng của mình đã bắt đầu với tông hương của Hoa cam quyện cùng chút thanh mát của Cam bergamot. Tất cả chỉ để dự báo cho sự xuất hiện đầy huy hoàng của Hoa huệ cùng Nhài khi tiến sâu hơn vào bóc tách từng lớp hương.<br>Thông thường, các nốt hoa trắng sẽ là ‘thủ lĩnh' và chiếm trọn tất cả các spotlight trong một chai nước hoa, My Way cũng không phải ngoại lệ. Cho đến khi tất cả các nốt hương di chuyển đến con đường cuối cùng, khi có thêm sự xuất hiện của Vanilla. Vẻ ngọt ngào say đắm, bồng bềnh nhưng rất thực, lãng đãng xung quanh bầu không khí, khiến cho nét đẹp ban đầu hơi kiêu kỳ giờ đây trở nên gần gũi đến lạ.",
+        "images": [
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20My%20Way/08a5dcffaec74ed1827a261f229b71a0.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20My%20Way/my-way-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20My%20Way/my-way-2.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20My%20Way/my-way-4.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Giorgio%20Armani/Giorgio%20Armani%20My%20Way/my-way-90ml.jpg",
+                "sortOrder": 5
+            }
+        ],
+        "variants": [
+            {
+                "volume": 15,
+                "originalPrice": 850000,
+                "stockQuantity": 0,
+                "isDefault": true
+            },
+            {
+                "volume": 50,
+                "originalPrice": 3200000,
+                "discountPercent": 23,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 90,
+                "originalPrice": 4103000,
+                "discountPercent": 18,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Hermes Terre D’Hermes EDT",
+        "brandId": "14",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2006,
+        "fragranceGroup": "Hương gỗ cay nồng",
+        "style": "Nam tính, Chững chạc, Phong trần",
+        "scentNotes": "Hương đầu: Quả cam, Quả bưởi; Hương giữa: Tiêu, Chi quỳ thiên trúc; Hương cuối: Cây hoắc hương, Gỗ tuyết tùng, Cỏ hương bài",
+        "description": "Nếu những mùi hương “đương đại” xô bồ đã khiến bạn nhàm chán, hãy một lần tìm đến sự cổ điển, lịch lãm trong không gian mùi hương của Terre d’Hermes - cả một vùng trời đất rộng lớn kỳ diệu mà rồi chàng trai nào cũng sẽ đạt tới độ trưởng thành và bản lĩnh để thưởng thức một lần trong đời.",
+        "images": [
+            {
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/terre-d-hermes-eau-de-toilette-parfumerie.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-chi-nh-ha-ng-jpeg.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-jpeg.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/terre-d-hermes-eau-de-toilette-100ml-parfumerie.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 315000,
+                "stockQuantity": 10,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 615000,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 30,
+                "originalPrice": 920000,
+                "stockQuantity": 10
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2600000,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Gucci Bloom Eau de Parfum For Her",
+        "brandId": "3",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Anh, Đức, Pháp",
+        "releaseYear": 2017,
+        "fragranceGroup": "Hoa huệ, Hoa nhài, Hoa kim ngân",
+        "style": "Quyến rũ, Sang trọng, Quý phái",
+        "scentNotes": "Hương đầu: Hoa nhài; Hương giữa: Hoa huệ; Hương cuối: Hoa sử quân tử",
+        "description": "Gucci Bloom EDP For Her, một mùi hương tiêu biểu cho một nét đẹp thanh thoát và tao nhã chuẩn Ý. Nếu bạn lỡ say đắm mùi hương thanh lịch và quyến rũ của những đoá hoa trắng, thì nhất định bạn sẽ phải 'nghiêng mình ngả mũ' khi bắt gặp mùi hương của Gucci Bloom EDP trên phố.<br>Chưng cất hương thơm của một vườn hoa nào Nhài và Huệ vào buổi sớm, Gucci Bloom EDP toả hương thơm nức lòng người, kiều diễm và tràn đầy sức sống. Ấy thế, đâu đó len lỏi trong từng tầng hương vẫn là chút vị đắng nhưng tươi, bạn có thể lấy mùi hương của Trà để tưởng tượng.<br>Từng phút từng giây trôi qua, ta chỉ ngày càng thêm yêu nét hương ý tứ, sang trọng mà Gucci Bloom EDP chưng cất. Nhiều người hỏi rằng Gucci Bloom EDP phù hợp với độ tuổi nào, mà quả thật thì tôi không biết chắc, vì với tôi, đây là một mùi hương không có tuổi và đẹp đẽ vô vàn.",
+        "images": [
+            {
+                "url": "sample_images/Gucci/Gucci%20Bloom%20EDP%20For%20Her/gucci-bloom-eau-de-parfum.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Gucci/Gucci%20Bloom%20EDP%20For%20Her/gucci-bloom-eau-de-parfum-for-her-30ml.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 30,
+                "originalPrice": 2130000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 4390000,
+                "stockQuantity": 30
+            }
+        ]
+    },
+    {
+        "name": "Gucci Flora Gorgeous Gardenia EDP",
+        "brandId": "3",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Anh, Đức, Pháp",
+        "releaseYear": 2021,
+        "fragranceGroup": "Hoa lê, Đường nâu, Hoa nhài",
+        "style": "Ngọt ngào, Gợi cảm, Mãnh liệt",
+        "scentNotes": "Hương đầu: Hoa lê, Quả mọng đỏ, Quả quýt Ý; Hương giữa: Hoa dành dành, Hoa nhài, Hoa sứ (hoa đại); Hương cuối: Đường nâu, Hoắc hương",
+        "description": "Gucci là một thương hiệu vốn rất thành công trong mảng nước hoa nữ, bằng những mùi hương khai thác nét đẹp mềm mại, nữ tính của các loại hoa và trái cây. Flora by Gucci cũng là một làn hương nữ tính dễ chịu và đáng yêu dành cho các quý cô, thế nhưng thường xuất hiện khá “le lói” trên thị trường dưới dạng những bản phát hành giới hạn theo từng năm hoặc sẽ dừng sản xuất sau vài năm phát hành trên thị trường. Phải đến năm 2021, Gucci mới cho ra một cái tên với ngoại hình cố định và mới mẻ cho dòng hương này, thay vì sử dụng những chiếc chai đựng được lấy cảm hứng từ kiểu dáng của Flora by Gucci năm 1966, ấy là Gucci Flora Gorgeous Gardenia Eau de Parfum.<br>Đựng trong một chiếc chai màu hồng với kiểu dáng như những chiếc lọ trên giá làm việc của một bác sĩ thảo mộc, Gucci Flora Gorgeous Gardenia thật sự sở hữu mùi hương cũng khá “gorgeous” như cái tên và ngoại hình. Với chủ điểm là hoa trắng, Dành dành và Nhài bung tỏa ngay từ những giây phút đầu tiên của mùi hương, được tăng thêm độ ngọt và mọng nước từ Quýt và Quả mọng. Một chút thanh ngọt nịnh mũi của Hoa lê, càng làm tăng thêm nét mịn màng trong từng làn hương hoa trắng trải ra khắp không gian.<br>Được làm ngọt từ Hoa và các thức Trái cây nịnh mũi, nên Gucci Flora Gorgeous Gardenia không phải là một thứ mùi hương ngọt lịm quá trớn, mà thanh thoát, uyển chuyển và đồng thời cũng sở hữu những rung động nữ tính ở mức tinh tế hơn. Khi khô xuống, Gucci Flora Gorgeous Gardenia vẫn tiếp tục duy trì được độ ngọt của mình bằng Đường nâu, nhưng chừng mực và vẫn giữ được khuôn mẫu sang trọng vốn có của mình.",
+        "images": [
+            {
+                "url": "sample_images/Gucci/Gucci%20Flora%20Gorgeous%20Gardenia%20EDP/flora-gorgeous-gardenia-eau-de-parfum-gucci-for-women.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Gucci/Gucci%20Flora%20Gorgeous%20Gardenia%20EDP/flora-gorgeous-gardenia-eau-de-parfum-gucci-for-women-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Gucci/Gucci%20Flora%20Gorgeous%20Gardenia%20EDP/flora-gorgeous-gardenia-eau-de-parfum-gucci-for-women-2.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 5,
+                "originalPrice": 520000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 30,
+                "originalPrice": 2080000,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 100,
+                "originalPrice": 4690000,
+                "discountPercent": 19,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Jimmy Choo Urban Hero for Men",
+        "brandId": "36",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Anh, Pháp",
+        "releaseYear": 2019,
+        "fragranceGroup": "Da thuộc, Gỗ hồng, Cỏ hương bài",
+        "style": "Tươi mới, Nam tính, Lịch lãm",
+        "scentNotes": "Hương đầu: Tiêu đen, Chanh trứng cá; Hương giữa: Gỗ cẩm lai (Gỗ hồng), Cỏ hương bài; Hương cuối: Long diên hương, Da thuộc",
+        "description": "Urban Hero là gương mặt mới được Jimmy Choo giới thiệu vào năm 2019, lấy cảm hứng từ sự phá cách, phong trần, có chút ngông nghênh nhưng lại cực kỳ nam tính, lôi cuốn sự chú ý của mọi người, và là tâm điểm của sức sống đang cuộn trào với cuộc sống đô thị bộn bề đang diễn ra. Jules Delet là gương mặt được Jimmy Choo chọn làm gương mặt đại diện cho hình ảnh của Urban Hero, một nghệ sĩ đường phố nổi tiếng, mang trong mình sự bí ẩn, tự tin cùng với sự nổi loạn một cách thông minh và tinh tế. Urban Hero được tạo ra từ những nguyên liệu cao cấp và quý hiếm, như Chanh trứng cá, một nguyên liệu đắt đỏ, và Gỗ cẩm lai, một loại gỗ quý. Urban Hero mang trong mình hương thơm nam tính đậm mùi da thuộc, mạnh mẽ, khoáng đạt và có sự phong lưu trong cách tỏa mùi. Urban Hero tựa như một làn khói trắng tỏa bay quanh một chiếc ghế da cao cấp được đóng bằng gỗ cẩm lai, nơi người đang ông đang phiêu theo từng nốt nhạc, sạch sẽ và kiệm lời trong ánh mắt, nhưng cuốn hút tuyệt đối bằng phong cách cá nhân đậm chữ 'tôi' của chính bản thân.",
+        "images": [
+            {
+                "url": "sample_images/Jimmy%20Choo/Jimmy%20Choo%20Urban%20Hero%20for%20Men/jimmy_choo_urban_hero_100ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Jimmy%20Choo/Jimmy%20Choo%20Urban%20Hero%20for%20Men/jimmy-choo-urban-hero-for-men-3.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Jimmy%20Choo/Jimmy%20Choo%20Urban%20Hero%20for%20Men/jimmy-choo-urban-hero-for-men-100ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Jimmy%20Choo/Jimmy%20Choo%20Urban%20Hero%20for%20Men/jimmy-choo-urban-hero.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 30,
+                "originalPrice": 1520000,
+                "discountPercent": 14,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 50,
+                "originalPrice": 1820000,
+                "discountPercent": 18,
+                "stockQuantity": 30
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2380000,
+                "discountPercent": 22,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Jo Malone London English Pear & Freesia Cologne",
+        "brandId": "10",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Anh",
+        "releaseYear": 2010,
+        "fragranceGroup": "Quả lê, Hoa diên vĩ, Hoa hồng, Xạ hương",
+        "style": "Nhẹ nhàng, Sang trọng, Gợi cảm",
+        "scentNotes": "Hương đầu: Quả lê, Quả dưa; Hương giữa: Hoa lan Nam Phi, Hoa hồng; Hương cuối: Xạ hương, Hoắc hương, Đại hoàng, Nhựa hổ phách",
+        "description": "Hầu hết mọi người đều biết đến Jo Malone như một nhà hương Anh Quốc chuyên làm những mùi hương nhẹ nhàng, mơn man kiểu Eau de Cologne cổ điển, phải chứ? Jo Malone London English Pear & Freesia Cologne lại là sự khác biệt thú vị với phần còn lại, đôi khi mạnh mẽ lan tỏa, khi lại nhẹ nhàng mơn trớn đúng kiểu Jo Malone, một cách lạ kỳ.<br>Đã có lần, tôi mặc mùi hương này và đi chung thang với hai mẹ con cô bé nọ. Cô bé nhỏ ấy nói với mẹ rằng đang cảm thấy mùi hương hoa quả đang 'nổi dậy'. Thú vị đấy bé con ạ, nhưng chẳng có thứ gì nổi dậy ở đây cả. Chúng chỉ đang thở, những nhịp thở lúc trầm lúc bổng của Quả lê mọng nước và chùm Lan Nam Phi ngọt ngào trong English Pear & Freesia. Hai thức ấy như quấn lấy nhau, dịu dàng tỏa hương trong một không gian nhẹ nhàng và vui tươi.<br>Đúng như cái tên, English Pear & Freesia Cologne là một màn trình diễn hoàn chỉnh của Lan Nam Phi và Quả lê, rồi đến khi khô xuống, Xạ hương dịu dàng xuất hiện, như cùng với hai nốt hương chính vỗ về làn da cùng khứu giác chúng ta cho tới lúc mùi hương biến mất.",
+        "images": [
+            {
+                "url": "sample_images/Jo%20Malone/Jo%20Malone%20London%20English%20Pear%20&%20Freesia%20Cologne/jo-malone-london-english-pear.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Jo%20Malone/Jo%20Malone%20London%20English%20Pear%20&%20Freesia%20Cologne/12.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Jo%20Malone/Jo%20Malone%20London%20English%20Pear%20&%20Freesia%20Cologne/en.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Jo%20Malone/Jo%20Malone%20London%20English%20Pear%20&%20Freesia%20Cologne/jo-malone-london-english-pear-_-freesia-cologne-30ml.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 30,
+                "originalPrice": 2400000,
+                "discountPercent": 19,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3500000,
+                "discountPercent": 16,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Lancôme Trésor L'Eau De Parfum",
+        "brandId": "13",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 1990,
+        "fragranceGroup": "Hương hoa cỏ phương đông",
+        "style": "Quyến rũ, Nữ tính, Gợi cảm",
+        "scentNotes": "Hương đầu: Quả dứa (quả thơm), Hoa tử đinh hương, Quả đào, Hoa mơ, Hoa linh lan thung lũng, Cam Bergamot, Hoa hồng; Hương giữa: Hoa diên vĩ, Hoa nhài, Hoa vòi voi, Hoa hồng; Hương cuối: Quả mơ, Gỗ đàn hương, Hổ phách, Xạ hương, Hương Vani, Quả đào",
+        "description": "Hương thơm của nước hoa Lancôme Trésor đưa người ta vào một không gian đầy ma mị, mê mẩn tâm hồn bằng thứ hoa hồng dại, là lựa chọn chỉnh chu nhất cho người phụ nữ hiểu được giá trị thời gian.",
+        "images": [
+            {
+                "url": "sample_images/Lancome/Lancôme%20Trésor%20L'Eau%20De%20Parfum/2b40a777-009d-4d2f-8382-706689ad3d5b.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Lancome/Lancôme%20Trésor%20L'Eau%20De%20Parfum/1c411d52-fcef-419e-9a6f-0611edec8107.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Lancome/Lancôme%20Trésor%20L'Eau%20De%20Parfum/2dc7760a-7ff9-4d40-b834-934c438a6392.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 365000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 715000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1070000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2950000,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Le Labo Rose 31",
+        "brandId": "22",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Mỹ",
+        "releaseYear": 2006,
+        "fragranceGroup": "Hoa hồng, Cỏ vetiver, Gỗ tuyết tùng",
+        "style": "Cuốn hút, Tinh tế, Sang trọng",
+        "scentNotes": "Hương đầu: Hoa hồng, Thì là (Ai Cập); Hương giữa: Hoa hồng, Cỏ hương bài, Gỗ tuyết tùng; Hương cuối: Xạ hương, Gỗ guaiac, Nhũ hương, Labdanum, Trầm hương",
+        "description": "Khác với những mùi hương truyền thống vốn có, Le Labo Rose 31 đem lại sự quyến rũ vốn có từ những đặc trưng của Hoa hồng đến cho chủ nhân của mình thông qua những từng hương được trau chuốt tỉ mỉ.<br>Gom trọn mọi cảm xúc chỉ trong lần xịt đầu tiên, từng nốt hương ngọt nhẹ, ấm áp từ Cỏ hương bài và Gỗ tuyết tùng dìu dắt sự quyến rũ, thu hút của Hoa hồng lên trên bề mặt da thịt. Nằm trọn bên trên cơ thể, Hoa hồng bám lấy không dứt qua đến tầng hương giữa đến khi những nốt hương Thì là (Ai Cập) tạo ra một chuỗi liên tiếp những mùi hương phảng phất sự hấp dẫn, mềm mại đến lạ kì.<br>Sự trung lập của Le Labo Rose 31 ngày càng được khắc họa rõ hơn sau mỗi đợt hương Xạ phản ứng cùng Gỗ guaiac, Nhũ hương, Labdanum và Trầm hương. Đó là lí do tại sao Le Labo Rose 31 khi tiếp xúc trên cơ thế nam giới, hương thơm sẽ trở nên cá tính, quyến rũ còn lên da nữ thì lại hóa thành gợi cảm, dịu dàng.",
+        "images": [
+            {
+                "url": "sample_images/Le%20Labo/Le%20Labo%20Rose%2031/le_labo_rose_31.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Le%20Labo/Le%20Labo%20Rose%2031/le_labo_rose_31_edp.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Le%20Labo/Le%20Labo%20Rose%2031/31_9b8b3081eefc478eb0e5b12e43abb51b.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 30,
+                "originalPrice": 3850000,
+                "discountPercent": 9,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 50,
+                "originalPrice": 4950000,
+                "discountPercent": 6,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 100,
+                "originalPrice": 6900000,
+                "discountPercent": 6,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Louis Vuitton Apogée EDP",
+        "brandId": "37",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2016,
+        "fragranceGroup": "Hương hoa cỏ trái cây",
+        "style": "Ngọt ngào, Tinh tế, Nữ tính",
+        "scentNotes": "Hương đầu: Trái cam, Trái cam Tangerine; Hương giữa: Hoa mộc lan, Hoa nhài, Hoa hồng, Hoa linh lan thung lũng; Hương cuối: Gỗ Guaiac, Gỗ đàn hương, Xạ hương trắng",
+        "description": "Nước hoa nữ LV Apogée được đánh giá là một trong 3 mùi bán chạy nhất trong bộ sưu tập mới nhất Les Parfums của thương hiệu Louis Vuitton, hương thơm mở ra những khía cạnh nữ tính, thuần khiết và tinh tế hơn trong nét đẹp của phụ nữ.",
+        "images": [
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20Apogée%20EDP/cadf6a86.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20Apogée%20EDP/20e5f90a.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 975000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 1925000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 30,
+                "originalPrice": 2900000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 100,
+                "originalPrice": 10500000,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Louis Vuitton Imagination EDP",
+        "brandId": "37",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Pháp",
+        "releaseYear": 2021,
+        "fragranceGroup": "Nhóm hương cam chanh thơm ngát",
+        "style": "Sang trọng, Hiện đại",
+        "scentNotes": "Hương đầu: quýt Yuzu, cam bergamot Calabria, Cam Sicilia; Hương giữa: Gừng Nigeria, Hoa cam của Tunisia, Quế Ceylon; Hương cuối: Trà đen Trung Quốc, Ambroxan, Olibanum, Gỗ Guaiac",
+        "description": "Louis Vuitton Imagination là sự kết hợp hoàn hảo giữa tinh thần tự do, sáng tạo và phong cách sống hiện đại. Đây là một mùi hương dễ dùng, dễ yêu, và chắc chắn sẽ làm hài lòng những ai đang tìm kiếm một chai nước hoa mùa hè tinh tế nhưng không nhàm chán.",
+        "images": [
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20Imagination%20EDP/z6244204291199.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20Imagination%20EDP/z6244200299218.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 1150000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 2285000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 30,
+                "originalPrice": 3420000,
+                "stockQuantity": 10
+            },
+            {
+                "volume": 100,
+                "originalPrice": 10800000,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Louis Vuitton L’immensité",
+        "brandId": "37",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Pháp",
+        "releaseYear": 2018,
+        "fragranceGroup": "Hương cay nồng phương đông",
+        "style": "Nam tính, Nhẹ nhàng, Phóng khoáng",
+        "scentNotes": "Hương đầu: Cam Bergamot, Gừng, Quả bưởi; Hương giữa: Cây hương thảo, Cây xô thơm, Hoa phong lữ, Hương nước; Hương cuối: Hổ phách, Hương Ambroxan, Hương Labdanum",
+        "description": "Bậc thầy nước hoa Jacques Cavallier Belletrud đã kết tinh những trải nghiệm tuyệt vời của ông trong chuyến hành trình đến vùng biển mát lành, nơi khởi nguồn của chai nước hoa Louis Vuitton L’immensité. Là loại nước hoa đầu tiên trong 5 loại nước hoa Les Parfum Louis Vuitton dành cho nam đơn giản được ra mắt vào năm 2018. Tuy là thiết kế truyền thống nhưng thân chai thủy tinh chắc chắn, được gia công tỉ mỉ từng góc cạnh. Lớp trên cùng là nước thơm, trong vắt, chứa nhiều sương sớm, đã được kết tinh lại để tạo nên L’immensité hoàn hảo để hoàn thiện tinh chất.",
+        "images": [
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20L’immensité/z6988799969966-226fcf4c70d444a34689c4ddd5e754ec.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/LV/Louis%20Vuitton%20L’immensité/z6988799969966-226fcf4c70d444a34689c4ddd5e754ec-1757305759478.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 1300000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 12500000,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Maison Francis Kurkdjian A La Rose",
+        "brandId": "11",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2014,
+        "fragranceGroup": "Hoa hồng Bulgari, Cam bergamot Calabrian, Hoa violet, Gỗ tuyết tùng",
+        "style": "Tinh tế, Nữ tính, Sang trọng",
+        "scentNotes": "Hương đầu: Cam Bergamot (từ Calabria), Quả cam (từ California); Hương giữa: Hoa hồng Bulgaria, Hoa hồng Grasse (Pháp), Hoa Violet, Hoa mộc lan; Hương cuối: Xạ hương, Gỗ tuyết tùng",
+        "description": "Hoa hồng là chủ đề muôn thuở trong thế giới nước hoa, từ những ngày đầu khởi nguồn của hương thơm cho tới ngày nay. Hồng có thể lộng lẫy, đỏng đảnh, choáng ngợp, rồi đôi khi lại e ấp, lấp ló trong màn sương sớm, bởi nó đa màu, đa sắc, giàu thái độ và đầy cảm xúc. Vì vậy, nếu bạn có hứng thú với loài hoa này, và theo đuổi phong cách thư thái nhẹ nhàng như những bông hoa trắng, thì Hoa hồng vẫn sẽ luôn có lựa chọn dành cho bạn, ấy là À La Rose của Maison Francis Kurkdjian.<br>Khoác Maison Francis Kurkdjian À La Rose lên mình, bạn hãy đơn giản tưởng tượng ra rằng mình đang mặc lên một tấm khăn, được dệt từ những cánh hoa hồng mềm mịn như nhung lụa. À La Rose mở ra bằng một bức tranh của vườn hồng sớm mai, tươi tắn, đẫm nước bằng cái thanh mọng của Bergamot, cùng chút ngọt ngào của Cam, tổng hòa ra một buổi sáng dễ chịu nơi vườn hồng mộng mơ. Hồng xuất hiện sớm, xuyên suốt từ đầu tới cuối của mùi hương, ẩm ướt, mềm mại, không đằm thắm và tình tứ như những thứ hoa hồng quen thuộc, cũng không mạnh mẽ bí ẩn như khi kết hợp với Trầm hương.<br>Maison Francis Kurkdjian À La Rose không phải là một thứ hoa hồng nổi bật, nồng nàn hay đánh cướp mọi sự thu hút khi xuất hiện, nhưng chắc chắn là một loài hoa hồng êm dịu, nịnh nọt khứu giác, để bất kỳ ai bắt qua làn hương cũng phải thích thú, quyến luyến.",
+        "images": [
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20A%20La%20Rose/maison-francis-kurkdjian-a-la-rose.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20A%20La%20Rose/maison-francis-kurkdjian-a-la-rose_2.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20A%20La%20Rose/e32e591acc6e40dd9952bbd7e77843e9.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 35,
+                "originalPrice": 3450000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 70,
+                "originalPrice": 6850000,
+                "discountPercent": 8,
+                "stockQuantity": 10
+            },
+            {
+                "volume": 200,
+                "originalPrice": 13535000,
+                "discountPercent": 3,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Maison Francis Kurkdjian Oud",
+        "brandId": "11",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Pháp",
+        "releaseYear": 2012,
+        "fragranceGroup": "Hương Hoa Nghệ Tây, Trầm Hương, Quảng Hoắc Hương",
+        "style": "Tinh Tế, Hấp Dẫn, Thanh Lịch",
+        "scentNotes": "Hương chính: Cây hoắc hương, Gỗ tuyết tùng, Nghệ tây, Gỗ trầm hương, Dấu trám",
+        "images": [
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud/oud-extrait.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud/oud-extrait-100ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud/oud-extrait--de-parfum--70ml.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 745000,
+                "stockQuantity": 0,
+                "isDefault": true
+            },
+            {
+                "volume": 70,
+                "originalPrice": 5350000,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Maison Francis Kurkdjian Oud Satin Mood",
+        "brandId": "11",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Pháp",
+        "releaseYear": 2015,
+        "fragranceGroup": "Hương gỗ phương đông",
+        "style": "Thanh Lịch, Tinh Tế, Độc Đáo",
+        "scentNotes": "Hương chính: Hồng Bulgari, Hồng Thổ Nhĩ Kỳ, Vanilla, Gỗ trầm, Hoa violet, Benzoin",
+        "description": "Hồng chưa bao giờ có thể lãng mạn hơn khi xuất hiện trong ấn phẩm Maison Francis Kurkjian Oud Satin Mood. Cá nhân tôi chỉ thích hoa trắng hoặc những nhóm Cam chanh tươi mát, thế nhưng Oud Satin Mood khiến tôi bất ngờ khi tạo hương vừa mạnh mẽ vừa dịu êm có thể thuyết phục một khứu giác kén chọn này.<br>Hồng trong Oud Satin Mood chững chạc và điềm đạm, không xô bồ và cũng chẳng 'đầy gai'. Được phủ lên thêm hiệu ứng ấm áp, trầm lắng của Oud, giờ đây hợp hương này không đơn thuần chỉ quyến rũ ta mà còn ve vuốt, yêu chiều khứu giác của bất kỳ ai ngửi thấy được.<br>Tôi hay ví von cặp đôi Hồng & Oud có một hiệu ứng mềm mịn như nhung. Tấm vải nhung đỏ thẫm, mặn mà sắc sảo mà ta phải nâng niu rất cẩn thận. Kể cả khi bạn không thích Hồng và cũng chẳng chịu Oud, thì Maison Francis Kurkjian Oud Satin Mood vẫn sẽ có cách của riêng nó để khiến bạn phải để tâm tới mà thôi.",
+        "images": [
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud%20Satin%20Mood/satin-mood-edp.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud%20Satin%20Mood/oud-satin-edp.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud%20Satin%20Mood/oud-sikl-mood.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Maison%20Francis%20Kurkdjian/Maison%20Francis%20Kurkdjian%20Oud%20Satin%20Mood/oud-sikl.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 200,
+                "originalPrice": 15500000,
+                "stockQuantity": 10,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Montblanc Legend Spirit Mini Size",
+        "brandId": "17",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Tây Ban Nha",
+        "releaseYear": 2016,
+        "fragranceGroup": "Hương nước, Hoa oải hương, Qủa bưởi, Cam bergamot",
+        "style": "Tự tin, Nam tính, Hiện đại",
+        "scentNotes": "Hương đầu: Cam Bergamot, Hồng tiêu, Quả bưởi; Hương giữa: Bạch đậu khấu, Hoa Lavender, Hương nước; Hương cuối: Xạ hương trắng, Hương gỗ trắng",
+        "description": "Montblanc công bố Legend Spirit vào năm 2016 và là một phiên bản hoàn toàn mới so với bản gốc từ năm 2011, với khẩu hiệu 'Follow Your Spirit'. Hương thơm thể hiện sự lịch lãm vượt thời gian, từ cổ điển cho tới hiện đại, nhưng vẫn giữ cốt cách nam tính đầy mạnh mẽ của cánh mày râu. Thành phần mùi hương mở đầu bằng sự pha trộn đầy tinh tế giữa Cam bergamot, Bưởi và Hồng tiêu, là mùi hương của sự tự tin và thành đạt. Midnote với sự có mặt của hoa Lavender cùng Bạch đậu khấu, hấp dẫn ánh mắt của mọi cô gái, cùng sự tươi mát của hương nước. Montblanc Legend Spirit là một người đang ông của tương lai dù đang sống ở hiện tại, bởi cách tiếp cận cùng phong cách rất cởi mở, thân thiện, hướng ngoại và chu đáo của mình, cũng chính vì vậy, Montblanc Legend Spirit cũng dễ dàng trở thành người chồng tương lai được chọn của các quý cô đến tuổi trưởng thành.",
+        "images": [
+            {
+                "url": "sample_images/Montblanc/Montblanc%20Legend%20Spirit%20Mini%20Size/montblanc-legend-spirit-mini-size.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Montblanc/Montblanc%20Legend%20Spirit%20Mini%20Size/montblanc-legend-spirit-mini.jpg",
+                "sortOrder": 2
+            }
+        ],
+        "variants": [
+            {
+                "volume": 5,
+                "originalPrice": 400000,
+                "discountPercent": 13,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 8,
+                "originalPrice": 420000,
+                "stockQuantity": 0,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Penhaligon’s Cairo EDP",
+        "brandId": "19",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Anh",
+        "releaseYear": 2019,
+        "fragranceGroup": "Vanilla, Hoa hồng",
+        "style": "Quyến rũ, Tinh tế, Sang trọng",
+        "scentNotes": "Hương đầu: Hoa hồng Đan Mạch, Nghệ Tây; Hương giữa: Vanilla, Tinh Dầu Hương Phụ – Cỏ Cú, Labdanum; Hương cuối: gỗ đàn hương, Quảng hoắc hương, tuyết tùng",
+        "description": "Penhaligon’s Lothair được lấy cảm hứng từ một thành phố cổ kính, hay còn biết đến là thủ đô của Ai cập được lớp ánh sáng mặt trời phủ lên trông rất ấm áp. Cairo của Penhaligon’s có chứa Hoa hồng Damascan tinh tế, được ngâm trong vô số loại gỗ và gia vị. Một hương thơm trang trí đầy thủ công, tinh xảo và xa hoa vang vọng với nghệ tây và trầm hương, được cho là nước hoa của các vị thần, mùi hương kết thúc với hoắc hương và vani ở hương cuối để tạo cảm giác yên tâm quen thuộc như một buổi hoàng hôn từ đất nước của Thần Linh.",
+        "images": [
+            {
+                "url": "sample_images/Penhaligon’s/Penhaligon’s%20Cairo%20EDP/z5041737871872.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Penhaligon’s/Penhaligon’s%20Cairo%20EDP/02361d89.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Penhaligon’s/Penhaligon’s%20Cairo%20EDP/z5041737869705.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 620000,
+                "discountPercent": 4,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 5500000,
+                "discountPercent": 4,
+                "stockQuantity": 20,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Prada L'Homme Intense",
+        "brandId": "16",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp, Tây Ban Nha",
+        "releaseYear": 2017,
+        "fragranceGroup": "Hoa diên vĩ, Đậu tonka, Da thuộc",
+        "style": "Nam tính, Tự tin, Hiện đại, Cuốn hút",
+        "scentNotes": "Hương đầu: Hoa Diên Vĩ; Hương giữa: Quảng Hoắc Hương, Hổ Phách; Hương cuối: Da Thuộc, Đậu Tonka, Gỗ Đàn Hương",
+        "description": "Bộ đôi nước hoa mới của Prada, Prada La Femme và Prada L'Homme, ra mắt thị trường vào giữa năm 2016. Một năm sau, các chế phẩm được cải tiến ở nồng độ Eau de Parfum Intense và đã mang lại những tiếng tăm vang dội trong giới mộ điệu mùi hương.<br>Prada L'Homme Intense hứa hẹn 'một trải nghiệm nhiều tầng' và cải tiến từ mùi hương của hoa diên vĩ kết hợp cùng hổ phách với bộ đôi hương da thuộc và hoắc hương, trong khi đậu tonka mang đến cho nó một dấu ấn phương Đông. Mục tiêu của mùi hương và dáng chai mờ đục là gợi lên 'bản chất khó nắm bắt của người đàn ông Prada đa diện'.",
+        "images": [
+            {
+                "url": "sample_images/Prada/Prada%20L'Homme%20Intense/prada_l_homme_intense.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Prada/Prada%20L'Homme%20Intense/prada-l_homme-intense-2.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Prada/Prada%20L'Homme%20Intense/prada-l_homme-intense.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Prada/Prada%20L'Homme%20Intense/prada-l_homme.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 3520000,
+                "discountPercent": 9,
+                "stockQuantity": 20,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Prada Luna Rossa Carbon",
+        "brandId": "16",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Anh, Pháp",
+        "releaseYear": 2017,
+        "fragranceGroup": "Hương Ambroxan, Hoa lavender, Hương kim loại",
+        "style": "Lịch lãm, Nam tính, Cuốn hút",
+        "scentNotes": "Hương đầu: Cam Bergamot, Tiêu; Hương giữa: Hoa Oải Hương, Cồn đất cát, Hương của nước, Hương kim loại, Than đá; Hương cuối: Cây hoắc hương, Hương Ambroxan",
+        "description": "Prada Luna Rossa Carbon được ra mắt vào năm 2017 dưới sự sáng tạo của chuyên gia nước hoa Daniela Andrier. Một đứa con xuất sắc trong đại gia đình Luna Rossa của Prada với triết lý thiết kế mùi hương đầy nam tính dựa theo nhóm hương kinh điển Ambroxan và Hoa lavender. Hẳn đã rất nhiều người mê mẩn và đắm chìm trong các note hương Ambroxan hay Lavender trong Dior Sauvage hay Versace Eros, hai chai nước hoa làm mưa làm gió và đại diện cho sự quyến rũ một cách đầy nam tính của hai thương hiệu hàng đầu.<br> Nhiều sự so sánh về các tầng hương của Prada Luna Rossa Carbon dành cho hai nhân vật kia, về cảm giác, về các note hương hay về cảm xúc mang lại. Bản thân Prada Luna Rossa Carbon mang trong mình sự quyến rũ đầy khiêu khích của Dior Sauvage EDT ngay cú xịt đầu tiên, đó là khi Lavender và Ambroxan hoạt động hết công suốt, tạo ra sự mạnh mẽ một cách tuyệt đối, thì sự tham gia của cam bergamot lại làm tươi mát cùng sự tròn vị của tiêu đen khiến cái gắt ở tầng hương đầu của Prada Luna Rossa Carbon giảm đi đáng kể. Việc có thêm than đá, đúng như cái tên hãng đặt, Carbon chính là sự khác biệt ở chàng trai hấp dẫn này, nó khiến anh chàng này định hình được phóng cách của mình, sự mạnh mẽ cuốn hút nhưng rất lạnh lùng.<br>Vị ngọt nhẹ và đầy sức hút của lavender ở base note kết hợp cùng hương nước lại khiến bản thân nhiều người so sánh với gã thần tình yêu Versace Eros, điều này chỉ duy trì trong khoảng thời gian ngắn khi Prada Luna Rossa Carbon xuống da sau 20 phút mà thôi. Nếu bạn hỏi tôi Prada Luna Rossa Carbon phù hợp vào thời gian nào và phù hợp với đối tượng nào, thì với khía cạnh cá nhân, gã này phù hợp cho mọi không gian và thời gian, sự cân bằng giữa vị ngọt và thanh tươi ở Prada Luna Rossa Carbon là điều khiến gã này trở nên hoàn hảo. Và với những người đàn ông trẻ trung nhưng lại trưởng thành, hiện đại, thì Prada Luna Rossa Carbon là thứ không nên thiếu trọng bộ sưu tập của chính mình.",
+        "images": [
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada_luna_rossa_carbon.jpg",
+                "sortOrder": 1,
+                "isThumbnail": true
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada_luna_rossa_carbon_edt.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada-luna-rossa-carbon-1.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada-luna-rossa-carbon-9ml.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada-luna-rossa-carbon-50ml.jpg",
+                "sortOrder": 5
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Carbon/prada-luna-rossa-carbon.jpg",
+                "sortOrder": 6
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 2080000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3040000,
+                "discountPercent": 1,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Prada Luna Rossa Ocean",
+        "brandId": "16",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2021,
+        "fragranceGroup": "Hoa oải hương, Cam bergamot, Hoa diên vĩ",
+        "style": "Nam tính, Tươi mát, Hấp dẫn",
+        "scentNotes": "Hương đầu: Cam bergamot, Tiêu hồng, Ngải cứu; Hương giữa: Oải hương, Hoa diên vĩ, Xô thơm, Da lộn, Nhuỵ hoa nghệ tây; Hương cuối: Xạ hương, Cỏ hương bài, Hoắc hương, Caramel",
+        "description": "Prada vẫn luôn được biết đến với phong cách làm hương tinh tế chuẩn mực, thể hiện rõ nét nam tính nhưng không hề đi theo 'lối mòn' tác chế. Chính thế, những ấn phẩm hương thơm khoác tên Prada vẫn luôn giữ được sự yêu thích của người nghiện hương mặc cho sự bào mòn của thời gian và thời đại.<br>Đừng để cái tên Luna Rossa Ocean khiến bạn lầm tưởng rằng đây là mùi hương của nước, của biển. Dầu cho thực sự có một nét tính cách rất dễ chịu, nhưng Prada Luna Rossa Ocean lại được làm nên trước tiên bởi những nét hương của Cam chanh. Từ tông vị thanh chua ấy, Hoa diên vĩ và Xạ hương mới dần phủ lên một lớp phấn, bông bông mịn màng, làm dịu dàng đi tổng thể nhưng vẫn nam tính hiện đại bởi Xô thơm và Cỏ hương bài.<br>Oải hương là một nét hương sáng, nói thế không có nghĩa sự xuất hiện của loài hoa này sẽ giảm đi chiều sâu sắc của mùi hương, mà 'sáng' ở đây tượng trưng cho hiệu ứng miên man, nồng đượm mà nó đã gíup tôn lên cho tổng thể. Tinh tế, phong cách, hiện đại, đó là những gì ta có thể tóm gọn về Prada Luna Rossa Ocean.",
+        "images": [
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Ocean/prada-ocean-100ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Ocean/ocean-50ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Ocean/ocean.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 2299000,
+                "discountPercent": 11,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2800000,
+                "stockQuantity": 20
+            }
+        ]
+    },
+    {
+        "name": "Prada Luna Rossa Sport EDT",
+        "brandId": "16",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Anh, Pháp",
+        "releaseYear": 2015,
+        "fragranceGroup": "Hoa oải hương, Hương vanila, Đậu tonka",
+        "style": "Nổi bật, Hấp dẫn, Hiện đại",
+        "scentNotes": "Hương đầu: Quả bách xù, Gừng; Hương giữa: Oải hương; Hương cuối: Vanilla, Đậu Tonka",
+        "description": "Có vẻ như trong những mùi hương đến từ dòng Luna Rossa của Prada, thì Sport là một cái tên khác biệt nhất so với những người anh em đồng trang lứa, và cũng là một nhân vật “thiếu” DNA Prada nhất trong kho nước hoa của nhà mốt đến từ Ý.<br>Prada Luna Rossa Sport Eau de Toilette không khai thác mùi hương từ những nốt quen thuộc với fan của Prada, là Diên vĩ, Phấn hay Hổ phách, cũng không phải là đất diễn của các nốt hương tổng hợp đại diện cho một xu hướng mùi hương hiện đại như những người anh em Luna Rossa. Khởi đầu với Bách xù và Gừng, những nốt hương quen thuộc với người yêu nước hoa cổ điển, mở ra một chút tươi thanh lịch, gọn gàng và sạch sẽ. Oải hương vẫn nắm giữ vị trí trung tâm trong Luna Rossa Sport, gia tăng màu sắc thanh lịch cổ điển trong mùi hương, với một thái độ nhã nhặn nền nã. Cùng với Oải hương, mùi hương này đem tới một vị ngọt dịu, hơi ngậy và mềm mại, đem lại cảm giác mãnh liệt hơn để đúng với cái tên Sport, được tạo thành bởi Vanilla và Đậu Tonka.<br>Thật khó hiểu khi với mùi hương này, Prada lại đặt cho nó một cái tên là Sport. Nhưng Luna Rossa Sport là một chai nước hoa dễ chịu, nịnh mũi và có thể đáp ứng bất kỳ yêu cầu nào đến từ các quý ông. Đó là sự ngọt ngào, dễ mến và nét thanh lịch chỉn chu.",
+        "images": [
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Sport%20EDT/prada-luna-rossa-sport-edt.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Sport%20EDT/prada-luna-rossa-sport-eau-de-toilette-50ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Sport%20EDT/prada-luna-rossa-sport-eau-de-toilette-100ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Sport%20EDT/prada-luna-rossa-sport-eau-de-toilette-150ml.jpg",
+                "sortOrder": 4
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Luna%20Rossa%20Sport%20EDT/prada-luna-rossa-sport-eau-de-toilette.jpg",
+                "sortOrder": 5
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 1980000,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2800000,
+                "stockQuantity": 20
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3800000,
+                "stockQuantity": 10
+            }
+        ]
+    },
+    {
+        "name": "Prada Paradoxe Virtual Flower",
+        "brandId": "16",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2024,
+        "fragranceGroup": "Hương Hoa Nhài, Hoa Cam Đắng, Cam Bergamot",
+        "style": "Nhẹ Nhàng, Tươi Mát, Cuốn Hút",
+        "scentNotes": "Hương đầu: Cam Bergamot; Hương giữa: Hoa nhài, Hoa cam; Hương cuối: Xạ hương, Hạt vông vang (Ambrette)",
+        "description": "Khi hương hoa trắng chạm đến thế giới mộng ảo<br>Ra mắt năm 2024, Paradoxe Virtual Flower là chương tiếp theo đầy mới mẻ của nhà mốt Prada trong bộ sưu tập Paradoxe, nơi vẻ đẹp nữ tính được tái hiện qua lăng kính hiện đại cùng sự tươi trẻ giàu năng lượng. Mùi hương này như một đoá hoa trắng bước ra từ giấc mơ, nhẹ nhàng nhưng vẫn đầy ấn tượng, như một lựa chọn đẹp của những cô nàng yêu sự tinh tế mà chẳng ngại khác biệt.<br>Mở đầu là Cam Bergamot từ Calabria, một khởi đầu mát lành, sáng bừng và mang lại cảm giác như làn gió đầu ngày lướt qua làn da. Sự tươi mát ấy là tấm nền tuyệt đẹp dẫn tới sự bung nở của Nhài và Hoa cam: nữ tính, mềm mại và thoảng chút ngọt, như một nụ cười nhẹ luôn khắc dấu trong tim nếu lỡ lọt tầm mắt. Sự nữ tính đẹp đẽ ấy lan tỏa trên lớp nền gợi cảm trong trẻo được thiết lập bởi Xạ hương trắng và Hạt vông vang (Một loại 'xạ hương' thực vật), để viết lại một điểm kết cho Paradoxe Virtual Flower bằng sự ấm áp, như mùi da sạch thoảng hương hoa, lưu luyến và đầy cảm xúc.<br>Virtual Flower là lựa chọn lý tưởng cho những ngày bạn muốn bản thân trở nên nhẹ tênh, tự do nhưng vẫn có điểm nhấn rất riêng. Thích hợp với mùa xuân - hè, cả ban ngày lẫn buổi tối, như là một hương thơm đặc trưng ấn tượng mà không phô trương, và luôn khiến người khác muốn lại gần thêm chút nữa.",
+        "images": [
+            {
+                "url": "sample_images/Prada/Prada%20Paradoxe%20Virtual%20Flower/prada-paradoxe-virtual-flower.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Paradoxe%20Virtual%20Flower/prada-paradoxe-virtual-flower_90ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Paradoxe%20Virtual%20Flower/prada-paradoxe-virtual-flower-90ml-full.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Prada/Prada%20Paradoxe%20Virtual%20Flower/prada-paradoxe-virtual-flower-edp-90ml-full.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 90,
+                "originalPrice": 4280000,
+                "stockQuantity": 10,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Salvatore Ferragamo Savane di Seta",
+        "brandId": "28",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Ý",
+        "releaseYear": 2021,
+        "fragranceGroup": "Bơ diên vĩ, Gỗ đàn hương, Hạt cà rốt",
+        "style": "Cuốn hút, Nổi bật, Tinh tế",
+        "scentNotes": "Hương đầu: Hạt cà rốt; Hương giữa: Rễ cây diên vĩ; Hương giữa: Gỗ đàn hương",
+        "description": "Có bao giờ bạn bắt gặp một vẻ đẹp bất bình thường vì quá đơn giản chưa? Tối giản có thể là một xu hướng, nhưng Savane di Seta còn bình dị hơn cả tối giản nữa. Tất nhiên, nói thế không có nghĩa mùi hương này được tạo nên xuề xoà hay không công kỹ, chỉ là vẻ đẹp này quá lạ lẫm so với hằng hà sa số những “bình hoa di động” trên thị trường hiện nay.<br>Không có lấy một nốt hương Hoa hay Trái cây, nhưng Savane di Seta có thể mau chóng khiến ta thấy dễ chịu, được ve vuốt với hương vị bồng bềnh, hơi phấn của Rễ cây diên vĩ. Nét hương phấn này của Rễ cây diên vĩ không quá nữ tính, hơi ướm một chút đất và có những nét màu tối nếu ngửi kỹ.<br>Để làm dày thêm và tạo chiều sâu cho tổng thể mùi hương, Savane di Seta đã chỉ sử dụng đúng duy nhất mùi hương của Gỗ đàn hương với tông vị ấm áp, ngọt đậm đặc trưng. Thế đấy, chỉ với vỏn vẹn những nốt hương này thôi, đơn giản quá sức tưởng tượng, nhưng ấn tượng mà bạn sẽ có với Savane di Seta không hề đơn giản như vậy đâu.",
+        "images": [
+            {
+                "url": "sample_images/Salvatore%20Ferragamo/Salvatore%20Ferragamo%20Savane%20di%20Seta/salvatore-ferragamo-savane-di-seta.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Salvatore%20Ferragamo/Salvatore%20Ferragamo%20Savane%20di%20Seta/salvatore-ferragamo-savane-di-seta-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Salvatore%20Ferragamo/Salvatore%20Ferragamo%20Savane%20di%20Seta/salvatore-ferragamo-savane-di-seta-100ml.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 2816000,
+                "discountPercent": 18,
+                "stockQuantity": 15,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Thierry Mugler Alien",
+        "brandId": "26",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2005,
+        "fragranceGroup": "Hoa nhài, Hổ phách, Gỗ",
+        "style": "Bí ẩn, Quyến rũ, Nổi bật",
+        "scentNotes": "Hương đầu: Hoa nhài.; Hương giữa: Hương gỗ.; Hương cuối: Nhựa hổ phách.",
+        "description": "Thierry Mugler là một người có cá tính mạnh mẽ, thể hiện rõ qua tất cả những thứ ông tạo ra, từ những bộ trang phục ông đã từng thiết kế, hay những mùi hương khi chuyển sang tập trung vào Mugler Perfumes. Nước hoa của Mugler phần lớn đều được đón nhận nồng nhiệt từ người dùng, hoặc là những mùi hương được giới chuyên sâu đánh giá cao như dòng A*Men, Mirror Mirror hay đặc biệt là Les Exceptions, hoặc là thỏa mãn được nhu cầu của đại chúng và trở thành một “best-seller”. Alien là một cái tên thỏa mãn đại chúng như vậy, nổi tiếng và trở thành một di sản đặc trưng của Mugler.<br>Alien nối tiếp sự thành công của người chị Angel đi trước và đã duy trì được danh tiếng của Thierry Mugler trong ngành nước hoa, với một thủ pháp làm hương ngược lại hoàn toàn. Alien đánh vào sự đơn giản, không phải một mùi hương ngọt ngào đầy phức tạp như Angel, mà khai thác vẻ đẹp nữ tính gợi cảm của hương thơm chỉ trong hai nốt: Hoa nhài và Nhựa hổ phách, cùng một chút xíu gia giảm bằng hương Gỗ. Alien đại diện cho sự hỗn mang đúng với màu tím huyền diệu của chai nước hoa này, với mùi hương chuyển qua lại giữa các sắc thái cảm xúc. Khi thì tươi tắn mềm mại với Nhài, khi lại gợi cảm, quyến rũ và tối màu hơn với Nhựa hương, lúc lại lơ lửng ở giữa, tạo ra cảm xúc thú vị cho người thưởng thức. Một mùi hương không phức tạp, nhưng có thái độ, ở giữa và biến chuyển qua lại, vừa ngây thơ hiền dịu mà lại rất “đàn bà”.<br>Alien thực tế không dành cho số đông, và ai yêu thích nó thường đều đã xây dựng được những cá tính riêng về việc chọn mùi hương cho bản thân. Alien đủ đằm thắm, cũng chẳng thiếu nồng nhiệt, mạnh mẽ bung tỏa trên làn da.",
+        "images": [
+            {
+                "url": "sample_images/Thierry%20Mugler/Thierry%20Mugler%20Alien/thierry-mugler-alien-edp.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Thierry%20Mugler/Thierry%20Mugler%20Alien/thierry-mugler-alien.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Thierry%20Mugler/Thierry%20Mugler%20Alien/alien-2.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 395000,
+                "stockQuantity": 15,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 790000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1185000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 100,
+                "originalPrice": 3200000,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Tom Ford Ombré Leather",
+        "brandId": "8",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Mỹ",
+        "releaseYear": 2018,
+        "fragranceGroup": "Hương da thuộc",
+        "style": "Sang trọng, Ấm áp, Cổ điển",
+        "scentNotes": "Hương Đầu: Bạch đậu khấu; Hương giữa: Hoa nhài Sambac, Da thuộc; Hương cuối: Cây hoắc hương, Hổ phách, Rêu sồi Moss",
+        "description": "Nước hoa Tom Ford Ombré Leather không phải là một mùi hương dễ ngửi, nhưng càng ngửi thì bạn sẽ càng yêu thích. Mùi hương đâu đó là dư âm của sự cổ điển, tươi mát và cũng chính sự cá tính này đã tạo nên sự không giới hạn để cả chàng và nàng đều có thể thưởng thức.",
+        "images": [
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather/tom-ford-ombre-leather-100ml.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather/tom-ford-ombre-leather.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather/tom-ford-ombre-leather-ads.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 575000,
+                "stockQuantity": 15,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 1135000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 30,
+                "originalPrice": 1700000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 100,
+                "originalPrice": 4500000,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Tom Ford Ombre Leather Parfum",
+        "brandId": "8",
+        "categoryId": "3",
+        "gender": "unisex",
+        "origin": "Mỹ, Thuỵ Sĩ",
+        "releaseYear": 2021,
+        "fragranceGroup": "Da thuộc, Lá hoa violet, Hoa nhài Sambac",
+        "style": "Sang trọng, Thanh lịch, Quyến rũ, Gây nghiện",
+        "scentNotes": "Hương đầu: Lá Violet và Tuyết Tùng; Hương giữa: Hoa Nhài Sambac và Orris;  Hương cuối: Da Thuộc, Hương Gỗ và Thuốc Lá.",
+        "description": "Sự xuất hiện của siêu phẩm Tom Ford Ombre Leather vào năm 2018 đã tạo ra một làn sóng dữ dội bởi mùi hương Da Thuộc chủ đạo vô cùng nam tính.<br>Sau 3 năm, tức là năm 2021, một phiên bản mới nhất được ra mắt - Tom Ford Ombre Leather Parfum cùng những hình thái mới của một gã đàn ông được mô phỏng từ một khía cạnh khác biệt và vô cùng đặc biệt.<br>Tầng hương đầu xuất hiện cùng với mùi hương Gỗ Tuyết Tùng và Lá Violet đã mang đến một hỗn hợp cân bằng đầy tinh tế, mùi hương thanh ngọt hòa cùng hương trầm ấm của gỗ là một điều vô cùng táo bạo để mang lại một sự khác biệt đầy cá tính.<br>Phía tầng hương sau là sự xuất hiện của Hoa Nhài Sambac, có lẽ ở phiên bản Parfum dù được nâng cấp ở phần nồng độ tinh dầu để mùi hương trở nên mạnh mẽ hơn thì phần xuất hiện của Hoa Nhài Sambac lại đi ngược lại hoàn toàn với định hướng mùi hương của Ombre Leather, phần hoa Nhài có phần dày mùi hương thanh tươi hơn như 1 cách để nhìn vào gã đàn ông bụi bặm phong trần kia bằng một khía cạnh sâu sắc hơn với tâm hồn cũng yếu đuối cũng muốn được đồng cảm.<br>Ombre Leather Parfum là nguồn cảm hứng bất tận đến từ khu vực miền Tây Nước Mỹ, nơi mà sự bụi bặm và phong trần của những gã cao bồi với chiếc áo da đang trầm ngâm với những điếu thuốc dang dở.<br>Mùi hương của Da Thuộc được khai thác rõ rệt và mạnh mẽ hơn để tạo ra những dấu ấn đúng tinh thần như cái tên đã được sinh ra - Ombre Leather Parfum. Ngoài ra, sự kết hợp với thuốc lá đã thực sự khiến Ombre Leather một lần nữa lại ghi dấu ấn trong lòng giới mộ điệu mùi hương.",
+        "images": [
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather%20Parfum/ombre-leather-parfum-tom-ford.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather%20Parfum/ombre-leather-parfum-tom-ford-1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather%20Parfum/ombre-leather-parfum-tom-ford-2.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Tom%20Ford/Tom%20Ford%20Ombré%20Leather%20Parfum/ombre-leather-parfum-tom-ford-3.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 4250000,
+                "discountPercent": 9,
+                "stockQuantity": 15,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Valentino Donna Born In Roma Green Stravaganza",
+        "brandId": "18",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2024,
+        "fragranceGroup": "Hương Trà Đen Lapsang Souchong, Hoa Nhài, Vanila",
+        "style": "Ngọt Ngào, Tươi Mới, Quyến Rũ",
+        "scentNotes": "Hương đầu: Trà Chánh san tiểu chủng (Lapsang Souchong Tea); Hương giữa: Hoa Nhài; Hương cuối: Vanilla",
+        "description": "Ra mắt vào năm 2024, Valentino Donna Born in Roma Green Stravaganza là lời thì thầm đầy sức sống đến từ kinh đô hoa lệ, nơi những khu vườn thanh mát của Rome được tái hiện qua từng tầng hương. Với thiết kế chai màu xanh lục bắt mắt, cùng họa tiết Rockstud đặc trưng, đây không chỉ là một chai nước hoa, mà là một tuyên ngôn phong cách cho người phụ nữ hiện đại, biết tận hưởng cuộc sống theo cách riêng.<br>Mùi hương mở đầu bằng trà Lapsang Souchong, nhẹ nhàng, có chút khói quyện đầy thư giãn, như một buổi chiều thảnh thơi giữa khu vườn xanh. Khi hương trà dần dịu xuống, hoa nhài bắt đầu nở rộ mềm mại, trong trẻo và nữ tính đến khó quên. Cuối cùng, tất cả được ôm ấp trong lớp nền vanilla ấm ngọt, dịu dàng lưu lại trên da như dư âm của một ánh nhìn tinh tế.<br>Donna Green Stravaganza là lựa chọn lý tưởng cho những nàng yêu nét đẹp tự nhiên, không gồng gánh chỉ cần một lớp hương nhẹ đủ khiến người khác ngoái nhìn. Phù hợp cho cả ban ngày lẫn buổi tối, đặc biệt là những dịp bạn muốn mang theo mình một chút tự do, thanh mát và nữ tính có chiều sâu.",
+        "images": [
+            {
+                "url": "sample_images/Valentino/Valentino%20Donna%20Born%20In%20Roma%20Green%20Stravaganza/valentino-donna-born-in-roma-green-stravaganza.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Donna%20Born%20In%20Roma%20Green%20Stravaganza/n__c-hoa-valentino-donna-born-in-roma-green-stravaganza-100ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Donna%20Born%20In%20Roma%20Green%20Stravaganza/valentino-donna-born-in-roma-green-stravaganza-100ml.-full.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Donna%20Born%20In%20Roma%20Green%20Stravaganza/valentino-donna-born-in-roma-green-stravaganza-100ml.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 3980000,
+                "stockQuantity": 15,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Valentino Uomo Born In Roma Green Stravaganza",
+        "brandId": "18",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Pháp",
+        "releaseYear": 2024,
+        "fragranceGroup": "Hương Cam Bergamot, Cà Phê, Cỏ Hương Bài",
+        "style": "Tinh Tế, Nam Tính, Nhẹ Nhàng",
+        "scentNotes": "Hương đầu: Cam Bergamot; Hương giữa: Cà phê; Hương cuối: Cỏ hương bài",
+        "description": "Khi bản lĩnh được tỏa sáng giữa vườn xanh rực rỡ<br>Ra mắt vào năm 2024, Valentino Uomo Born in Roma Green Stravaganza là một chương mới đầy năng lượng trong bộ sưu tập Born in Roma. Lấy cảm hứng từ những khu vườn đậm chất Ý giữa lòng thành Rome, mùi hương là sự tôn vinh cá tính tự do, sôi nổi và bản lĩnh của người đàn ông hiện đại, luôn chọn sống khác biệt.<br>Ngay từ những nốt đầu tiên, Green Stravaganza mở ra với cam Bergamot vùng Calabria, tươi sáng, rạng rỡ như ánh nắng Địa Trung Hải. Khi lớp hương lắng lại, nốt cà phê dần hiện lên, với chút mạnh mẽ, gợi cảm và tràn đầy năng lượng, như nhịp sống sôi động của thành phố. Kết thúc của hương thơm là sự kết hợp tinh tế giữa Cỏ hương bài ấm khô nồng nàn đầy quyến rũ, để lại một dấu ấn vừa chín chắn vừa cá tính.<br>Đây là mùi hương dành cho những người đàn ông yêu thích sự bứt phá nhưng vẫn giữ vững bản sắc riêng. Phù hợp trong những buổi hẹn hò, tiệc tối hay bất kỳ khoảnh khắc nào bạn muốn tỏa sáng một cách lịch lãm, cuốn hút và đầy khác biệt.",
+        "images": [
+            {
+                "url": "sample_images/Valentino/Valentino%20Uomo%20Born%20In%20Roma%20Green%20Stravaganza/valentino-uomo-born-in-roma-green-stravaganza.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Uomo%20Born%20In%20Roma%20Green%20Stravaganza/n__c-hoa-valentino-uomo-born-in-roma-green-stravaganza-100ml.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Uomo%20Born%20In%20Roma%20Green%20Stravaganza/valentino-uomo-born-in-roma-green-stravaganza-100ml.-full.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Valentino/Valentino%20Uomo%20Born%20In%20Roma%20Green%20Stravaganza/valentino-uomo-born-in-roma-green-stravaganza-100ml.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 100,
+                "originalPrice": 3050000,
+                "stockQuantity": 15,
+                "isDefault": true
+            }
+        ]
+    },
+    {
+        "name": "Versace Eros For Men",
+        "brandId": "4",
+        "categoryId": "1",
+        "gender": "nam",
+        "origin": "Ý",
+        "releaseYear": 2012,
+        "fragranceGroup": "Hương thơm dương xỉ",
+        "style": "Nam tính, Gợi cảm, Thu hút",
+        "scentNotes": "Hương đầu: Cây bạc hà, Táo xanh, Quả chanh vàng; Hương giữa: Đậu Tonka, Hoa phong lữ, Hương Ambroxan; Hương cuối: Hương Va ni Madagascar, Cỏ hương bài, Rêu sồi, Gỗ tuyết tùng Virginia 2, Gỗ tuyết tùng Atlas",
+        "description": "Nước hoa nam quyến rũ Versace Eros For Men EDT là mùi hương phù hợp với bất kỳ người đàn ông nào, nhưng với Parfumerie nó phù hợp hơn với những người đàn ông trưởng thành đầy bản lĩnh, cầm lên được thì bỏ xuống được, thôi thúc họ thể hiện được cái tôi một cách thông minh.",
+        "images": [
+            {
+                "url": "sample_images/Versace/Versace%20Eros%20For%20Men/versace-eros-for-men.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/Versace/Versace%20Eros%20For%20Men/eros-2.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/Versace/Versace%20Eros%20For%20Men/versace-eros-edt-200ml.jpg",
+                "sortOrder": 3
+            },
+            {
+                "url": "sample_images/Versace/Versace%20Eros%20For%20Men/versace-eros-for-men-2.jpg",
+                "sortOrder": 4
+            }
+        ],
+        "variants": [
+            {
+                "volume": 10,
+                "originalPrice": 285000,
+                "stockQuantity": 15,
+                "isDefault": true
+            },
+            {
+                "volume": 20,
+                "originalPrice": 555000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 30,
+                "originalPrice": 830000,
+                "stockQuantity": 15
+            },
+            {
+                "volume": 100,
+                "originalPrice": 2150000,
+                "stockQuantity": 15
+            }
+        ]
+    },
+    {
+        "name": "Yves Saint Laurent Libre EDT",
+        "brandId": "6",
+        "categoryId": "2",
+        "gender": "nữ",
+        "origin": "Pháp",
+        "releaseYear": 2021,
+        "fragranceGroup": "Trà lài, Hoa cam, Hoa nhài",
+        "style": "Tưới mới, Tự do, Quyến rũ",
+        "scentNotes": "Hương đầu: Oải Hương, Cam Bergamot, Quả Quýt; Hương giữa: Trà Nhài, Hoa Cam, Hoa Nhài; Hương cuối: Xạ Hương, Long Diên Hương, Vanilla.",
+        "description": "Libre (2019 - EDP) là một mùi hương thành công của YSL khi được đón nhận nồng nhiệt từ cả người dùng và những chuyên gia, với việc ẵm rất nhiều giải thưởng được bình chọn bởi người tiêu dùng, các tổ chức uy tín (Trong đó có cả FiFi). Tiếp nối sự thành công đó Yves Saint Laurent quyết định cho ra mắt thêm flankers cho dòng nước hoa này vào 2020 và 2021, đó là phiên bản Libre Intense (2020) và Libre Eau de Toilette (2021).<br>Đúng với tinh thần EDT, Libre EDT vẫn khai thác mạnh mẽ vào một mùi Oải hương nhiều phấn rất nữ tính và được chị em yêu thích từ Libre, cùng hương hoa Cam và Nhài ngọt dịu tôn thêm lên cái sự nữ tính ấy,  tươi và dịu hơn với hương thơm thanh khiết của Trà. Trà Nhài, pha thêm một chút hoa Cam, và nhiều phấn, vẫn giữ cái tinh thần “nữ quyền” mạnh mẽ ở phiên bản gốc nhưng đã phần nào đó thanh khiết và lả lướt hơn.<br>Về cuối, khác với Libre Intense khi cường điệu note hương ngọt ngào của Vanilla bằng Coumarin (Đậu tonka), Libre EDT lại bớt ngọt hơn, phấn hơn 1 chút và thanh lịch hơn. Điều này chắc chắn sẽ làm cho Libre EDT bớt “sexy” hơn trong mắt các chị em hảo ngọt, nhưng lại khiến mùi hương này trở nên nhẹ nhàng và đa dụng hơn. ",
+        "images": [
+            {
+                "url": "sample_images/YSL/Yves%20Saint%20Laurent%20Libre%20EDT/libre-edt.jpg",
+                "isThumbnail": true,
+                "sortOrder": 1
+            },
+            {
+                "url": "sample_images/YSL/Yves%20Saint%20Laurent%20Libre%20EDT/libre-edt_1.jpg",
+                "sortOrder": 2
+            },
+            {
+                "url": "sample_images/YSL/Yves%20Saint%20Laurent%20Libre%20EDT/libre-edt_2.jpg",
+                "sortOrder": 3
+            }
+        ],
+        "variants": [
+            {
+                "volume": 50,
+                "originalPrice": 2800000,
+                "discountPercent": 18,
+                "stockQuantity": 20,
+                "isDefault": true
+            },
+            {
+                "volume": 90,
+                "originalPrice": 3650000,
+                "discountPercent": 16,
+                "stockQuantity": 20
+            }
+        ]
+    }
+]

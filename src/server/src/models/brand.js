@@ -8,7 +8,12 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // 1 Brand có nhiều Product
+            Brand.hasMany(models.Product, {
+                foreignKey: 'brandId',
+                as: 'products',
+                onDelete: 'SET NULL',
+            });
         }
     }
     Brand.init({
@@ -32,7 +37,18 @@ export default (sequelize, DataTypes) => {
             validate: {
                 isUrl: true,
             },
-        }
+        },
+        posterUrl: { 
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: { isUrl: true },
+            comment: 'Ảnh poster hoặc banner thương hiệu'
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            comment: 'Mô tả chi tiết thương hiệu'
+        },
 
     },
     {

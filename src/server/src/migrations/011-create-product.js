@@ -37,12 +37,28 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: true,
         },
+        releaseYear: { 
+            type: Sequelize.INTEGER, 
+            allowNull: true, 
+            comment: 'Năm phát hành' 
+        },
+        fragranceGroup: { 
+            type: Sequelize.STRING, 
+            allowNull: true, 
+            comment: 'Nhóm hương chính, ví dụ: Gỗ đàn hương, Olibanum, Cam bergamot' 
+        },
+        style: { 
+            type: Sequelize.STRING, 
+            allowNull: true, 
+            comment: 'Phong cách: Lịch lãm, Nam tính, Lôi cuốn' 
+        },
+        scentNotes: { 
+            type: Sequelize.TEXT('medium'), 
+            allowNull: true, 
+            comment: 'Hương đầu, giữa, cuối – có thể là JSON string hoặc text' 
+        },
         description:{
             type: Sequelize.TEXT('long'),
-            allowNull: true,
-        },
-        shortDescription: {
-            type: Sequelize.TEXT('tiny'),
             allowNull: true,
         },
         createdAt: {
