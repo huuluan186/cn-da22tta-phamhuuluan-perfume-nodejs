@@ -86,7 +86,7 @@ export const addUserAddressService = async (addressData) => {
 
         // Tạo địa chỉ mới
         const address = await db.Address.create({
-            id: nanoid(10),
+            id: nanoid(4),
             userId,
             receiverName,
             phone,

@@ -65,12 +65,28 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,            
         },
+        releaseYear: { 
+            type: DataTypes.INTEGER, 
+            allowNull: true, 
+            comment: 'Năm phát hành' 
+        },
+        fragranceGroup: { 
+            type: DataTypes.STRING, 
+            allowNull: true, 
+            comment: 'Nhóm hương chính, ví dụ: Gỗ đàn hương, Olibanum, Cam bergamot' 
+        },
+        style: { 
+            type: DataTypes.STRING, 
+            allowNull: true, 
+            comment: 'Phong cách: Lịch lãm, Nam tính, Lôi cuốn' 
+        },
+        scentNotes: { 
+            type: DataTypes.TEXT('medium'), 
+            allowNull: true, 
+            comment: 'Hương đầu, giữa, cuối – có thể là JSON string hoặc text' 
+        },
         description: {
             type: DataTypes.TEXT('long'), 
-            allowNull: true,
-        },
-        shortDescription: {
-            type: DataTypes.TEXT('tiny'),
             allowNull: true,
         },
     },
