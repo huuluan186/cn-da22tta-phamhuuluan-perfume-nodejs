@@ -53,10 +53,6 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        categoryId: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         gender: {
             type: DataTypes.ENUM('nam', 'nữ', 'unisex'),
             allowNull: false,
