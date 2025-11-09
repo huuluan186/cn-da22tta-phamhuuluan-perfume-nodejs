@@ -13,6 +13,7 @@ export async function up(queryInterface, Sequelize) {
     const productRecords = [];
     const imageRecords = [];
     const variantRecords = [];
+    const productCategoryRecords = [];
 
     for (const product of products) {
         const productId = v4();
@@ -21,7 +22,6 @@ export async function up(queryInterface, Sequelize) {
             id: productId,
             name: product.name || '',
             brandId: product.brandId || null,
-            categoryId: product.categoryId || null,
             gender: product.gender || 'unisex',
             origin: product.origin || '',
             releaseYear: product.releaseYear ?? null,
@@ -71,16 +71,32 @@ export async function up(queryInterface, Sequelize) {
                 updatedAt: now
             });
         }
+
+        const categoryIds = Array.isArray(product.categoryId)
+            ? [...new Set(product.categoryId.filter(Boolean))]  // loại bỏ null/undefined, tránh trùng
+            : (product.categoryId ? [product.categoryId] : []);
+
+        for (const categoryId of categoryIds) {
+            productCategoryRecords.push({
+                id: nanoid(4),
+                productId,
+                categoryId, // giờ là string, không phải mảng
+                createdAt: now,
+                updatedAt: now
+            });
+        }
     }
 
     // Thêm dữ liệu vào DB
     if (productRecords.length) await queryInterface.bulkInsert('Products', productRecords);
     if (imageRecords.length) await queryInterface.bulkInsert('ProductImages', imageRecords);
     if (variantRecords.length) await queryInterface.bulkInsert('ProductVariants', variantRecords);
+    if (productCategoryRecords.length) await queryInterface.bulkInsert('ProductCategories', productCategoryRecords); 
 }
 
 export async function down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('ProductImages', null, {});
     await queryInterface.bulkDelete('ProductVariants', null, {});
+    await queryInterface.bulkDelete('ProductCategories', null, {});
     await queryInterface.bulkDelete('Products', null, {});
 }

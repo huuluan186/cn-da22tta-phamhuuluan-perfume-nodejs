@@ -20,18 +20,10 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'SET NULL',
         },
-        categoryId: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            references: {
-                model: 'Categories',
-                key: 'id',
-            },
-            onDelete: 'SET NULL',
-        },
         gender: {
             type: Sequelize.ENUM('nam', 'nữ', 'unisex'),
             allowNull: false,
+            defaultValue: 'unisex'
         },
         origin: {
             type: Sequelize.STRING,
