@@ -51,7 +51,7 @@ export const buildProductSort = (sortKey) => {
         case 'price_desc': return [['variants', 'price', 'DESC']];
         case 'name_asc': return [['name', 'ASC']];
         case 'name_desc': return [['name', 'DESC']];
-        case 'best_seller': return [['sold', 'DESC']];
+        case 'bestseller': return [['sold', 'DESC']];
         default: return [['createdAt', 'DESC']];
     }
 };
