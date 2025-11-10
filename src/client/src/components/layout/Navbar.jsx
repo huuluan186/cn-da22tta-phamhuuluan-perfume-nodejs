@@ -36,7 +36,7 @@ const Navbar = () => {
                 {navbarItems.map(item => (
                     <li 
                         key={item.label}
-                        className="flex-1 relative group transition-colors duration-200 text-center hover:bg-secondary hover:text-contentBg"
+                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-secondary hover:text-contentBg"
                     >
                         <NavLink to={item.path} className="block py-2 font-semibold hover:font-bold">
                             {item?.label}
@@ -54,8 +54,7 @@ const Navbar = () => {
                                 align="center"
                                 columns={item.label === 'THƯƠNG HIỆU' ? 5 : 1}
                             />
-                        )}
-                        
+                        )} 
                     </li>
                 ))}
             </ul>
