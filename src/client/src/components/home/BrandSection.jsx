@@ -29,7 +29,7 @@ const BrandSection = () => {
             {/* layout chính*/}
             <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch h-full">
                 {/* Slide banner bên trái (ẩn khi nhỏ hơn lg) */}
-                <div className='hidden lg:block w-full h-full overflow-hidden'>
+                <div className='hidden sm:block w-full h-full overflow-hidden'>
                     <BannerSlider
                         slides={brandBanners}
                         showDots={false}
@@ -39,7 +39,7 @@ const BrandSection = () => {
                 </div>
 
                 {/* Grid thương hiệu bên phải */}
-                <div className="h-full grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="h-full grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4">
                     {brands?.slice(0, 16).map((brand) => (
                         <div 
                             key={brand.id}

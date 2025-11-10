@@ -4,6 +4,7 @@ import addressReducer from "./addressReducer";
 import regionReducer from "./regionReducer";
 import categoryReducer from "./categoryReducer";
 import brandReducer from "./brandReducer";
+import productReducer from "./productReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     region: regionReducer,
     category: categoryReducer,
     brand: brandReducer,
+    product: productReducer,
 })
 
 export default rootReducer;
