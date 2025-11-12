@@ -22,6 +22,7 @@ export async function up(queryInterface, Sequelize) {
         gender:{
             type: Sequelize.ENUM('male', 'female', 'other'), 
             allowNull: true,
+            defaultValue: null
         },
         password: {
             type: Sequelize.STRING,
@@ -31,11 +32,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
             unique: true
-        },
-        isAdmin:{
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
         },
         createdAt: {
             allowNull: false,
