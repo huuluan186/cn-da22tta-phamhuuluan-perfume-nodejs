@@ -13,4 +13,5 @@ export const path={
     PERFUME:'/nuoc-hoa/all',
     PERFUME_SAMPLE:'/nuoc-hoa-chiet/all',
     CONTACT: '/lien-he',
+    BRANDS: '/thuong-hieu-a-z'
 }

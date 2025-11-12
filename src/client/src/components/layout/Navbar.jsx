@@ -38,7 +38,14 @@ const Navbar = () => {
                         key={item.label}
                         className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-secondary hover:text-contentBg"
                     >
-                        <NavLink to={item.path} className="block py-2 font-semibold hover:font-bold">
+                        <NavLink 
+                            to={item.path} 
+                            className={({ isActive }) => 
+                                `block py-2 font-semibold hover:font-bold ${
+                                    isActive ? 'bg-secondary text-white' : ''
+                                }`
+                            }
+                        >
                             {item?.label}
                             {item?.hasDropdown && <MdKeyboardArrowRight className="inline-block w- mb-1" />}
                         </NavLink>
