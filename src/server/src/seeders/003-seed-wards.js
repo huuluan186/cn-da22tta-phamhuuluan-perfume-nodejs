@@ -1,7 +1,15 @@
 'use strict';
 import fs from 'fs';
 import path from 'path';
-import { slugify } from '../utils/index.js';
+
+const slugify = (str) => {
+  return String(str || '')
+    .toLowerCase()
+    .normalize('NFKD')             // chuẩn hóa ký tự có dấu
+    .replace(/[\u0300-\u036f]/g, '') // bỏ dấu tiếng Việt
+    .replace(/[^a-z0-9]+/g, '-')     // thay ký tự đặc biệt bằng dấu gạch ngang
+    .replace(/(^-|-$)/g, '');        // bỏ dấu gạch đầu/cuối
+};
 
 export async function up(queryInterface, Sequelize) {
   // 📂 Đọc file stats.json
