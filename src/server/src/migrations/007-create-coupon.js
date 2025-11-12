@@ -25,10 +25,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATE,
             allowNull: false,
         },
-        usageLimit: {
-            type: Sequelize.INTEGER,
-            allowNull: true, // null = không giới hạn
-        },
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE,

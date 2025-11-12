@@ -1,0 +1,19 @@
+import actionTypes from '../actions/actionTypes';
+
+const initialState = {
+    brands: [],
+    error: null
+};
+
+const brandReducer = (state = initialState, action) => {
+    switch(action.type){
+        case actionTypes.GET_BRANDS_SUCCESS:
+            return { ...state, brands: action.brands };
+        case actionTypes.GET_BRANDS_FAIL:
+            return { ...state, error: action.msg };
+        default:
+            return state;
+    }
+};
+
+export default brandReducer;

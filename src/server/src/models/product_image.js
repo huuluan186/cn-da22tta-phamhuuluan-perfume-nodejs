@@ -8,7 +8,11 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // Mỗi hình ảnh thuộc về 1 sản phẩm
+            ProductImage.belongsTo(models.Product, {
+                foreignKey: 'productId',
+                as: 'product',
+            });
         }
     }
     ProductImage.init({

@@ -4,14 +4,15 @@ import { useState, useEffect } from 'react'
 import { Button, InputField, CheckRadioField } from '../../../components'
 import { toast } from 'react-toastify'
 import { capitalizeWords, formatDate, formatDateForInput } from "../../../utils"
-import { updateUserProfile } from "../../../store/actions/user";
+import { getCurrentUser } from "../../../store/actions/user";
 import { genderMap } from "../../../constants/translationMap";
+import { apiUpdateCurrentUser } from '../../../api/user'
 
 const { MdCancel } = icons;
 
 const AccountEditModal = ({ onClose }) => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.user);
+    const { user } = useSelector(state => state.user);
 
     const [formData, setFormData] = useState({
             firstname: user?.firstname || "",
@@ -42,7 +43,12 @@ const AccountEditModal = ({ onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(updateUserProfile(formData)); 
+            const res = await apiUpdateCurrentUser(formData); 
+            if (res?.data?.err !== 0) {
+                toast.error("Cập nhật thông tin thất bại: " + res?.data?.msg);
+                return;
+            }
+            await dispatch(getCurrentUser());
             toast.success("Cập nhật thông tin thành công!");
             onClose();
         } catch (error) {

@@ -2,14 +2,14 @@
 import fs from 'fs';
 import path from 'path';
 
-function slugify(str) {
+const slugify = (str) => {
   return String(str || '')
     .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
-}
+    .normalize('NFKD')             // chuẩn hóa ký tự có dấu
+    .replace(/[\u0300-\u036f]/g, '') // bỏ dấu tiếng Việt
+    .replace(/[^a-z0-9]+/g, '-')     // thay ký tự đặc biệt bằng dấu gạch ngang
+    .replace(/(^-|-$)/g, '');        // bỏ dấu gạch đầu/cuối
+};
 
 export async function up(queryInterface, Sequelize) {
   // 📂 Đọc file stats.json

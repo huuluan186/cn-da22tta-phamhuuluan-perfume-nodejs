@@ -11,30 +11,52 @@ if (!process.env.SECRET_KEY) {
 //hàm băm mật khẩu
 const hashPassword = password => bcrypt.hashSync(password,bcrypt.genSaltSync(12))
 
-export const registerService = async ({ firstname, lastname, password, email, isAdmin = false }, isSelfRegister = true) => {
+export const registerService = async ({ firstname, lastname, password, email}, isSelfRegister = true) => {
+    const transaction = await db.sequelize.transaction();
     try {
-        //Kiểm tra email có trùng hay không
-        const user = await db.User.findOne({ where: {email} });
-        if (user) return { err: 1, msg: 'Email đã được sử dụng!'};
+        // 1. Kiểm tra email có trùng hay không
+        const existingUser = await db.User.findOne({ where: {email}, transaction });
+        if (existingUser) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Email đã được sử dụng!'};
+        } 
 
-        // Tạo người dùng mới
-        const newUser = await db.User.create({
-            id: v4(),
-            firstname,
-            lastname,
-            email,
-            password: hashPassword(password),
-            isAdmin
+        // 2. Tạo user mới
+        const newUser = await db.User.create(
+            {
+                id: v4(),
+                firstname,
+                lastname,
+                email,
+                password: hashPassword(password),
+            },
+            { transaction }
+        );
+
+        // 3. TÌM ROLE CUSTOMER RỒI GÁN
+        const customerRole = await db.Role.findOne({
+            where: { name: 'customer' }, // hoặc 'Customer', 'Khách hàng' – miễn đúng trong DB
+            transaction
         });
 
-        //Sinh token nếu là tự đăng ký
+        if (!customerRole) {
+            await transaction.rollback();
+            console.error('ROLE CUSTOMER KHÔNG TỒN TẠI TRONG DATABASE!');
+            return { err: -1, msg: 'Hệ thống lỗi: Không tìm thấy vai trò khách hàng.' };
+        }
+        // Sequelize sẽ tự: SELECT id FROM Roles WHERE name = 'customer' LIMIT 1
+        await newUser.addRole(customerRole, { transaction });
+        // Tương đương newUser.addRoles(['customer', 'vip']) nếu gán nhiều
+        await transaction.commit();
+
+        //Nếu admin tạo user từ dashboard -> không cần token
         if (!isSelfRegister) return { err: 0, msg: 'Tạo tài khoản thành công!' };
     
+        //4. Tạo token - user mới chắc chắn có role customer
         const token = jwt.sign(
             {
                 id: newUser.id,
                 email: newUser.email,
-                isAdmin: newUser.isAdmin
             },
             process.env.SECRET_KEY,
             { expiresIn: '2d' }
@@ -43,13 +65,14 @@ export const registerService = async ({ firstname, lastname, password, email, is
         return { err: 0, msg: 'Đăng ký tài khoản thành công!', token };
 
     } catch (error) {
+        await transaction.rollback();
         throw error;
     }
 };
 
 export const loginService = async ({ email, password }) => {
     try {
-        const response = await db.User.findOne({ where: {email}, raw: true });
+        const response = await db.User.findOne({ where: {email} });
         if (!response) return ({ err: 1, msg: `Email không tồn tại!`, token: null });
 
         const isCorrectPassword = bcrypt.compareSync(password, response.password);
@@ -59,7 +82,6 @@ export const loginService = async ({ email, password }) => {
             {
                 id: response.id,
                 email: response.email,
-                isAdmin: response.isAdmin
             },
             process.env.SECRET_KEY,
             { expiresIn: '2d' }
@@ -72,15 +94,20 @@ export const loginService = async ({ email, password }) => {
 }
 
 export const socialLoginService = async (payload) => {
+    const transaction = await db.sequelize.transaction();
     try {
         //console.log('*** Social login payload:', payload);
 
         if (!payload.email || !payload.providerUserId) {
+            await transaction.rollback();
             return { err: 1, msg: 'Missing required fields' };
         }
 
         // Kiểm tra có user chưa
-        let user = await db.User.findOne({ where: { email: payload.email } });
+        let user = await db.User.findOne({
+            where: { email: payload.email },
+            transaction
+        });
 
         if (!user) {
             // Nếu chưa có thì tạo user mới
@@ -90,7 +117,17 @@ export const socialLoginService = async (payload) => {
                 lastname: payload.profile.displayName.split(' ').slice(1).join(' '),
                 email: payload.email,
                 password: hashPassword('social_login'), // placeholder
+            }, { transaction });
+
+            // GÁN ROLE CUSTOMER CHO USER MỚI
+            const customerRole = await db.Role.findOne({
+                where: { name: 'customer' },
+                transaction
             });
+
+            if (customerRole) await user.addRole(customerRole, { transaction });
+            else console.warn('Role customer không tồn tại khi social login!');
+            
         }
 
         // Kiểm tra AuthProvider (google/facebook)
@@ -103,16 +140,20 @@ export const socialLoginService = async (payload) => {
                 accessToken: payload.accessToken,
                 refreshToken: payload.refreshToken,
             },
+            transaction
         });
 
+        await transaction.commit();
+
         const token = jwt.sign(
-            { id: user.id, email: user.email, isAdmin: user.isAdmin },
+            { id: user.id, email: user.email },
             process.env.SECRET_KEY,
             { expiresIn: '1h' }
         );
 
         return { err: 0, msg: 'Đăng nhập thành công qua Auth Provider', token };
     } catch (error) {
+        await transaction.rollback();
         console.error('Social login error:', error);
         return { err: 1, msg: 'Lỗi khi đăng nhập qua Auth Provider' };
     }

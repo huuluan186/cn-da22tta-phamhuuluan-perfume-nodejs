@@ -12,18 +12,15 @@ export default (sequelize, DataTypes) => {
         }
     }
     ProductCategory.init({
-        id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,       
-        },
         productId: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true, 
         },
         categoryId: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true, 
         },
     },
     {

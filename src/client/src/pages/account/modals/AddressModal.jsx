@@ -12,9 +12,6 @@ import { apiAddAddress, apiUpdateAddress } from "../../../api/user";
 import { validateAddress } from "../../../utils";
 const { MdCancel } = icons;
 
-const SELECT_DISABLED_CLASS = "w-full border rounded-md px-3 py-2 bg-gray-100 text-gray-500 border-gray-200 cursor-not-allowed transition-colors duration-200";
-const SELECT_ENABLED_CLASS = "w-full border rounded-md px-3 py-2 bg-white text-black border-gray-300 hover:border-gray-400 transition-colors duration-200";
-
 const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
     const dispatch = useDispatch();
     const { countries, provinces, wards } = useSelector(state => state.region);
@@ -25,7 +22,7 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
         phone: "",
         label: "",
         addressLine: "",
-        countryId: '236', // mặc định Việt Nam
+        countryId: 236, // mặc định Việt Nam
         provinceId: "",
         wardId: "",
         zipCode: "",
@@ -41,7 +38,7 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                 phone: addressToEdit.phone || "",
                 label: addressToEdit.label || "",
                 addressLine: addressToEdit.addressLine || "",
-                countryId: addressToEdit.ward?.province?.countryId || '236',
+                countryId: addressToEdit.ward?.province?.countryId || 236,
                 provinceId: addressToEdit.ward?.provinceId || "",
                 wardId: addressToEdit.wardId || "",
                 zipCode: addressToEdit.zipCode || "",
@@ -173,7 +170,7 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                         className="mb-3"
                     />
 
-                    {formData.countryId === '236' && (
+                    {formData.countryId === 236 && (
                         // Quốc gia/Tỉnh/Xã 
                         <div className="grid grid-cols-2 gap-4 mb-3">
                             <SelectField

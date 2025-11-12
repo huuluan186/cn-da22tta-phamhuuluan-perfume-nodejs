@@ -8,8 +8,17 @@ export const getCurrentUserService  = async (userId) => {
     try {
         const user = await db.User.findByPk(userId, 
             {
-                attributes: { exclude: ['password'] }
-            }
+                attributes: { exclude: ['password'] },
+                include: [
+                    {
+                        model: db.Role,
+                        as: 'roles',
+                        attributes: ['name'],
+                        through: { attributes: [] },
+                    }
+                ]
+            },
+            
         );
 
         return {
@@ -38,9 +47,36 @@ export const updateCurrentUserService = async (userId, updateData) => {
         // Lọc dữ liệu cập nhật để chỉ giữ các trường hợp lệ
         const filteredData = {};
         for (const key of allowedFields) {
-            if (updateData[key] !== undefined && updateData[key] !== null && updateData[key] !== ''){
-                filteredData[key] = updateData[key];
+            const value = updateData[key];
+            if (value === '') {
+                if (key === 'dateOfBirth') {
+                    filteredData[key] = null;
+                } else if (key === 'gender') {
+                    filteredData[key] = null;  
+                } else {
+                    filteredData[key] = '';
+                }
+            } else if (value !== undefined && value !== null) {
+                filteredData[key] = value;
             }
+        }
+
+        // tên lấy từ DB lên
+        const currentFirstname = user.firstname || '';
+        const currentLastname = user.lastname || '';
+
+        // tên mới từ dữ liệu gửi lên (?? : lấy giá trị cũ nếu user không gửi trường đó)
+        const newFirstname = filteredData.firstname ?? currentFirstname;
+        const newLastname = filteredData.lastname ?? currentLastname;
+
+        // Nếu người dùng xóa 1 trong 2 nhưng vẫn giữ cái kia → cập nhật cái còn lại
+        // Nếu cả 2 đều rỗng → giữ nguyên giá trị cũ
+        if (updateData.firstname.trim() === '' && updateData.lastname.trim() === '') {
+            filteredData.firstname = currentFirstname;
+            filteredData.lastname = currentLastname;
+        } else {
+            filteredData.firstname = newFirstname;
+            filteredData.lastname = newLastname;
         }
 
         await user.update(filteredData);
@@ -87,7 +123,7 @@ export const changePasswordService = async (userId, data) => {
 
 export const forgotPasswordService = async (email) => {
     try {
-        const user = await db.User.findOne({ where: { email } });
+        const user = await db.User.findOne({ where: { email }, attributes: ['id'] });
         if (!user) {
             return {
                 err: 1,
@@ -96,7 +132,7 @@ export const forgotPasswordService = async (email) => {
         }
 
         // Tạo token reset (hiệu lực 1 giờ) nếu email tồn tại
-        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' });
+        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '15m' });
 
         return {
             err: 0,

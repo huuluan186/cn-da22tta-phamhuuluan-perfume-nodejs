@@ -19,6 +19,15 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
         },
+        posterUrl: {
+            type: Sequelize.STRING,
+            allowNull: true,
+            validate: { isUrl: true },
+        },
+        description: {
+            type: Sequelize.TEXT,
+            allowNull: true,
+        },
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE,

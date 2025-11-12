@@ -15,7 +15,7 @@ const AccountInfo = () => {
             <div className="space-y-4">
                 <p>
                     <span className='font-bold'>Họ tên: </span>
-                    {user?.firstname || 'khách'} {user?.lastname || 'hàng'}
+                    {user?.firstname} {user?.lastname}
                 </p>
                 <p>
                     <span className='font-bold'>Email: </span> 
