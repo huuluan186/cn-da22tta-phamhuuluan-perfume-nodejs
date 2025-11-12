@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import Slider from "react-slick";
 import { getImageUrl } from "../../utils";
 import { getProductsList } from "../../store/actions/product";
+import { CustomArrow } from "../index";
+
 const NewArrivalsSection = () => {
     const dispatch = useDispatch();
     const { products } = useSelector(state => state.product);
@@ -15,11 +17,13 @@ const NewArrivalsSection = () => {
     // Config slider: hiển thị 6 sp 1 dòng, có 2 mũi tên
     const settings = {
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 6,
         slidesToScroll: 1,
         arrows: true,
+        prevArrow: <CustomArrow type="prev"/>,
+        nextArrow: <CustomArrow type="next" />,
         responsive: [
             { breakpoint: 1280, settings: { slidesToShow: 5 } },
             { breakpoint: 1024, settings: { slidesToShow: 4 } },
@@ -46,30 +50,103 @@ const NewArrivalsSection = () => {
 
             {/* Slider */}
             <Slider {...settings}>
-                {products.map(product => (
-                    <div key={product.id} className="p-2">
-                        <div className="bg-white border hover:shadow-md transition-all duration-200 cursor-pointer">
-                            <img
-                                src={getImageUrl(product.thumbnail)}
-                                alt={product.name}
-                                className="w-full h-40 object-contain p-4"
-                            />
-                            <div className="p-2">
-                                <h3 className="text-sm md:text-base font-medium text-gray-700">
-                                    {product.name}
-                                </h3>
-                                {product.minPrice && product.maxPrice ? (
-                                    <p className="text-sm text-gray-500">
-                                        {product.minPrice !== product.maxPrice
-                                            ? `${product.minPrice.toLocaleString()} - ${product.maxPrice.toLocaleString()} VND`
-                                            : `${product.minPrice.toLocaleString()} VND`}
-                                    </p>
-                                ) : null}
+                {products.map(product => {
+                    const priceText = product.minPrice != null && product.maxPrice != null
+                        ? (product.minPrice !== product.maxPrice
+                            ? `${product.minPrice.toLocaleString()} - ${product.maxPrice.toLocaleString()}₫`
+                            : `${product.minPrice.toLocaleString()}₫`)
+                        : product.price != null
+                            ? `${product.price.toLocaleString()}₫`
+                            : null;
+                    
+                    return (
+                        <div key={product.id}>
+                            <div className="bg-white border hover:shadow-md transition-all duration-200 cursor-pointer">
+                                <div className="w-full h-48 bg-white py-2">
+                                        <img
+                                            src={getImageUrl(product.thumbnail)}
+                                            alt={product.name}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                <div className="p-2 text-center">
+                                    <div className="h-6">
+                                        <h3 className="text-sm md:text-base font-bold text-gray-700 truncate">
+                                            {product.brand?.name}
+                                        </h3>
+                                    </div>
+                                    <div className="h-10">
+                                        <h4 className="text-xs text-gray-700 line-clamp-2">
+                                            {product.name}
+                                        </h4>
+                                    </div>
+                                    {priceText && (
+                                        <div className="h-6"><p className="text-sm text-red-500 font-semibold truncate">{priceText}</p></div>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    )
+                })}
             </Slider>
+
+            {/* Custom slider */}
+            <style jsx>{`
+                /* Custom arrows */
+                .slick-prev,
+                .slick-next {
+                    z-index: 10;
+                    width: 50px;
+                    height: 50px;
+                    background: transparent !important;
+                    border: none;
+                    display: flex !important;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    opacity: 0.6;
+                    transition: all 0.3s ease;
+                    padding: 0;
+                }
+
+                .custom-slick-arrow svg {
+                    color: #333;
+                    transition: color 0.3s ease;
+                }
+
+                .slick-prev:hover svg,
+                .slick-next:hover svg {
+                    color: #000;
+                }
+
+                .slick-prev {
+                    left: -35px;
+                }
+
+                .slick-next {
+                    right: -35px;
+                }
+                /* Ẩn text mặc định (nếu có) */
+                .slick-prev:before,
+                .slick-next:before {
+                    display: none !important;
+                }
+
+                .slick-prev:hover,
+                .slick-next:hover {
+                    transform: translateY(-50%) translateX(-2px); /* prev */
+                }
+                .slick-next:hover {
+                    transform: translateY(-50%) translateX(2px); /* next */
+                }
+                /* Cho mũi tên luôn hiện ra ngoài slider */
+                .slick-slider {
+                    overflow: visible;
+                }
+            `}</style>
         </div>
     );
 };
