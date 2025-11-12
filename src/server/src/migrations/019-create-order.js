@@ -25,15 +25,6 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'CASCADE',
         },
-        couponId: {
-            type: Sequelize.STRING,
-            allowNull: true,
-            references: {
-                model: 'Coupons',
-                key: 'id',
-            },
-            onDelete: 'SET NULL',
-        },
         totalAmount: {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,

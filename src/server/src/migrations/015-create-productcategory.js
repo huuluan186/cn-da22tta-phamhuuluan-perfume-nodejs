@@ -2,11 +2,6 @@
 
 export async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('ProductCategories', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            type: Sequelize.STRING,
-        },
         productId: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -40,8 +35,8 @@ export async function up(queryInterface, Sequelize) {
     // Ngăn trùng lặp sản phẩm – danh mục
     await queryInterface.addConstraint('ProductCategories', {
         fields: ['productId', 'categoryId'],
-        type: 'unique',
-        name: 'unique_product_category',
+        type: 'primary key',
+        name: 'pk_product_category',
     });
 }
 export async function down(queryInterface, Sequelize) {

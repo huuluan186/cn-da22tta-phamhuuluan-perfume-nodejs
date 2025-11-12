@@ -78,7 +78,6 @@ export async function up(queryInterface, Sequelize) {
 
         for (const categoryId of categoryIds) {
             productCategoryRecords.push({
-                id: nanoid(4),
                 productId,
                 categoryId, // giờ là string, không phải mảng
                 createdAt: now,

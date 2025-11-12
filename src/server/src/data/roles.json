@@ -1,0 +1,14 @@
+[
+    {
+        "name": "customer",
+        "description": "Người dùng thông thường"
+    },
+    {
+        "name": "admin",
+        "description": "Quản trị viên hệ thống"
+    },
+    {
+        "name": "moderator",
+        "description": "Người kiểm duyệt nội dung"
+    }
+]

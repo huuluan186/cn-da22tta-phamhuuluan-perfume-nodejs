@@ -8,8 +8,17 @@ export const getCurrentUserService  = async (userId) => {
     try {
         const user = await db.User.findByPk(userId, 
             {
-                attributes: { exclude: ['password'] }
-            }
+                attributes: { exclude: ['password'] },
+                include: [
+                    {
+                        model: db.Role,
+                        as: 'roles',
+                        attributes: ['name'],
+                        through: { attributes: [] },
+                    }
+                ]
+            },
+            
         );
 
         return {
@@ -40,7 +49,13 @@ export const updateCurrentUserService = async (userId, updateData) => {
         for (const key of allowedFields) {
             const value = updateData[key];
             if (value === '') {
-                filteredData[key] = key === 'dateOfBirth' ? null : ''; // cho phép xóa tên hoặc ngày sinh
+                if (key === 'dateOfBirth') {
+                    filteredData[key] = null;
+                } else if (key === 'gender') {
+                    filteredData[key] = null;  
+                } else {
+                    filteredData[key] = '';
+                }
             } else if (value !== undefined && value !== null) {
                 filteredData[key] = value;
             }
@@ -108,7 +123,7 @@ export const changePasswordService = async (userId, data) => {
 
 export const forgotPasswordService = async (email) => {
     try {
-        const user = await db.User.findOne({ where: { email } });
+        const user = await db.User.findOne({ where: { email }, attributes: ['id'] });
         if (!user) {
             return {
                 err: 1,
@@ -117,7 +132,7 @@ export const forgotPasswordService = async (email) => {
         }
 
         // Tạo token reset (hiệu lực 1 giờ) nếu email tồn tại
-        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '1h' });
+        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '15m' });
 
         return {
             err: 0,

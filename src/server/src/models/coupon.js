@@ -8,7 +8,14 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            Coupon.belongsToMany(models.User, {
+                through: 'UserCoupon', 
+                foreignKey: 'couponId',
+                otherKey: 'userId',
+                as: 'users',
+                onDelete: 'CASCADE',
+            });
+
         }
     }
     Coupon.init({
@@ -37,10 +44,6 @@ export default (sequelize, DataTypes) => {
         expiredAt: {
             type: DataTypes.DATE,
             allowNull: false,
-        },
-        usageLimit: {
-            type: DataTypes.INTEGER,
-            allowNull: true,        // null = không giới hạn
         },
     },
     {

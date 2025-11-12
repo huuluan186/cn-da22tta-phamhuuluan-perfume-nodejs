@@ -1,29 +1,21 @@
 'use strict';
 
 export async function up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Coupons', {
+    await queryInterface.createTable('Roles', {
         id: {
             allowNull: false,
             primaryKey: true,
             type: Sequelize.STRING,
         },
-        code: {
+        name: {
             type: Sequelize.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            defaultValue: 'customer',
         },
-        discountType: {
-            type: Sequelize.ENUM('percentage', 'fixed'),
-            allowNull: false,
-            defaultValue: 'percentage',
-        },
-        discountValue: {
-            type: Sequelize.DECIMAL(12, 2),
-            allowNull: false,
-        },
-        expiredAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
+        description: {
+            type: Sequelize.STRING,
+            allowNull: true,
         },
         createdAt: {
             allowNull: false,
@@ -43,5 +35,5 @@ export async function up(queryInterface, Sequelize) {
 }
 
 export async function down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Coupons');
+    await queryInterface.dropTable('Roles');
 }

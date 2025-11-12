@@ -1,7 +1,7 @@
 import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
-    class ProductCategory extends Model {
+    class UserRole extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,21 @@ export default (sequelize, DataTypes) => {
             // define association here
         }
     }
-    ProductCategory.init({
-        productId: {
+    UserRole.init({
+        roleId: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true, 
+            primaryKey: true
         },
-        categoryId: {
+        userId: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true, 
+            primaryKey: true
         },
     },
     {
         sequelize,
-        modelName: 'ProductCategory',
+        modelName: 'UserRole',
     });
-    return ProductCategory;
+    return UserRole;
 };

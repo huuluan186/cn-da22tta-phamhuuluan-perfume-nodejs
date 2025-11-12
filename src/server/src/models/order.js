@@ -30,10 +30,6 @@ export default (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        couponId: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         totalAmount: {
             type: DataTypes.DECIMAL(12, 2),
             allowNull: false,

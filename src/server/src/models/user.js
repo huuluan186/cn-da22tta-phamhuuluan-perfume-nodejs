@@ -36,6 +36,23 @@ export default (sequelize, DataTypes) => {
                 as: 'authProviders',
                 onDelete: 'CASCADE',
             });
+
+            // Nhiều User có thể có nhiều Role (qua bảng UserRole)
+            User.belongsToMany(models.Role, {
+                through: models.UserRole,
+                foreignKey: 'userId',
+                otherKey: 'roleId',
+                as: 'roles',
+                onDelete: 'CASCADE',
+            });
+
+            User.belongsToMany(models.Coupon, {
+                through: 'UserCoupon', 
+                foreignKey: 'userId',
+                otherKey: 'couponId',
+                as: 'coupons',
+                onDelete: 'CASCADE',
+            });
         }
     }
     User.init({
@@ -62,6 +79,7 @@ export default (sequelize, DataTypes) => {
         gender:{
             type: DataTypes.ENUM('male', 'female', 'other'), 
             allowNull: true,
+            defaultValue: null
         },
         password: {
             type: DataTypes.STRING,
@@ -74,10 +92,6 @@ export default (sequelize, DataTypes) => {
             validate: {
                 isEmail: true,
             },
-        },
-        isAdmin: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
         },
     },
     {
