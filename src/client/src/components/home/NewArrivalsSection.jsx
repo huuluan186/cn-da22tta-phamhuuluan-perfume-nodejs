@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Slider from "react-slick";
 import { getImageUrl } from "../../utils";
 import { getProductsList } from "../../store/actions/product";
-import { CustomArrow } from "../index";
+import { CustomArrow, ProductCard } from "../index";
 
 const NewArrivalsSection = () => {
     const dispatch = useDispatch();
@@ -50,44 +50,11 @@ const NewArrivalsSection = () => {
 
             {/* Slider */}
             <Slider {...settings}>
-                {products.map(product => {
-                    const priceText = product.minPrice != null && product.maxPrice != null
-                        ? (product.minPrice !== product.maxPrice
-                            ? `${product.minPrice.toLocaleString()} - ${product.maxPrice.toLocaleString()}₫`
-                            : `${product.minPrice.toLocaleString()}₫`)
-                        : product.price != null
-                            ? `${product.price.toLocaleString()}₫`
-                            : null;
-                    
-                    return (
-                        <div key={product.id}>
-                            <div className="bg-white border hover:shadow-md transition-all duration-200 cursor-pointer">
-                                <div className="w-full h-48 bg-white py-2">
-                                        <img
-                                            src={getImageUrl(product.thumbnail)}
-                                            alt={product.name}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    </div>
-                                <div className="p-2 text-center">
-                                    <div className="h-6">
-                                        <h3 className="text-sm md:text-base font-bold text-gray-700 truncate">
-                                            {product.brand?.name}
-                                        </h3>
-                                    </div>
-                                    <div className="h-10">
-                                        <h4 className="text-xs text-gray-700 line-clamp-2">
-                                            {product.name}
-                                        </h4>
-                                    </div>
-                                    {priceText && (
-                                        <div className="h-6"><p className="text-sm text-red-500 font-semibold truncate">{priceText}</p></div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                {products.map(product => (
+                    <div key={product.id}>
+                        <ProductCard product={product} />
+                    </div>
+                ))}
             </Slider>
 
             {/* Custom slider */}
