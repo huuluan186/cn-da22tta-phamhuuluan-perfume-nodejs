@@ -17,7 +17,7 @@ export const navbarItems = [
     },
     { 
         label: "NƯỚC HOA", 
-        path: path.PERFUME,
+        path: `${path.COLLECTIONS}/${path.ALL_PRODUCTS}`,
         hasDropdown: true,
         submenu: [] // merge dynamic trong Navbar.jsx
     },

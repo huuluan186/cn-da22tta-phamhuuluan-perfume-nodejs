@@ -28,4 +28,12 @@ export const breadcrumbMap = {
         { label: "Tài khoản", link: path.ACCOUNT },
         { label: "Sổ địa chỉ" },
     ],
+
+    [`${path.COLLECTIONS}/${path.ALL_PRODUCTS}`]: [
+        { label: "Tất cả sản phẩm" },
+    ],
+
+    [`${path.COLLECTIONS}/:slug`]: [
+        { label: "Danh mục" },
+    ],
 };
