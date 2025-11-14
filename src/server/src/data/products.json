@@ -56,12 +56,12 @@
         "description": "Bvlgari Omnia Crystalline EDT mang lại cho người dùng một hương thơm tươi mát và nhẹ nhàng, đồng thời cũng thể hiện được sự cá tính với mùi hương đầu tiên đem lại cho bạn sự trẻ trung và nữ tính, với hương của trúc và lê mang đến cảm giác xanh ngắt, tươi mát. Tiếp đó, hương hoa sen dịu dàng và êm ái khiến nàng thư thái, dễ chịu. Hương giữa còn kết hợp với vị cay nồng ấm của cây bã đậu và sự tươi tắn của Cassia. Qua đó tạo nên nét nữ tính và mềm mại của Omnia Crystalline.",
         "images": [
             {
-                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline/bvlgari-omnia-crystalline-eau-de-toilette.jpg",
+                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline%20EDT/bvlgari-omnia-crystalline-eau-de-toilette.jpg",
                 "isThumbnail": true,
                 "sortOrder": 1
             },
             {
-                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline/bvlgari-omnia-crystalline-edt-parfumerie.jpg",
+                "url": "sample_images/Bvlgari/Bvlgari%20Omnia%20Crystalline%20EDT/bvlgari-omnia-crystalline-edt-parfumerie.jpg",
                 "sortOrder": 2
             }
         ],
@@ -792,20 +792,20 @@
         "description": "Nếu những mùi hương “đương đại” xô bồ đã khiến bạn nhàm chán, hãy một lần tìm đến sự cổ điển, lịch lãm trong không gian mùi hương của Terre d’Hermes - cả một vùng trời đất rộng lớn kỳ diệu mà rồi chàng trai nào cũng sẽ đạt tới độ trưởng thành và bản lĩnh để thưởng thức một lần trong đời.",
         "images": [
             {
-                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/terre-d-hermes-eau-de-toilette-parfumerie.jpg",
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’Hermes%20EDT/terre-d-hermes-eau-de-toilette-parfumerie.jpg",
                 "isThumbnail": true,
                 "sortOrder": 1
             },
             {
-                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-chi-nh-ha-ng-jpeg.jpg",
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’Hermes%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-chi-nh-ha-ng-jpeg.jpg",
                 "sortOrder": 2
             },
             {
-                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-jpeg.jpg",
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’Hermes%20EDT/nu-o-c-hoa-nam-hermes-terre-d-hermes-edt-jpeg.jpg",
                 "sortOrder": 3
             },
             {
-                "url": "sample_images/Hermes/Hermes%20Terre%20D’HermesZ%20EDT/terre-d-hermes-eau-de-toilette-100ml-parfumerie.jpg",
+                "url": "sample_images/Hermes/Hermes%20Terre%20D’Hermes%20EDT/terre-d-hermes-eau-de-toilette-100ml-parfumerie.jpg",
                 "sortOrder": 4
             }
         ],
