@@ -1,9 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { breadcrumbMap } from "../../constants/breadcrumbs";
 import { path } from "../../constants/path";
+import { useSelector } from "react-redux";
 
 const Breadcrumb = () => {
     const { pathname } = useLocation();
+    const { slug } = useParams();
+    const { categories } = useSelector(state => state.category);
 
      // Tìm key khớp trong breadcrumbMap (có hỗ trợ route động)
     const findBreadcrumbKey = () => {
@@ -23,11 +26,23 @@ const Breadcrumb = () => {
     // Lấy breadcrumb riêng cho path hiện tại
     const customTrail = matchedKey ? breadcrumbMap[matchedKey] || [] : [];
 
+    const currentCategory = categories.find(c => c.slug === slug);
+    let categoryLabel = currentCategory 
+        ? currentCategory.name 
+        : slug?.replace(/-/g, " ");
+
+    if (slug) categoryLabel += " chính hãng";
+
+    // Nếu là slug route thì thay label "Danh mục" = tên có dấu
+    const dynamicTrail = customTrail.map(item =>
+        item.label === "Danh mục" ? { label: categoryLabel } : item
+    );
+
     // Luôn thêm "Trang chủ" ở đầu (trừ khi là trang chủ)
     const breadcrumbs =
         pathname === path.HOME
             ? breadcrumbMap[path.HOME]
-            : [breadcrumbMap[path.HOME][0], ...customTrail];
+            : [breadcrumbMap[path.HOME][0], ...dynamicTrail];
 
     return (
         <nav className="text-sm text-gray-600 my-2">

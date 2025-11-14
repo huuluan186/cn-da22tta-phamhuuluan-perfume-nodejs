@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList } from './pages/index'
 import { Callback, ProtectedRoute } from "./components/index";
-import { MainLayout, AccountLayout } from "./layouts/index";
+import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentUser } from "./store/actions/user";
@@ -20,7 +20,6 @@ function App() {
         }
     }, [dispatch]);
 
-    
     return (
         <div className="min-h-screen bg-light">
             <Routes>
@@ -42,6 +41,10 @@ function App() {
                         <Route path={path.ORDERS_HISTORY} element={<OrderHistory/>} />
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword/>} />
                         <Route path={path.ADDRESSES} element={<AddressBook/>} />
+                    </Route>
+                    <Route path={path.COLLECTIONS} element={<CollectionLayout />}>
+                        <Route path={path.ALL_PRODUCTS} element={<ProductList  />} />
+                        <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList  />} />
                     </Route>
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
