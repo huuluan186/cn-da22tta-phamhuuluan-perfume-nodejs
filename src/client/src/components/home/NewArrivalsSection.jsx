@@ -52,7 +52,7 @@ const NewArrivalsSection = () => {
             <Slider {...settings}>
                 {products.map(product => (
                     <div key={product.id}>
-                        <ProductCard product={product} />
+                        <ProductCard product={product} textAlign="center"/>
                     </div>
                 ))}
             </Slider>
