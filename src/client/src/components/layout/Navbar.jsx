@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../store/actions/category";
 import { getAllBrands } from "../../store/actions/brand";
+import { path } from '../../constants/path'
 
 const { MdKeyboardArrowRight } = icons;
 
@@ -22,7 +23,7 @@ const Navbar = () => {
     }));
     dynamicNavbarItems[3].submenu = categories.map(category => ({
         label: category.name,
-        path: `/nuoc-hoa/${category.slug}`
+        path: `${path.COLLECTIONS}/${category.slug}`
     }));
 
     useEffect(() => {
@@ -33,12 +34,19 @@ const Navbar = () => {
     return (
         <div className='w-full cursor-pointer'>
             <ul className="w-full flex">
-                {navbarItems.map(item => (
+                {dynamicNavbarItems.map(item => (
                     <li 
                         key={item.label}
                         className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-secondary hover:text-contentBg"
                     >
-                        <NavLink to={item.path} className="block py-2 font-semibold hover:font-bold">
+                        <NavLink 
+                            to={item.path} 
+                            className={({ isActive }) => 
+                                `block py-2 font-semibold hover:font-bold ${
+                                    isActive ? 'font-bold text-red-700 hover:text-contentBg' : ''
+                                }`
+                            }
+                        >
                             {item?.label}
                             {item?.hasDropdown && <MdKeyboardArrowRight className="inline-block w- mb-1" />}
                         </NavLink>

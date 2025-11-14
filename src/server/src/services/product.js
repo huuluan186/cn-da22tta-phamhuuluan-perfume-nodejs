@@ -1,4 +1,3 @@
-import { response } from "express";
 import db from "../models/index.js";
 import { buildProductFilters, buildProductSort } from "../utils/index.js"
 

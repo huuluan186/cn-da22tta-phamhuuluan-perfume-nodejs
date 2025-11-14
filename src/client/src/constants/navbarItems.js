@@ -11,13 +11,13 @@ export const navbarItems = [
     },
     { 
         label: "THƯƠNG HIỆU", 
-        path: path.HOME,
+        path: path.BRANDS,
         hasDropdown: true,
         submenu: [] // merge dynamic trong Navbar.jsx
     },
     { 
         label: "NƯỚC HOA", 
-        path: path.PERFUME,
+        path: `${path.COLLECTIONS}/${path.ALL_PRODUCTS}`,
         hasDropdown: true,
         submenu: [] // merge dynamic trong Navbar.jsx
     },

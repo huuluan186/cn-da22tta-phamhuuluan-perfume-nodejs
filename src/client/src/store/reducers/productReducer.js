@@ -2,7 +2,7 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     products: [],
-    total: null,
+    resultCount: null,
     page: null,
     limit: null,
     error: null

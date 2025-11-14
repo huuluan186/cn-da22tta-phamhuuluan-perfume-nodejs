@@ -10,7 +10,9 @@ export const path={
     ADDRESSES: 'addresses',
     CALLBACK: '/auth/callback',
     INTRODUCE:'/gioi-thieu-ve-perfumora',
-    PERFUME:'/nuoc-hoa/all',
-    PERFUME_SAMPLE:'/nuoc-hoa-chiet/all',
     CONTACT: '/lien-he',
+    BRANDS: '/thuong-hieu-a-z',
+    COLLECTIONS: '/collections',
+    ALL_PRODUCTS: 'all',
+    PRODUCTS_FILTERED_BY_CATEGORY: ':slug',
 }
