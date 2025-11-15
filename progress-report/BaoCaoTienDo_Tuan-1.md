@@ -1,6 +1,6 @@
 # Báo cáo hàng tuần
 
-## Tuần 1: Từ 10/11/2024 đến 16/11/2024
+## Tuần 1: Từ 10/11/2025 đến 16/11/2025
 
 #### 1. Nội dung
 
@@ -19,3 +19,4 @@
 - Các chức năng người dùng hoạt động ổn định.
 - Hoàn thành báo cáo: phần Mở đầu, Tóm tắt đồ án chuyên ngành và Chương 1 (Tổng quan).
   
+
