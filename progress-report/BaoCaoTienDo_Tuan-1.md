@@ -19,4 +19,6 @@
 - Các chức năng người dùng hoạt động ổn định.
 - Hoàn thành báo cáo: phần Mở đầu, Tóm tắt đồ án chuyên ngành và Chương 1 (Tổng quan).
   
+# Nhận xét của GVHD - Tuần 1
+Cô đã xem qua. Tiếp tục cố gắng nhé
 
