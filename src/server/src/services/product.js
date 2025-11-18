@@ -1,6 +1,8 @@
 import db from "../models/index.js";
+import { fn, col } from 'sequelize'
 import { buildProductFilters, buildProductSort } from "../utils/index.js"
 
+//LẤY DANH SÁCH SẢN PHẨM (CÓ HOẶC KHÔNG ĐIỀU KIỆN LỌC)
 export const getAllProductsService = async ( page, limit, filters = {} ) => {
     try {
         // === 1. XỬ LÝ PHÂN TRANG ===
@@ -70,3 +72,129 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
         throw error
     }
 };
+
+// LẤY THÔNG TIN CHI TIẾT MỘT SẢN PHẨM
+export const getProductDetailService = async (productId) => {
+    try {
+        const product = await db.Product.findOne({
+            where: {id: productId},
+            attributes: {
+                exclude: ['brandId']
+            },
+            include: [
+                {
+                    model: db.ProductImage,
+                    as: 'images',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                },
+                {
+                    model: db.ProductVariant,
+                    as: 'variants',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'deletedAt']
+                    }
+                },
+                {
+                    model: db.Brand,
+                    as: 'brand',
+                    attributes: ['id','name']
+                },
+                {
+                    model: db.Category,
+                    as: 'categories',
+                    attributes: { 
+                        exclude: ['createdAt', 'updatedAt', 'deletedAt'] 
+                    },
+                    through: { attributes: [] } // Không lấy cột productId/categoryId
+                }
+            ]
+        })
+
+        return {
+            err: product ? 0 : 1,
+            msg: product ? 'Get product detail successfully!' : 'Product not found!',
+            response: product ? product : null
+        }
+    } catch (error) {
+        throw error
+    }
+}
+
+export const getProductReviewsService = async (productId) => {
+    try {
+        //Kiểm tra product có tồn tại hay không
+        const productExists = await db.Product.findByPk(productId);
+
+        if (!productExists) {
+            return {
+                err: 1, 
+                msg: 'Product not found!',
+                response: null
+            };
+        }
+        //Lấy avg và toal
+        const summary = await db.Review.findOne({
+            raw: true,
+            attributes: [
+                [fn("AVG", col("rating")), "averageRating"],
+                [fn("COUNT", col("Review.id")), "totalReviews"]
+            ],
+            include : [
+                {
+                    model: db.OrderItem,
+                    as: 'orderItem',
+                    attributes: [],
+                    include: [
+                        {
+                            model: db.ProductVariant,
+                            as: 'variant',
+                            attributes: [],
+                            where: { productId }
+                        }
+                    ]
+                }
+            ]
+        })
+
+        //Nếu có thì lấy tất cả reviews
+        const reviews = await db.Review.findAll({
+            include: [
+                {
+                    model: db.User,
+                    as: 'user',
+                    attributes: ['id', 'firstname', 'lastname']
+                },
+                {
+                    model: db.OrderItem,
+                    as: 'orderItem',
+                    attributes: [],
+                    include : {
+                        model: db.ProductVariant,
+                        as: 'variant',
+                        attributes: ['id', 'volume'],
+                        where: {productId}
+                    }
+                }
+            ],
+            order: [["createdAt", "DESC"]]
+        })
+
+        // Nếu không có dữ liệu summary (tức là product chưa từng có review)
+        const avg = summary?.avgRating ? Number(summary.avgRating).toFixed(1) : "0.0";
+        const total = summary?.totalReviews ? Number(summary.totalReviews) : 0;
+
+        return {
+            err: 0,
+            msg: "Get product reviews successfully!",
+            response: {
+                avgRating: avg,
+                totalReviews: total,
+                reviews
+            }
+        };
+    } catch (error) {
+        throw error
+    }
+}
