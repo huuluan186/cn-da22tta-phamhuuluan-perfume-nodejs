@@ -8,7 +8,7 @@ export const addFavoriteService = async (userId, productId) => {
 
         // Kiểm tra userId có tồn tại không (tùy chọn, nếu cần)
         const user = await db.User.findByPk(userId);
-        if (!user) return { err: 3, msg: "User does not exist" };
+        if (!user) return { err: 1, msg: "User does not exist" };
 
         const [favorite, created] = await db.Favorite.findOrCreate({
             where: { userId, productId },
@@ -38,7 +38,7 @@ export const removeFavoriteService = async (userId, productId) => {
 };
 
 // Lấy danh sách favorites của user hiện tại
-export const getFavoritesByUserService = async (userId) => {
+export const getMyFavoritesService = async (userId) => {
     try {
         const user = await db.User.findByPk(userId, {
             include:[

@@ -1,7 +1,7 @@
 import * as service from '../services/favorite.js';
 
 // Thêm sản phẩm vào favorites của user
-export const addFavoriteController = async (req, res) => {
+export const addMyFavoriteController = async (req, res) => {
     try {
         const userId = req.user.id;
         const { productId } = req.params;
@@ -13,7 +13,7 @@ export const addFavoriteController = async (req, res) => {
     }
 };
 
-export const removeFavoriteController = async (req, res) => {
+export const removeMyFavoriteController = async (req, res) => {
     try {
         const { productId } = req.params;
         const userId = req.user.id;
@@ -25,11 +25,10 @@ export const removeFavoriteController = async (req, res) => {
     }
 };
 
-export const getFavoritesByUserController = async (req, res) => {
+export const getMyFavoritesController = async (req, res) => {
     try {
         const userId = req.user.id;
-
-        const result = await service.getFavoritesByUserService(userId);
+        const result = await service.getMyFavoritesService(userId);
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ err: -1, msg: 'Failed at getFavoritesByUserController: ' + error });
@@ -43,5 +42,4 @@ export const getAllFavoritesController = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ err: -1, msg: 'Failed at getAllFavoritesController: ' + error });
     }
-    
 };
