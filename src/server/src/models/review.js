@@ -8,7 +8,19 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            Review.belongsTo(models.User, { 
+                foreignKey: 'userId', 
+                as: 'user' 
+            });
+            Review.belongsTo(models.OrderItem, { 
+                foreignKey: 'orderItemId', 
+                as: 'orderItem' 
+            });
+            Review.hasMany(models.ReviewImage, {
+                foreignKey: 'reviewId',
+                as: 'reviewImages',
+                onDelete: 'CASCADE',
+            });
         }
     }
     Review.init({
@@ -47,6 +59,12 @@ export default (sequelize, DataTypes) => {
         modelName: 'Review',
         paranoid: true,         
         deletedAt: 'deletedAt',
+        indexes: [
+            {
+                unique: true,
+                fields: ['orderItemId','userId'] // 1 user chỉ được review 1 lần / orderItem
+            }
+        ]
     });
     return Review;
 };

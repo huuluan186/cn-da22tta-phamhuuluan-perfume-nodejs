@@ -8,7 +8,21 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            OrderItem.belongsTo(models.Order, { 
+                foreignKey: 'orderId', 
+                as: 'order' 
+            });
+
+            OrderItem.belongsTo(models.ProductVariant, { 
+                foreignKey: 'productVariantId', 
+                as: 'variant' 
+            });
+
+            OrderItem.hasMany(models.Review, { 
+                foreignKey: 'orderItemId', 
+                as: 'reviews', 
+                onDelete: 'CASCADE' 
+            });
         }
     }
     OrderItem.init({
@@ -32,7 +46,7 @@ export default (sequelize, DataTypes) => {
                 min: 1,
             },
         },
-        priceAtOrder: {
+        unitPrice: {
             type: DataTypes.DECIMAL(12, 2),
             allowNull: false,
             validate: {

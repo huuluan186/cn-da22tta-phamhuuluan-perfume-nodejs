@@ -60,6 +60,13 @@ export default (sequelize, DataTypes) => {
                 otherKey: 'productId',
                 as: 'favorites'
             });
+
+            User.hasMany(models.Review, { 
+                foreignKey: 'userId', 
+                as: 'reviews', 
+                onDelete: 'CASCADE' 
+            });
+
         }
     }
     User.init({
