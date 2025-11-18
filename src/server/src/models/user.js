@@ -53,6 +53,20 @@ export default (sequelize, DataTypes) => {
                 as: 'coupons',
                 onDelete: 'CASCADE',
             });
+
+            User.belongsToMany(models.Product, {
+                through: models.Favorite,
+                foreignKey: 'userId',
+                otherKey: 'productId',
+                as: 'favorites'
+            });
+
+            User.hasMany(models.Review, { 
+                foreignKey: 'userId', 
+                as: 'reviews', 
+                onDelete: 'CASCADE' 
+            });
+
         }
     }
     User.init({

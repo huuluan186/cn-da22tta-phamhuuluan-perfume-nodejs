@@ -52,6 +52,12 @@ export async function up(queryInterface, Sequelize) {
             allowNull: true,
         },
     });
+
+    await queryInterface.addConstraint('Reviews', {
+        fields: ['userId', 'orderItemId'],
+        type: 'unique',
+        name: 'unique_user_review_per_orderItem'
+    });
 }
 export async function down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Reviews');

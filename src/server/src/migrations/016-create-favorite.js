@@ -2,11 +2,6 @@
 
 export async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('Favorites', {
-        id: {
-            allowNull: false,
-            primaryKey: true,
-            type: Sequelize.STRING,
-        },
         productId: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -35,6 +30,12 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         },
+    });
+
+    await queryInterface.addConstraint('Favorites', {
+        fields: ['userId', 'productId'],
+        type: 'primary key',
+        name: 'favorites_pkey'
     });
 }
 

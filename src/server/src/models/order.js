@@ -8,11 +8,15 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // 1 Order thuộc về 1 User
-            Order.belongsTo(models.User, {
-                foreignKey: 'userId',
-                as: 'user',           
-                onDelete: 'CASCADE',
+            Order.belongsTo(models.User, { 
+                foreignKey: 'userId', 
+                as: 'user' 
+            });
+
+            Order.hasMany(models.OrderItem, { 
+                foreignKey: 'orderId', 
+                as: 'orderItems', 
+                onDelete: 'CASCADE' 
             });
         }
     }
@@ -39,7 +43,7 @@ export default (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 0.00,
         },
-        status: { //trạng thái xử lý đơn hàng
+        orderStatus: { //trạng thái xử lý đơn hàng
             type: DataTypes.ENUM("Pending", "Processing", "Shipped", "Completed", "Cancelled"),
             defaultValue: "Pending",
         },

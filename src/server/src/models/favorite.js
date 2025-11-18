@@ -8,27 +8,26 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            Favorite.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+            Favorite.belongsTo(models.Product, { foreignKey: 'productId', as: 'product' });
         }
     }
     Favorite.init({
-        id: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true,       
-        },
         productId: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
         },
         userId: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
         },
     },
     {
         sequelize,
         modelName: 'Favorite',
+        timestamps: true
     });
     return Favorite;
 };

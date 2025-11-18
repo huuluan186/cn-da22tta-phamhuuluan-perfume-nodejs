@@ -37,6 +37,13 @@ export default (sequelize, DataTypes) => {
                 as: 'images',
                 onDelete: 'CASCADE',
             });
+
+            Product.belongsToMany(models.User, {
+                through: models.Favorite,
+                foreignKey: 'productId',
+                otherKey: 'userId',
+                as: 'favoritedBy'
+            });
         }
     }
     Product.init({

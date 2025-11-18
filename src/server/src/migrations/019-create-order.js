@@ -34,7 +34,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             defaultValue: 0.00,
         },
-        status: {
+        orderStatus: {
             type: Sequelize.ENUM('Pending', 'Processing', 'Shipped', 'Completed', 'Cancelled'),
             allowNull: false,
             defaultValue: 'Pending',
