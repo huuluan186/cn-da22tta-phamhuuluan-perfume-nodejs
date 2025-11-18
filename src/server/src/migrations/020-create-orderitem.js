@@ -30,7 +30,7 @@ export async function up(queryInterface, Sequelize) {
             allowNull: false,
             defaultValues: 1
         },
-        priceAtOrder: {
+        unitPrice: {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
         },

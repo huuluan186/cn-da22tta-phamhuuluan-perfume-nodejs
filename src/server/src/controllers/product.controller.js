@@ -22,3 +22,37 @@ export const getAllProductsController = async (req, res) => {
         });
     }
 } 
+
+export const getProductDetailController = async (req, res) => {
+    try {
+        const { productId } = req.params
+        if(!productId) return res.status(400).json({
+            err: 1,
+            msg: 'Missing product ID'
+        });
+        const response = await service.getProductDetailService(productId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at getProductDetailController: ' + error,
+        });
+    }
+}
+
+export const getProductReviewsController = async (req, res) => {
+    try {
+        const { productId } = req.params
+        if(!productId) return res.status(400).json({
+            err: 1,
+            msg: 'Missing product ID'
+        });
+        const response = await service.getProductReviewsService(productId);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at getProductReviewsController: ' + error,
+        });
+    }
+}

@@ -14,6 +14,12 @@ export default (sequelize, DataTypes) => {
                 foreignKey: 'productId',
                 as: 'product',
             });
+
+            ProductVariant.hasMany(models.OrderItem, { 
+                foreignKey: 'productVariantId', 
+                as: 'orderItems', 
+                onDelete: 'CASCADE' 
+            });
         }
     }
     ProductVariant.init({

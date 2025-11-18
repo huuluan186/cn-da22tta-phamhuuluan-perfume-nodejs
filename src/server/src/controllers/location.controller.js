@@ -1,4 +1,4 @@
-import * as service from '../services/region.js'
+import * as service from '../services/location.js'
 
 export const getAllCountriesController = async (req, res) => {
     try {
