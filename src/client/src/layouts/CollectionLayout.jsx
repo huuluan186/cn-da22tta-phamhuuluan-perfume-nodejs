@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllBrands } from "../store/actions/brand";
 import { useEffect, useState } from "react";
 import { FiltersSidebar } from "../components";
+import { ITEMS_PER_PAGE } from "../constants/pagination";
 
 const CollectionLayout = () => {
 
@@ -15,7 +16,9 @@ const CollectionLayout = () => {
         rating: null,
         categoryId: undefined,
         keyword: '',
-        sort: ''
+        sort: '',
+        page: 1,  
+        imit: ITEMS_PER_PAGE,
     });
 
     useEffect(() => {
