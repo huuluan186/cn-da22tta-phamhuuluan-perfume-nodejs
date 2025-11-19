@@ -1,6 +1,9 @@
-import { getImageUrl, formatProductPrice, formatPrice } from "../../utils/index";
+import { getImageUrl, formatProductPrice, formatPrice, toSlug } from "../../utils/index";
 import icons from "../../assets/react-icons/icon";
 import { Button } from "../index"
+import { useNavigate } from "react-router-dom";
+import { path } from "../../constants/path"; // đảm bảo import path
+
 /**
     * Component hiển thị 1 sản phẩm dạng thẻ
     * @param {Object} product - Thông tin sản phẩm
@@ -10,7 +13,8 @@ import { Button } from "../index"
 
 const {FaCartPlus, FaEye, FaRegHeart } = icons
 
-const ProductCard = ({ product, onClick, className = "", viewMode = "grid", textAlign = "left"}) => {
+const ProductCard = ({ product, className = "", viewMode = "grid", textAlign = "left"}) => {
+    const navigate = useNavigate();
     if (!product) return null;
 
     // Xử lý giá sản phẩm
@@ -36,11 +40,16 @@ const ProductCard = ({ product, onClick, className = "", viewMode = "grid", text
         </div>
     );
 
+    const handleClick = () => {
+        const slug = toSlug(product.name);
+        navigate(path.PRODUCT_DETAIL.replace(":slug", slug));  // điều hướng tới trang chi tiết
+    };
+
     if (viewMode === "list") {
         // Dạng cột/horizontal
         return (
             <div
-                onClick={onClick}
+                onClick={handleClick}
                 className={`grid grid-cols-12 gap-4 bg-white p-4 cursor-pointer group transition-all duration-200 border-b ${className}`}
             >
                 {/* Ảnh bên trái */}
@@ -91,7 +100,7 @@ const ProductCard = ({ product, onClick, className = "", viewMode = "grid", text
     
     return (
         <div
-            onClick={onClick}
+            onClick={handleClick}
             className={`relative bg-white transition-all duration-200 cursor-pointer group ${className}`}
         >
             {/* Ảnh sản phẩm */}

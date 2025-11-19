@@ -7,6 +7,7 @@ const Breadcrumb = () => {
     const { pathname } = useLocation();
     const { slug } = useParams();
     const { categories } = useSelector(state => state.category);
+    const { product } = useSelector(state => state.product);
 
      // Tìm key khớp trong breadcrumbMap (có hỗ trợ route động)
     const findBreadcrumbKey = () => {
@@ -21,22 +22,25 @@ const Breadcrumb = () => {
         return null;
     };
 
-    const matchedKey = findBreadcrumbKey();
+    const matchedKey = findBreadcrumbKey(); 
 
-    // Lấy breadcrumb riêng cho path hiện tại
-    const customTrail = matchedKey ? breadcrumbMap[matchedKey] || [] : [];
+    // Lấy breadcrumb riêng cho path hiện tại 
+    const customTrail = matchedKey ? breadcrumbMap[matchedKey] || [] : []; 
 
-    const currentCategory = categories.find(c => c.slug === slug);
-    let categoryLabel = currentCategory 
-        ? currentCategory.name 
-        : slug?.replace(/-/g, " ");
+    let dynamicTrail = customTrail;
 
-    if (slug) categoryLabel += " chính hãng";
-
-    // Nếu là slug route thì thay label "Danh mục" = tên có dấu
-    const dynamicTrail = customTrail.map(item =>
-        item.label === "Danh mục" ? { label: categoryLabel } : item
-    );
+    // Nếu là trang product detail và product đã load 
+    if (matchedKey === path.PRODUCT_DETAIL && product) {
+        dynamicTrail = [{ label: product.name }];
+    }
+    // Nếu là category slug 
+    else if (slug) { 
+        const currentCategory = categories.find(c => c.slug === slug); 
+        let categoryLabel = currentCategory ? currentCategory.name : slug.replace(/-/g, " "); categoryLabel += " chính hãng"; 
+        dynamicTrail = customTrail.map(item => 
+            item.label === "Danh mục" ? { label: categoryLabel } : item 
+        ); 
+    }
 
     // Luôn thêm "Trang chủ" ở đầu (trừ khi là trang chủ)
     const breadcrumbs =

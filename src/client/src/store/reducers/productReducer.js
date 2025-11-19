@@ -5,7 +5,8 @@ const initialState = {
     resultCount: null,
     page: null,
     limit: null,
-    error: null
+    error: null,
+    product: null,
 }
 
 const productReducer = (state = initialState, action) => {
@@ -21,6 +22,10 @@ const productReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_PRODUCTS_FAIL:
             return { ...state, error: action.msg };
+        case actionTypes.GET_PRODUCT_DETAIL_SUCCESS:
+            return { ...state, product: action.response, error: null };
+        case actionTypes.GET_PRODUCT_DETAIL_FAIL:
+            return { ...state, product: null, error: action.msg };
         default:
             return state;
     }

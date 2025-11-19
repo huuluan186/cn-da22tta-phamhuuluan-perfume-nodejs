@@ -36,4 +36,8 @@ export const breadcrumbMap = {
     [`${path.COLLECTIONS}/:slug`]: [
         { label: "Danh mục" },
     ],
+
+    [`${path.PRODUCT_DETAIL}`]: [
+        { label: "" },
+    ],
 };
