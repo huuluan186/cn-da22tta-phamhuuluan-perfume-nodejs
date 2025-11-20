@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist } from './pages/index'
 import { Callback, ProtectedRoute } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
 import { useDispatch } from 'react-redux'
@@ -47,6 +47,7 @@ function App() {
                         <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList />} />
                     </Route>
                     <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
+                    <Route path={path.WISHLIST} element={<Wishlist/>} />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
             </Routes>

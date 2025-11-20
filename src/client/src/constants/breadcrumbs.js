@@ -40,4 +40,8 @@ export const breadcrumbMap = {
     [`${path.PRODUCT_DETAIL}`]: [
         { label: "" },
     ],
+
+    [`${path.WISHLIST}`]: [
+        { label: "Danh sách sản phẩm yêu thích" }
+    ]
 };
