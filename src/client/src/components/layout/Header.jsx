@@ -5,6 +5,8 @@ import { accountMenuItems } from "../../constants/menuItems";
 import { useNavigate } from "react-router-dom";  
 import { path } from '../../constants/path';
 import { useSelector, useDispatch } from "react-redux";
+import { apiGetMyFavorites } from '../../api/user';
+import { useState, useEffect } from 'react';
 
 const {FaHeart, FaShoppingCart, MdKeyboardArrowDown} = icons;
 const cartItems = [
@@ -17,6 +19,25 @@ const Header = () => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
     const isLoggedIn = !!user;
+    const [favoriteItems, setFavoriteItems] = useState([]);
+
+    // Lấy số sản phẩm yêu thích khi mount
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            if (!isLoggedIn) return;
+            try {
+                const res = await apiGetMyFavorites();
+                if (res?.data?.err === 0) {
+                    setFavoriteItems(res.data.response || []);
+                }
+            } catch (err) {
+                console.error("Lỗi lấy favorites:", err);
+            }
+        };
+        fetchFavorites();
+        window.addEventListener('favoritesUpdated', fetchFavorites);
+        return () => window.removeEventListener('favoritesUpdated', fetchFavorites);
+    }, [isLoggedIn]);
     
     return (
         <div className='flex justify-between items-center py-4'>
@@ -82,11 +103,16 @@ const Header = () => {
 
                 {/* Icons */}
                 <div className="flex items-center gap-4">
-                    <FaHeart className="text-2xl cursor-pointer hover:text-gray-300" />
+                    <div className='relative py-2' onClick={()=> navigate(path.WISHLIST)}>
+                        <FaHeart className="text-2xl cursor-pointer hover:text-gray-300" />
+                        <span className="absolute top-1 -right-2 bg-red-500 text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                            {favoriteItems.length}
+                        </span>
+                    </div>
                     <div className='relative group'>
-                        <div className="relative py-2">
+                        <div className="relative py-2" >
                             <FaShoppingCart className="text-2xl cursor-pointer hover:text-gray-300" />
-                            <span className="absolute top-0 -right-2 bg-red-500 text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                            <span className="absolute top-1 -right-2 bg-red-500 text-xs w-4 h-4 flex items-center justify-center rounded-full">
                                 {cartItems.length}
                             </span>
                         </div>
