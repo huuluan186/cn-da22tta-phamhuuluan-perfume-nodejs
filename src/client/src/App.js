@@ -47,7 +47,14 @@ function App() {
                         <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList />} />
                     </Route>
                     <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
-                    <Route path={path.WISHLIST} element={<Wishlist/>} />
+                    <Route 
+                        path={path.WISHLIST} 
+                        element={
+                            <ProtectedRoute>
+                                <Wishlist/>
+                            </ProtectedRoute>
+                        }  
+                    />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
             </Routes>
