@@ -7,14 +7,14 @@ import {
     getCountries,
     getProvincesByCountry,
     getWardsByProvince,
-} from "../../../store/actions/region";
+} from "../../../store/actions/location";
 import { apiAddAddress, apiUpdateAddress } from "../../../api/user";
 import { validateAddress } from "../../../utils";
 const { MdCancel } = icons;
 
 const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
     const dispatch = useDispatch();
-    const { countries, provinces, wards } = useSelector(state => state.region);
+    const { countries, provinces, wards } = useSelector(state => state.location);
 
     const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({

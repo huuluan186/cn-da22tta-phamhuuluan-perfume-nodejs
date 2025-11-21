@@ -15,6 +15,7 @@ const Button = ({
     height = 'h-full',
     rounded='',
     outline, 
+    className='',
 }) => {
     return (
         <div className='relative flex justify-center items-center'>
@@ -31,6 +32,7 @@ const Button = ({
                     ${hoverText}
                     ${outline}  
                     ${rounded} 
+                    ${className}
                     flex font-medium items-center justify-center gap-2 `
                 } 
                 onClick={onClick}

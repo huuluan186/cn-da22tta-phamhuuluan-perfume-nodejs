@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsList } from "../../store/actions/product";
-import { ProductCard, Button } from "../../components";
+import { ProductCard, Button, Pagination } from "../../components";
 import { useParams, useOutletContext } from "react-router-dom";
 import { SORT_OPTIONS } from "../../constants/sortKeys";
+import { ITEMS_PER_PAGE } from "../../constants/pagination";
 import icons from '../../assets/react-icons/icon'
 import {capitalizeWords, buildProductParams} from '../../utils/index'
 
@@ -16,26 +17,21 @@ const ProductList = () => {
     const { categories } = useSelector(state => state.category)
     const [viewMode, setViewMode] = useState("grid"); // "grid" | "list"
     const { filters, setFilters } = useOutletContext();
+    const productListRef = useRef(null);
 
     // Cập nhật categoryId khi slug thay đổi
     useEffect(() => {
         if (categories?.length && slug) {
             const category = categories.find(c => c.slug === slug);
-            setFilters(prev => ({
-                ...prev,
-                categoryId: category?.id
-            }));
+            setFilters(prev => ({ ...prev, categoryId: category?.id, page: 1 }));
         } else {
-            setFilters(prev => ({ ...prev, categoryId: undefined }));
+            setFilters(prev => ({ ...prev, categoryId: undefined, page: 1 }));
         }
-    }, [categories, slug]);
+    }, [categories, slug, setFilters]);
 
     // Gọi API mỗi khi filters thay đổi
-    useEffect(()  => {
-        const fetchProducts = async () => {
-            dispatch(getProductsList(buildProductParams(filters)));
-        };
-        fetchProducts();
+    useEffect(() => {
+        dispatch(getProductsList(buildProductParams(filters)));
     }, [
         dispatch,
         filters.categoryId,
@@ -43,11 +39,17 @@ const ProductList = () => {
         filters.price,
         filters.rating,
         filters.keyword,
-        filters.sort
+        filters.sort,
+        filters.page,
     ]);
 
     const category = categories?.find(c => c.slug === slug);
     const pageTitle = slug ? category?.name || "" : "Tất cả sản phẩm";
+
+    // Phân trang client-side
+    const currentPage = filters.page || 1;
+    const totalItems = resultCount || products?.length || 0;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
     return (
         <div className="space-y-4 mx-1 my-2">
@@ -97,13 +99,20 @@ const ProductList = () => {
                     onClick={() => setViewMode("list")}
                 />
             </div>
+
             {/* Hiển thị lỗi hoặc không có sản phẩm */}
-            {error || products?.length === 0 ? (
-                <div className="text-orange-800 bg-[#FCF8E3] p-3 rounded">
-                    Không có sản phẩm nào trong danh mục này.
-                </div>
-            ) : null}
+            {error || products?.length === 0 
+                ? 
+                (
+                    <div className="text-orange-800 bg-[#FCF8E3] p-3 rounded">
+                        Không có sản phẩm nào trong danh mục này.
+                    </div>
+                ) 
+                : null
+            }
+
             <div 
+                ref={productListRef}
                 className={
                     viewMode==='grid'
                         ? "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6"
@@ -115,6 +124,15 @@ const ProductList = () => {
                         <ProductCard key={product.id} product={product} viewMode={viewMode}/>
                     ))
                 )}
+            </div>
+
+            <div className="pt-12 pb-6">
+                <Pagination 
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={(page) => setFilters(prev => ({ ...prev, page }))}
+                    scrollRef={productListRef}
+                />
             </div>
         </div>
     )

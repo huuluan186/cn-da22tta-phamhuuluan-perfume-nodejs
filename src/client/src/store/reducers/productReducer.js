@@ -1,11 +1,16 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    products: [],
-    resultCount: null,
-    page: null,
-    limit: null,
-    error: null
+    products: [],            // Danh sách sản phẩm khi lấy nhiều sản phẩm
+    resultCount: null,       // Tổng số sản phẩm trả về từ API
+    page: null,              // Trang hiện tại (pagination)
+    limit: null,             // Số lượng sản phẩm trên mỗi trang
+    error: null,             // Lỗi khi lấy danh sách sản phẩm hoặc chi tiết sản phẩm
+    product: null,           // Chi tiết sản phẩm hiện tại
+    reviews: [],             // Danh sách review của sản phẩm
+    avgRating: "0.0",        // Điểm đánh giá trung bình
+    totalReviews: 0,         // Tổng số bài review
+    reviewError: null,       // Lỗi khi lấy review
 }
 
 const productReducer = (state = initialState, action) => {
@@ -21,6 +26,26 @@ const productReducer = (state = initialState, action) => {
             }
         case actionTypes.GET_PRODUCTS_FAIL:
             return { ...state, error: action.msg };
+        case actionTypes.GET_PRODUCT_DETAIL_SUCCESS:
+            return { ...state, product: action.response, error: null };
+        case actionTypes.GET_PRODUCT_DETAIL_FAIL:
+            return { ...state, product: null, error: action.msg };
+        case actionTypes.GET_PRODUCT_REVIEWS_SUCCESS:
+            return {
+                ...state,
+                reviews: action.response.reviews || [],
+                avgRating: action.response.avgRating || "0.0",
+                totalReviews: action.response.totalReviews || 0,
+                reviewError: null,
+            };
+        case actionTypes.GET_PRODUCT_REVIEWS_FAIL:
+            return {
+                ...state,
+                reviews: [],
+                avgRating: "0.0",
+                totalReviews: 0,
+                reviewError: action.msg,
+            };
         default:
             return state;
     }
