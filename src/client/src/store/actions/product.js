@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiGetProductsList, apiGetProductDetail } from '../../api/product';
+import { apiGetProductsList, apiGetProductDetail, apiGetProductReviews } from '../../api/product';
 
 export const getProductsList = (params = {}) => async (dispatch) => {
     try {
@@ -40,6 +40,28 @@ export const getProductDetail = (productId) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: actionTypes.GET_PRODUCT_DETAIL_FAIL,
+            msg: error.message,
+        });
+    }
+};
+
+export const getProductReviews = (productId) => async (dispatch) => {
+    try {
+        const res = await apiGetProductReviews(productId);
+        if (res?.err === 0) {
+            dispatch({
+                type: actionTypes.GET_PRODUCT_REVIEWS_SUCCESS,
+                response: res.response,
+            });
+        } else {
+            dispatch({
+                type: actionTypes.GET_PRODUCT_REVIEWS_FAIL,
+                msg: res?.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_PRODUCT_REVIEWS_FAIL,
             msg: error.message,
         });
     }

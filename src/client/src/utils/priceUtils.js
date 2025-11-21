@@ -13,7 +13,9 @@ export const PRICE_STEP = 50_000;
 // Format 1 số thành tiền VND
 export const formatPrice = (value) => {
     if (value == null) return "";
-    return value.toLocaleString("vi-VN");
+    // Ép về số (float), rồi làm tròn vì tiền VN không có phần thập phân
+    const number = Math.round(Number(value));
+    return number.toLocaleString("vi-VN");
 };
 
 // Format 1 khoảng giá
