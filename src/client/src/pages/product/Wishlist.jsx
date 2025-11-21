@@ -41,7 +41,7 @@ const Wishlist = () => {
     };
 
     return (
-        <div className='container py-6'>
+        <div className='container py-6 bg-contentBg'>
             <h2 className="text-2xl font-semibold mb-6">Sản Phẩm Yêu Thích</h2>
             {wishlist.length === 0 ? (
                 <div className="text-gray-500">
