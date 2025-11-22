@@ -9,24 +9,48 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
         let hasPagination = false;
         let limitNum;
         const pageNum = Number(page) || 1;
-        if (limit !== undefined) { // nếu limit được truyền trong query
+
+        // Nếu limit được truyền từ query, sử dụng; nếu không dùng default
+        if (limit !== undefined) { 
             limitNum = limit && +limit > 0 ? +limit : +process.env.DEFAULT_PAGE_LIMIT || 9;
             hasPagination = page !== undefined && page !== '' && limitNum > 0;
         }
-        const offset = hasPagination ? (pageNum - 1) * limitNum : 0;
+        const offset = hasPagination ? (pageNum - 1) * limitNum : 0; // tính offset cho pagination
         
         // === 2. XÂY DỰNG TRUY VẤN ===
-        const { where, include } = buildProductFilters(filters);
-        const order = buildProductSort(filters?.sort);
+        const { where, include } = buildProductFilters(filters); // Lấy object `where` và `include` từ hàm buildProductFilters
+        const order = buildProductSort(filters?.sort); // Lấy mảng order (sort) nếu có
 
+        // Nếu filter theo rating được truyền, join thêm các review để tính avgRating
+        if (filters.rating) {
+            include.push({
+                model: db.ProductVariant,
+                as: "variants",
+                required: false,
+                include: [{
+                    model: db.OrderItem,
+                    as: "orderItems",
+                    required: false,
+                    include: [{
+                        model: db.Review,
+                        as: "reviews",
+                        attributes: ["rating"], 
+                        required: false
+                    }]
+                }]
+            });
+        }
+
+        // Tạo options cho findAndCountAll
         const findOptions = {
             where,
             include,
-            distinct: true,
+            distinct: true, // tránh duplicate khi join
             order,
             ...(hasPagination ? { offset, limit: limitNum } : {})
         };
         
+        // === 2a. Thực thi query ===
         const products = await db.Product.findAndCountAll(findOptions);
         if (!products || products.rows.length === 0) {
             return {
@@ -38,7 +62,8 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
 
         // === 3. XỬ LÝ FORMAT DỮ LIỆU ===
         // Map ra format card: giá từ thấp → cao
-        const data = products.rows.map(prod => {
+        let rows = products.rows.map(prod => {
+            // Lấy tất cả giá của variants, lọc NaN
             const prices = prod.variants.map(v => +v.price).filter(p => !isNaN(p));
     
             const priceInfo = {};
@@ -48,14 +73,32 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
                 priceInfo.minPrice = Math.min(...prices);
                 priceInfo.maxPrice = Math.max(...prices);
             }
+
+            let avgRating = null;
+            // Chỉ tính avgRating khi có filter.rating
+            if (filters.rating) {
+                const ratings = (prod.variants || []).flatMap(v =>
+                    (v.orderItems || []).flatMap(oi =>
+                        (oi.reviews || []).map(r => r.rating)
+                    )
+                );
+                avgRating = ratings.length ? ratings.reduce((a,b) => a+b,0) / ratings.length : null;
+            }
+
             return {
                 id: prod.id,
                 name: prod.name,
                 brand: prod.brand,
                 thumbnail: prod.images[0]?.url || null,
-                ...priceInfo
+                ...priceInfo,
+                avgRating
             };
         });
+
+        // === 3a. LỌC THEO RATING ===
+        if (filters.rating) {
+            rows = rows.filter(p => p.avgRating >= +filters.rating);
+        }
 
         // === 4. TRẢ VỀ KẾT QUẢ ===
         return {
@@ -65,7 +108,7 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
                 total: products.count,
                 page: hasPagination ? pageNum : null,
                 limit: hasPagination ? limitNum : null,
-                data
+                data: rows
             }
         };
     } catch (error) {
