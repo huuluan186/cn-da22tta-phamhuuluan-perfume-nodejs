@@ -42,11 +42,15 @@ function App() {
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword/>} />
                         <Route path={path.ADDRESSES} element={<AddressBook/>} />
                     </Route>
-                    <Route path={path.COLLECTIONS} element={<CollectionLayout />}>
-                        <Route path={path.ALL_PRODUCTS} element={<ProductList  />} />
-                        <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList />} />
+                    <Route element={<CollectionLayout />}>
+                        <Route path={path.COLLECTIONS}>
+                            <Route path={path.ALL_PRODUCTS} element={<ProductList />} />
+                            <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList />} />
+                        </Route>
+
+                        <Route path={path.SEARCH} element={<ProductList />} />
                     </Route>
-                    <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
+
                     <Route 
                         path={path.WISHLIST} 
                         element={
@@ -55,6 +59,7 @@ function App() {
                             </ProtectedRoute>
                         }  
                     />
+                    <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
             </Routes>

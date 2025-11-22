@@ -43,5 +43,9 @@ export const breadcrumbMap = {
 
     [`${path.WISHLIST}`]: [
         { label: "Danh sách sản phẩm yêu thích" }
+    ],
+
+    [`${path.SEARCH}`]: [
+        { label: "Kết quả tìm kiếm" }
     ]
 };

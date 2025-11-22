@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import icons from "../../assets/react-icons/icon";
 import { path } from "../../constants/path";
@@ -15,9 +15,21 @@ const SearchBar = ({
 }) => {
     const [query, setQuery] = useState('');
     const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const q = query.trim();
+
+        if (!q) return;
+
+        // Điều hướng sang /search?query=abc
+        navigate(`${path.SEARCH}?query=${encodeURIComponent(q)}`);
+        setQuery('');
+    };
+
     return (
         <form 
-            //onSubmit={handleSearch}
+            onSubmit={handleSearch}
             className={`${rounded} ${width} ${height} flex items-center  bg-contentBg overflow-hidden`}
         >
             <input 

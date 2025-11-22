@@ -2,22 +2,29 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsList } from "../../store/actions/product";
 import { ProductCard, Button, Pagination } from "../../components";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useLocation  } from "react-router-dom";
 import { SORT_OPTIONS } from "../../constants/sortKeys";
 import { ITEMS_PER_PAGE } from "../../constants/pagination";
 import icons from '../../assets/react-icons/icon'
 import {capitalizeWords, buildProductParams} from '../../utils/index'
+import { path } from "../../constants/path";
+import { useSyncFiltersWithURL } from "../../hooks/useSyncFiltersWithURL";
 
 const { IoList, BsFillGrid3X2GapFill } = icons
 
 const ProductList = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const searchKeyword = searchParams.get("query") || "";
     const { slug } = useParams();
     const { products, error, resultCount } = useSelector(state => state.product);
     const { categories } = useSelector(state => state.category)
     const [viewMode, setViewMode] = useState("grid"); // "grid" | "list"
     const { filters, setFilters } = useOutletContext();
     const productListRef = useRef(null);
+    // Sync filters: page, sort, keyword, view
+    //useSyncFiltersWithURL(filters, setFilters, ["page", "sort", "keyword", "view"]);
 
     // Cập nhật categoryId khi slug thay đổi
     useEffect(() => {
@@ -43,8 +50,22 @@ const ProductList = () => {
         filters.page,
     ]);
 
-    const category = categories?.find(c => c.slug === slug);
-    const pageTitle = slug ? category?.name || "" : "Tất cả sản phẩm";
+    useEffect(() => {
+        if (searchKeyword) {
+            setFilters(prev => ({ ...prev, keyword: searchKeyword, page: 1 }));
+        } else {
+            setFilters(prev => ({...prev, keyword: '', page: 1 }))
+        }
+    }, [searchKeyword])
+
+    const { pathname } = location;
+    const pageTitle =
+    pathname === path.SEARCH
+        ? "Sản phẩm tìm kiếm phù hợp"
+        : slug
+            ? categories?.find(c => c.slug === slug)?.name || ""
+            : "Tất cả sản phẩm";
+
 
     // Phân trang client-side
     const currentPage = filters.page || 1;
