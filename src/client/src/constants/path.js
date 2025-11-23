@@ -16,5 +16,6 @@ export const path={
     ALL_PRODUCTS: 'all',
     PRODUCTS_FILTERED_BY_CATEGORY: ':slug',
     PRODUCT_DETAIL: '/products/:slug',
-    WISHLIST: '/wishlist'
+    WISHLIST: '/wishlist',
+    SEARCH: '/search',
 }

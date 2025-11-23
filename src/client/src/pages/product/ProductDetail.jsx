@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { getProductDetail, getProductsList } from "../../store/actions/product";
 import { toSlug } from "../../utils";
 import { getImageUrl, formatPrice } from "../../utils";
-import { Button } from '../../components/index'
-import { ProductTabs } from '../index'
+import { Button, ProductTabs, RatingSummary, ReviewList } from '../../components/index'
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 
@@ -20,6 +19,22 @@ const ProductDetail = () => {
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [reviews, setReviews] = useState([
+  {
+    name: "Nguyen Van A",
+    rating: 5,
+    title: "Sản phẩm tuyệt vời",
+    content: "Mình rất hài lòng với chất lượng sản phẩm!",
+    images: [],
+  },
+  {
+    name: "Tran Thi B",
+    rating: 4,
+    title: "Tốt",
+    content: "Hơi nhỏ nhưng dùng ổn.",
+    images: [],
+  },
+]);
 
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
     useEffect(() => {
@@ -412,6 +427,20 @@ const ProductDetail = () => {
             <div className="border shadow-sm mt-8">
                 <ProductTabs product={product} selectedVariant={selectedVariant}/> 
             </div>
+
+            {/* ================== KHỐI 3: ĐÁNH GIÁ SẢN PHẨM ================== */}
+            <div className="mt-8 space-y-6">
+                <h3 className="text-2xl font-bold bg-gray-200 px-4 py-2 -mb-2 rounded-md">
+                    Đánh giá và Nhận xét ({reviews.length})
+                </h3>
+                <RatingSummary
+                    reviews={reviews} 
+                    onRateClick={() => console.log("Mở modal đánh giá")}
+                />
+
+                <ReviewList reviews={reviews} />
+            </div>
+
         </div>
     )
 }

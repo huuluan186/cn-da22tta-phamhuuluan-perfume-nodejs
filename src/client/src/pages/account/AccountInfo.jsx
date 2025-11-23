@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { capitalizeWords, formatDate } from "../../utils"
 import { Button } from "../../components";
-import { AccountEditModal } from "../index";
+import { AccountEditModal } from "../../components/index";
 import { genderMap } from "../../constants/translationMap";
 
 const AccountInfo = () => {

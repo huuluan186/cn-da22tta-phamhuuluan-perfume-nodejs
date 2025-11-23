@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, InputField, SelectField, CheckRadioField } from "../../../components";
+import { Button, InputField, SelectField, CheckRadioField } from "../..";
 import icons from "../../../assets/react-icons/icon";
 import { toast } from "react-toastify";
 import {

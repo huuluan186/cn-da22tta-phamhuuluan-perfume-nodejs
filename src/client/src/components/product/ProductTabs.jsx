@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "../../../components";
-import { DetailTab, UsageTab, ShippingTab } from '../../index'
+import { Button } from "..";
+import { DetailTab, UsageTab, ShippingTab } from '../index'
 
 const ProductTabs = ({ product, selectedVariant }) => {
     const [activeTab, setActiveTab] = useState("detail");
