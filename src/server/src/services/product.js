@@ -1,6 +1,7 @@
 import db from "../models/index.js";
 import { fn, col } from 'sequelize'
 import { buildProductFilters, buildProductSort } from "../utils/index.js"
+import { nanoid } from 'nanoid';
 
 //LẤY DANH SÁCH SẢN PHẨM (CÓ HOẶC KHÔNG ĐIỀU KIỆN LỌC)
 export const getAllProductsService = async ( page, limit, filters = {} ) => {
@@ -203,6 +204,7 @@ export const getProductReviewsService = async (productId) => {
 
         //Nếu có thì lấy tất cả reviews
         const reviews = await db.Review.findAll({
+            attributes: { exclude: ['userId'] },
             include: [
                 {
                     model: db.User,
@@ -219,6 +221,11 @@ export const getProductReviewsService = async (productId) => {
                         attributes: ['id', 'volume'],
                         where: {productId}
                     }
+                },
+                {
+                    model: db.ReviewImage,
+                    as: 'reviewImages',
+                    attributes: [],
                 }
             ],
             order: [["createdAt", "DESC"]]
@@ -237,6 +244,79 @@ export const getProductReviewsService = async (productId) => {
                 reviews
             }
         };
+    } catch (error) {
+        throw error
+    }
+}
+
+
+// thêm nhiều ảnh review
+export const addReviewImagesService = async (reviewId, images = []) => {
+    try {
+        if (!images.length) return [];
+        const reviewImages = images.map((url, index) => ({
+            id: nanoid(4),
+            reviewId,
+            url,
+            sortOrder: index
+        }));
+        return await db.ReviewImage.bulkCreate(reviewImages);
+    } catch (error) {
+        throw error
+    }
+};
+
+// Bình luận sản phẩm đã mua
+export const addProductReviewsService = async ({ userId, orderItemId, title, content, rating, images = [] }) => {
+    try {
+        // 1. Kiểm tra orderItem tồn tại và thuộc về user này
+        const orderItem = await db.OrderItem.findOne({
+            where: {id: orderItemId},
+            include: [
+                {
+                    model: db.Order,
+                    as: 'order',
+                    where: {userId}
+                },
+                {
+                    model: db.ProductVariant,
+                    as: 'variant',
+                    attributes: ['id', 'volume', 'productId']
+                }
+            ]
+        })
+        if (!orderItem) return { err: 1, msg: "Order item not found or does not belong to you." };
+
+        // 2. Kiểm tra user đã review chưa
+        const existedReview = await db.Review.findOne({ where: { orderItemId, userId } });
+        if (existedReview) return { err: 1, mdg: "You have already reviewed this item." }
+
+        // 3. Tạo review với tất cả field của model
+        const reviewId = nanoid(4);
+        const review = await db.Review.create({
+            id: reviewId,
+            orderItemId,
+            userId,
+            title,
+            content,
+            rating: rating ?? 5
+        })
+
+        // 4. Thêm ảnh nếu có
+         let reviewImages = [];
+        if (images.length) {
+            reviewImages = await addReviewImagesService(reviewId, images);
+        }
+
+        // 5. Trả về review vừa tạo kèm ảnh
+        return {
+            err: 0,
+            msg: "Review added successfully",
+            response: {
+                ...review.toJSON(),
+                reviewImages
+            }
+        }
     } catch (error) {
         throw error
     }
