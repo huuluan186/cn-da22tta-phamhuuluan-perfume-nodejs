@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { getProductDetail, getProductsList } from "../../store/actions/product";
 import { toSlug } from "../../utils";
 import { getImageUrl, formatPrice } from "../../utils";
-import { Button } from '../../components/index'
-import { ProductTabs } from '../index'
+import { Button, ProductTabs } from '../../components/index'
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 

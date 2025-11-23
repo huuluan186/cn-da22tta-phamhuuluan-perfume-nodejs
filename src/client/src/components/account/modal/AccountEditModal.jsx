@@ -1,7 +1,7 @@
 import icons from '../../../assets/react-icons/icon'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Button, InputField, CheckRadioField } from '../../../components'
+import { Button, InputField, CheckRadioField } from '../..'
 import { toast } from 'react-toastify'
 import { capitalizeWords, formatDate, formatDateForInput } from "../../../utils"
 import { getCurrentUser } from "../../../store/actions/user";
