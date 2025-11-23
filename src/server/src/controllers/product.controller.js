@@ -1,3 +1,4 @@
+import { truncates } from 'bcryptjs';
 import * as service from '../services/product.js';
 
 export const getAllProductsController = async (req, res) => {
@@ -53,6 +54,34 @@ export const getProductReviewsController = async (req, res) => {
         return res.status(500).json({
             err: 1,
             msg: 'Failed at getProductReviewsController: ' + error,
+        });
+    }
+}
+
+export const addProductReviewsController = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { productId } = req.params;
+        const { orderItemId, title, content, rating, images } = req.body || {};
+        if (!orderItemId || !orderItemId.trim()) {
+            return res.status(400).json({
+                err: 1,
+                msg: "orderItemId is required."
+            });
+        }
+        const result = await service.addProductReviewsService({
+            userId,
+            orderItemId,
+            title,
+            content,
+            rating,
+            images
+        });
+        return res.status(result.err ? 400 : 201).json(result);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at addProductReviewsController: ' + error,
         });
     }
 }
