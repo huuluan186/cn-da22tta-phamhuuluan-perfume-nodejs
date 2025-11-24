@@ -168,41 +168,39 @@ export const getProductDetailService = async (productId) => {
 
 export const getProductReviewsService = async (productId) => {
     try {
-        //Kiểm tra product có tồn tại hay không
+        // 1. Kiểm tra product tồn tại
         const productExists = await db.Product.findByPk(productId);
-
         if (!productExists) {
-            return {
-                err: 1, 
-                msg: 'Product not found!',
-                response: null
-            };
+            return { err: 1, msg: 'Product not found!', response: null };
         }
-        //Lấy avg và toal
+
+        // 2. Lấy summary (averageRating, totalReviews) chỉ với productId
         const summary = await db.Review.findOne({
             raw: true,
             attributes: [
                 [fn("AVG", col("rating")), "averageRating"],
-                [fn("COUNT", col("Review.id")), "totalReviews"]
+                [fn("COUNT", fn("DISTINCT", col("Review.id"))), "totalReviews"]
             ],
-            include : [
+            include: [
                 {
                     model: db.OrderItem,
                     as: 'orderItem',
+                    required: true, // bắt buộc phải có OrderItem
                     attributes: [],
                     include: [
                         {
                             model: db.ProductVariant,
                             as: 'variant',
+                            required: true, // bắt buộc phải có ProductVariant
                             attributes: [],
-                            where: { productId }
+                            where: { productId } // filter theo productId
                         }
                     ]
                 }
             ]
-        })
+        });
 
-        //Nếu có thì lấy tất cả reviews
+        // 3. Lấy danh sách Review chi tiết
         const reviews = await db.Review.findAll({
             attributes: { exclude: ['userId'] },
             include: [
@@ -214,41 +212,42 @@ export const getProductReviewsService = async (productId) => {
                 {
                     model: db.OrderItem,
                     as: 'orderItem',
+                    required: true,
                     attributes: [],
-                    include : {
+                    include: {
                         model: db.ProductVariant,
                         as: 'variant',
+                        required: true,
                         attributes: ['id', 'volume'],
-                        where: {productId}
+                        where: { productId }
                     }
                 },
                 {
                     model: db.ReviewImage,
                     as: 'reviewImages',
-                    attributes: [],
                 }
             ],
-            order: [["createdAt", "DESC"]]
-        })
+            order: [["createdAt", "DESC"]],
+        });
 
-        // Nếu không có dữ liệu summary (tức là product chưa từng có review)
-        const avg = summary?.avgRating ? Number(summary.avgRating).toFixed(1) : "0.0";
+        // 4. Xử lý dữ liệu summary nếu chưa có review
+        const avg = summary?.averageRating ? Number(summary.averageRating).toFixed(1) : "0.0";
         const total = summary?.totalReviews ? Number(summary.totalReviews) : 0;
 
         return {
             err: 0,
             msg: "Get product reviews successfully!",
             response: {
-                avgRating: avg,
+                averagaRating: avg,
                 totalReviews: total,
                 reviews
             }
         };
-    } catch (error) {
-        throw error
-    }
-}
 
+    } catch (error) {
+        throw error;
+    }
+};
 
 // thêm nhiều ảnh review
 export const addReviewImagesService = async (reviewId, images = []) => {
