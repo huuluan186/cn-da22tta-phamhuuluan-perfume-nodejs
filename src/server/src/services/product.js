@@ -288,7 +288,7 @@ export const addProductReviewsService = async ({ userId, orderItemId, title, con
 
         // 2. Kiểm tra user đã review chưa
         const existedReview = await db.Review.findOne({ where: { orderItemId, userId } });
-        if (existedReview) return { err: 1, mdg: "You have already reviewed this item." }
+        if (existedReview) return { err: 1, msg: "You have already reviewed this item." }
 
         // 3. Tạo review với tất cả field của model
         const reviewId = nanoid(4);

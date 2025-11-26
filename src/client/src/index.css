@@ -25,3 +25,14 @@ code {
     @apply min-h-[30vh] sm:min-h-[40vh] md:min-h-[35vh] flex items-center justify-center;
 }
 
+/* Hide scrollbar but keep scroll */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE */
+    scrollbar-width: none;     /* Firefox */
+}
+
+

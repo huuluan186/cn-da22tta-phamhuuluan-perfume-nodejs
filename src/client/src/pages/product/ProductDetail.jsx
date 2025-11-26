@@ -1,40 +1,27 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { getProductDetail, getProductsList } from "../../store/actions/product";
+import { getProductDetail, getProductsList, getProductReviews  } from "../../store/actions/product";
 import { toSlug } from "../../utils";
 import { getImageUrl, formatPrice } from "../../utils";
-import { Button, ProductTabs, RatingSummary, ReviewList } from '../../components/index'
+import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, Modal } from '../../components/index'
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 
-const { FaHeart, FaRegHeart } = icons;
+const { FaHeart, FaRegHeart, FaRegCheckCircle} = icons;
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
     const { slug } = useParams();
-    const { products, product, avgRating, totalReviews } = useSelector(state => state.product);
+    const { products, product, reviews, avgRating, totalReviews } = useSelector(state => state.product);
     const [currentProductId, setCurrentProductId] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [reviews, setReviews] = useState([
-  {
-    name: "Nguyen Van A",
-    rating: 5,
-    title: "Sản phẩm tuyệt vời",
-    content: "Mình rất hài lòng với chất lượng sản phẩm!",
-    images: [],
-  },
-  {
-    name: "Tran Thi B",
-    rating: 4,
-    title: "Tốt",
-    content: "Hơi nhỏ nhưng dùng ổn.",
-    images: [],
-  },
-]);
+    const [openModal, setOpenModal] = useState(false);
+    const [reloadReview, setReloadReview] = useState(false); // tín hiệu khi thêm bình luận xong
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
     useEffect(() => {
@@ -97,6 +84,12 @@ const ProductDetail = () => {
         };
         fetchWishlist();
     }, [currentProductId]);
+
+    useEffect(() => {
+        if (currentProductId) {
+            dispatch(getProductReviews(currentProductId));
+        }
+    }, [currentProductId, dispatch, reloadReview]);
 
     const toggleFavorite = async () => {
         try {
@@ -431,16 +424,41 @@ const ProductDetail = () => {
             {/* ================== KHỐI 3: ĐÁNH GIÁ SẢN PHẨM ================== */}
             <div className="mt-8 space-y-6">
                 <h3 className="text-2xl font-bold bg-gray-200 px-4 py-2 -mb-2 rounded-md">
-                    Đánh giá và Nhận xét ({reviews.length})
+                    Đánh giá và Nhận xét ({totalReviews})
                 </h3>
                 <RatingSummary
+                    avgRating={avgRating}
+                    totalReviews={totalReviews}
                     reviews={reviews} 
-                    onRateClick={() => console.log("Mở modal đánh giá")}
+                    onRateClick={()=>setOpenModal(true)}
                 />
 
                 <ReviewList reviews={reviews} />
             </div>
 
+            {/* review modal */}
+            {openModal && (
+                <ReviewModal 
+                    product={product} 
+                    onClose={() => {
+                        setOpenModal(false);           // Đóng ReviewModal
+                        setShowSuccessModal(true);    // Hiện modal thành công
+                    }} 
+                />
+            )}
+
+            {/* Modal thông báo thành công */}
+            {showSuccessModal && (
+                <Modal
+                    icon={<FaRegCheckCircle size={50} className="text-primary" />}
+                    message="Cảm ơn bạn đã để lại đánh giá!"
+                    onClose={() => {
+                        setShowSuccessModal(false);
+                        setReloadReview(prev => !prev); // Reload lại review
+                    }}
+                    autoClose={2000}
+                />
+            )}
         </div>
     )
 }

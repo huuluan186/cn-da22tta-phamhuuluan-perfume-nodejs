@@ -1,4 +1,5 @@
 import axiosConfig from './axios.config'
+import { objectToFormData } from '../utils/index'
 
 export const apiGetProductsList = async (params = {}) => {
     try {
@@ -26,3 +27,13 @@ export const apiGetProductReviews = async (productId) => {
         throw error
     }
 }
+
+export const apiAddProductReview = async (productId, payload) => {
+    try {
+        const formData = objectToFormData(payload);
+        const response = await axiosConfig.post(`/api/products/${productId}/reviews`, formData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
