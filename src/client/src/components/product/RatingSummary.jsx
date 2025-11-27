@@ -1,10 +1,10 @@
 // Khối tổng quan đánh giá
 import icons from '../../assets/react-icons/icon'
+import { Button } from '../../components/index'
+
 const {MdStar} = icons;
 
-const RatingSummary = ({ reviews = [], onRateClick }) => {
-    // Mặc định nếu không có review
-    const totalReviews = reviews.length;
+const RatingSummary = ({ avgRating, totalReviews, reviews = [], onRateClick }) => {
 
     // Tính số lượng từng sao: index 0 → 5 sao, index 4 → 1 sao
     const ratingsCount = [0, 0, 0, 0, 0];
@@ -12,12 +12,6 @@ const RatingSummary = ({ reviews = [], onRateClick }) => {
         const star = Math.min(Math.max(r.rating, 1), 5);
         ratingsCount[5 - star] += 1;
     });
-
-    // Tính trung bình
-    const average =
-        totalReviews > 0
-            ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
-            : 0;
 
     // Tính % từng sao
     const ratingPercent = ratingsCount.map(r => Math.round((r / (totalReviews || 1)) * 100));
@@ -28,10 +22,11 @@ const RatingSummary = ({ reviews = [], onRateClick }) => {
 
                 {/* Cột 1: Tổng số sao trung bình */}
                 <div className="flex flex-col items-center justify-center w-1/4 text-center border-r border-gray-300 ">
-                    <div className="text-5xl font-bold text-yellow-400">
-                        {Number(average).toFixed(1)}
+                    <div className="text-5xl font-bold text-yellow-500 flex items-center justify-center gap-1">
+                        <span>{avgRating}</span> 
+                        <MdStar/>
                     </div>
-                    <div className="text-gray-600 font-medium">Đánh giá trung bình</div>
+                    <div className="text-gray-600 font-medium">ĐÁNH GIÁ TRUNG BÌNH</div>
                 </div>
 
                 {/* Cột 2: Thanh % từng sao */}
@@ -41,7 +36,7 @@ const RatingSummary = ({ reviews = [], onRateClick }) => {
                         return (
                             <div
                                 key={idx}
-                                className="grid grid-cols-[auto_11rem_1fr] items-center gap-2 mb-2 p-1 rounded"
+                                className="grid grid-cols-[auto_12rem_1fr] items-center gap-2 mb-2 p-1 rounded"
                             >
                                 {/* Phần 1: số sao */}
                                 <div className="flex items-center gap-1 justify-start">
@@ -52,7 +47,7 @@ const RatingSummary = ({ reviews = [], onRateClick }) => {
                                 {/* Phần 2: thanh vàng */}
                                 <div className="h-4 bg-gray-200 rounded overflow-hidden">
                                     <div
-                                        className="h-4 bg-yellow-400 rounded"
+                                        className="h-4 bg-yellow-500 rounded"
                                         style={{ width: `${ratingPercent[idx]}%` }}
                                     >
                                     </div>
@@ -70,12 +65,17 @@ const RatingSummary = ({ reviews = [], onRateClick }) => {
 
                 {/* Cột 3: Nút đánh giá ngay */}
                 <div className="w-1/4 flex items-center justify-center pl-4">
-                    <button
+                    <Button
                         onClick={onRateClick}
-                        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700"
-                    >
-                        Đánh giá ngay
-                    </button>
+                        text={'Đánh giá ngay'}
+                        textColor='text-white'
+                        bgColor='bg-blue-500'
+                        hoverBg='hover:none'
+                        hoverText='hover:none'
+                        outline='rounded'
+                        className="px-6 py-3"
+                    />
+
                 </div>
             </div>
         </div>
