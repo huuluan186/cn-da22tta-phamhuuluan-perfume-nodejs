@@ -1,12 +1,12 @@
-import icons from '../../../assets/react-icons/icon'
+import icons from '../../assets/react-icons/icon'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Button, InputField, CheckRadioField } from '../..'
+import { Button, InputField, CheckRadioField } from '..'
 import { toast } from 'react-toastify'
-import { capitalizeWords, formatDate, formatDateForInput } from "../../../utils"
-import { getCurrentUser } from "../../../store/actions/user";
-import { genderMap } from "../../../constants/translationMap";
-import { apiUpdateCurrentUser } from '../../../api/user'
+import { capitalizeWords, formatDate, formatDateForInput } from "../../utils"
+import { getCurrentUser } from "../../store/actions/user";
+import { genderMap } from "../../constants/translationMap";
+import { apiUpdateCurrentUser } from '../../api/user'
 
 const { MdCancel } = icons;
 

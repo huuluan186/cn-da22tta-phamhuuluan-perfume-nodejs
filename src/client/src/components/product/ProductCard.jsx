@@ -20,7 +20,7 @@ const ProductCard = ({
     className = "", 
     viewMode = "grid", 
     textAlign = "left", 
-    onRemove 
+    onRemove, //dùng trong xóa sản phẩm khỏi danh sách yêu thích
 }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
@@ -69,7 +69,13 @@ const ProductCard = ({
 
     const iconsList = [
         { Icon: FaCartPlus },
-        { Icon: FaEye },
+        {   
+            Icon: FaEye,
+            onClick: (e) => {
+                e.stopPropagation();
+                window.dispatchEvent(new CustomEvent('openQuickView', { detail: product.id }));
+            }
+        },
         { 
             Icon: isFavorite ? FaHeart : FaRegHeart, 
             favorite: true, 

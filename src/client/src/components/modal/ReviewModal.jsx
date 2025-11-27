@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { getImageUrl } from "../../utils/index"
 import icons from '../../assets/react-icons/icon'
-import { Button, InputField } from "../../components/index";
+import { Button, InputField } from "../index";
 import { apiAddProductReview } from "../../api/product";
 import { toast } from "react-toastify";
 

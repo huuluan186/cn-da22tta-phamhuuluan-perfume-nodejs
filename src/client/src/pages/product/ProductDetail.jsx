@@ -237,17 +237,20 @@ const ProductDetail = () => {
                         {product?.origin && (
                             <div className="mb-4 space-y-1">
                                 <span className="font-semibold text-gray-800">Xuất xứ</span>
-                                <div className="flex flex-col items-start justify-center">
-                                    <Button
-                                        text={(product.origin).toUpperCase()}
-                                        width="w-auto"
-                                        height="h-auto"
-                                        textSize="font-normal text-sm"
-                                        bgColor="bg-contentBg"
-                                        textColor="text-gray-800"
-                                        outline='border border-primary'
-                                        hoverText="hover:none"
-                                    />
+                                <div className="flex flex-wrap items-start gap-2">
+                                    {product.origin.split(",").map((country, index) => (
+                                        <Button
+                                            key={index}
+                                            text={country.trim().toUpperCase()}
+                                            width="w-auto"
+                                            height="h-auto"
+                                            textSize="font-normal text-sm"
+                                            bgColor="bg-contentBg"
+                                            textColor="text-gray-800"
+                                            outline="border border-primary"
+                                            hoverText="hover:none"
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         )}
@@ -374,12 +377,10 @@ const ProductDetail = () => {
                             ) : (
                                 <Button 
                                     text='HẾT HÀNG'
-                                    width="w-1/2"
-                                    height="h-auto"
+                                    width="w-full"
+                                    height="h-14"
                                     rounded="rounded-md"
                                     textSize="text-xl"
-                                    hoverBg="hover:bg-gray-300"
-                                    hoverText="hover:none"
                                     className="pointer-events-none cursor-not-allowed opacity-50"
                                 />
                             )}
