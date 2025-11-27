@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { apiGetAllCountries, apiGetProvincesByCountry, apiGetWardsByProvince } from '../../api/region'
+import { apiGetAllCountries, apiGetProvincesByCountry, apiGetWardsByProvince } from '../../api/location'
 
 //Lấy danh sách quốc gia
 export const getCountries = () => async (dispatch) => {

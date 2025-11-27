@@ -36,4 +36,16 @@ export const breadcrumbMap = {
     [`${path.COLLECTIONS}/:slug`]: [
         { label: "Danh mục" },
     ],
+
+    [`${path.PRODUCT_DETAIL}`]: [
+        { label: "" },
+    ],
+
+    [`${path.WISHLIST}`]: [
+        { label: "Danh sách sản phẩm yêu thích" }
+    ],
+
+    [`${path.SEARCH}`]: [
+        { label: "Kết quả tìm kiếm" }
+    ]
 };

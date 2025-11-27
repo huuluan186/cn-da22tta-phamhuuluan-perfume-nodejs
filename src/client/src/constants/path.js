@@ -15,4 +15,7 @@ export const path={
     COLLECTIONS: '/collections',
     ALL_PRODUCTS: 'all',
     PRODUCTS_FILTERED_BY_CATEGORY: ':slug',
+    PRODUCT_DETAIL: '/products/:slug',
+    WISHLIST: '/wishlist',
+    SEARCH: '/search',
 }

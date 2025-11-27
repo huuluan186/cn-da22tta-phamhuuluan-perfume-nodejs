@@ -2,15 +2,18 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList } from './pages/index'
-import { Callback, ProtectedRoute } from "./components/index";
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist } from './pages/index'
+import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { getCurrentUser } from "./store/actions/user";
+import { getProductDetail } from "./store/actions/product";
 
 function App() {
     const dispatch = useDispatch();
+    const [quickViewId, setQuickViewId] = useState(null); // chỉ lưu productId
+    const {product} = useSelector(state => state.product); // product chi tiết từ redux
 
     // Khi App mount, luôn fetch user từ cookie HttpOnly
     useEffect(() => {
@@ -18,6 +21,23 @@ function App() {
         if (window.location.pathname !== path.CALLBACK) {
             dispatch(getCurrentUser());
         }
+    }, [dispatch]);
+
+    useEffect(() => {
+        const open = (e) => {
+            const id = e.detail; // chỉ gửi productId
+            setQuickViewId(id);
+            dispatch(getProductDetail(id)); // fetch chi tiết sản phẩm
+        };
+        const close = () => setQuickViewId(null);
+
+        window.addEventListener('openQuickView', open);
+        window.addEventListener('closeQuickView', close);
+
+        return () => {
+            window.removeEventListener('openQuickView', open);
+            window.removeEventListener('closeQuickView', close);
+        };
     }, [dispatch]);
 
     return (
@@ -42,10 +62,24 @@ function App() {
                         <Route path={path.CHANGE_PASSWORD} element={<ChangePassword/>} />
                         <Route path={path.ADDRESSES} element={<AddressBook/>} />
                     </Route>
-                    <Route path={path.COLLECTIONS} element={<CollectionLayout />}>
-                        <Route path={path.ALL_PRODUCTS} element={<ProductList  />} />
-                        <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList  />} />
+                    <Route element={<CollectionLayout />}>
+                        <Route path={path.COLLECTIONS}>
+                            <Route path={path.ALL_PRODUCTS} element={<ProductList />} />
+                            <Route path={path.PRODUCTS_FILTERED_BY_CATEGORY} element={<ProductList />} />
+                        </Route>
+
+                        <Route path={path.SEARCH} element={<ProductList />} />
                     </Route>
+
+                    <Route 
+                        path={path.WISHLIST} 
+                        element={
+                            <ProtectedRoute>
+                                <Wishlist/>
+                            </ProtectedRoute>
+                        }  
+                    />
+                    <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
             </Routes>
@@ -63,6 +97,13 @@ function App() {
                 theme="light"
                 transition={Bounce}
                 className="custom-toast-container"
+            />
+
+            {/* Modal Quick View toàn cục */}
+            <QuickViewModal
+                product={product} // product chi tiết từ redux
+                isOpen={!!quickViewId}
+                onClose={() => setQuickViewId(null)}
             />
         </div>
     );

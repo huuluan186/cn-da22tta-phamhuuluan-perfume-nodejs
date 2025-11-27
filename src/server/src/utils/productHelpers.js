@@ -6,7 +6,7 @@ import { Op } from "sequelize";
  */
 
 //bộ lọc
-export const buildProductFilters = ({ categoryId, brandIds, priceRange, rating, keyword }) => {
+export const buildProductFilters = ({ categoryId, brandIds, rating, priceRange, keyword }) => {
     const include = [
         { model: db.Brand, as: 'brand', attributes: ['id', 'name', 'logoUrl'] },
         { model: db.ProductImage, as: 'images', where: { isThumbnail: true }, required: false, attributes: ['url'] },
@@ -16,7 +16,7 @@ export const buildProductFilters = ({ categoryId, brandIds, priceRange, rating, 
     const where = {};
     if (keyword) where.name = { [Op.like]: `%${keyword}%` };
     if (brandIds && brandIds.length) where.brandId = { [Op.in]: brandIds };
-    if (rating) where.rating = { [Op.gte]: +rating };
+    //if (rating) where.rating = { [Op.gte]: +rating };
 
     if (categoryId) {
         include.push({
@@ -29,12 +29,15 @@ export const buildProductFilters = ({ categoryId, brandIds, priceRange, rating, 
 
     // Xử lý khoảng giá (min-max)
     if (priceRange && Array.isArray(priceRange)) {
-        include.find(i => i.as === 'variants').where = {
-            price: {
-                ...(priceRange[0] && { [Op.gte]: +priceRange[0] }),
-                ...(priceRange[1] && { [Op.lte]: +priceRange[1] }),
-            }
-        };
+        const variantInclude = include.find(i => i.as === 'variants');
+        if (variantInclude) {
+            variantInclude.where = {
+                price: {
+                    ...(priceRange[0] && { [Op.gte]: +priceRange[0] }),
+                    ...(priceRange[1] && { [Op.lte]: +priceRange[1] }),
+                }
+            };
+        }
     }
 
     return { where, include };

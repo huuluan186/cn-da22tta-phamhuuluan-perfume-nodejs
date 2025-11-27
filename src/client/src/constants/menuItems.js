@@ -9,13 +9,18 @@ export const accountMenuItems = (navigate, dispatch, isLoggedIn) => [
         onClick: () => { navigate(`${path.ACCOUNT}/${path.ADDRESSES}`) }
     },
     ...(isLoggedIn === true
-    ? [
-        {
-            label: "Đăng xuất",
-            onClick: () => {
-                dispatch(logout());
-                navigate(path.HOME);
+        ? [
+            {
+                label: "Ví voucher của tôi",
+                //onClick: () => { navigate(`${path.ACCOUNT}/${path.VOUCHERS}`) }
             },
-        }
-    ] : []),
+            {
+                label: "Đăng xuất",
+                onClick: () => {
+                    dispatch(logout());
+                    navigate(path.HOME);
+                },
+            }
+        ] : []
+    ),
 ];

@@ -8,7 +8,7 @@ const initialState = {
     error: null,
 };
 
-const regionReducer = (state = initialState, action) => {
+const locationReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GET_COUNTRIES_REQUEST:
             return { 
@@ -41,4 +41,4 @@ const regionReducer = (state = initialState, action) => {
     }
 };
 
-export default regionReducer;
+export default locationReducer;

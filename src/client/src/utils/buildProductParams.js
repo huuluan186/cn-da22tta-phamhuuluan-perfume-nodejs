@@ -1,10 +1,14 @@
+import { ITEMS_PER_PAGE } from "../constants/pagination";
+
 export const buildProductParams = (filters) => {
     const params = {
         categoryId: filters.categoryId,
         brandIds: filters.selectedBrands.length > 0 ? filters.selectedBrands.join(',') : undefined, // chuyển mảng thành CSV
         rating: filters.rating,
-        keyword: filters.keyword,
-        sort: filters.sort
+        keyword: filters.keyword || undefined,
+        sort: filters.sort || undefined,
+        page: filters.page || 1,
+        limit: filters.filters || ITEMS_PER_PAGE,
     };
 
     // Chỉ gửi priceRange nếu khác DEFAULT_PRICE_RANGE

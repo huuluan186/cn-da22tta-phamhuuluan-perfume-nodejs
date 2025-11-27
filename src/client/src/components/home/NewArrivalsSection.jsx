@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Slider from "react-slick";
-import { getImageUrl } from "../../utils";
 import { getProductsList } from "../../store/actions/product";
 import { CustomArrow, ProductCard } from "../index";
 
@@ -90,11 +89,11 @@ const NewArrivalsSection = () => {
                 }
 
                 .slick-prev {
-                    left: -35px;
+                    left: -0px;
                 }
 
                 .slick-next {
-                    right: -35px;
+                    right: -0px;
                 }
                 /* Ẩn text mặc định (nếu có) */
                 .slick-prev:before,

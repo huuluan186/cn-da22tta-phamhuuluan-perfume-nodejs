@@ -81,3 +81,30 @@ export const apiDeleteAddress = async (addressId) => {
         throw error
     }
 }
+
+export const apiGetMyFavorites = async () => {
+    try {
+        const response = await axiosConfig.get('/api/users/me/favorites');
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const apiAddFavorite = async (productId) => {
+    try {
+        const response = await axiosConfig.post(`/api/users/me/favorites/${productId}`);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const apiRemoveFavorite = async (productId) => {
+    try {
+        const response = await axiosConfig.delete(`/api/users/me/favorites/${productId}`);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}

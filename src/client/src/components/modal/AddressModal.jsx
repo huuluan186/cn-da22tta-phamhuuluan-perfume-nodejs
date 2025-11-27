@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, InputField, SelectField, CheckRadioField } from "../../../components";
-import icons from "../../../assets/react-icons/icon";
+import { Button, InputField, SelectField, CheckRadioField } from "..";
+import icons from "../../assets/react-icons/icon";
 import { toast } from "react-toastify";
 import {
     getCountries,
     getProvincesByCountry,
     getWardsByProvince,
-} from "../../../store/actions/region";
-import { apiAddAddress, apiUpdateAddress } from "../../../api/user";
-import { validateAddress } from "../../../utils";
+} from "../../store/actions/location";
+import { apiAddAddress, apiUpdateAddress } from "../../api/user";
+import { validateAddress } from "../../utils";
 const { MdCancel } = icons;
 
 const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
     const dispatch = useDispatch();
-    const { countries, provinces, wards } = useSelector(state => state.region);
+    const { countries, provinces, wards } = useSelector(state => state.location);
 
     const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({

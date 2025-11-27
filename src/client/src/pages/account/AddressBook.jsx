@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../../components";
 import icons from '../../assets/react-icons/icon'
 import { getMyAddresses } from "../../store/actions/address"; // API CRUD
-import {AddressModal} from "../index";
+import {AddressModal} from "../../components/index";
 import { apiDeleteAddress } from "../../api/user";
 import { toast } from "react-toastify";
 

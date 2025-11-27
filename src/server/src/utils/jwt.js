@@ -9,7 +9,7 @@ export const setAuthCookie = (res, token) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 60 * 60 * 1000, // 1h
+        maxAge: 2 * 24 * 60 * 60 * 1000, // 2 ngày
     });
 
     return token; // Trả về token nếu cần (ví dụ để log)
