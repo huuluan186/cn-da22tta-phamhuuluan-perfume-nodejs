@@ -1,26 +1,13 @@
 import * as service from '../services/location.js'
 
-export const getAllCountriesController = async (req, res) => {
+export const getAllVietNamProvincesController = async (req, res) => {
     try {
-        const response = await service.getAllCountriesService()
+        const response = await service.getAllVietNamProvincesService();
         return res.status(200).json(response)
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Failed at get all countries controller: ' + error.message
-        })
-    }
-}
-
-export const getProvincesByCountryController = async (req, res) => {
-    try {
-        const { countryId } = req.params
-        const response = await service.getProvincesByCountryService(countryId)
-        return res.status(200).json(response)
-    } catch (error) {
-        return res.status(500).json({
-            err: -1,
-            msg: 'Failed at get provinces by country controller: ' + error.message
+            msg: 'Failed at get all provinces controller: ' + error.message
         })
     }
 }
