@@ -3,18 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, InputField, SelectField, CheckRadioField } from "..";
 import icons from "../../assets/react-icons/icon";
 import { toast } from "react-toastify";
-import {
-    getCountries,
-    getProvincesByCountry,
-    getWardsByProvince,
-} from "../../store/actions/location";
+import { getAllProvinces, getWardsByProvince } from "../../store/actions/location";
 import { apiAddAddress, apiUpdateAddress } from "../../api/user";
 import { validateAddress } from "../../utils";
 const { MdCancel } = icons;
 
 const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
     const dispatch = useDispatch();
-    const { countries, provinces, wards } = useSelector(state => state.location);
+    const { provinces, wards } = useSelector(state => state.location);
 
     const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({
@@ -22,7 +18,6 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
         phone: "",
         label: "",
         addressLine: "",
-        countryId: 236, // mặc định Việt Nam
         provinceId: "",
         wardId: "",
         zipCode: "",
@@ -38,7 +33,6 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                 phone: addressToEdit.phone || "",
                 label: addressToEdit.label || "",
                 addressLine: addressToEdit.addressLine || "",
-                countryId: addressToEdit.ward?.province?.countryId || 236,
                 provinceId: addressToEdit.ward?.provinceId || "",
                 wardId: addressToEdit.wardId || "",
                 zipCode: addressToEdit.zipCode || "",
@@ -49,11 +43,10 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
 
     // Lấy danh sách quốc gia + tỉnh + xã
     useEffect(() => {
-        dispatch(getCountries());
+        dispatch(getAllProvinces());
     }, [dispatch]);
 
     useEffect(() => {
-        if (formData.countryId) dispatch(getProvincesByCountry(formData.countryId));
         if (formData.provinceId) dispatch(getWardsByProvince(formData.provinceId));
     }, [dispatch, formData.countryId, formData.provinceId]);
 
@@ -78,7 +71,7 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
         // Xóa lỗi cũ (nếu có)
         setErrors({});
         // Loại bỏ các trường không cần gửi
-        const { countryId, provinceId, ...finalData } = formData;
+        const { provinceId, ...finalData } = formData;
         try {
             let res;
             if (mode === "edit") res = await apiUpdateAddress(addressToEdit.id, finalData);
@@ -160,41 +153,35 @@ const AddressModal = ({ onClose, mode = "add", addressToEdit = null }) => {
                         />
                     </div>
 
-                    <SelectField
-                        label="Quốc gia"
-                        name="countryId"
-                        value={formData.countryId}
-                        onChange={handleChange}
-                        options={countries}
-                        placeholder="--Chọn quốc gia--"
-                        className="mb-3"
-                    />
-
-                    {formData.countryId === 236 && (
-                        // Quốc gia/Tỉnh/Xã 
-                        <div className="grid grid-cols-2 gap-4 mb-3">
-                            <SelectField
-                                label="Tỉnh/thành"
-                                name="provinceId"
-                                value={formData.provinceId}
-                                onChange={handleChange}
-                                options={provinces}
-                                disabled={!formData.countryId}
-                                placeholder="--Chọn Tỉnh/Thành Phố--"
-                                className="mb-3"
-                            />
-                            <SelectField
-                                label="Phường/xã"
-                                name="wardId"
-                                value={formData.wardId}
-                                onChange={handleChange}
-                                options={wards}
-                                disabled={!formData.provinceId}
-                                placeholder="--Chọn Phường/Xã--"
-                                className="mb-3"
-                            />
-                        </div>
-                    )}
+                    <div className="grid grid-cols-3 gap-4 mb-3">
+                        <InputField
+                            label="Quốc gia"
+                            name="countryId"
+                            value={'Việt Nam'}
+                            className="mb-3"
+                            isDisable={true}
+                        />
+                        
+                        <SelectField
+                            label="Tỉnh/thành"
+                            name="provinceId"
+                            value={formData.provinceId}
+                            onChange={handleChange}
+                            options={provinces}
+                            placeholder="--Chọn Tỉnh/Thành Phố--"
+                            className="mb-3"
+                        />
+                        <SelectField
+                            label="Phường/xã"
+                            name="wardId"
+                            value={formData.wardId}
+                            onChange={handleChange}
+                            options={wards}
+                            disabled={!formData.provinceId}
+                            placeholder="--Chọn Phường/Xã--"
+                            className="mb-3"
+                        />
+                    </div>
 
                     <InputField
                         label="Mã Zip"

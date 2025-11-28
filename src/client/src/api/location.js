@@ -1,19 +1,9 @@
 import axiosConfig from "./axios.config";
 
-// Lấy danh sách tất cả quốc gia
-export const apiGetAllCountries = async () => {
+// Lấy danh sách tất cả tỉnh/thành 
+export const apiGetAllProvinces = async () => {
     try {
-        const response = await axiosConfig.get('/api/locations/countries')
-        return response;
-    } catch (error) {
-        throw error
-    }
-};
-
-// Lấy danh sách tỉnh/thành theo countryId
-export const apiGetProvincesByCountry = async (countryId) => {
-    try {
-        const response = await axiosConfig.get(`/api/locations/countries/${countryId}/provinces`);
+        const response = await axiosConfig.get(`/api/locations/provinces`);
         return response;
     } catch (error) {
         throw error;
