@@ -15,15 +15,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: true,
         },
-        countryId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'Countries', 
-                key: 'id',
-            },
-            onDelete: 'CASCADE', 
-        },
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE,

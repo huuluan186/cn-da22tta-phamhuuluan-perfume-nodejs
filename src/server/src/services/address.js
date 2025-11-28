@@ -1,6 +1,5 @@
 import db from '../models/index.js'
 import { nanoid } from 'nanoid';
-import { validateAddressByCountry } from '../validations/addressValidation.js'; 
 
 export const getMyAddressesService = async (userId) => {
     try {
@@ -16,13 +15,7 @@ export const getMyAddressesService = async (userId) => {
                     include: [
                         {
                             model: db.Province,
-                            as: 'province',
-                            include: [
-                                {
-                                    model: db.Country,
-                                    as: 'country'
-                                }
-                            ]
+                            as: 'province'
                         }
                     ]
 
@@ -48,9 +41,6 @@ export const addUserAddressService = async (addressData) => {
         const user = await db.User.findByPk(userId)
         if(!user) return { err: 1, msg: 'User not found!' }
         
-        // Validate dữ liệu theo quốc gia
-        validateAddressByCountry(addressData);
-        
         // Kiểm tra ward và lấy thông tin liên quan
         let wardData = null;
         if (wardId) {
@@ -59,12 +49,6 @@ export const addUserAddressService = async (addressData) => {
                     {
                         model: db.Province,
                         as: 'province',
-                        include: [
-                            {
-                                model: db.Country,
-                                as: 'country',
-                            },
-                        ],
                     },
                 ],
             });
@@ -140,10 +124,6 @@ export const updateUserAddressService = async (addressId, userId, updateData) =>
         const address = await db.Address.findOne({ where: { id: addressId, userId } });
         if (!address) return { err: 1, msg: 'Address not found or not owned by user!' };
 
-        // Merge dữ liệu cũ và dữ liệu update để validate
-        const mergedData = { ...address.get(), ...updateData };
-        validateAddressByCountry(mergedData);
-        
         let wardData = null;
         if (wardId) {
             wardData = await db.Ward.findByPk(wardId, {
@@ -151,12 +131,6 @@ export const updateUserAddressService = async (addressId, userId, updateData) =>
                     {
                         model: db.Province,
                         as: 'province',
-                        include: [
-                            {
-                                model: db.Country,
-                                as: 'country',
-                            },
-                        ],
                     },
                 ],
             });
@@ -166,10 +140,8 @@ export const updateUserAddressService = async (addressId, userId, updateData) =>
             wardData = await db.Ward.findByPk(address.wardId, {
                 include: [
                     {
-                        model: db.Province, as: 'province',
-                        include: [
-                            { model: db.Country, as: 'country' },
-                        ],
+                        model: db.Province, 
+                        as: 'province'
                     },
                 ],
             });
@@ -204,14 +176,7 @@ export const updateUserAddressService = async (addressId, userId, updateData) =>
                     name: wardData.province.name,
                     slug: wardData.province.slug,
                 }
-                : null,
-            country: wardData?.province?.country
-                ? {
-                    id: wardData.province.country.id,
-                    name: wardData.province.country.name,
-                    code: wardData.province.country.code,
-                }
-                : null,
+                : null
         };
 
         return {
