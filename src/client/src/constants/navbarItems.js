@@ -16,7 +16,7 @@ export const navbarItems = [
         submenu: [] // merge dynamic trong Navbar.jsx
     },
     { 
-        label: "NƯỚC HOA", 
+        label: "BỘ SƯU TẬP", 
         path: `${path.COLLECTIONS}/${path.ALL_PRODUCTS}`,
         hasDropdown: true,
         submenu: [] // merge dynamic trong Navbar.jsx
