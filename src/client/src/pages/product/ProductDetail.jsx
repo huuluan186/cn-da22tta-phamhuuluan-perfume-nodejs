@@ -171,7 +171,7 @@ const ProductDetail = () => {
                         <div className="flex items-center font-bold gap-1 mt-2">
                             {Array.from({ length: 5 }).map((_, i) => {
                                 const starNumber = i + 1;
-                                const filled = starNumber <= Math.round(Number(1 || 0));
+                                const filled = starNumber <= Math.round(Number(avgRating || 0));
                                 return (
                                     <span key={i} className={filled ? "text-yellow-400" : "text-gray-300"}>★</span>
                                 );

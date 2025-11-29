@@ -74,22 +74,14 @@ const AddressBook = () => {
                             </div>
                             <p>
                                 <span className="font-bold">Địa chỉ:</span>{' '}
-                                {addr.ward?.province?.country?.id === 236 ? (
-                                    // Việt Nam : hiển thị đầy đủ phường, tỉnh
-                                    [
-                                        addr.addressLine,
-                                        addr.ward?.name,
-                                        addr.ward?.province?.name,
-                                        addr.ward?.province?.country?.name || 'Việt Nam'
-                                    ].filter(Boolean).join(', ')
-                                ) : (
-                                    // Nước ngoài: chỉ hiển thị addressLine + tên quốc gia + zip
-                                    [
-                                        addr.addressLine,
-                                        addr.ward?.province?.country?.name || 'Nước ngoài',
-                                    ].filter(Boolean).join(', ')
-                                )}
-                                {addr.zipCode && addr.countryId === '236' && `, ${addr.zipCode}`}
+                                    {
+                                        [
+                                            addr.addressLine,
+                                            addr.ward?.name,
+                                            addr.ward?.province?.name,
+                                            'Việt Nam'
+                                        ].filter(Boolean).join(', ')
+                                    }
                             </p>
                             <p>
                                 <span className="font-bold">Số điện thoại:</span> {addr.phone}
