@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { apiForgotPassword } from "../../api/user"; 
 import { InputField, Button } from "../index";
 import { toast } from "react-toastify";
-import { path } from "../../constants/path";
 import { validateForgotPassword } from "../../utils";
-import { jwtDecode } from "jwt-decode";
 
 const ForgotPassword = ({ onBack }) => {
-    const navigate = useNavigate();
     const [error, setError] = useState({}); 
     const [payload, setPayload] = useState({ forgotEmail: ""});
-    
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const handleForgotPasswordSubmit = async (e) => {
         e.preventDefault();
@@ -21,30 +18,26 @@ const ForgotPassword = ({ onBack }) => {
             return;
         }
         setError({});
+        setLoading(true);
+        setSuccess(false);
         try {
             const response = await apiForgotPassword({ email: payload.forgotEmail });
             console.log(response)
-            toast.success("Email đặt lại mật khẩu đã được gửi! Vui lòng kiểm tra hộp thư.");
+            toast.success(response.data.msg || "Link đặt lại mật khẩu đã được gửi!");
+            setSuccess(true);
             setPayload({ forgotEmail: "" });
-            const { token } = response.data || {};
-            if (token) {
-                const decodedToken = jwtDecode(token); // Giải mã token
-                const userId = decodedToken.id; // Lấy userId từ token
-                console.log("userId, token: ", userId, token)
-                if (userId) {
-                    navigate(
-                        `${path.RESET_PASSWORD.replace(":userId", userId).replace(":token", token)}`
-                    );
-                } else console.log("Không tìm thấy userId trong token!")
-            } else console.log("Không nhận được token từ server!");
         } catch (error) {
-            toast.error("Gửi email thất bại: " + (error.response?.data?.msg || "Lỗi không xác định"));
+            toast.error(error.response?.data?.msg || "Lỗi không xác định");
+        } finally {
+            setLoading(false);  
         }
     };
 
     const handleChange = (e) => {
         setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
+
+    const handleFocus = () => setSuccess(false);
 
     return (
         <form 
@@ -64,6 +57,7 @@ const ForgotPassword = ({ onBack }) => {
                 required={true}
                 value={payload.forgotEmail}
                 onChange={handleChange}
+                onFocus={handleFocus}
                 error={error.forgotEmail}
                 setError={setError}
                 className="mb-3"
@@ -80,9 +74,21 @@ const ForgotPassword = ({ onBack }) => {
                     onClick={handleForgotPasswordSubmit}
                 />
             </div>
+            
+            {loading && (
+                <p className="text-red-500 text-center font-medium my-2">
+                    Đang gửi yêu cầu...
+                </p>
+            )}
+    
+            {!loading && success && (
+                <p className="text-green-600 text-center font-medium my-1">
+                    Link reset mật khẩu đã gửi về email!
+                </p>
+            )}
 
             <p
-                className="text-center text-primary cursor-pointer hover:underline mt-2"
+                className="text-center text-primary cursor-pointer hover:underline mt-1"
                 onClick={onBack}
             >
                 Quay lại đăng nhập

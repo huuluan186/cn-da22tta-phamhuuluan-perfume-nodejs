@@ -9,6 +9,7 @@ const InputField = ({
     name,
     value,
     onChange,
+    onFocus,
     error,
     setError,
     required = false,
@@ -28,6 +29,12 @@ const InputField = ({
             setError((prev) => ({ ...prev, [name]: "" }));
         }
     };
+
+    const handleFocus = () => {
+        if (setError) setError(prev => ({ ...prev, [name]: "" }));
+        if (typeof onFocus === "function") onFocus();
+    };
+
 
     // Xử lý upload file
     const handleUpload = (e) => {
@@ -119,6 +126,7 @@ const InputField = ({
                         name={name}
                         value={value}
                         onChange={handleChange}
+                        onFocus={handleFocus}
                         required={required}
                         disabled={isDisable}
                         className={`w-full border rounded-md p-2 focus:outline-gray-400 ${
