@@ -22,10 +22,17 @@ export const getCurrentUserService  = async (userId) => {
             
         );
 
+        // Tìm xem user có bản ghi AuthProvider hay không
+        const socialAccount = await db.AuthProvider.findOne({ where: { userId } });
+
         return {
             err: user ? 0 : 1,
             msg: user ? 'Get user info successfully' : 'User not found',
-            user
+            user: user 
+                ? {
+                    ...user.toJSON(),
+                    isSocialAccount: !!socialAccount   // flag
+                } : null,
         }
     } catch (error) {
         throw error
