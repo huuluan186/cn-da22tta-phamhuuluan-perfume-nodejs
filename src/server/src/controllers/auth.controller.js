@@ -90,7 +90,7 @@ export const facebookCallbackController = async (req, res) => {
             accessToken: profile.accessToken,
             refreshToken: profile.refreshToken,
         };
-        //const response = await authService.socialLoginService(payload);
+        const response = await authService.socialLoginService(payload);
         setAuthCookie(res, response.token);
         if (response.err === 0) return res.redirect(`${process.env.CLIENT_URL}/auth/callback`);
         return res.status(401).json(response);

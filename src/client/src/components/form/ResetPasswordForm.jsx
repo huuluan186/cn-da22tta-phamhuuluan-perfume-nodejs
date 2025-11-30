@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiResetPassword } from "../../api/user"; 
 import { toast } from "react-toastify";
 import { path } from "../../constants/path";
 import { InputField, Button } from "../../components/index"
 import { validateResetPassword } from "../../utils"
 
-const ResetPasswordForm = ({ token }) => {
+const ResetPasswordForm = () => {
     const navigate = useNavigate();
-
+    const { userId, token } = useParams();
     const [payload, setPayload] = useState({
-        token: "",
         newPassword: "",
         confirmPassword: "" 
     })
@@ -36,7 +35,7 @@ const ResetPasswordForm = ({ token }) => {
         try {
             const response = await apiResetPassword(data)
             if(response?.data?.err == 0){
-                toast.success("Mật khẩu đã được đặt lại thành công!");
+                toast.success(response.data.msg || "Đặt lại mật khẩu thành công!");
                 navigate(path.ACCOUNT);
             }else toast.error(response?.data?.msg)
         } catch (err) {
@@ -46,6 +45,7 @@ const ResetPasswordForm = ({ token }) => {
 
     const handleChange = (e) => {
         setPayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setErrors(prev => ({ ...prev, [e.target.name]: "" }));
     };
 
     return (

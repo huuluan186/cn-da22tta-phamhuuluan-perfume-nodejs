@@ -1,32 +1,12 @@
 import db from '../models/index.js'
 
-// Lấy tất cả quốc gia
-export const getAllCountriesService = async () => {
-    try {
-        const countries = await db.Country.findAll();
-        return {
-            err: 0,
-            msg: 'Get all countries successfully!',
-            response: countries
-        };
-    } catch (error) {
-        throw error
-    }
-}
-
 // Lấy tất cả tỉnh/thành theo quốc gia
-export const getProvincesByCountryService  = async (countryId) => {
+export const getAllVietNamProvincesService = async () => {
     try {
-        const country = await db.Country.findByPk(countryId);
-        if (!country) return { err: 1, msg: 'Country not found!' }
-
-        const provinces = await db.Province.findAll({
-            where: { countryId }
-        })
-
+        const provinces = await db.Province.findAll();
         return {
             err: 0,
-            msg: 'Get provinces by country successfully!',
+            msg: "Get all Vietnam's provinces successfully!",
             response: provinces
         };
     } catch (error) {

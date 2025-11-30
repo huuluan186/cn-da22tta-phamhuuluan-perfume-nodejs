@@ -14,7 +14,13 @@ const ChangePasswordForm = () => {
     const [errors, setErrors] = useState("");
 
     const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        
+        // Tự động xóa lỗi khi người dùng bắt đầu gõ lại
+        if (errors[name]) {
+            setErrors(prev => ({ ...prev, [name]: '' }));
+        }
     };
 
     const handleSubmit = async (e) => {

@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom";
 import { ResetPasswordForm } from "../../components";
 
 const ResetPassword = () => {
-    const { token } = useParams(); // Lấy token từ URL
-
     return (
         <div className="flex flex-col items-center justify-center py-7 bg-contentBg w-full space-y-2">
             <div>
@@ -12,7 +10,7 @@ const ResetPassword = () => {
                 </h2>
             </div>
             <div>
-                <ResetPasswordForm token={token} /> 
+                <ResetPasswordForm /> 
             </div>
         </div>
     );

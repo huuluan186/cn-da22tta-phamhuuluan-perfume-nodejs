@@ -1,6 +1,7 @@
 import db from '../models/index.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import { sendResetPasswordEmail } from '../utils/sendEmail.js';
 
 const hashPassword= password => bcrypt.hashSync(password,bcrypt.genSaltSync(12));
 
@@ -21,10 +22,17 @@ export const getCurrentUserService  = async (userId) => {
             
         );
 
+        // Tìm xem user có bản ghi AuthProvider hay không
+        const socialAccount = await db.AuthProvider.findOne({ where: { userId } });
+
         return {
             err: user ? 0 : 1,
             msg: user ? 'Get user info successfully' : 'User not found',
-            user
+            user: user 
+                ? {
+                    ...user.toJSON(),
+                    isSocialAccount: !!socialAccount   // flag
+                } : null,
         }
     } catch (error) {
         throw error
@@ -122,24 +130,40 @@ export const changePasswordService = async (userId, data) => {
 }
 
 export const forgotPasswordService = async (email) => {
+    const transaction = await db.sequelize.transaction();
     try {
-        const user = await db.User.findOne({ where: { email }, attributes: ['id'] });
+        const user = await db.User.findOne({
+            where: { email },
+            attributes: ['id', 'email', 'firstname', 'lastname'],
+            transaction
+        });
+        // Luôn trả về thành công dù email có tồn tại hay không, chống enum
         if (!user) {
+            await transaction.commit();
             return {
-                err: 1,
-                msg: 'Email not found!',
+                err: 0,
+                msg: 'Nếu email tồn tại, link đặt lại mật khẩu sẽ được gửi ngay.',
             };
         }
 
-        // Tạo token reset (hiệu lực 1 giờ) nếu email tồn tại
-        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_RESET_SECRET, { expiresIn: '15m' });
+        // Tạo token reset (hiệu lực 15p) nếu email tồn tại
+        const resetToken = jwt.sign(
+            { id: user.id },
+            process.env.JWT_RESET_SECRET,
+            {expiresIn: "15m"}
+        );
+
+        // Gửi email
+        await sendResetPasswordEmail(user, resetToken);
+
+        await transaction.commit();
 
         return {
             err: 0,
-            msg: 'Email found! Please use the token to reset your password.',
-            token: resetToken
+            msg: 'Link đặt lại mật khẩu đã được gửi đến email của bạn!',
         };
     } catch (error) {
+        await transaction.rollback();
         throw error;
     }
 };

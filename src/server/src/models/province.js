@@ -8,12 +8,6 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // 1 Province thuộc về 1 Country
-            Province.belongsTo(models.Country, {
-                foreignKey: 'countryId',
-                as: 'country',
-            });
-
             // 1 Province có nhiều Ward
             Province.hasMany(models.Ward, {
                 foreignKey: 'provinceId',
@@ -35,10 +29,6 @@ export default (sequelize, DataTypes) => {
         slug: {
             type: DataTypes.STRING,
             allowNull: true,
-        },
-        countryId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
         },
     },
     {

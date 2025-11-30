@@ -18,28 +18,18 @@ export async function up(queryInterface, Sequelize) {
         const rawData = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(rawData);
 
-        const [countryRows] = await queryInterface.sequelize.query(
-            `SELECT id FROM Countries WHERE code = 'VN'`
-        );
-        if (!countryRows.length) {
-            throw new Error('❌ Không tìm thấy quốc gia Việt Nam (code="VN") trong bảng Countries.');
-        }
-
-        const vnId = countryRows[0].id;
-
         // 📍 Chuẩn bị dữ liệu provinces
         const provinces = (data.provinces || []).map((p) => ({
             id: p.id,
             name: p.name,
             slug: slugify(p.name),
-            countryId: vnId,
             createdAt: new Date(),
             updatedAt: new Date(),
         }));
 
         if (provinces.length) {
             await queryInterface.bulkInsert('Provinces', provinces, {});
-            console.log(`✅ Seeded ${provinces.length} provinces (countryId=${vnId})`);
+            console.log(`✅ Seeded ${provinces.length} provinces`);
         } else console.log('⚠️ Không có dữ liệu provinces trong stats.json.');
         
     } catch (err) {
