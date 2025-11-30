@@ -50,14 +50,16 @@ const AccountLayout = () => {
                                 Đơn hàng của bạn
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink
-                                to={path.CHANGE_PASSWORD}
-                                className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
-                            >
-                                Đổi mật khẩu
-                            </NavLink>
-                        </li>
+                        {user?.isSocialAccount === false && 
+                            <li>
+                                <NavLink
+                                    to={path.CHANGE_PASSWORD}
+                                    className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
+                                >
+                                    Đổi mật khẩu
+                                </NavLink>
+                            </li>
+                        }
                          <li>
                             <NavLink
                                 to={path.ADDRESSES}
