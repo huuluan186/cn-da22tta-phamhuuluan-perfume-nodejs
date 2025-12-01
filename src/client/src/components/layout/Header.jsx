@@ -40,9 +40,9 @@ const Header = () => {
     }, [isLoggedIn]);
     
     return (
-        <div className='flex justify-between items-center py-4'>
+        <div className='flex flex-col sm:flex-row justify-between items-center py-4'>
             {/* LEFT: Search */}
-            <div className="flex items-center">
+            <div className="sm:flex items-center justify-center">
                 <SearchBar
                     rounded="rounded-md"
                     width="w-72"
