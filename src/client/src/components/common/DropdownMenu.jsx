@@ -40,7 +40,7 @@ const DropdownMenu = ({
                     items.map((item, index) => (
                         <li
                             key={index}
-                            className={`py-2 text-base hover:text-primary hover:font-medium cursor-pointer ${
+                            className={`py-2 text-base hover:text-primary hover:font-bold cursor-pointer ${
                                 index !== items.length - 1 ? "border-b border-gray-200" : ""
                             }`}
                             onClick={item.onClick}

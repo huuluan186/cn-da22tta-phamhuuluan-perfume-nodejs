@@ -38,7 +38,7 @@ const Navbar = () => {
                 {dynamicNavbarItems.map((item, index) => (
                     <li 
                         key={item.label}
-                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-secondary hover:text-contentBg"
+                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-navBgHover"
                     >
                         <NavLink 
                             to={item.path} 
@@ -53,7 +53,7 @@ const Navbar = () => {
 
                                 return `block py-2 font-semibold hover:font-bold ${
                                     customActive 
-                                        ? 'font-bold text-red-700 hover:text-contentBg' 
+                                        ? 'font-bold text-[#C2113F]' 
                                         : ''
                                 }`;
                             }}
