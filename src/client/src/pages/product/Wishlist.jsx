@@ -1,9 +1,6 @@
-import { apiGetMyFavorites, apiRemoveFavorite } from "../../api/user"
+import { apiGetMyFavorites } from "../../api/user"
 import { useEffect, useState } from "react"
-import { ProductCard, Button } from "../../components"
-import icons from '../../assets/react-icons/icon'
-
-const { FaTrashAlt } = icons
+import { ProductCard,  } from "../../components"
 
 const Wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
@@ -28,18 +25,6 @@ const Wishlist = () => {
         fetchData();
     }, []);
 
-    const handleRemove = async (productId) => {
-        try {
-            // Gọi API xóa nếu có
-            await apiRemoveFavorite(productId);
-            // Cập nhật state để remove thẳng UI
-            setWishlist(prev => prev.filter(item => item.id !== productId));
-            window.dispatchEvent(new Event('favoritesUpdated'));
-        } catch (error) {
-            console.error("Error removing product:", error);
-        }
-    };
-
     return (
         <div className='container py-6 bg-contentBg'>
             <h2 className="text-2xl font-semibold mb-6">Sản Phẩm Yêu Thích</h2>
@@ -58,21 +43,6 @@ const Wishlist = () => {
                                 textAlign="center"
                                 onRemove={(id) => setWishlist(prev => prev.filter(p => p.id !== id))}
                             />
-                            <div className="absolute bottom-1 right-2">
-                                <Button
-                                    onClick={(e) => {
-                                        e.stopPropagation(); // tránh click vào card
-                                        handleRemove(product.id);
-                                    }}
-                                    width="w-8"
-                                    height="h-8"
-                                    bgColor="bg-white"
-                                    hoverBg="hover:none"
-                                    textColor="text-bl"
-                                    rounded="rounded-full"
-                                    text={<FaTrashAlt />}
-                                />
-                            </div>
                         </div>
                     ))}
                 </div>
