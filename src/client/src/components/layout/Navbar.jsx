@@ -8,7 +8,7 @@ import { getAllCategories } from "../../store/actions/category";
 import { getAllBrands } from "../../store/actions/brand";
 import { path } from '../../constants/path'
 
-const { MdKeyboardArrowRight } = icons;
+const { MdKeyboardArrowDown } = icons;
 
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -55,11 +55,15 @@ const Navbar = () => {
                                     customActive 
                                         ? 'font-bold text-[#C2113F]' 
                                         : ''
-                                }`;
+                                } flex items-center justify-center gap-1.5`;
                             }}
                         >
                             {item?.label}
-                            {item?.hasDropdown && <MdKeyboardArrowRight className="inline-block w- mb-1" />}
+                            {item?.hasDropdown && (
+                                <span className="inline-block transition-transform duration-700 ease-in-out">
+                                    <MdKeyboardArrowDown className="inline-block rotate-0 group-hover:rotate-180" />
+                                </span>
+                            )}
                         </NavLink>
 
                         {/* Render dropdown nếu có submenu */}
