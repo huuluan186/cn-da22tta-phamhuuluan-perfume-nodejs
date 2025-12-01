@@ -69,8 +69,8 @@ const RatingSummary = ({ avgRating, totalReviews, reviews = [], onRateClick }) =
                         onClick={onRateClick}
                         text={'Đánh giá ngay'}
                         textColor='text-white'
-                        bgColor='bg-blue-500'
-                        hoverBg='hover:none'
+                        bgColor='bg-primary'
+                        hoverBg='hover:bg-green-800'
                         hoverText='hover:none'
                         outline='rounded'
                         className="px-6 py-3"

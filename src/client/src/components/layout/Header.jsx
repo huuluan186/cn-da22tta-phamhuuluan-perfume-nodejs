@@ -88,7 +88,9 @@ const Header = () => {
                                 </p>
                             )}            
                         </div>
-                        <MdKeyboardArrowDown className="w-5 h-5 text-contentBg mt-1" />
+                        <span className="inline-block transition-transform duration-700 ease-in-out">
+                            <MdKeyboardArrowDown className="inline-block rotate-0 group-hover:rotate-180 w-5 h-5" />
+                        </span>
                     </div>
 
                     {/* Menu dropdown */}
