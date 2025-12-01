@@ -38,7 +38,7 @@ const Navbar = () => {
                 {dynamicNavbarItems.map((item, index) => (
                     <li 
                         key={item.label}
-                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-navBgHover"
+                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-primary/30"
                     >
                         <NavLink 
                             to={item.path} 
