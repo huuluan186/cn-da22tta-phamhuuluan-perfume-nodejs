@@ -1,7 +1,7 @@
 import { navbarItems } from "../../constants/navbarItems"
 import icons from "../../assets/react-icons/icon"
-import {DropdownMenu} from '../index'
-import { NavLink } from "react-router-dom";
+import { DropdownMenu } from '../index'
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../store/actions/category";
@@ -12,6 +12,7 @@ const { MdKeyboardArrowRight } = icons;
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const { categories } = useSelector(state => state.category);
     const { brands } = useSelector(state => state.brand);
 
@@ -34,18 +35,28 @@ const Navbar = () => {
     return (
         <div className='w-full cursor-pointer'>
             <ul className="w-full flex">
-                {dynamicNavbarItems.map(item => (
+                {dynamicNavbarItems.map((item, index) => (
                     <li 
                         key={item.label}
                         className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-secondary hover:text-contentBg"
                     >
                         <NavLink 
                             to={item.path} 
-                            className={({ isActive }) => 
-                                `block py-2 font-semibold hover:font-bold ${
-                                    isActive ? 'font-bold text-red-700 hover:text-contentBg' : ''
-                                }`
-                            }
+                             className={({ isActive }) => {
+
+                                const isCollectionActive = location.pathname.startsWith(path.COLLECTIONS);
+
+                                const customActive =
+                                index === 3   // BỘ SƯU TẬP
+                                    ? isCollectionActive
+                                    : isActive;
+
+                                return `block py-2 font-semibold hover:font-bold ${
+                                    customActive 
+                                        ? 'font-bold text-red-700 hover:text-contentBg' 
+                                        : ''
+                                }`;
+                            }}
                         >
                             {item?.label}
                             {item?.hasDropdown && <MdKeyboardArrowRight className="inline-block w- mb-1" />}
