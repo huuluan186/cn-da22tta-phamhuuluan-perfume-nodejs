@@ -21,10 +21,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
         },
-        expiredAt: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE,

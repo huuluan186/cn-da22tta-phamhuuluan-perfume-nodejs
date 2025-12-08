@@ -16,15 +16,6 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'CASCADE'
         },
-        addressId: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            references: {
-                model: 'Addresses',
-                key: 'id',
-            },
-            onDelete: 'CASCADE',
-        },
         totalAmount: {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
@@ -40,14 +31,29 @@ export async function up(queryInterface, Sequelize) {
             defaultValue: 'Pending',
         },
         paymentStatus: {
-            type: Sequelize.ENUM('Pending', 'Paid', 'Failed', 'Refunded'),
+            type: Sequelize.ENUM('Pending', 'Confirmed', 'Completed', 'Paid', 'Failed', 'Refunded'),
             allowNull: false,
             defaultValue: 'Pending',
         },
         paymentMethod: {
-            type: Sequelize.ENUM('COD', 'CreditCard', 'BankTransfer', 'Paypal'),
+            type: Sequelize.ENUM('COD', 'ZaloPay'),
             allowNull: false,
             defaultValue: 'COD',
+        },
+        paymentGatewayData: {
+            type: Sequelize.JSON,
+            defaultValue: {},
+            comment: 'Lưu app_trans_id, order_url, zp_trans_id... cho ZaloPay'
+        },
+        paymentTransactionId: {
+            type: Sequelize.STRING(50),
+            allowNull: true,
+            comment: 'Mã giao dịch chính thức từ ZaloPay (zp_trans_id) để đối soát'
+        },
+        expiresAt: {
+            type: Sequelize.DATE,
+            allowNull: true,
+            comment: 'Thời gian hết hạn thanh toán ZaloPay (15 phút). Dùng để cron tự hủy'
         },
         createdAt: {
             allowNull: false,
