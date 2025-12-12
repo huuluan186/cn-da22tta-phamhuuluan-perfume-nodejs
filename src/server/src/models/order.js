@@ -18,6 +18,12 @@ export default (sequelize, DataTypes) => {
                 as: 'orderItems', 
                 onDelete: 'CASCADE' 
             });
+
+            Order.belongsTo(models.Address, { 
+                foreignKey: 'addressId', 
+                as: 'address' ,
+                paranoid: false 
+            });
         }
     }
     Order.init({
@@ -27,6 +33,10 @@ export default (sequelize, DataTypes) => {
             primaryKey: true,       
         },
         userId: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        addressId: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -40,7 +50,7 @@ export default (sequelize, DataTypes) => {
             defaultValue: 0.00,
         },
         orderStatus: { //trạng thái xử lý đơn hàng
-            type: DataTypes.ENUM("Pending", "Processing", "Shipped", "Completed", "Cancelled"),
+            type: DataTypes.ENUM("Pending", "Processing", "Confirmed", "Shipped", "Completed", "Cancelled"),
             defaultValue: "Pending",
         },
         paymentStatus: { //trạng thái thanh toán

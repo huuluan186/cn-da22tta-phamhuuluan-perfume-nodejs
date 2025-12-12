@@ -16,6 +16,14 @@ export async function up(queryInterface, Sequelize) {
             },
             onDelete: 'CASCADE'
         },
+        addressId: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            references: {
+                model: 'Addresses',
+                key: 'id'
+            },
+        },
         totalAmount: {
             type: Sequelize.DECIMAL(12, 2),
             allowNull: false,
@@ -26,7 +34,7 @@ export async function up(queryInterface, Sequelize) {
             defaultValue: 0.00,
         },
         orderStatus: {
-            type: Sequelize.ENUM('Pending', 'Processing', 'Shipped', 'Completed', 'Cancelled'),
+            type: Sequelize.ENUM('Pending', "Confirmed", 'Processing', 'Shipped', 'Completed', 'Cancelled'),
             allowNull: false,
             defaultValue: 'Pending',
         },

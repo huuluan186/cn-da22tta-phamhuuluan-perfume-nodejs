@@ -1,6 +1,6 @@
 import db from '../models/index.js';
 import { nanoid } from 'nanoid';
-import { getOrCreateCart } from '../utils/cartHelpers.js';
+import { getOrCreateCart } from '../utils/index.js';
 
 // Lấy giỏ hàng của user
 export const getMyCartService = async (userId) => {
