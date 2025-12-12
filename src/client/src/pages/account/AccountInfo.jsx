@@ -11,7 +11,7 @@ const AccountInfo = () => {
     
     return (
         <div className='text-gray-600'>
-            <div className="mb-6"><h2 className="text-xl font-medium">ĐỔI MẬT KHẨU</h2></div>
+            <div className="mb-6"><h2 className="text-xl font-medium">THÔNG TIN TÀI KHOẢN</h2></div>
             <div className="space-y-4">
                 <p>
                     <span className='font-bold'>Họ tên: </span>

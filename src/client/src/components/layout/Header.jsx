@@ -40,9 +40,9 @@ const Header = () => {
     }, [isLoggedIn]);
     
     return (
-        <div className='flex justify-between items-center py-4'>
+        <div className='flex flex-col sm:flex-row justify-between items-center py-4'>
             {/* LEFT: Search */}
-            <div className="flex items-center">
+            <div className="sm:flex items-center justify-center">
                 <SearchBar
                     rounded="rounded-md"
                     width="w-72"
@@ -88,7 +88,9 @@ const Header = () => {
                                 </p>
                             )}            
                         </div>
-                        <MdKeyboardArrowDown className="w-5 h-5 text-contentBg mt-1" />
+                        <span className="inline-block transition-transform duration-700 ease-in-out">
+                            <MdKeyboardArrowDown className="inline-block rotate-0 group-hover:rotate-180 w-5 h-5" />
+                        </span>
                     </div>
 
                     {/* Menu dropdown */}
