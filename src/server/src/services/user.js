@@ -1,7 +1,7 @@
 import db from '../models/index.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import { sendResetPasswordEmail } from '../utils/sendEmail.js';
+import { sendResetPasswordEmail } from '../utils/index.js';
 
 const hashPassword= password => bcrypt.hashSync(password,bcrypt.genSaltSync(12));
 

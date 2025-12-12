@@ -18,6 +18,12 @@ export default (sequelize, DataTypes) => {
                 as: 'orderItems', 
                 onDelete: 'CASCADE' 
             });
+
+            Order.belongsTo(models.Address, { 
+                foreignKey: 'addressId', 
+                as: 'address' ,
+                paranoid: false 
+            });
         }
     }
     Order.init({
@@ -44,16 +50,31 @@ export default (sequelize, DataTypes) => {
             defaultValue: 0.00,
         },
         orderStatus: { //trạng thái xử lý đơn hàng
-            type: DataTypes.ENUM("Pending", "Processing", "Shipped", "Completed", "Cancelled"),
+            type: DataTypes.ENUM("Pending", "Processing", "Confirmed", "Shipped", "Completed", "Cancelled"),
             defaultValue: "Pending",
         },
         paymentStatus: { //trạng thái thanh toán
-            type: DataTypes.ENUM("Pending", "Paid", "Failed", "Refunded"),
+            type: DataTypes.ENUM("Pending", "Confirmed", "Completed", "Paid", "Failed", "Refunded"),
             defaultValue: "Pending",
         },
         paymentMethod: { //phương thức thanh toán
-            type: DataTypes.ENUM("COD", "CreditCard", "BankTransfer", "Paypal"),
+            type: DataTypes.ENUM("COD", "ZaloPay"),
             defaultValue: "COD",
+        },
+        paymentGatewayData: {
+            type: DataTypes.JSON,
+            defaultValue: {},
+            comment: 'Lưu app_trans_id, order_url, zp_trans_id... cho ZaloPay'
+        },
+        paymentTransactionId: {
+            type: DataTypes.STRING(50),
+            allowNull: true,
+            comment: 'Mã giao dịch chính thức từ ZaloPay (zp_trans_id) để đối soát'
+        },
+        expiresAt: {
+            type: DataTypes.DATE,
+            allowNull: true,
+            comment: 'Thời gian hết hạn thanh toán ZaloPay (15 phút). Dùng để cron tự hủy'
         },
     },
     {

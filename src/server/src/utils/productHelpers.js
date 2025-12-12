@@ -6,7 +6,7 @@ import { Op } from "sequelize";
  */
 
 //bộ lọc
-export const buildProductFilters = ({ categoryId, brandIds, rating, priceRange, keyword }) => {
+export const buildProductFilters = ({ categoryId, brandIds, priceRange, keyword }) => {
     const include = [
         { model: db.Brand, as: 'brand', attributes: ['id', 'name', 'logoUrl'] },
         { model: db.ProductImage, as: 'images', where: { isThumbnail: true }, required: false, attributes: ['url'] },
@@ -56,5 +56,32 @@ export const buildProductSort = (sortKey) => {
         case 'name_desc': return [['name', 'DESC']];
         case 'bestseller': return [['sold', 'DESC']];
         default: return [['createdAt', 'DESC']];
+    }
+};
+
+export const updateProductStock = async (items, transaction) => {
+    try {
+        for (let item of items) {
+            const variant = await db.ProductVariant.findByPk(
+                item.productVariantId,
+                { transaction }
+            );
+
+            if (!variant)
+                return { err: 1, msg: `Variant not found (${item.productVariantId})` };
+
+            if (variant.stockQuantity < item.quantity)
+                return { err: 1, msg: `Variant out of stock (${variant.sku})` };
+
+            await variant.update({
+                stockQuantity: variant.stockQuantity - item.quantity,
+                soldQuantity: variant.soldQuantity + item.quantity
+            }, { transaction });
+        }
+
+        return { err: 0 };
+
+    } catch (error) {
+        throw error;
     }
 };
