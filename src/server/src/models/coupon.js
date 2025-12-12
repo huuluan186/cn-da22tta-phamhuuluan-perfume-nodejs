@@ -41,10 +41,6 @@ export default (sequelize, DataTypes) => {
                 min: 0,
             }
         },
-        expiredAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-        },
     },
     {
         sequelize,
