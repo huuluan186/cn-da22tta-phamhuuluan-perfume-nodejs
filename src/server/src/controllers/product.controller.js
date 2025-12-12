@@ -61,7 +61,6 @@ export const getProductReviewsController = async (req, res) => {
 export const addProductReviewsController = async (req, res) => {
     try {
         const userId = req.user.id;
-        const { productId } = req.params;
         const { orderItemId, title, content, rating, images } = req.body || {};
         if (!orderItemId || !orderItemId.trim()) {
             return res.status(400).json({
