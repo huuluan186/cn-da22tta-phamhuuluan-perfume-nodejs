@@ -18,4 +18,5 @@ export const path={
     PRODUCT_DETAIL: '/products/:slug',
     WISHLIST: '/wishlist',
     SEARCH: '/search',
+    MY_VOUCHER: 'vouchers'
 }
