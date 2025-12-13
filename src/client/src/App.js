@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart } from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -77,6 +77,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <Wishlist/>
+                            </ProtectedRoute>
+                        }  
+                    />
+                    <Route 
+                        path={path.CART} 
+                        element={
+                            <ProtectedRoute>
+                                <Cart/>
                             </ProtectedRoute>
                         }  
                     />

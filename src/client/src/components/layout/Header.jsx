@@ -7,17 +7,15 @@ import { path } from '../../constants/path';
 import { useSelector, useDispatch } from "react-redux";
 import { apiGetMyFavorites } from '../../api/user';
 import { useState, useEffect } from 'react';
+import { getMyCart } from '../../store/actions/cart';
 
 const {FaHeart, FaShoppingCart, MdKeyboardArrowDown} = icons;
-const cartItems = [
-    // { id: 1, name: "Sản phẩm 1", quantity: 2, price: 150000 },
-    // { id: 2, name: "Sản phẩm 2", quantity: 1, price: 90000 },
-];
 
 const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
+    const { cart } = useSelector(state => state.cart);
     const isLoggedIn = !!user;
     const [favoriteItems, setFavoriteItems] = useState([]);
 
@@ -38,6 +36,12 @@ const Header = () => {
         window.addEventListener('favoritesUpdated', fetchFavorites);
         return () => window.removeEventListener('favoritesUpdated', fetchFavorites);
     }, [isLoggedIn]);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            dispatch(getMyCart());
+        }
+    }, [dispatch, isLoggedIn]);
     
     return (
         <div className='flex flex-col sm:flex-row justify-between items-center py-4'>
@@ -112,20 +116,12 @@ const Header = () => {
                         </span>
                     </div>
                     <div className='relative group'>
-                        <div className="relative py-2" >
+                        <div className="relative py-2" onClick={()=>navigate(path.CART)}>
                             <FaShoppingCart className="text-2xl cursor-pointer hover:text-gray-300" />
                             <span className="absolute top-1 -right-2 bg-red-500 text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                                {cartItems.length}
+                                {cart?.cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0}
                             </span>
-                        </div>
-                        <DropdownMenu
-                            items={[
-                                { label: <CartDropdownContent items={cartItems} />}
-                            ]}
-                            width="w-72"
-                            align="right"
-                        />
-                        
+                        </div>      
                     </div>
                 </div>
             </div>

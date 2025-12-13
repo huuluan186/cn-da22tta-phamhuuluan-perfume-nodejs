@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import { getProductDetail, getProductsList, getProductReviews  } from "../../store/actions/product";
 import { toSlug } from "../../utils";
 import { getImageUrl, formatPrice } from "../../utils";
-import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, Modal } from '../../components/index'
+import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, InfoModal } from '../../components/index'
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
+import { addToCart, getMyCart } from "../../store/actions/cart";
+import { path } from "../../constants/path";
 
-const { FaHeart, FaRegHeart, FaRegCheckCircle} = icons;
+const { FaHeart, FaRegHeart, FaRegCheckCircle, MdCancel} = icons;
 
 const ProductDetail = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { slug } = useParams();
     const { products, product, reviews, avgRating, totalReviews } = useSelector(state => state.product);
@@ -22,7 +25,13 @@ const ProductDetail = () => {
     const [openModal, setOpenModal] = useState(false);
     const [reloadReview, setReloadReview] = useState(false); // tín hiệu khi thêm bình luận xong
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-
+    const [infoModal, setInfoModal] = useState({
+        show: false,
+        message: "",
+        icon: null,
+        autoClose: 1500, // tự đóng sau 2 giây,
+        onClose: null
+    });
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
     useEffect(() => {
         if (products.length === 0) {
@@ -106,6 +115,41 @@ const ProductDetail = () => {
             console.error("Lỗi toggle favorite:", err);
         }
     };
+
+    const handleAddToCart = async (buyNow = false) => {
+        if (!selectedInStock) return;
+
+        try {
+            const response = await dispatch(addToCart(selectedVariant.id, quantity));
+
+            if (response?.err === 0) {
+                setInfoModal({
+                    show: true,
+                    message: buyNow ? "Đã thêm vào giỏ hàng! Chuyển tới thanh toán..." : "Đã thêm vào giỏ hàng!",
+                    icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
+                    autoClose: 2000,
+                    onClose: buyNow ? () => navigate(path.CART) : null
+                });
+                //if (buyNow) navigate(path.CART); // nếu mua ngay: chuyển trang Cart
+            } else {
+                setInfoModal({
+                    show: true,
+                    message: response.msg || "Số lượng bạn muốn mua vượt quá kho",
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            }
+            await dispatch(getMyCart());
+        } catch (err) {
+            setInfoModal({
+                show: true,
+                message: "Có lỗi xảy ra, vui lòng thử lại!",
+                icon: <MdCancel className="text-red-500 text-5xl" />,
+                autoClose: 2000
+            });
+        }
+    };
+
 
     // Variant đang chọn có còn hàng không?
     const selectedInStock = selectedVariant?.stockQuantity > 0;
@@ -363,6 +407,7 @@ const ProductDetail = () => {
                                         textSize="text-xl"
                                         hoverBg="hover:bg-secondary"
                                         hoverText="hover:text-light"
+                                        onClick={() => handleAddToCart(true)}
                                     />
                                     <Button 
                                         text='THÊM VÀO GIỎ HÀNG'
@@ -372,6 +417,7 @@ const ProductDetail = () => {
                                         textSize="text-xl"
                                         hoverBg="hover:bg-secondary"
                                         hoverText="hover:text-light"
+                                        onClick={() => handleAddToCart(false)}
                                     />
                                 </>
                             ) : (
@@ -450,7 +496,7 @@ const ProductDetail = () => {
 
             {/* Modal thông báo thành công */}
             {showSuccessModal && (
-                <Modal
+                <InfoModal
                     icon={<FaRegCheckCircle size={50} className="text-primary" />}
                     message="Cảm ơn bạn đã để lại đánh giá!"
                     onClose={() => {
@@ -458,6 +504,17 @@ const ProductDetail = () => {
                         setReloadReview(prev => !prev); // Reload lại review
                     }}
                     autoClose={2000}
+                />
+            )}
+            {infoModal.show && (
+                <InfoModal
+                    icon={infoModal.icon}
+                    message={infoModal.message}
+                    autoClose={infoModal.autoClose}
+                    onClose={() => {
+                        if (infoModal.onClose) infoModal.onClose();
+                        setInfoModal(prev => ({ ...prev, show: false, onClose: null }));
+                    }}
                 />
             )}
         </div>

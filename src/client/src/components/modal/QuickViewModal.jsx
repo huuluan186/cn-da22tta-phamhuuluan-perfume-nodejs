@@ -2,20 +2,60 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { getImageUrl, formatPrice } from '../../utils/index';
-import { Button } from '../index';
-import { path } from '../../constants/path';
+import { Button, InfoModal } from '../index';
 import icons from "../../assets/react-icons/icon";
+import { useDispatch } from 'react-redux';
+import { addToCart, getMyCart } from '../../store/actions/cart';
 
-const {MdCancel} = icons;
+const {MdCancel, FaRegCheckCircle} = icons;
 
 Modal.setAppElement('#root');
 
 const QuickViewModal = ({ product: initialProduct, isOpen, onClose }) => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [product, setProduct] = useState(initialProduct);
     const [previewImage, setPreviewImage] = useState("");
     const [selectedVariant, setSelectedVariant] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [infoModal, setInfoModal] = useState({
+        show: false,
+        message: "",
+        icon: null,
+        autoClose: 2000, // tự đóng sau 2 giây
+    });
+
+    const handleAddToCart = async () => {
+        if (!selectedInStock) return;
+
+        try {
+            const response = await dispatch(addToCart(selectedVariant.id, quantity));
+            console.log("addToCart: ", response)
+            if (response?.err === 0) {
+                setInfoModal({
+                    show: true,
+                    message: "Thêm vào giỏ hàng thành công!",
+                    icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            } else {
+                setInfoModal({
+                    show: true,
+                    message: "Số lượng bạn muốn mua vượt quá số lượng còn trong kho" || response.msg,
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            }
+            await dispatch(getMyCart());
+            //onClose(false); // đóng modal nếu muốn
+        } catch (err) {
+            setInfoModal({
+                show: true,
+                message: "Có lỗi xảy ra, vui lòng thử lại!",
+                icon: <MdCancel className="text-red-500 text-5xl" />,
+                autoClose: 2000
+            });
+        }
+    };
 
     useEffect(() => {
         setProduct(initialProduct);
@@ -271,11 +311,20 @@ const QuickViewModal = ({ product: initialProduct, isOpen, onClose }) => {
                                 text={selectedInStock ? "Thêm vào giỏ hàng" : "Hết hàng"}
                                 outline='border border-primary'
                                 className={selectedInStock ? 'transition-colors duration-200 ease-in-out' : 'pointer-events-none cursor-not-allowed opacity-50'}
+                                onClick={handleAddToCart}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            {infoModal.show && (
+                <InfoModal
+                    icon={infoModal.icon}
+                    message={infoModal.message}
+                    onClose={() => setInfoModal({...infoModal, show: false})}
+                    autoClose={infoModal.autoClose}
+                />
+            )}
         </Modal>
     );
 };

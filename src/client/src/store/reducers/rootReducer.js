@@ -6,6 +6,7 @@ import categoryReducer from "./categoryReducer";
 import brandReducer from "./brandReducer";
 import productReducer from "./productReducer";
 import couponReducer from "./couponReducer";
+import cartReducer from "./cartReducer";
 
 import { combineReducers } from "redux";
 
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     brand: brandReducer,
     product: productReducer,
-    coupon: couponReducer
+    coupon: couponReducer,
+    cart: cartReducer
 })
 
 export default rootReducer;
