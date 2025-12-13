@@ -26,6 +26,12 @@ export const getMyCartService = async (userId) => {
                                             model: db.Brand,
                                             as: 'brand', 
                                             attributes: ['id', 'name']
+                                        },
+                                        {
+                                            model: db.ProductImage,
+                                            as: 'images',
+                                            attributes: ['id', 'url'],
+                                            where: { isThumbnail: true }
                                         }
                                     ]
                                 }
