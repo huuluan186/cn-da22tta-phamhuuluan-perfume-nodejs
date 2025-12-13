@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { path } from "../../constants/path";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 import { useState, useEffect } from "react";
+
 /**
     * Component hiển thị 1 sản phẩm dạng thẻ
     * @param {Object} product - Thông tin sản phẩm
@@ -13,7 +14,7 @@ import { useState, useEffect } from "react";
     * Local state: isFavorite để toggle, loading để tránh click liên tục
 */
 
-const {FaCartPlus, FaEye, FaRegHeart, FaHeart } = icons
+const { FaEye, FaRegHeart, FaHeart } = icons
 
 const ProductCard = ({ 
     product, 
@@ -68,7 +69,6 @@ const ProductCard = ({
     };
 
     const iconsList = [
-        { Icon: FaCartPlus },
         {   
             Icon: FaEye,
             onClick: (e) => {

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { NavLink, Outlet } from "react-router-dom"
 import { path } from "../constants/path"
 import { getMyAddresses } from "../store/actions/address";
+import { getMyCoupons } from "../store/actions/coupon";
 
 const activeClass = 'block px-4 py-2 rounded-md font-bold text-primary bg-primary/10';
 const inactiveClass = 'block px-4 py-2 rounded-md text-gray-800 hover:bg-gray-100';
@@ -11,12 +12,17 @@ const AccountLayout = () => {
     const dispatch = useDispatch();
     const {user} = useSelector(state => state.user)
     const { addresses } = useSelector(state => state.address)
+    const { coupons } = useSelector(state => state.coupon);
 
     useEffect(() => {
         if (user?.id) {
             dispatch(getMyAddresses());
         }
     }, [dispatch, user?.id]);
+
+    useEffect(() => {
+        dispatch(getMyCoupons());
+    }, [dispatch]);
 
     return (
         <div className="container bg-contentBg py-8">
@@ -60,12 +66,20 @@ const AccountLayout = () => {
                                 </NavLink>
                             </li>
                         }
-                         <li>
+                        <li>
                             <NavLink
                                 to={path.ADDRESSES}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
                                 Sổ địa chỉ ({addresses?.count})
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to={path.MY_VOUCHER}
+                                className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
+                            >
+                                Voucher của tôi ({coupons?.total})
                             </NavLink>
                         </li>
                     </ul>
