@@ -5,6 +5,10 @@ import locationReducer from "./locationReducer";
 import categoryReducer from "./categoryReducer";
 import brandReducer from "./brandReducer";
 import productReducer from "./productReducer";
+import couponReducer from "./couponReducer";
+import cartReducer from "./cartReducer";
+import orderReducer from "./orderReducer"
+
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -15,6 +19,9 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     brand: brandReducer,
     product: productReducer,
+    coupon: couponReducer,
+    cart: cartReducer,
+    order: orderReducer
 })
 
 export default rootReducer;

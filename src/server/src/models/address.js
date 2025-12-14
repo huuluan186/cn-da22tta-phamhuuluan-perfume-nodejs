@@ -20,6 +20,12 @@ export default (sequelize, DataTypes) => {
                 as: 'ward',
             });
 
+            // 1 Address có thể được sử dụng trong nhiều Order
+            Address.hasMany(models.Order, {
+                foreignKey: 'addressId',
+                as: 'orders',
+            });
+
         }
     }
     Address.init({

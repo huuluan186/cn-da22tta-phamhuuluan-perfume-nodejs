@@ -47,5 +47,9 @@ export const breadcrumbMap = {
 
     [`${path.SEARCH}`]: [
         { label: "Kết quả tìm kiếm" }
+    ],
+
+    [`${path.CART}`]: [
+        { label: "Giỏ hàng" }
     ]
 };

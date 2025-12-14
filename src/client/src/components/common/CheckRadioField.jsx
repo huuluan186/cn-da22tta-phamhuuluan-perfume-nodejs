@@ -2,6 +2,7 @@
 const CheckRadioField = ({
     type = "checkbox", // "checkbox" | "radio"
     label,
+    labelTxtSize = 'text-sm',
     name,
     value,
     checked = false,
@@ -19,7 +20,7 @@ const CheckRadioField = ({
                 onChange={onChange}
                 className="form-checkbox h-4 w-4 text-blue-600"
             />
-            {label && <label className="text-sm">{label}</label>}
+            {label && <label className={`${labelTxtSize}`}>{label}</label>}
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
     );
