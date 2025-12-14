@@ -19,5 +19,6 @@ export const path={
     WISHLIST: '/wishlist',
     SEARCH: '/search',
     MY_VOUCHER: 'vouchers',
-    CART: '/cart'
+    CART: '/cart',
+    CHECKOUT: '/checkout'
 }

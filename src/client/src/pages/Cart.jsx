@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMyCart } from "../store/actions/cart";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +54,7 @@ const Cart = () => {
             <div className="flex items-center mb-5 gap-8">
                 <p className="text-sm text-gray-500">({subItems} sản phẩm)</p>
                 <Button 
-                    text='Clear the cart'
+                    text='Xóa giỏ hàng'
                     width="w-auto"
                     height="h-8"
                     textSize="text-sm font-medium"
@@ -163,6 +163,7 @@ const Cart = () => {
                             hoverBg="hover:bg-primary/80" 
                             hoverText="hover:none"
                             outline='rounded-lg'
+                            onClick={()=>navigate(path.CHECKOUT)}
                         />
                         <Button 
                             text="Tiếp tục mua hàng" 

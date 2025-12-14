@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const {MdCancel, MdStar} = icons;
 
-const ReviewModal = ({ product, onClose }) => {
+const ReviewModal = ({ product, orderItemId, onClose }) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [images, setImages] = useState([]);
@@ -41,7 +41,7 @@ const ReviewModal = ({ product, onClose }) => {
 
         if (!validate()) return; // nếu lỗi thì không gửi API
         const payload = {
-            orderItemId: 'new_4' || product.orderItemId, //hard orderItem id data
+            orderItemId: orderItemId, 
             title,
             content,
             rating,
@@ -50,10 +50,10 @@ const ReviewModal = ({ product, onClose }) => {
 
         try {
             const res = await apiAddProductReview(product.id, payload);
-            if(res?.err === 0) onClose(); // gọi về ProductDetail để reload review
+            if(res?.err === 0) onClose(true); // gọi về ProductDetail để reload review
         } catch (err) {
             const message = err?.response?.data?.msg || "Đã xảy ra lỗi!";
-            toast.error(message);
+            toast.error('Hãy mua sản phẩm để tiếp tục bình luận');
         }
     };
 
@@ -176,7 +176,7 @@ const ReviewModal = ({ product, onClose }) => {
                         hoverBg="hover:bg-gray-400"
                         hoverText="hover:none"
                         outline='rounded'
-                        onClick={onClose}
+                        onClick={() => onClose(false)}
                     />
                 </div>
             </div>
