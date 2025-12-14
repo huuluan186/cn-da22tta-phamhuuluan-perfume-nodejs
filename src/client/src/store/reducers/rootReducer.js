@@ -7,6 +7,7 @@ import brandReducer from "./brandReducer";
 import productReducer from "./productReducer";
 import couponReducer from "./couponReducer";
 import cartReducer from "./cartReducer";
+import orderReducer from "./orderReducer"
 
 import { combineReducers } from "redux";
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     brand: brandReducer,
     product: productReducer,
     coupon: couponReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    order: orderReducer
 })
 
 export default rootReducer;

@@ -189,7 +189,11 @@ export const getMyOrdersService = async (userId, query = {}) => {
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 
-        return formatPaginatedResponse(rows, count, hasPagination ? pageNum : null, hasPagination ? limitNum : null);
+        return {
+            err: 0,
+            msg: 'Fetch my orders succesfully!',
+            response: formatPaginatedResponse(rows, count, hasPagination ? pageNum : null, hasPagination ? limitNum : null)
+        }
     } catch (error) {
         throw error;
     }

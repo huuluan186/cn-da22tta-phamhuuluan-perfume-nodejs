@@ -8,6 +8,7 @@ import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, InfoModal 
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 import { addToCart, getMyCart } from "../../store/actions/cart";
+import { getMyOrders } from "../../store/actions/order";
 import { path } from "../../constants/path";
 
 const { FaHeart, FaRegHeart, FaRegCheckCircle, MdCancel} = icons;
@@ -17,6 +18,7 @@ const ProductDetail = () => {
     const dispatch = useDispatch();
     const { slug } = useParams();
     const { products, product, reviews, avgRating, totalReviews } = useSelector(state => state.product);
+    const { orders } = useSelector(state => state.order);
     const [currentProductId, setCurrentProductId] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -25,11 +27,12 @@ const ProductDetail = () => {
     const [openModal, setOpenModal] = useState(false);
     const [reloadReview, setReloadReview] = useState(false); // tín hiệu khi thêm bình luận xong
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [currentOrderItemId, setCurrentOrderItemId] = useState(null);
     const [infoModal, setInfoModal] = useState({
         show: false,
         message: "",
         icon: null,
-        autoClose: 1500, // tự đóng sau 2 giây,
+        autoClose: 1500, // tự đóng sau x giấy,
         onClose: null
     });
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
@@ -38,6 +41,10 @@ const ProductDetail = () => {
             dispatch(getProductsList());
         }
     }, [products.length, dispatch]);
+
+    useEffect(() => {
+        dispatch(getMyOrders())
+    }, [dispatch]);
 
     // 2. Khi products có sẵn, tìm productId từ slug
     useEffect(() => {
@@ -127,10 +134,9 @@ const ProductDetail = () => {
                     show: true,
                     message: buyNow ? "Đã thêm vào giỏ hàng! Chuyển tới thanh toán..." : "Đã thêm vào giỏ hàng!",
                     icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
-                    autoClose: 2000,
-                    onClose: buyNow ? () => navigate(path.CART) : null
+                    autoClose: 1500,
+                    onClose: buyNow ? () => navigate(path.CHECKOUT) : null
                 });
-                //if (buyNow) navigate(path.CART); // nếu mua ngay: chuyển trang Cart
             } else {
                 setInfoModal({
                     show: true,
@@ -150,7 +156,6 @@ const ProductDetail = () => {
         }
     };
 
-
     // Variant đang chọn có còn hàng không?
     const selectedInStock = selectedVariant?.stockQuantity > 0;
 
@@ -168,6 +173,28 @@ const ProductDetail = () => {
     const sortedVariants = product?.variants
     ?.slice()
     .sort((a, b) => a.volume - b.volume);
+
+    const openReviewModal = () => {
+    console.log("Orders:", orders);
+    console.log("Current product id:", product?.id);
+
+    let found = false;
+    for (let order of orders?.data || []) {
+        const item = order?.orderItems?.find(oi => oi.variant?.productId === product.id);
+        if (item) {
+            setCurrentOrderItemId(item.id); // lấy orderItemId đúng
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        console.warn("Không tìm thấy orderItem nào cho sản phẩm này trong orders của user!");
+    }
+
+    setOpenModal(true);
+}
+
 
     return (
         <div className="container py-6 bg-contentBg">
@@ -470,14 +497,14 @@ const ProductDetail = () => {
 
             {/* ================== KHỐI 3: ĐÁNH GIÁ SẢN PHẨM ================== */}
             <div className="mt-8 space-y-6">
-                <h3 className="text-2xl font-bold bg-navBgHover text-gray-800 px-4 py-2 -mb-2 rounded-md shadow-sm underline">
+                <h3 className="text-2xl font-bold bg-primary/70 text-gray-800 px-4 py-2 -mb-2 rounded-md shadow-sm underline">
                     Đánh giá và Nhận xét ({totalReviews})
                 </h3>
                 <RatingSummary
                     avgRating={avgRating}
                     totalReviews={totalReviews}
                     reviews={reviews} 
-                    onRateClick={()=>setOpenModal(true)}
+                    onRateClick={openReviewModal}
                 />
 
                 <ReviewList reviews={reviews} />
@@ -487,9 +514,12 @@ const ProductDetail = () => {
             {openModal && (
                 <ReviewModal 
                     product={product} 
-                    onClose={() => {
+                    orderItemId={currentOrderItemId}
+                    onClose={(success) => {
                         setOpenModal(false);           // Đóng ReviewModal
-                        setShowSuccessModal(true);    // Hiện modal thành công
+                        if (success) {                  
+                            setShowSuccessModal(true);
+                        }    
                     }} 
                 />
             )}

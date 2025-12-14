@@ -34,7 +34,7 @@ const MyVoucher = () => {
                             <h3 className="text-lg font-bold">Code: <span className="text-primary">{item.code}</span></h3>
                             <p className="text-gray-600 text-sm mt-1">Giảm {""} 
                                 {item.discountType === "percentage"
-                                    ? `${item.discountValue}%`
+                                    ? `${formatPrice(item.discountValue)}%`
                                     : `${formatPrice(item.discountValue)}₫`
                                 }
                             </p>

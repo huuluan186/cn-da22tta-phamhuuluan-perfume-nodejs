@@ -1,4 +1,4 @@
-import { FiSearch, FiEye, FiEyeOff} from 'react-icons/fi';
+import { FiSearch, FiEye, FiEyeOff, FiLogOut } from 'react-icons/fi';
 import { FaShoppingCart, FaFacebookF, FaGoogle, FaRegEdit, FaTrashAlt, FaEye, FaCartPlus, FaRegHeart, FaHeart, FaRegCheckCircle } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardArrowRight, MdCancel, MdAddLocationAlt, MdStar, MdClose } from "react-icons/md";
 import { BsFillGrid3X2GapFill } from "react-icons/bs";
@@ -26,7 +26,8 @@ const icons = {
     MdClose,
     BsFillGrid3X2GapFill,
     IoList,
-    FaRegCheckCircle
+    FaRegCheckCircle,
+    FiLogOut 
 }
 
 export default icons;

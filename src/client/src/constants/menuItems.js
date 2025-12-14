@@ -12,7 +12,7 @@ export const accountMenuItems = (navigate, dispatch, isLoggedIn) => [
         ? [
             {
                 label: "Ví voucher của tôi",
-                //onClick: () => { navigate(`${path.ACCOUNT}/${path.VOUCHERS}`) }
+                onClick: () => { navigate(`${path.ACCOUNT}/${path.MY_VOUCHER}`) }
             },
             {
                 label: "Đăng xuất",
