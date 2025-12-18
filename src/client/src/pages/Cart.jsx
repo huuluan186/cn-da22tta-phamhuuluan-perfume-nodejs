@@ -47,6 +47,7 @@ const Cart = () => {
     const subtotal = cart?.cartItems?.reduce((sum, item) => sum + item.priceAtTime * item.quantity, 0) || 0;
 
     const subItems = cart?.cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+    const isCartEmpty = subItems === 0;
 
     return (
         <div className="container py-6 bg-contentBg">
@@ -66,7 +67,7 @@ const Cart = () => {
             <div className="grid grid-cols-12 gap-6">
                 {/* Danh sách sản phẩm */}
                 <div className="col-span-9">
-                    {(!cart?.cartItems || cart.cartItems.length === 0) && (
+                    {isCartEmpty && (
                         <p>Bạn chưa có sản phẩm nào trong giỏ hàng. Hãy tiếp tục mua hàng</p>
                     )}
                     {cart?.cartItems?.map(item => {
@@ -163,7 +164,10 @@ const Cart = () => {
                             hoverBg="hover:bg-primary/80" 
                             hoverText="hover:none"
                             outline='rounded-lg'
-                            onClick={()=>navigate(path.CHECKOUT)}
+                            onClick={isCartEmpty ? undefined : () => navigate(path.CHECKOUT)}
+                            bgColor={isCartEmpty ? "bg-gray-300" : "bg-primary"}
+                            textColor={isCartEmpty ? "text-gray-500" : "text-white"}
+                            className={isCartEmpty ? "cursor-not-allowed" : ""}
                         />
                         <Button 
                             text="Tiếp tục mua hàng" 
