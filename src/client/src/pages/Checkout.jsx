@@ -59,6 +59,15 @@ const Checkout = () => {
         paymentMethod: 'COD',
         voucher: '',
     });
+
+    useEffect(() => {
+       if (user?.email) {
+           setFormData(prev => ({
+               ...prev,
+               email: user.email
+           }));
+       }
+   }, [user?.email]);
     
     useEffect(() => {
         dispatch(getAllProvinces());
@@ -73,7 +82,7 @@ const Checkout = () => {
         const defaultAddress = addresses.rows.find(addr => addr.isDefault);
         if (!defaultAddress) return;
 
-        setSelectedAddressId(defaultAddress.id);
+        setSelectedAddressId(defaultAddress.id.toString());
 
         const provinceId = defaultAddress.ward?.province?.id;
         const wardId = defaultAddress.ward?.id;
@@ -190,7 +199,7 @@ const Checkout = () => {
             return;
         }
 
-        const selected = addresses?.rows?.find(addr => addr.id === addressId);
+        const selected = addresses?.rows?.find(addr => addr.id.toString() === addressId);
         if (!selected) return;
 
         setFormData(prev => ({
@@ -201,6 +210,9 @@ const Checkout = () => {
             provinceId: selected.ward?.province?.id?.toString() || '',
             wardId: selected.ward?.id.toString() || '',
         }));
+
+        // Xóa lỗi khi chọn địa chỉ
+        setErrors({});
 
         if (selected.province?.id) {
             dispatch(getWardsByProvince(Number(selected.province.id)));
@@ -244,7 +256,6 @@ const Checkout = () => {
                         addressLine: formData.addressLine,
                         provinceId: Number(formData.provinceId),
                         wardId: Number(formData.wardId),
-                        isDefault: selected.isDefault
                     };
                     await apiUpdateAddress(addressId, updatedData);
                 }
@@ -264,7 +275,10 @@ const Checkout = () => {
                         message: "Đặt hàng thành công!",
                         icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,      
                         autoClose: 1500,
-                        onClose: () => setInfoModal(prev => ({ ...prev, show: false }))
+                        onClose: () => {
+                            navigate(`${path.ACCOUNT}/${path.MY_ORDER}`)
+                            setInfoModal(prev => ({ ...prev, show: false }))
+                        }
                     });
                 }    
             } else {
@@ -315,15 +329,13 @@ const Checkout = () => {
     }
 
     const addressOptions = (addresses?.rows || []).map(addr => ({
-        id: addr.id,
+        id: addr.id.toString(),
         name: [
             addr.receiverName,
             addr.addressLine,
             addr.ward?.name,
             addr.ward?.province?.name
-        ]
-            .filter(Boolean)   
-            .join(', ')
+        ].filter(Boolean).join(', ')
     }));
 
     const subItems = cart?.cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;

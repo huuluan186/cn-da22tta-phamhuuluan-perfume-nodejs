@@ -13,9 +13,9 @@ export const apiCreateOrder = async (addressId, couponCode=null, paymentMethod='
     }   
 }
 
-export const apigetMyOrders = async () => {
+export const apigetMyOrders = async (params={}) => {
     try {
-        const response = await axiosConfig.get('/api/users/me/orders')   
+        const response = await axiosConfig.get('/api/users/me/orders', {params})   
         return response.data;
     } catch (error) {
         throw error

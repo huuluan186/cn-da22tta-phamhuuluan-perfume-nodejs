@@ -10,7 +10,7 @@ export const buildProductFilters = ({ categoryId, brandIds, priceRange, keyword 
     const include = [
         { model: db.Brand, as: 'brand', attributes: ['id', 'name', 'logoUrl'] },
         { model: db.ProductImage, as: 'images', where: { isThumbnail: true }, required: false, attributes: ['url'] },
-        { model: db.ProductVariant, as: 'variants', attributes: ['price'] },
+        { model: db.ProductVariant, as: 'variants', attributes: ['price', 'discountPercent'] },
     ];
 
     const where = {};

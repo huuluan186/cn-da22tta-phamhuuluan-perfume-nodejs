@@ -1,9 +1,9 @@
 import actionTypes from './actionTypes';
 import { apigetMyOrders } from '../../api/order';
 
-export const getMyOrders = () => async (dispatch) => {
+export const getMyOrders = (params = {}) => async (dispatch) => {
     try {
-        const res = await apigetMyOrders();
+        const res = await apigetMyOrders(params);
         console.log('apigetMyOrders: ', res)
         if (res?.err === 0) {
             dispatch({

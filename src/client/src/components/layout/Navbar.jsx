@@ -38,7 +38,7 @@ const Navbar = () => {
                 {dynamicNavbarItems.map((item, index) => (
                     <li 
                         key={item.label}
-                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-primary/30"
+                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-primary/80 hover:text-white"
                     >
                         <NavLink 
                             to={item.path} 
@@ -58,6 +58,7 @@ const Navbar = () => {
                                 } flex items-center justify-center gap-1.5`;
                             }}
                         >
+                            {item?.icon && <item.icon className="inline-block mr-1 text-lg" />}
                             {item?.label}
                             {item?.hasDropdown && (
                                 <span className="inline-block transition-transform duration-700 ease-in-out">

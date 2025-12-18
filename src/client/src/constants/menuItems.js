@@ -15,6 +15,10 @@ export const accountMenuItems = (navigate, dispatch, isLoggedIn) => [
                 onClick: () => { navigate(`${path.ACCOUNT}/${path.MY_VOUCHER}`) }
             },
             {
+                label: "Lịch sử giao dịch",
+                onClick: () => { navigate(`${path.ACCOUNT}/${path.MY_ORDER}`) }
+            },
+            {
                 label: "Đăng xuất",
                 onClick: () => {
                     dispatch(logout());

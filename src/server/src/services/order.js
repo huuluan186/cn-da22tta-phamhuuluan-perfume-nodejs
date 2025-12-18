@@ -145,25 +145,60 @@ export const createOrderService = async (userId, addressId, couponCode, paymentM
                 description: `Thanh toán đơn hàng #${newOrder.id}`
             });
 
-            // Lưu lại để callback tìm được đơn
-            await newOrder.update({
-                paymentGatewayData: {
-                    app_trans_id: appTransId,
-                    order_url: zaloOrder.order_url,
-                    created_at: new Date(),
-                    couponId: appliedCoupon ? appliedCoupon.id : null  // Lưu tạm để callback dùng
+            // ✅ SANDBOX: coi như thanh toán thành công
+            if (zaloOrder.return_code === 1) {
+                // 1️⃣ Update order
+                await newOrder.update({
+                    paymentStatus: 'Paid',
+                    orderStatus: 'Processing',
+                    paymentTransactionId: zaloOrder.order_token,
+                    paymentGatewayData: {
+                        sandbox: true,
+                        app_trans_id: appTransId,
+                        zp_token: zaloOrder.order_token,
+                        order_url: zaloOrder.order_url,
+                        paid_at: new Date(),
+                        couponId: appliedCoupon ? appliedCoupon.id : null
+                    }
+                }, { transaction });
+
+                // 2️⃣ Trừ kho
+                const stockUpdate = await utils.updateProductStock(cartItems, transaction);
+                if (stockUpdate.err) {
+                    await transaction.rollback();
+                    return stockUpdate;
                 }
-            }, { transaction });
 
-            await transaction.commit()
+                // 3️⃣ Đánh dấu coupon
+                if (appliedCoupon) {
+                    const userCoupon = await db.UserCoupon.findOne({
+                        where: {
+                            userId,
+                            couponId: appliedCoupon.id,
+                            status: "unused"
+                        },
+                        transaction
+                    });
+                    if (userCoupon) {
+                        await utils.markUserCouponUsed(userCoupon, transaction);
+                    }
+                }
 
-            return {
-                err: 0,
-                msg: "Redirect to ZaloPay",
-                order: newOrder,
-                paymentUrl: zaloOrder.order_url, // hoặc QR, app link...
-                appTransId
+                // 4️⃣ Xóa giỏ hàng
+                await db.CartItem.destroy({ where: { cartId: cart.id }, transaction });
+
+                await transaction.commit();
+
+                return {
+                    err: 0,
+                    msg: "Payment success (ZaloPay sandbox)",
+                    order: newOrder,
+                    paymentUrl: zaloOrder.order_url
+                };
             }
+
+            await transaction.rollback();
+            return { err: 1, msg: "ZaloPay payment failed" };
         }
     } catch (error) {
         await transaction.rollback();
@@ -183,6 +218,8 @@ export const getMyOrdersService = async (userId, query = {}) => {
 
         const { rows, count } = await db.Order.findAndCountAll({
             where,
+            distinct: true,
+            col: 'id',
             attributes: { exclude: ['paymentGatewayData', 'addressId'] },
             include: orderIncludes,
             order: [['createdAt', 'DESC']],
@@ -211,6 +248,8 @@ export const getAllOrdersService = async (query = {}) => {
 
         const { rows, count } = await db.Order.findAndCountAll({
             where,
+            distinct: true,              
+            col: 'id',
             attributes: { exclude: ['paymentGatewayData', 'addressId'] },
             include: orderIncludes,
             order: [['createdAt', 'DESC']],

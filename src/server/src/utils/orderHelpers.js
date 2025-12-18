@@ -57,7 +57,14 @@ export const orderIncludes = [
                         'createdAt', 'updatedAt', 'deletedAt', 
                         'isDefault'
                     ] 
-                }
+                },
+                include: [
+                    {
+                        model: db.Product,
+                        as: 'product',
+                        attributes: ['id', 'name'] // chỉ cần name là đủ
+                    }
+                ]
             }
         ]
     },

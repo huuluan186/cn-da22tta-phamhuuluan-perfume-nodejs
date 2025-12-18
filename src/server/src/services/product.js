@@ -66,6 +66,12 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
         let rows = products.rows.map(prod => {
             // Lấy tất cả giá của variants, lọc NaN
             const prices = prod.variants.map(v => +v.price).filter(p => !isNaN(p));
+            const discounts = [];
+            prod.variants.forEach(v => {
+                if (!isNaN(+v.discountPercent)) {
+                    discounts.push(+v.discountPercent);
+                }
+            });
     
             const priceInfo = {};
             if (prices.length === 1) {
@@ -86,11 +92,15 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
                 avgRating = ratings.length ? ratings.reduce((a,b) => a+b,0) / ratings.length : null;
             }
 
+            // LẤY KHUYẾN MÃI CAO NHẤT
+            const maxDiscount = discounts.length ? Math.max(...discounts) : 0;
+
             return {
                 id: prod.id,
                 name: prod.name,
                 brand: prod.brand,
                 thumbnail: prod.images[0]?.url || null,
+                maxDiscount,
                 ...priceInfo,
                 avgRating
             };

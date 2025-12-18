@@ -20,5 +20,6 @@ export const path={
     SEARCH: '/search',
     MY_VOUCHER: 'vouchers',
     CART: '/cart',
-    CHECKOUT: '/checkout'
+    CHECKOUT: '/checkout',
+    MY_ORDER: 'orders'
 }
