@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,9 +13,25 @@ const transporter = nodemailer.createTransport({
     // Nếu dùng SendGrid/Mailgun thì cấu hình khác
 });
 
+export const generateShortResetLink = async (userId, resetToken) => {
+    const longUrl = `${process.env.CLIENT_URL}/account/reset/${userId}/${resetToken}`;
+
+    try {
+        const encodedUrl = encodeURIComponent(longUrl);
+        const { data } = await axios.get(
+            `https://tinyurl.com/api-create.php?url=${encodedUrl}`
+        );
+        return data;
+    } catch (error) {
+        console.error('TinyURL error:', error.response?.data || error.message);
+        // fallback nếu TinyURL lỗi
+        return longUrl;
+    }
+};
+
 // Hàm gửi email reset password
 export const sendResetPasswordEmail = async (user, resetToken) => {
-    const resetLink = `${process.env.CLIENT_URL}/account/reset/${user.id}/${resetToken}`;
+    const resetLink = await generateShortResetLink(user.id, resetToken);
 
     const mailOptions = {
         from: `"Perfumora.vn" <${process.env.EMAIL_USER}>`,
