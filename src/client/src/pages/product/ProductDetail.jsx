@@ -497,7 +497,7 @@ const ProductDetail = () => {
 
             {/* ================== KHỐI 3: ĐÁNH GIÁ SẢN PHẨM ================== */}
             <div className="mt-8 space-y-6">
-                <h3 className="text-2xl font-bold bg-primary/70 text-gray-800 px-4 py-2 -mb-2 rounded-md shadow-sm underline">
+                <h3 className="text-2xl font-bold bg-white text-gray-800 px-6 py-3 mb-0 rounded-md shadow-md border-l-4 border-primary">
                     Đánh giá và Nhận xét ({totalReviews})
                 </h3>
                 <RatingSummary
