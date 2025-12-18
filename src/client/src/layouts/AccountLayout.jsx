@@ -24,6 +24,10 @@ const AccountLayout = () => {
         dispatch(getMyCoupons());
     }, [dispatch]);
 
+    const unusedCoupons = coupons?.data?.filter(
+        item => item.status === "unused"
+    ) || [];
+
     return (
         <div className="container bg-contentBg py-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -50,7 +54,7 @@ const AccountLayout = () => {
                         </li>
                         <li>
                             <NavLink
-                                to={path.ORDERS_HISTORY}
+                                to={path.MY_ORDER}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
                                 Đơn hàng của bạn
@@ -79,7 +83,7 @@ const AccountLayout = () => {
                                 to={path.MY_VOUCHER}
                                 className={({isActive})=> `${isActive ? activeClass : inactiveClass}` }
                             >
-                                Voucher của tôi ({coupons?.total})
+                                Voucher của tôi ({unusedCoupons?.length})
                             </NavLink>
                         </li>
                     </ul>
