@@ -1,6 +1,6 @@
-import { FiSearch, FiEye, FiEyeOff, FiLogOut } from 'react-icons/fi';
-import { FaShoppingCart, FaFacebookF, FaGoogle, FaRegEdit, FaTrashAlt, FaEye, FaCartPlus, FaRegHeart, FaHeart, FaRegCheckCircle } from "react-icons/fa";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardArrowRight, MdCancel, MdAddLocationAlt, MdStar, MdClose } from "react-icons/md";
+import { FiSearch, FiEye, FiEyeOff, FiLogOut, FiLock, FiHome, FiShield, FiTrash2 } from 'react-icons/fi';
+import { FaShoppingCart, FaFacebookF, FaGoogle, FaRegEdit, FaTrashAlt, FaEye, FaCartPlus, FaRegHeart, FaHeart, FaRegCheckCircle, FaUsers, FaUserShield, FaBox, FaTrademark } from "react-icons/fa";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdKeyboardArrowRight, MdCancel, MdAddLocationAlt, MdStar, MdClose, MdDashboard, MdCategory, MdLocalOffer, MdRateReview, MdContactMail } from "react-icons/md";
 import { BsFillGrid3X2GapFill } from "react-icons/bs";
 import { IoList, IoHome } from "react-icons/io5";
 
@@ -28,7 +28,20 @@ const icons = {
     IoList,
     FaRegCheckCircle,
     FiLogOut,
-    IoHome
+    IoHome,
+    MdDashboard,
+    FaUsers,
+    FaUserShield,
+    FaBox,
+    FaTrademark,
+    MdCategory,
+    MdLocalOffer,
+    MdRateReview,
+    MdContactMail,
+    FiLock,
+    FiHome,
+    FiShield, 
+    FiTrash2
 }
 
 export default icons;

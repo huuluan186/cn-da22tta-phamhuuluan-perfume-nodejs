@@ -29,5 +29,10 @@ export const path={
     PRIVACY_POLICY: '/chinh-sach-bao-mat-thong-tin',
     RETURN_POLICY: '/chinh-sach-doi-tra-bao-hanh',
     SHIPPING_POLICY: '/chinh-sach-giao-hang',
-    PAYMENT_SECURITY_POLICY: '/chinh-sach-bao-mat-thanh-toan'
+    PAYMENT_SECURITY_POLICY: '/chinh-sach-bao-mat-thanh-toan',
+    ADMIN: '/admin',
+    ADMIN_DASHBOARD: 'dashboard',
+    USER_MANAGER: "user-manager",
+    ADD: "add",
+    UPDATE: "update/:id",
 }

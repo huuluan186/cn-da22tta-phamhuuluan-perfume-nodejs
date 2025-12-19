@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList } from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
-import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
+import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getCurrentUser } from "./store/actions/user";
@@ -102,6 +102,20 @@ function App() {
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
                 <Route path={path.CHECKOUT} element={<Checkout/>} />
+                {/* Admin routes */}
+                <Route
+                    path={path.ADMIN}
+                    element={
+                        <ProtectedRoute requireAdmin>
+                            <AdminLayout />
+                        </ProtectedRoute>
+                    }
+                >
+                    <Route path={path.USER_MANAGER} element={<UserLayout />}>
+                        <Route index element={<UserList />} />
+                        <Route path={path.UPDATE} element={<UserEditRole />} />
+                    </Route>
+                </Route>
             </Routes>
 
             <ToastContainer

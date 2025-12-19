@@ -55,13 +55,16 @@ const LoginForm = ({ onForgotPassword }) => {
 
     useEffect(() => {
         //if (!submitted) return; // chỉ chạy khi đã submit form
+        if (!loginMsg) return;
         if (isLoggedIn) {
             if(loginMsg) toast.success(loginMsg);
-            navigate(path.HOME);
+            const isAdmin = user?.roles?.some(r => r.name === "admin");
+            if (isAdmin) navigate(path.ADMIN);
+            else navigate(path.HOME);
         } else if (loginMsg) {
            toast.error(loginMsg);
         }
-    }, [isLoggedIn, loginMsg, errorToggle, navigate]);
+    }, [isLoggedIn, loginMsg, errorToggle, navigate, user]);
 
     return (
         <form 

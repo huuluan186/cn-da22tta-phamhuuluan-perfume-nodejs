@@ -99,7 +99,7 @@ const Header = () => {
 
                     {/* Menu dropdown */}
                     <DropdownMenu
-                        items={accountMenuItems(navigate, dispatch, isLoggedIn)}
+                        items={accountMenuItems(navigate, dispatch, isLoggedIn, user)}
                         align="right"
                     />
                     
