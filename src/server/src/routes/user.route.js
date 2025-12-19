@@ -6,6 +6,7 @@ import * as cartController from '../controllers/cart.controller.js'
 import * as orderController from '../controllers/order.controller.js'
 import * as couponController from '../controllers/coupon.controller.js'
 import { verifyToken } from '../middlewares/verifyToken.middleware.js';
+import { isAdmin } from '../middlewares/userAuthentication.js';
 
 const router = express.Router();
 
@@ -40,5 +41,10 @@ router.get('/me/orders', verifyToken, orderController.getMyOrdersController);
 
 //coupon
 router.get('/me/coupons', verifyToken, couponController.getMyCouponsController);
+
+//admin
+router.get('/', verifyToken, isAdmin, userController.getAllUsersController);
+router.patch('/:id/roles', verifyToken, isAdmin, userController.updateUserRoleController)
+router.delete('/:id', verifyToken, isAdmin, userController.softDeleteUserController)
 
 export default router;

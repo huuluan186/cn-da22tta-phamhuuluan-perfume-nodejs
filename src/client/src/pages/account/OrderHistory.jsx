@@ -201,12 +201,12 @@ const OrderHistory = () => {
                 </table>
             </div>
             <div className="pt-10">
-                    <Pagination
-                        currentPage={page}
-                        totalPages={Math.ceil((orders?.total || orders?.data?.length || 0)/limit) }
-                        onPageChange={setPage}
-                    />
-                </div>
+                <Pagination
+                    currentPage={page}
+                    totalPages={Math.ceil((orders?.total || orders?.data?.length || 0)/limit) }
+                    onPageChange={setPage}
+                />
+            </div>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import db from '../models/index.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { sendResetPasswordEmail } from '../utils/index.js';
+import { getPagination, formatPaginatedResponse } from '../utils/pagination.js';
 
 const hashPassword= password => bcrypt.hashSync(password,bcrypt.genSaltSync(12));
 
@@ -196,6 +197,120 @@ export const resetPasswordService = async (token, newPassword) => {
                 msg: 'Reset token has expired!',
             };
         }
+        throw error;
+    }
+};
+
+//======================== ADMIN =========================== //
+export const getAllUsersService = async (query={}) => {
+    try {
+        const { page, limit, hasPagination } = query;
+        const { offset, limitNum, pageNum } = getPagination(page, limit, process.env.DEFAULT_PAGE_LIMIT);
+
+        const { rows, count } = await db.User.findAndCountAll({
+            paranoid: false, // bỏ qua soft delete
+            attributes: { exclude: ['password'] },
+            include: [
+                {
+                    model: db.Role,
+                    as: 'roles',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            ],
+            order: [['createdAt', 'DESC']],
+            ...(hasPagination ? { offset, limit: limitNum } : {})
+        });
+
+        return {
+            err: 0,
+            msg: 'Get users successfully',
+            response: formatPaginatedResponse(rows, count, hasPagination ? pageNum : null, hasPagination ? limitNum : null)
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateUserRoleService = async (userId, roleIds = []) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const user = await db.User.findByPk(userId, { transaction });
+
+        if (!user) {
+            await transaction.rollback();
+            return {
+                err: 1,
+                msg: 'User not found!',
+            };
+        }
+
+        // Kiểm tra role tồn tại
+        const roles = await db.Role.findAll({
+            where: { id: roleIds },
+            transaction
+        });
+
+        if (roles.length !== roleIds.length) {
+            await transaction.rollback();
+            return {
+                err: 1,
+                msg: 'One or more roles not found!',
+            };
+        }
+
+        //  Cập nhật role (xóa role cũ + set role mới)
+        await user.setRoles(roles, { transaction });
+
+        await transaction.commit();
+
+        return {
+            err: 0,
+            msg: 'User roles updated successfully!',
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+export const softDeleteUserService = async (userId) => {
+    try {
+        const user = await db.User.findByPk(userId, {
+            include: [
+                {
+                    model: db.Role,
+                    as: 'roles',
+                    attributes: ['name'],
+                    through: { attributes: [] }
+                }
+            ]
+        });
+
+        if (!user) {
+            return {
+                err: 1,
+                msg: 'User not found!',
+            };
+        }
+
+        // 🔥 Check admin role
+        const isAdmin = user.roles?.some(role => role.name === 'admin');
+
+        if (isAdmin) {
+            return {
+                err: 1,
+                msg: 'Cannot delete admin user!',
+            };
+        }
+
+        await user.destroy(); // soft delete
+
+        return {
+            err: 0,
+            msg: 'User deleted successfully!',
+        };
+    } catch (error) {
         throw error;
     }
 };

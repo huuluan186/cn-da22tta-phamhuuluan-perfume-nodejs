@@ -8,6 +8,7 @@ import productRouter from './product.route.js'
 import couponRouter from './coupon.route.js';
 import orderRouter from './order.route.js';
 import contactRouter from './contact.route.js'
+import roleRouter from './role.route.js';
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.use('/products', productRouter);
 router.use('/coupons', couponRouter);
 router.use('/orders', orderRouter);
 router.use('/contacts', contactRouter);
+router.use('/roles', roleRouter);
 
 export default router;
