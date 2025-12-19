@@ -1,6 +1,6 @@
 import db from "../models/index.js";
 import { fn, col } from 'sequelize'
-import { buildProductFilters, buildProductSort } from "../utils/index.js"
+import { buildProductFilters, buildProductSort, sortProducts } from "../utils/index.js"
 import { nanoid } from 'nanoid';
 
 //LẤY DANH SÁCH SẢN PHẨM (CÓ HOẶC KHÔNG ĐIỀU KIỆN LỌC)
@@ -16,11 +16,12 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             limitNum = limit && +limit > 0 ? +limit : +process.env.DEFAULT_PAGE_LIMIT || 9;
             hasPagination = page !== undefined && page !== '' && limitNum > 0;
         }
-        const offset = hasPagination ? (pageNum - 1) * limitNum : 0; // tính offset cho pagination
         
         // === 2. XÂY DỰNG TRUY VẤN ===
         const { where, include } = buildProductFilters(filters); // Lấy object `where` và `include` từ hàm buildProductFilters
-        const order = buildProductSort(filters?.sort); // Lấy mảng order (sort) nếu có
+
+        const isJsSort = ["price_asc", "price_desc", "bestseller"].includes(filters.sort);
+        const order = !isJsSort ? buildProductSort(filters.sort) : undefined;
 
         // Nếu filter theo rating được truyền, join thêm các review để tính avgRating
         if (filters.rating) {
@@ -47,11 +48,10 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             where,
             include,
             distinct: true, // tránh duplicate khi join
-            order,
-            ...(hasPagination ? { offset, limit: limitNum } : {})
+            ...(order ? { order } : {})
         };
         
-        // === 2a. Thực thi query ===
+        // === 3. Thực thi query ===
         const products = await db.Product.findAndCountAll(findOptions);
         if (!products || products.rows.length === 0) {
             return {
@@ -61,7 +61,7 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             };
         }
 
-        // === 3. XỬ LÝ FORMAT DỮ LIỆU ===
+        // === 4. XỬ LÝ FORMAT DỮ LIỆU ===
         // Map ra format card: giá từ thấp → cao
         let rows = products.rows.map(prod => {
             // Lấy tất cả giá của variants, lọc NaN
@@ -94,6 +94,9 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
 
             // LẤY KHUYẾN MÃI CAO NHẤT
             const maxDiscount = discounts.length ? Math.max(...discounts) : 0;
+            const totalSold = prod.variants.reduce(
+                (sum, v) => sum + (+v.soldQuantity || 0), 0
+            );
 
             return {
                 id: prod.id,
@@ -101,22 +104,36 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
                 brand: prod.brand,
                 thumbnail: prod.images[0]?.url || null,
                 maxDiscount,
+                totalSold,
                 ...priceInfo,
                 avgRating
             };
         });
 
-        // === 3a. LỌC THEO RATING ===
+        // === 5. LỌC THEO RATING ===
         if (filters.rating) {
             rows = rows.filter(p => p.avgRating >= +filters.rating);
         }
 
-        // === 4. TRẢ VỀ KẾT QUẢ ===
+        // == 6. SORT JS cho các field không có trong Product
+        rows = sortProducts(rows, filters.sort);
+
+        // =========================
+        // 7. PHÂN TRANG SAU KHI SORT
+        // =========================
+        const total = rows.length;
+
+        if (hasPagination) {
+            const start = (pageNum - 1) * limitNum;
+            rows = rows.slice(start, start + limitNum);
+        }
+
+        // === 8. TRẢ VỀ KẾT QUẢ ===
         return {
             err: 0,
             msg: 'Get product list successfully!',
             response: {
-                total: products.count,
+                total,
                 page: hasPagination ? pageNum : null,
                 limit: hasPagination ? limitNum : null,
                 data: rows

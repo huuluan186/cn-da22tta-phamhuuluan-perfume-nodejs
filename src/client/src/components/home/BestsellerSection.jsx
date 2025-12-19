@@ -3,12 +3,13 @@ import { CustomArrow, ProductCard } from "../index";
 import { SORT_KEYS } from '../../constants/sortKeys'
 import { useProducts } from "../../hooks/useProducts";
 
-const NewArrivalsSection = () => {
+const BestsellerSection = () => {
     const { products } = useProducts({
         page: 1,
         limit: 8,
-        sort: SORT_KEYS.LATEST
+        sort: SORT_KEYS.BESTSELLER
     });
+
     if (!products.length) return null;
 
     // Config slider: hiển thị 6 sp 1 dòng, có 2 mũi tên
@@ -37,7 +38,7 @@ const NewArrivalsSection = () => {
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl md:text-3xl text-gray-700 font-medium cursor-pointer">
-                    New Arrivals
+                    Bestsellers
                 </h2>
                 <button className="text-gray-500 hover:text-gray-700 flex items-center gap-1">
                     Xem thêm
@@ -115,4 +116,4 @@ const NewArrivalsSection = () => {
     );
 };
 
-export default NewArrivalsSection;
+export default BestsellerSection;

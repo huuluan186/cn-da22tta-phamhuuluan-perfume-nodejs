@@ -10,7 +10,7 @@ export const buildProductFilters = ({ categoryId, brandIds, priceRange, keyword 
     const include = [
         { model: db.Brand, as: 'brand', attributes: ['id', 'name', 'logoUrl'] },
         { model: db.ProductImage, as: 'images', where: { isThumbnail: true }, required: false, attributes: ['url'] },
-        { model: db.ProductVariant, as: 'variants', attributes: ['price', 'discountPercent'] },
+        { model: db.ProductVariant, as: 'variants', attributes: ['price', 'discountPercent', 'soldQuantity'] },
     ];
 
     const where = {};
@@ -50,12 +50,31 @@ export const buildProductSort = (sortKey) => {
     switch (sortKey) {
         case 'latest': return [['createdAt', 'DESC']];
         case 'oldest': return [['createdAt', 'ASC']];
-        case 'price_asc': return [['variants', 'price', 'ASC']];
-        case 'price_desc': return [['variants', 'price', 'DESC']];
         case 'name_asc': return [['name', 'ASC']];
         case 'name_desc': return [['name', 'DESC']];
-        case 'bestseller': return [['sold', 'DESC']];
         default: return [['createdAt', 'DESC']];
+    }
+};
+
+export const sortProducts = (rows, sortKey) => {
+    switch (sortKey) {
+        case "price_asc":
+            return rows.sort((a, b) =>
+                (a.minPrice ?? a.price ?? Infinity) -
+                (b.minPrice ?? b.price ?? Infinity)
+            );
+
+        case "price_desc":
+            return rows.sort((a, b) =>
+                (b.maxPrice ?? b.price ?? -Infinity) -
+                (a.maxPrice ?? a.price ?? -Infinity)
+            );
+
+        case "bestseller":
+            return rows.sort((a, b) => b.totalSold - a.totalSold);
+
+        default:
+            return rows;
     }
 };
 

@@ -35,6 +35,7 @@ const ProductDetail = () => {
         autoClose: 1500, // tự đóng sau x giấy,
         onClose: null
     });
+
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
     useEffect(() => {
         if (products.length === 0) {
@@ -171,29 +172,29 @@ const ProductDetail = () => {
 
     // sort variant theo thứ tự volume tăng dần
     const sortedVariants = product?.variants
-    ?.slice()
-    .sort((a, b) => a.volume - b.volume);
+        ?.slice()
+        .sort((a, b) => a.volume - b.volume);
 
     const openReviewModal = () => {
-    console.log("Orders:", orders);
-    console.log("Current product id:", product?.id);
+        console.log("Orders:", orders);
+        console.log("Current product id:", product?.id);
 
-    let found = false;
-    for (let order of orders?.data || []) {
-        const item = order?.orderItems?.find(oi => oi.variant?.productId === product.id);
-        if (item) {
-            setCurrentOrderItemId(item.id); // lấy orderItemId đúng
-            found = true;
-            break;
+        let found = false;
+        for (let order of orders?.data || []) {
+            const item = order?.orderItems?.find(oi => oi.variant?.productId === product.id);
+            if (item) {
+                setCurrentOrderItemId(item.id); // lấy orderItemId đúng
+                found = true;
+                break;
+            }
         }
-    }
 
-    if (!found) {
-        console.warn("Không tìm thấy orderItem nào cho sản phẩm này trong orders của user!");
-    }
+        if (!found) {
+            console.warn("Không tìm thấy orderItem nào cho sản phẩm này trong orders của user!");
+        }
 
-    setOpenModal(true);
-}
+        setOpenModal(true);
+    }
 
 
     return (
