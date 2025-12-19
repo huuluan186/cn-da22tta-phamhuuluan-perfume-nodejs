@@ -12,6 +12,8 @@ export async function up(queryInterface, Sequelize) {
         name: item.name,
         country: item.country,
         logoUrl: item.logoUrl,
+        description: item.description || '',
+        posterUrl: item.posterUrl || '',
         createdAt: now,
         updatedAt: now,
         deletedAt: null

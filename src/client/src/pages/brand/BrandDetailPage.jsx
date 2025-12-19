@@ -40,7 +40,7 @@ const BrandDetailPage = () => {
     return (
         <div className="container bg-contentBg">
             {/* ===== HERO IMAGE ===== */}
-            <div className="w-full h-[260px] md:h-[360px] overflow-hidden">
+            <div className="h-[260px] md:h-[360px] overflow-hidden">
                 {brandDetail.posterUrl ? (
                     <img
                         src={brandDetail.posterUrl}
@@ -55,7 +55,7 @@ const BrandDetailPage = () => {
             </div>
 
             {/* ===== BRAND INFO ===== */}
-            <div className="container py-10">
+            <div className="px-40 py-10">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
                     {brandDetail.logoUrl && (
                         <img
