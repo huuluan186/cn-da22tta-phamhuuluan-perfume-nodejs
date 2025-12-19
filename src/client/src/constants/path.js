@@ -10,7 +10,6 @@ export const path={
     ADDRESSES: 'addresses',
     CALLBACK: '/auth/callback',
     INTRODUCE:'/gioi-thieu-ve-perfumora',
-    CONTACT: '/lien-he',
     BRANDS: '/thuong-hieu-a-z',
     COLLECTIONS: '/collections',
     ALL_PRODUCTS: 'all',
@@ -21,5 +20,14 @@ export const path={
     MY_VOUCHER: 'vouchers',
     CART: '/cart',
     CHECKOUT: '/checkout',
-    MY_ORDER: 'orders'
+    MY_ORDER: 'orders',
+    CONTACT: '/contact',
+    PUCHARSE_GUIDE: '/chinh-sach-thanh-toan-va-huong-dan-mua-hang',
+    INSPECTION_GUIDE: '/huong-dan-kiem-hang',
+    TERM_OF_USE: '/dieu-khoan-su-dung',
+    PURCHASE_POLICY: '/chinh-sach-mua-hang',
+    PRIVACY_POLICY: '/chinh-sach-bao-mat-thong-tin',
+    RETURN_POLICY: '/chinh-sach-doi-tra-bao-hanh',
+    SHIPPING_POLICY: '/chinh-sach-giao-hang',
+    PAYMENT_SECURITY_POLICY: '/chinh-sach-bao-mat-thanh-toan'
 }

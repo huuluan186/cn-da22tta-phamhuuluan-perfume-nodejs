@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy } from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -89,6 +89,16 @@ function App() {
                         }  
                     />
                     <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
+                    <Route path={path.CONTACT} element={<Contact/>} />
+                    <Route path={path.INTRODUCE} element={<Introduce/>} />
+                    <Route path={path.PUCHARSE_GUIDE} element={<PurchaseGuide/>} />
+                    <Route path={path.INSPECTION_GUIDE} element={<InspectionGuide/>} />
+                    <Route path={path.TERM_OF_USE} element={<TermOfUse/>} />
+                    <Route path={path.PURCHASE_POLICY} element={<PurchasePolicy/>} />
+                    <Route path={path.PRIVACY_POLICY} element={<PrivacyPolicy/>} />
+                    <Route path={path.RETURN_POLICY} element={<ReturnPolicy/>} />
+                    <Route path={path.SHIPPING_POLICY} element={<ShippingPolicy/>} />
+                    <Route path={path.PAYMENT_SECURITY_POLICY} element={<PaymentSecurityPolicy/>} />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
                 <Route path={path.CHECKOUT} element={<Checkout/>} />

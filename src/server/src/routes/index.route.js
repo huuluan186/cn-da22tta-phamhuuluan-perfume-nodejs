@@ -7,6 +7,7 @@ import brandRouter from './brand.route.js';
 import productRouter from './product.route.js'
 import couponRouter from './coupon.route.js';
 import orderRouter from './order.route.js';
+import contactRouter from './contact.route.js'
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use('/brands', brandRouter);
 router.use('/products', productRouter);
 router.use('/coupons', couponRouter);
 router.use('/orders', orderRouter);
+router.use('/contacts', contactRouter);
 
 export default router;
