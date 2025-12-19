@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList } from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -88,6 +88,8 @@ function App() {
                             </ProtectedRoute>
                         }  
                     />
+                    <Route path={path.BRANDS} element={<BrandsListPage/>} />
+                    <Route path={path.BRAND_DETAIL} element={<BrandDetailPage/>} />
                     <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
                     <Route path={path.CONTACT} element={<Contact/>} />
                     <Route path={path.INTRODUCE} element={<Introduce/>} />

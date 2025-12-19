@@ -25,3 +25,6 @@ export {default as PaymentSecurityPolicy} from "./policy/PaymentSecurityPolicy"
 export {default as UserLayout} from "./admin/users/UserLayout"
 export {default as UserList} from "./admin/users/UserList"
 export {default as UserEditRole} from "./admin/users/UserEditRole"
+export {default as BrandsListPage} from "./brand/BrandsListPage"
+export {default as BrandDetailPage} from "./brand/BrandDetailPage"
+

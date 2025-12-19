@@ -37,7 +37,15 @@ export const breadcrumbMap = {
         { label: "Danh mục" },
     ],
 
+    [`${path.BRANDS}`]: [
+        { label: "Thương hiệu" },
+    ],
+
     [`${path.PRODUCT_DETAIL}`]: [
+        { label: "" },
+    ],
+
+    [`${path.BRAND_DETAIL}`]: [
         { label: "" },
     ],
 
