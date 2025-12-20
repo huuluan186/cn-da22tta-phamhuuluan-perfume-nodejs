@@ -111,7 +111,7 @@ export const apiRemoveFavorite = async (productId) => {
 
 export const apiGetAllUsers = async (params={}) => {
     try {
-        const response = await axiosConfig.get('/api/users', {params});
+        const response = await axiosConfig.get('/api/admin/users', {params});
         return response;
     } catch (error) {
         throw error;

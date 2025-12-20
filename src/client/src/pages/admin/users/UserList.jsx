@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DataTable, UserActions, DetailModal, InfoModal, Pagination } from "../../../components";
+import { DataTable, CrudActions, DetailModal, InfoModal, Pagination } from "../../../components";
 import { getAllUsers } from "../../../store/actions/user";
 import { toast } from "react-toastify";
 import { apiDeleteUser } from "../../../api/user";
 import { ADMIN_PER_PAGE } from '../../../constants/pagination'
+import { path } from "../../../constants/path";
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -59,12 +60,14 @@ const UserList = () => {
     };
 
     const actions = [
-        UserActions.view(user => {
+        CrudActions.view(user => {
             setSelectedUser(user);
             setMode('view');
         }),
-        UserActions.editRole,
-        UserActions.softDelete(user => {
+
+        CrudActions.editRole(path.UPDATE),
+
+        CrudActions.softDelete(user => {
             if (user.roles?.some(r => r.name === 'admin')) {
                 toast.warning("Không thể xóa admin");
                 return;
@@ -73,6 +76,7 @@ const UserList = () => {
             setMode('delete');
         })
     ];
+
 
     return (
         <>
@@ -110,12 +114,16 @@ const UserList = () => {
                                 {selectedUser.deletedAt ? "Đã xóa" : "Hoạt động"}
                             </div>
                             <div>
-                                <b>Ngày tạo:</b>{" "}
+                                <b>Thời gian tạo:</b>{" "}
                                 {new Date(selectedUser.createdAt).toLocaleString()}
                             </div>
                             <div>
-                                <b>Ngày cập nhật:</b>{" "}
+                                <b>Thời gian cập nhật:</b>{" "}
                                 {new Date(selectedUser.updatedAt).toLocaleString()}
+                            </div>
+                            <div>
+                                <b>Thời gian xóa:</b>{" "}
+                                {selectedUser.deletedAt ? new Date(selectedUser.deletedAt).toLocaleString() : null}
                             </div>
                         </div>
                     </DetailModal>

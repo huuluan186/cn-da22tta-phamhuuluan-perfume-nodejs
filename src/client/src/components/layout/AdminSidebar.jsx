@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { adminSidebarItems } from "../../constants/adminSidebarItems";
 import logo from "../../assets/images/Perfumora_Logo_Artistic_3-removebg-preview.png";
+import { path } from "../../constants/path";
 
 const AdminSidebar = () => {
     const navigate = useNavigate();
@@ -21,7 +22,11 @@ const AdminSidebar = () => {
             {/* Menu */}
             <nav className="py-3">
                 {adminSidebarItems.map((item, index) => {
-                    const isActive = pathname.startsWith(item.to);
+                    const basePath = path.ADMIN;
+                    const fullPath = `${basePath}/${item.to}`;
+                    const isActive =
+                        pathname === fullPath ||
+                        pathname.startsWith(fullPath + "/");
 
                     return (
                         <button
@@ -30,8 +35,8 @@ const AdminSidebar = () => {
                             className={clsx(
                                 "group relative w-full flex items-center gap-3 px-5 py-3 text-left rounded-md overflow-hidden transition-all duration-300",
                                 isActive
-                                ? "bg-white text-primary font-semibold shadow-lg"
-                                : "hover:bg-white/20"
+                                    ? "bg-white text-primary font-semibold shadow-lg"
+                                    : "hover:bg-white/20"
                         )}
                         >
                             {/* Hover gradient overlay (NỔI HƠN) */}

@@ -57,7 +57,7 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
                         data.map((row, rowIndex) => (
                             <tr
                                 key={row.id ?? rowIndex}
-                                className="border-t hover:bg-gray-50 transition"
+                                className="border-t hover:bg-gray-300 transition"
                             >
                                 {columns.map(col => (
                                     <td

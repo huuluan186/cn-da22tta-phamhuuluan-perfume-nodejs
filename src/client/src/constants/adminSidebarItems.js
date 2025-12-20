@@ -26,7 +26,7 @@ export const adminSidebarItems = [
     },
     {
         label: "Phân quyền",
-        to: "/admin/roles",
+        to: path.ROLE_MANAGER,
         icon: <FaUserShield />
     },
     {
@@ -36,7 +36,7 @@ export const adminSidebarItems = [
     },
     {
         label: "Thương hiệu",
-        to: "/admin/brands",
+        to: path.BRAND_MANAGER,
         icon: <FaTrademark />
     },
     {

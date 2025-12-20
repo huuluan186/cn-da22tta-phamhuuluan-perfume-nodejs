@@ -45,4 +45,4 @@ export { default as ReviewModal } from './modal/ReviewModal'
 export { default as InfoModal} from './modal/Modal'
 export { default as DetailModal} from './modal/DetailModal'
 export { default as QuickViewModal} from './modal/QuickViewModal'
-export { UserActions } from './admin/UserActions';
+export { CrudActions } from './admin/CrudActions';

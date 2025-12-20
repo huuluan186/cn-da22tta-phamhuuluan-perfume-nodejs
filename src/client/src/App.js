@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate} from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -116,6 +116,16 @@ function App() {
                     <Route path={path.USER_MANAGER} element={<UserLayout />}>
                         <Route index element={<UserList />} />
                         <Route path={path.UPDATE} element={<UserEditRole />} />
+                    </Route>
+                    <Route path={path.ROLE_MANAGER} element={<RoleLayout />}>
+                        <Route index element={<RoleList />} />
+                        <Route path={path.ADD} element={<RoleCreate />} />
+                        <Route path={path.UPDATE} element={<RoleUpdate />} />
+                    </Route>
+                    <Route path={path.BRAND_MANAGER} element={<BrandLayout />}>
+                        <Route index element={<BrandList />} />
+                        <Route path={path.ADD} element={<BrandCreate />} />
+                        <Route path={path.UPDATE} element={<BrandUpdate />} />
                     </Route>
                 </Route>
             </Routes>

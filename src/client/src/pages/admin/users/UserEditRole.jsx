@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, SelectField } from "../../../components/index";
-import { apiUpdateUserRoles, apiGetAllRoles, apiDeleteUser  } from "../../../api/user";
+import { apiUpdateUserRoles, apiGetAllRoles } from "../../../api/user";
 import { getAllUsers } from "../../../store/actions/user";
 import { toast } from "react-toastify";
 
@@ -10,11 +10,37 @@ const UserEditRole = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { users } = useSelector(state => state.user);
 
     const [roles, setRoles] = useState([]);
     const [form, setForm] = useState({ roleId: "" });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [loadingData, setLoadingData] = useState(true);
+
+    // Tìm user theo id từ danh sách users trong store
+    const currentUser = users?.data?.find(user => user.id === id);
+
+    // Set role hiện tại khi có dữ liệu user và roles
+    useEffect(() => {
+        if (currentUser && roles.length > 0) {
+            if (currentUser.roles && currentUser.roles.length > 0) {
+                const currentRoleId = currentUser.roles[0].id; // Lấy role đầu tiên
+                setForm({ roleId: currentRoleId });
+            } else {
+                setForm({ roleId: "" });
+            }
+            setLoadingData(false);
+        }
+    }, [currentUser, roles]);
+
+    // Nếu không tìm thấy user
+    useEffect(() => {
+        if (users && !currentUser && !loadingData) {
+            toast.error("Không tìm thấy người dùng");
+            navigate(-1);
+        }
+    }, [users, currentUser, navigate, loadingData]);
 
     // fetch roles
     useEffect(() => {
@@ -22,7 +48,7 @@ const UserEditRole = () => {
             try {
                 const data = await apiGetAllRoles();
                 if (data?.err === 0) {
-                setRoles(data.roles);
+                    setRoles(data.response);
                 }
             } catch (error) {
                 console.error("Failed to load roles", error);
@@ -48,19 +74,32 @@ const UserEditRole = () => {
         try {
             setLoading(true);
 
-            await apiUpdateUserRoles(id, {
+            const res = await apiUpdateUserRoles(id, {
                 roleIds: [form.roleId],
             });
 
-            dispatch(getAllUsers()); // refresh list
-            navigate(-1);
+            if (res?.err === 0) {
+                toast.success("Cập nhật quyền người dùng thành công");
+                dispatch(getAllUsers());
+                navigate(-1);
+            } else {
+                toast.error(res?.msg || "Cập nhật quyền thất bại");
+            }
         } catch (error) {
-            console.error(error);
-            alert("Cập nhật quyền thất bại");
+            toast.error("Cập nhật quyền thất bại");
         } finally {
             setLoading(false);
         }
     };
+
+    // Loading khi chưa có dữ liệu
+    if (loadingData || roles.length === 0 || !currentUser) {
+        return (
+            <div className="bg-white p-4 rounded shadow text-center py-10">
+                <p>Đang tải thông tin người dùng...</p>
+            </div>
+        );
+    }
 
     return (
         <div className=" bg-white p-4 rounded shadow space-y-6">

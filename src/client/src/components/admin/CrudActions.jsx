@@ -1,31 +1,56 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../index";
 import icons from "../../assets/react-icons/icon";
-import { path } from "../../constants/path";
-import { useNavigate } from "react-router-dom";
 
 const { FiEye, FiShield, FiTrash2, FaRegEdit } = icons;
 
-const isDeleted = row => Boolean(row.deletedAt);
+const isDeleted = row => Boolean(row?.deletedAt);
 
-export const UserActions = {
-    // ================= VIEW =================
-    view: onView => ({
-        Component: ({ row }) => (
+/**
+ * Base action creator
+ */
+const createAction = ({
+    icon,
+    bgColor,
+    hoverBg,
+    onClick,
+    disabledCheck = isDeleted,
+}) => ({
+    Component: ({ row }) => {
+        const disabled = disabledCheck(row);
+
+        return (
             <Button
-                text={<FiEye />}
+                text={icon}
                 textSize="text-lg"
                 width="w-10"
                 height="h-8"
                 outline="rounded-md"
-                bgColor="bg-blue-500"
-                hoverBg="hover:bg-blue-600"
-                onClick={() => onView(row)}
+                bgColor={disabled ? "bg-gray-300" : bgColor}
+                hoverBg={disabled ? "" : hoverBg}
+                className={disabled ? "cursor-not-allowed opacity-60" : ""}
+                onClick={() => {
+                    if (!disabled) onClick(row);
+                }}
             />
-        )
-    }),
+        );
+    }
+});
 
-    // ================= EDIT =================
-    edit: {
+/**
+ * CRUD ACTIONS
+ */
+export const CrudActions = {
+    view: (onView) =>
+        createAction({
+            icon: <FiEye />,
+            bgColor: "bg-blue-500",
+            hoverBg: "hover:bg-blue-600",
+            onClick: onView,
+            disabledCheck: () => false,
+        }),
+
+    edit: (pathTemplate) => ({
         Component: ({ row }) => {
             const navigate = useNavigate();
             const disabled = isDeleted(row);
@@ -42,16 +67,15 @@ export const UserActions = {
                     className={disabled ? "cursor-not-allowed opacity-60" : ""}
                     onClick={() => {
                         if (!disabled) {
-                            navigate(path.UPDATE.replace(":id", row.id));
+                            navigate(pathTemplate.replace(":id", row.id));
                         }
                     }}
                 />
             );
         }
-    },
+    }),
 
-    // ================= EDIT ROLE =================
-    editRole: {
+    editRole: (pathTemplate) => ({
         Component: ({ row }) => {
             const navigate = useNavigate();
             const disabled = isDeleted(row);
@@ -68,34 +92,20 @@ export const UserActions = {
                     className={disabled ? "cursor-not-allowed opacity-60" : ""}
                     onClick={() => {
                         if (!disabled) {
-                            navigate(path.UPDATE.replace(":id", row.id));
+                            navigate(pathTemplate.replace(":id", row.id));
                         }
                     }}
                 />
             );
         }
-    },
+    }),
 
-    // ================= SOFT DELETE =================
-    softDelete: onDelete => ({
-        Component: ({ row }) => {
-            const disabled = isDeleted(row);
-
-            return (
-                <Button
-                    text={<FiTrash2 />}
-                    textSize="text-lg"
-                    width="w-10"
-                    height="h-8"
-                    outline="rounded-md"
-                    bgColor={disabled ? "bg-gray-300" : "bg-red-500"}
-                    hoverBg={disabled ? "" : "hover:bg-red-600"}
-                    className={disabled ? "cursor-not-allowed opacity-60" : ""}
-                    onClick={() => {
-                        if (!disabled) onDelete(row);
-                    }}
-                />
-            );
-        }
-    })
+    softDelete: (onDelete, options = {}) =>
+        createAction({
+            icon: <FiTrash2 />,
+            bgColor: "bg-red-500",
+            hoverBg: "hover:bg-red-600",
+            onClick: onDelete,
+            disabledCheck: options.disabledCheck || isDeleted,
+        }),
 };

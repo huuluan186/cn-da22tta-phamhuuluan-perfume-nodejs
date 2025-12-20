@@ -34,6 +34,8 @@ export const path={
     ADMIN: '/admin',
     ADMIN_DASHBOARD: 'dashboard',
     USER_MANAGER: "user-manager",
+    ROLE_MANAGER: "role-manager",
+    BRAND_MANAGER: "brand-manager",
     ADD: "add",
     UPDATE: "update/:id",
 }
