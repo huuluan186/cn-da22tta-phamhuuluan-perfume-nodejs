@@ -72,8 +72,12 @@ const BrandUpdate = () => {
             } else {
                 toast.error(res?.msg || "Cập nhật thất bại");
             }
-        } catch {
-            toast.error("Có lỗi khi cập nhật thương hiệu");
+        } catch (error) {
+            const msg =
+                error?.response?.data?.msg ||
+                "Có lỗi khi cập nhật";
+
+            toast.error(msg);
         } finally {
             setSaving(false);
         }

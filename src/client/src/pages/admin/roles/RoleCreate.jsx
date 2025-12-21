@@ -79,7 +79,11 @@ const RoleCreate = () => {
                 toast.error(res?.msg || "Tạo quyền thất bại");
             }
         } catch (error) {
-            toast.error("Có lỗi khi tạo quyền mới");
+            const msg =
+                error?.response?.data?.msg ||
+                "Có lỗi khi tạo";
+
+            toast.error(msg);
         } finally {
             setSaving(false);
         }

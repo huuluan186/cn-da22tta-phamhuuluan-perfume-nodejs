@@ -35,5 +35,7 @@ export {default as BrandLayout} from "./admin/brands/BrandLayout"
 export {default as BrandList} from "./admin/brands/BrandList"
 export {default as BrandCreate} from "./admin/brands/BrandCreate"
 export {default as BrandUpdate} from "./admin/brands/BrandUpdate"
-
-
+export {default as CategoryLayout} from "./admin/categories/CategoryLayout"
+export {default as CategoryList} from "./admin/categories/CategoryList"
+export {default as CategoryCreate} from "./admin/categories/CategoryCreate"
+export {default as CategoryUpdate} from "./admin/categories/CategoryUpdate"

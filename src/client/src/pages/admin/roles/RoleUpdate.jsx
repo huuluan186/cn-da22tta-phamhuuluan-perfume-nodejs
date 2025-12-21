@@ -93,7 +93,11 @@ const RoleUpdate = () => {
                 toast.error(res?.msg || "Cập nhật thất bại");
             }
         } catch (error) {
-            toast.error("Có lỗi khi cập nhật quyền");
+            const msg =
+                error?.response?.data?.msg ||
+                "Có lỗi khi cập nhật";
+
+            toast.error(msg);
         } finally {
             setSaving(false);
         }

@@ -5,6 +5,7 @@ import * as contactController from '../controllers/contact.controller.js';
 import * as orderController from '../controllers/order.controller.js';
 import * as roleController from '../controllers/role.controller.js';
 import * as userController from '../controllers/user.controller.js';
+import * as categoryController from '../controllers/category.controller.js';
 import { verifyToken } from '../middlewares/verifyToken.middleware.js';
 import { isAdmin } from '../middlewares/userAuthentication.js';
 
@@ -15,6 +16,13 @@ router.get('/brands', verifyToken, isAdmin, brandController.getAllBrandsControll
 router.post('/brands', verifyToken, isAdmin, brandController.createBrandController);
 router.put('/brands/:id', verifyToken, isAdmin, brandController.updateBrandController);
 router.delete('/brands/:id', verifyToken, isAdmin, brandController.deleteBrandController);
+
+// CATEGORY
+router.get('/categories', verifyToken, isAdmin, categoryController.getAllCategoriesAdminController);
+router.post('/categories', verifyToken, isAdmin, categoryController.createCategoryController);
+router.put('/categories/:id', verifyToken, isAdmin, categoryController.updateCategoryController);
+router.delete('/categories/:id', verifyToken, isAdmin, categoryController.deleteCategoryController);
+router.get('/categories/:id', verifyToken, isAdmin, categoryController.getCategoryByIdController);
 
 // COUPON 
 router.get('/coupons', verifyToken, isAdmin, couponController.getAllCouponsController);

@@ -104,7 +104,7 @@ export const createBrandService = async (payload) => {
  */
 export const updateBrandService = async (brandId, payload) => {
     try {
-        const brand = await db.Brand.findByPk(brandId, { paranoid: false });
+        const brand = await db.Brand.findByPk(brandId);
 
         if (!brand)
             return { err: 1, msg: 'Brand not found!' };
@@ -118,7 +118,6 @@ export const updateBrandService = async (brandId, payload) => {
                     name: payload.name.trim(),
                     id: { [db.Sequelize.Op.ne]: brandId },
                 },
-                paranoid: false,
             });
 
             if (existed)

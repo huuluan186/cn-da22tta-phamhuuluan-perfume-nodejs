@@ -31,7 +31,7 @@ export const adminSidebarItems = [
     },
     {
         label: "Danh mục",
-        to: "/admin/categories",
+        to: path.CATEGORY_MANAGER,
         icon: <MdCategory />
     },
     {
