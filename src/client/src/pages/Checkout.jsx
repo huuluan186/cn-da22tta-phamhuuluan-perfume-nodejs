@@ -5,7 +5,7 @@ import { InputField, Button, CheckRadioField, SelectField, InfoModal } from '../
 import { path } from '../constants/path';
 import icons from '../assets/react-icons/icon'
 import { logout } from '../store/actions/auth'
-import {getAllProvinces, getWardsByProvince} from '../store/actions/location'
+import { getAllProvinces, getWardsByProvince } from '../store/actions/location'
 import { getMyAddresses } from '../store/actions/address'
 import { getMyCart } from '../store/actions/cart';
 import { getMyCoupons } from '../store/actions/coupon';
@@ -61,14 +61,14 @@ const Checkout = () => {
     });
 
     useEffect(() => {
-       if (user?.email) {
-           setFormData(prev => ({
-               ...prev,
-               email: user.email
-           }));
-       }
-   }, [user?.email]);
-    
+        if (user?.email) {
+            setFormData(prev => ({
+                ...prev,
+                email: user.email
+            }));
+        }
+    }, [user?.email]);
+
     useEffect(() => {
         dispatch(getAllProvinces());
         dispatch(getMyAddresses());
@@ -233,13 +233,13 @@ const Checkout = () => {
                     receiverName: formData.receiverName,
                     phone: formData.phone,
                     addressLine: formData.addressLine,
-                    provinceId: Number(formData.provinceId),
                     wardId: Number(formData.wardId),
+                    label: '',
                     isDefault: addresses?.rows?.length ? false : true
                 };
                 const res = await apiAddAddress(addressData);
                 addressId = res?.data?.response?.id;
-            } 
+            }
             // 2. Cập nhật địa chỉ cũ nếu có thay đổi
             else {
                 const selected = addresses?.rows?.find(addr => addr.id === addressId);
@@ -265,27 +265,27 @@ const Checkout = () => {
             const res = await apiCreateOrder(addressId, appliedCoupon?.code || null, formData.paymentMethod);
 
             // 4. Hiển thị modal thành công
-            if(res?.err === 0){
-                if(formData.paymentMethod === 'ZaloPay' && res?.order?.paymentGatewayData?.order_url){
+            if (res?.err === 0) {
+                if (formData.paymentMethod === 'ZaloPay' && res?.order?.paymentGatewayData?.order_url) {
                     // Nếu chọn ZaloPay, chuyển hướng thẳng đến ZaloPay
                     window.location.href = res.order.paymentGatewayData.order_url;
                 } else {
                     setInfoModal({
                         show: true,
                         message: "Đặt hàng thành công!",
-                        icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,      
+                        icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
                         autoClose: 1500,
                         onClose: () => {
                             navigate(`${path.ACCOUNT}/${path.MY_ORDER}`)
                             setInfoModal(prev => ({ ...prev, show: false }))
                         }
                     });
-                }    
+                }
             } else {
                 setInfoModal({
                     show: true,
                     message: res?.msg,
-                    icon: <MdCancel className="text-red-500 text-5xl" />,      
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
                     autoClose: 1500,
                     onClose: () => setInfoModal(prev => ({ ...prev, show: false }))
                 });
@@ -320,11 +320,11 @@ const Checkout = () => {
             return
         }
 
-        // Validate địa chỉ đã chọn
-        if (!selectedAddressId) {
-            alert('Vui lòng chọn địa chỉ giao hàng')
-            return
-        }
+        // // Validate địa chỉ đã chọn
+        // if (!selectedAddressId) {
+        //     alert('Vui lòng chọn địa chỉ giao hàng')
+        //     return
+        // }
         await handleCreateOrder();
     }
 
@@ -357,9 +357,9 @@ const Checkout = () => {
                         <div>
                             <div className='flex justify-between items-center mb-4'>
                                 <h2 className="text-xl font-bold">Thông tin nhận hàng</h2>
-                                <div 
+                                <div
                                     className="flex items-center gap-1 text-sm text-gray-500 hover:text-red-600 cursor-pointer transition"
-                                    onClick={ () => {
+                                    onClick={() => {
                                         dispatch(logout());
                                         navigate(path.HOME);
                                     }}
@@ -484,9 +484,9 @@ const Checkout = () => {
                     <CheckRadioField
                         type="checkbox"
                         label={
-                        <span className="text-sm text-blue-600">
-                            Tôi đã đọc và đồng ý với chính sách bảo mật thông tin, bảo mật thông tin thanh toán và các chính sách bán hàng trên website này
-                        </span>
+                            <span className="text-sm text-blue-600">
+                                Tôi đã đọc và đồng ý với chính sách bảo mật thông tin, bảo mật thông tin thanh toán và các chính sách bán hàng trên website này
+                            </span>
                         }
                         checked={agreePolicies}
                         onChange={(e) => setAgreePolicies(e.target.checked)}
@@ -599,7 +599,7 @@ const Checkout = () => {
                             onClick={handleSubmit}
                         />
 
-                        <div onClick={()=>navigate(path.CART)}>
+                        <div onClick={() => navigate(path.CART)}>
                             <p className="text-center text-gray-600 cursor-pointer hover:underline">
                                 ← Quay về giỏ hàng
                             </p>
