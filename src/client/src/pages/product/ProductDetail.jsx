@@ -158,7 +158,8 @@ const ProductDetail = () => {
     };
 
     // Variant đang chọn có còn hàng không?
-    const selectedInStock = selectedVariant?.stockQuantity > 0;
+    const selectedInStock = 
+        Boolean(selectedVariant?.stockQuantity > 0 && !selectedVariant?.deletedAt);
 
     const handleQuantityChange = (delta) => {
         const max = selectedVariant?.stockQuantity || 1;

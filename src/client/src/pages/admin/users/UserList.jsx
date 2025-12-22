@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { apiDeleteUser } from "../../../api/user";
 import { ADMIN_PER_PAGE } from '../../../constants/pagination'
 import { path } from "../../../constants/path";
+import { formatDateTime } from "../../../utils";
 
 const UserList = () => {
     const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const UserList = () => {
                             <div>
                                 <b>Ngày sinh:</b>{" "}
                                 {selectedUser.dateOfBirth
-                                    ? new Date(selectedUser.dateOfBirth).toLocaleDateString()
+                                    ? formatDateTime(selectedUser.dateOfBirth)
                                     : "Chưa cập nhật"}
                             </div>
                             <div>
@@ -115,15 +116,15 @@ const UserList = () => {
                             </div>
                             <div>
                                 <b>Thời gian tạo:</b>{" "}
-                                {new Date(selectedUser.createdAt).toLocaleString()}
+                                {formatDateTime(selectedUser.createdAt)}
                             </div>
                             <div>
                                 <b>Thời gian cập nhật:</b>{" "}
-                                {new Date(selectedUser.updatedAt).toLocaleString()}
+                                {formatDateTime(selectedUser.updatedAt)}
                             </div>
                             <div>
                                 <b>Thời gian xóa:</b>{" "}
-                                {selectedUser.deletedAt ? new Date(selectedUser.deletedAt).toLocaleString() : null}
+                                {selectedUser.deletedAt ? formatDateTime(selectedUser.deletedAt) : null}
                             </div>
                         </div>
                     </DetailModal>
@@ -146,7 +147,7 @@ const UserList = () => {
                 <Pagination
                     currentPage={page}
                     totalPages={Math.ceil((users?.total || users?.data?.length || 0)/limit) }
-                     onPageChange={setPage}
+                    onPageChange={setPage}
                 />
             </div>
         </>

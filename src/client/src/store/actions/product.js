@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiGetProductsList, apiGetProductDetail, apiGetProductReviews } from '../../api/product';
+import { apiGetProductsList, apiGetProductDetail, apiGetProductReviews, apiGetProductsAdmin } from '../../api/product';
 
 export const getProductsList = (params = {}) => async (dispatch) => {
     try {
@@ -64,5 +64,21 @@ export const getProductReviews = (productId) => async (dispatch) => {
             type: actionTypes.GET_PRODUCT_REVIEWS_FAIL,
             msg: error.message,
         });
+    }
+};
+
+export const getProductsAdmin = (params = {}) => async (dispatch) => {
+    try {
+        const res = await apiGetProductsAdmin(params);
+        if (res.err === 0) {
+            dispatch({
+                type: 'GET_ADMIN_PRODUCTS_SUCCESS',
+                payload: res.products, // hoặc res tùy cấu trúc trả về
+            });
+        } else {
+            dispatch({ type: 'GET_ADMIN_PRODUCTS_FAIL', msg: res.msg });
+        }
+    } catch (error) {
+        dispatch({ type: 'GET_ADMIN_PRODUCTS_FAIL', msg: error.message });
     }
 };

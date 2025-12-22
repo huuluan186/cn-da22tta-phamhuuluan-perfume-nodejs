@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { apiDeleteBrand } from "../../../api/brand";
 import { ADMIN_PER_PAGE } from "../../../constants/pagination";
 import { path } from "../../../constants/path";
+import { formatDateTime } from "../../../utils";
 
 const BrandList = () => {
     const dispatch = useDispatch();
@@ -122,15 +123,15 @@ const BrandList = () => {
                         </div>
                         <div>
                             <b>Ngày tạo:</b>{" "}
-                            {new Date(selectedBrand.createdAt).toLocaleString()}
+                            {formatDateTime(selectedBrand.createdAt)}
                         </div>
                         <div>
                             <b>Ngày cập nhật:</b>{" "}
-                            {new Date(selectedBrand.updatedAt).toLocaleString()}
+                            {formatDateTime(selectedBrand.updatedAt)}
                         </div>
                         <div>
                             <b>Ngày xóa:</b>{" "}
-                            {selectedBrand.deletedAt ? new Date(selectedBrand.deletedAt).toLocaleString() : null}
+                            {selectedBrand.deletedAt ? formatDateTime(selectedBrand.deletedAt) : null}
                         </div>
                     </div>
                 </DetailModal>

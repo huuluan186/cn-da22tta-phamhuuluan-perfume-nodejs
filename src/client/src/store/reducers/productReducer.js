@@ -10,7 +10,10 @@ const initialState = {
     reviews: [],             // Danh sách review của sản phẩm
     avgRating: "0.0",        // Điểm đánh giá trung bình
     totalReviews: 0,         // Tổng số bài review
-    reviewError: null,       // Lỗi khi lấy review
+    reviewError: null,       // Lỗi khi lấy review,
+    adminProductList: null,  // null ban đầu, khi gọi API admin sẽ là object từ response
+    adminLoading: false,     // Optional: để show loading trong admin
+    adminError: null,        // Lỗi riêng cho phần admin
 }
 
 const productReducer = (state = initialState, action) => {
@@ -45,6 +48,21 @@ const productReducer = (state = initialState, action) => {
                 avgRating: "0.0",
                 totalReviews: 0,
                 reviewError: action.msg,
+            };
+        case 'GET_ADMIN_PRODUCTS_SUCCESS':
+            return {
+                ...state,
+                adminLoading: false,
+                adminProductList: action.payload, // payload = res.products từ API
+                adminError: null,
+            };
+
+        case 'GET_ADMIN_PRODUCTS_FAIL':
+            return {
+                ...state,
+                adminLoading: false,
+                adminProductList: null,
+                adminError: action.msg,
             };
         default:
             return state;

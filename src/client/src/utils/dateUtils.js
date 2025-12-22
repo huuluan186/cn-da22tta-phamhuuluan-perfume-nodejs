@@ -8,3 +8,6 @@ export const formatDateForInput = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0]; // Trả về định dạng YYYY-MM-DD
 };
+
+export const formatDateTime = (date) =>
+    date ? new Date(date).toLocaleString("vi-VN") : "—";

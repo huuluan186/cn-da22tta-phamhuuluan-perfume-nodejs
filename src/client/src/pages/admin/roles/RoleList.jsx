@@ -10,6 +10,7 @@ import { getAllRoles } from "../../../store/actions/role";
 import { apiDeleteRole } from "../../../api/role";
 import { toast } from "react-toastify";
 import { path } from "../../../constants/path";
+import { formatDateTime } from "../../../utils";
 
 const RoleList = () => {
     const dispatch = useDispatch();
@@ -107,15 +108,15 @@ const RoleList = () => {
                         </div>
                         <div>
                             <b>Ngày tạo:</b>{" "}
-                            {new Date(selectedRole.createdAt).toLocaleString()}
+                            {formatDateTime(selectedRole.createdAt)}
                         </div>
                         <div>
                             <b>Ngày cập nhật:</b>{" "}
-                            {new Date(selectedRole.updatedAt).toLocaleString()}
+                            {formatDateTime(selectedRole.updatedAt)}
                         </div>
                         <div>
                             <b>Thời gian xóa:</b>{" "}
-                            {selectedRole.deletedAt ? new Date(selectedRole.deletedAt).toLocaleString() : null}
+                            {selectedRole.deletedAt ? formatDateTime(selectedRole.deletedAt) : null}
                         </div>
                     </div>
                 </DetailModal>

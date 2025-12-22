@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { apiDeleteCategory } from "../../../api/category";
 import { ADMIN_PER_PAGE } from "../../../constants/pagination";
 import { path } from "../../../constants/path";
+import { formatDateTime } from "../../../utils";
 
 const CategoryList = () => {
     const dispatch = useDispatch();
@@ -103,15 +104,19 @@ const CategoryList = () => {
                         </div>
                         <div>
                             <b>Ngày tạo:</b>{" "}
-                            {new Date(selectedCategory.createdAt).toLocaleString()}
+                            {formatDateTime(selectedCategory.createdAt)}
                         </div>
                         <div>
                             <b>Cập nhật:</b>{" "}
-                            {new Date(selectedCategory.updatedAt).toLocaleString()}
+                            {formatDateTime(selectedCategory.updatedAt)}
                         </div>
                         <div>
                             <b>Ngày xóa:</b>{" "}
-                            {selectedCategory.deletedAt ? new Date(selectedCategory.deletedAt).toLocaleString() : null}
+                            {
+                                selectedCategory.deletedAt ? 
+                                    formatDateTime(selectedCategory.deletedAt) 
+                                    : null
+                            }
                         </div>
                     </div>
                 </DetailModal>

@@ -37,6 +37,7 @@ export const path={
     ROLE_MANAGER: "role-manager",
     BRAND_MANAGER: "brand-manager",
     CATEGORY_MANAGER: "category-manager",
+    PRODUCT_MANAGER: "product-manager",
     ADD: "add",
     UPDATE: "update/:id",
 }

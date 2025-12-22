@@ -1,4 +1,3 @@
-import { truncates } from 'bcryptjs';
 import * as service from '../services/product.js';
 
 export const getAllProductsController = async (req, res) => {
@@ -84,3 +83,108 @@ export const addProductReviewsController = async (req, res) => {
         });
     }
 }
+
+/**
+ * ===============================
+ * GET ALL PRODUCTS (ADMIN)
+ * GET /api/admin/products
+ * ===============================
+ */
+export const getAllProductsAdmin = async (req, res) => {
+    try {
+        const { page, limit, hasPagination } = req.query;
+
+        const response = await service.getAllProductsAdminService({
+            page,
+            limit,
+            hasPagination: hasPagination === 'true',
+        });
+
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at getAllProductsAdmin: ' + error.message,
+        });
+    }
+};
+
+
+/**
+ * ===============================
+ * CREATE PRODUCT (ADMIN)
+ * POST /api/admin/products
+ * ===============================
+ */
+export const createProduct = async (req, res) => {
+    try {
+        const payload = req.body;
+
+        if (!payload?.name)
+            return res.status(400).json({
+                err: 1,
+                msg: 'Product name is required',
+            });
+
+        const response = await service.createProductService(payload);
+        return res.status(201).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at createProduct: ' + error.message,
+        });
+    }
+};
+
+/**
+ * ===============================
+ * UPDATE PRODUCT (ADMIN)
+ * PUT /api/admin/products/:id
+ * ===============================
+ */
+export const updateProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const payload = req.body;
+
+        if (!id)
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing product ID',
+            });
+
+        const response = await service.updateProductService(id, payload);
+        return res.status(response.err ? 404 : 200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at updateProduct: ' + error.message,
+        });
+    }
+};
+
+/**
+ * ===============================
+ * DELETE PRODUCT (SOFT)
+ * DELETE /api/admin/products/:id
+ * ===============================
+ */
+export const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id)
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing product ID',
+            });
+
+        const response = await service.deleteProductService(id);
+        return res.status(response.err ? 404 : 200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: 1,
+            msg: 'Failed at deleteProduct: ' + error.message,
+        });
+    }
+};

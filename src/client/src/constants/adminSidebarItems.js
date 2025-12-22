@@ -41,7 +41,7 @@ export const adminSidebarItems = [
     },
     {
         label: "Sản phẩm",
-        to: "/admin/products",
+        to: path.PRODUCT_MANAGER,
         icon: <FaBox />
     },
     {

@@ -26,7 +26,7 @@ const BrandCreate = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // 🔥 quan trọng
+        e.preventDefault(); // quan trọng
 
         setSaving(true);
         try {

@@ -3,14 +3,15 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
 
     return (
         <div className="bg-white rounded-xl shadow overflow-x-auto relative">
-            <table className="min-w-full border-collapse text-sm">
-                {/* HEADER */}
+            {/* table-fixed để sticky + scroll hoạt động ổn định */}
+            <table className="w-full table-fixed border-collapse text-sm">
                 <thead className="bg-gray-100 text-gray-700 text-sm sticky top-0 z-10">
                     <tr>
                         {columns.map(col => (
                             <th
                                 key={col.key}
-                                className="px-5 py-3 text-left font-semibold whitespace-nowrap"
+                                className="px-5 py-4 text-left font-semibold"
+                                style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px' }}
                             >
                                 {col.label}
                             </th>
@@ -18,17 +19,16 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
 
                         {hasActions && (
                             <th
-                                className="px-5 py-3 text-right font-semibold sticky right-0 bg-gray-100 z-20 shadow-[-2px_0_6px_-2px_rgba(0,0,0,0.1)]"
+                                className="px-5 py-4 text-right font-semibold sticky right-0 bg-gray-100 z-20"
+                                style={{ width: '180px', minWidth: '180px' }}
                             >
-                                Hành động
+                                <div className="pr-4">Hành động</div>
                             </th>
                         )}
                     </tr>
                 </thead>
 
-                {/* BODY */}
                 <tbody>
-                    {/* LOADING */}
                     {loading && (
                         <tr>
                             <td
@@ -40,7 +40,6 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
                         </tr>
                     )}
 
-                    {/* EMPTY */}
                     {!loading && data.length === 0 && (
                         <tr>
                             <td
@@ -52,27 +51,37 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
                         </tr>
                     )}
 
-                    {/* DATA */}
                     {!loading &&
                         data.map((row, rowIndex) => (
                             <tr
                                 key={row.id ?? rowIndex}
-                                className="border-t hover:bg-gray-300 transition"
+                                className="border-t hover:bg-gray-50 transition"
                             >
                                 {columns.map(col => (
                                     <td
                                         key={col.key}
-                                        className="px-5 py-3 text-left whitespace-nowrap"
+                                        className="px-5 py-4 text-left align-top" // align-top để nội dung dài căn trên
+                                        style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px' }}
                                     >
-                                        {col.render
-                                            ? col.render(row, rowIndex)
-                                            : row[col.key]}
+                                        {/* Cho phép xuống dòng tự nhiên */}
+                                        <div className="break-words">
+                                            {col.render
+                                                ? col.render(row, rowIndex)
+                                                : row[col.key]}
+                                        </div>
                                     </td>
                                 ))}
 
                                 {hasActions && (
-                                    <td className="px-5 py-3 sticky right-0 bg-white z-10 shadow-[-2px_0_6px_-2px_rgba(0,0,0,0.08)]">
-                                        <div className="flex justify-end gap-2">
+                                    <td
+                                        className="px-5 py-4 sticky right-0 bg-white z-10 shadow-[-4px_0_10px_-3px_rgba(0,0,0,0.1)]"
+                                        style={{ width: '180px', minWidth: '180px' }}
+                                    >
+                                        <div className={
+                                            actions.length > 3 
+                                                ? "flex flex-col items-end gap-2 pr-4"   // ≥ 3 nút → xếp dọc, căn phải
+                                                : "flex justify-end gap-2 pr-4"         // < 3 nút → xếp ngang như cũ
+                                        }>
                                             {actions.map((action, i) => {
                                                 if (action.show && !action.show(row)) return null;
                                                 const ActionComponent = action.Component;

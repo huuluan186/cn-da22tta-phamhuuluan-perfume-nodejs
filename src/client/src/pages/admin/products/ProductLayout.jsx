@@ -5,26 +5,26 @@ import icons from '../../../assets/react-icons/icon'
 
 const { IoAddCircleSharp  } = icons;
 
-const CategoryLayout = () => {
+const RoleLayout = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
     const isList =
-        pathname === `${path.ADMIN}/${path.CATEGORY_MANAGER}`;
+        pathname === `${path.ADMIN}/${path.PRODUCT_MANAGER}`;
 
     return (
         <div className="bg-white rounded-lg shadow p-5">
             <div className="mb-4">
                 {/* Title - center */}
                 <h2 className="text-2xl font-bold text-primary text-center mb-3">
-                    QUẢN LÝ DANH MỤC
+                    QUẢN LÝ SẢN PHẨM
                 </h2>
 
                 {/* Action - right */}
                 {isList && (
                     <div className="flex justify-end">
                         <Button
-                            text="Thêm danh mục"
+                            text="Thêm sản phẩm"
                             bgColor="bg-primary"
                             hoverBg="hover:bg-white"
                             outline="rounded-md border border-primary"
@@ -42,4 +42,4 @@ const CategoryLayout = () => {
     );
 };
 
-export default CategoryLayout;
+export default RoleLayout;

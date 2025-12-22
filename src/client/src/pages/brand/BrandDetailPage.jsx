@@ -12,13 +12,13 @@ const BrandDetailPage = () => {
     const { brands, brandDetail } = useSelector(state => state.brand);
 
     useEffect(() => {
-        // ✅ Click từ list (đã có brandId)
+        // Click từ list (đã có brandId)
         if (location.state?.brandId) {
             dispatch(getBrandDetail(location.state.brandId));
             return;
         }
 
-        // ✅ Reload page
+        // Reload page
         if (!brands.length) {
             dispatch(getAllBrands());
             return;
@@ -40,7 +40,7 @@ const BrandDetailPage = () => {
     return (
         <div className="container bg-contentBg">
             {/* ===== HERO IMAGE ===== */}
-            <div className="h-[260px] md:h-[360px] overflow-hidden">
+            <div className="h-[260px] md:h-[420px] overflow-hidden">
                 {brandDetail.posterUrl ? (
                     <img
                         src={brandDetail.posterUrl}
@@ -61,7 +61,7 @@ const BrandDetailPage = () => {
                         <img
                             src={brandDetail.logoUrl}
                             alt={brandDetail.name}
-                            className="w-28 h-28 object-contain bg-white p-3 border rounded"
+                            className="w-20 h-20 object-contain bg-white p-3 border rounded"
                         />
                     )}
 
@@ -78,9 +78,9 @@ const BrandDetailPage = () => {
                 </div>
 
                 {/* ===== DESCRIPTION ===== */}
-                <div className="bg-white p-6 rounded border leading-relaxed text-gray-700">
+                <div className="bg-white p-6 rounded border leading-relaxed text-gray-700 text-justify">
                     {brandDetail.description ? (
-                        <p>{brandDetail.description}</p>
+                        <p className="whitespace-pre-wrap">{brandDetail.description}</p>
                     ) : (
                         <p>
                             {brandDetail.name} là thương hiệu nước hoa cao cấp,

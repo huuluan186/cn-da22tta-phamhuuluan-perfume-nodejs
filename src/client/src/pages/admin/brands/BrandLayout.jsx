@@ -9,7 +9,7 @@ const BrandLayout = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
-    const isRoleList =
+    const isList =
         pathname === `${path.ADMIN}/${path.BRAND_MANAGER}`;
 
     return (
@@ -21,7 +21,7 @@ const BrandLayout = () => {
                 </h2>
 
                 {/* Action - right */}
-                {isRoleList && (
+                {isList && (
                     <div className="flex justify-end">
                         <Button
                             text="Thêm thương hiệu"
@@ -29,9 +29,7 @@ const BrandLayout = () => {
                             hoverBg="hover:bg-white"
                             outline="rounded-md border border-primary"
                             IcBefore={IoAddCircleSharp}
-                            onClick={() =>
-                                navigate(path.ADD)
-                            }
+                            onClick={() => navigate(path.ADD) }
                         />
                     </div>
                 )}

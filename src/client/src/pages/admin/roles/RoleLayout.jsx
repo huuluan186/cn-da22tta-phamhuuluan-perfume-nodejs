@@ -9,7 +9,7 @@ const RoleLayout = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
-    const isRoleList =
+    const isList =
         pathname === `${path.ADMIN}/${path.ROLE_MANAGER}`;
 
     return (
@@ -21,7 +21,7 @@ const RoleLayout = () => {
                 </h2>
 
                 {/* Action - right */}
-                {isRoleList && (
+                {isList && (
                     <div className="flex justify-end">
                         <Button
                             text="Thêm quyền"

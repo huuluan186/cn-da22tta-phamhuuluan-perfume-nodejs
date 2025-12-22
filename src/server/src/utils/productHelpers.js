@@ -104,3 +104,19 @@ export const updateProductStock = async (items, transaction) => {
         throw error;
     }
 };
+
+export const filterEmptyFields = (payload = {}) => {
+    const cleaned = {};
+
+    Object.entries(payload).forEach(([key, value]) => {
+        // bỏ undefined / null
+        if (value === undefined || value === null) return;
+
+        // bỏ string rỗng
+        if (typeof value === 'string' && value.trim() === '') return;
+
+        cleaned[key] = value;
+    });
+
+    return cleaned;
+};
