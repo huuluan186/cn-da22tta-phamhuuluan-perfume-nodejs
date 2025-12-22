@@ -1,23 +1,22 @@
 import { getImageUrl, formatDateTime } from "../../utils";
 
-
 const parseScentNotes = (text = "") => {
     const result = {
         top: [],
         middle: [],
-        base: []
+        base: [],
     };
 
     if (!text) return result;
 
-    text.split(";").forEach(part => {
+    text.split(";").forEach((part) => {
         const [label, values] = part.split(":");
         if (!values) return;
 
-    const notes = values
-        .split(",")
-        .map(v => v.trim())
-        .filter(Boolean);
+        const notes = values
+            .split(",")
+            .map((v) => v.trim())
+            .filter(Boolean);
 
         if (label.includes("Hương đầu")) result.top = notes;
         if (label.includes("Hương giữa")) result.middle = notes;
@@ -32,25 +31,20 @@ const ProductDetailModal = ({ product }) => {
 
     const scent = parseScentNotes(product.scentNotes);
 
-
     return (
         <div className="space-y-6 text-sm">
-
             {/* HEADER */}
             <div className="flex justify-between items-center">
                 <div>
                     <h3 className="text-xl font-bold">{product.name}</h3>
-                    <p className="text-gray-500">
-                        {product.brand?.name || "—"}
-                    </p>
+                    <p className="text-gray-500">{product.brand?.name || "—"}</p>
                 </div>
 
                 <span
-                    className={`px-3 py-1 text-xs rounded-full ${
-                        product.deletedAt
-                        ? "bg-red-100 text-red-600"
-                        : "bg-green-100 text-green-600"
-                    }`}
+                    className={`px-3 py-1 text-xs rounded-full ${product.deletedAt
+                            ? "bg-red-100 text-red-600"
+                            : "bg-green-100 text-green-600"
+                        }`}
                 >
                     {product.deletedAt ? "Ngừng bán" : "Đang bán"}
                 </span>
@@ -74,7 +68,7 @@ const ProductDetailModal = ({ product }) => {
                     {[
                         { label: "Hương đầu", data: scent.top },
                         { label: "Hương giữa", data: scent.middle },
-                        { label: "Hương cuối", data: scent.base }
+                        { label: "Hương cuối", data: scent.base },
                     ].map(({ label, data }) => (
                         <div key={label}>
                             <b className="text-gray-700">{label}:</b>{" "}
@@ -93,7 +87,7 @@ const ProductDetailModal = ({ product }) => {
                                 <span className="ml-2 text-gray-400">—</span>
                             )}
                         </div>
-                        ))}
+                    ))}
                 </div>
             </div>
 
@@ -102,7 +96,7 @@ const ProductDetailModal = ({ product }) => {
                 <h4 className="font-semibold mb-1">Danh mục</h4>
                 <div className="flex gap-2 flex-wrap">
                     {product.categories?.length
-                        ? product.categories.map(c => (
+                        ? product.categories.map((c) => (
                             <span
                                 key={c.id}
                                 className="px-2 py-1 text-xs rounded bg-gray-100"
@@ -110,7 +104,8 @@ const ProductDetailModal = ({ product }) => {
                                 {c.name}
                             </span>
                         ))
-                        : "—"}
+                        : "—"
+                    }
                 </div>
             </div>
 
@@ -118,9 +113,10 @@ const ProductDetailModal = ({ product }) => {
             {product.description && (
                 <div>
                     <h4 className="font-semibold mb-1">Mô tả</h4>
-                    <div className="max-h-40 overflow-y-auto text-gray-700 leading-relaxed border rounded p-3 bg-gray-50 whitespace-pre-wrap text-justify">
-                        {product.description}
-                    </div>
+                    <div
+                        className="max-h-40 overflow-y-auto text-gray-700 leading-relaxed border rounded p-3 bg-gray-50 whitespace-pre-wrap text-justify"
+                        dangerouslySetInnerHTML={{ __html: product.description }}
+                    ></div>
                 </div>
             )}
 
@@ -129,12 +125,11 @@ const ProductDetailModal = ({ product }) => {
                 <div>
                     <h4 className="font-semibold mb-2">Hình ảnh</h4>
                     <div className="grid grid-cols-[repeat(auto-fill,96px)] gap-3">
-                        {product.images.map(img => (
+                        {product.images.map((img) => (
                             <div
                                 key={img.id}
-                                className={`w-24 h-24 rounded overflow-hidden border ${
-                                img.isThumbnail ? "ring-2 ring-blue-500" : ""
-                                }`}
+                                className={`w-24 h-24 rounded overflow-hidden border ${img.isThumbnail ? "ring-2 ring-blue-500" : ""
+                                    }`}
                             >
                                 <img
                                     src={getImageUrl(img.url)}
@@ -170,7 +165,7 @@ const ProductDetailModal = ({ product }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {product.variants.map(v => (
+                                {product.variants.map((v) => (
                                     <tr key={v.id} className="border-t text-center">
                                         <td>{v.sku}</td>
                                         <td>{v.volume}ml</td>
@@ -180,16 +175,18 @@ const ProductDetailModal = ({ product }) => {
                                         <td>{v.discountPercent}</td>
                                         <td>{Number(v.price).toLocaleString()}₫</td>
                                         <td>
-                                        {v.isDefault && (
-                                            <span className="text-green-600 font-bold">✔</span>
-                                        )}
+                                            {v.isDefault && (
+                                                <span className="text-green-600 font-bold">✔</span>
+                                            )}
                                         </td>
                                         <td>
-                                        {v.deletedAt ? (
-                                            <span className="text-red-600 font-medium">Đã xóa</span>
+                                            {v.deletedAt ? (
+                                                <span className="text-red-600 font-medium">Đã xóa</span>
                                             ) : (
-                                            <span className="text-green-600 font-medium">Đang bán</span>
-                                        )}
+                                                <span className="text-green-600 font-medium">
+                                                    Đang bán
+                                                </span>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}
@@ -205,10 +202,7 @@ const ProductDetailModal = ({ product }) => {
             <div className="pt-4 border-t text-xs text-gray-500 grid grid-cols-2 gap-2">
                 <div><b>Ngày tạo:</b> {formatDateTime(product.createdAt)}</div>
                 <div><b>Cập nhật:</b> {formatDateTime(product.updatedAt)}</div>
-                <div>
-                    <b>Ngày xóa:</b>{" "}
-                    {product.deletedAt ? formatDateTime(product.deletedAt) : "—"}
-                </div>
+                <div><b>Ngày xóa:</b>{" "}{product.deletedAt ? formatDateTime(product.deletedAt) : "—"}</div>
             </div>
         </div>
     );

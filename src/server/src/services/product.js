@@ -166,7 +166,9 @@ export const getProductDetailService = async (productId) => {
                 {
                     model: db.ProductVariant,
                     as: 'variants',
+                    where: { deletedAt: null },
                     paranoid: false,
+                    required: false
                 },
                 {
                     model: db.ProductImage,

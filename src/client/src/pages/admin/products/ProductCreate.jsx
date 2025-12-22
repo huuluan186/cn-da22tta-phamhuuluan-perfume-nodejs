@@ -93,13 +93,13 @@ const ProductCreate = () => {
     };
 
     const toggleCategory = id => {
-    setCategoryIds(prev =>
-        prev.includes(id)
-        ? prev.filter(x => x !== id)
-        : [...prev, id]
-    );
-    // Nếu đã có lỗi categoryIds → clear khi người dùng tương tác
-    if (errors.categoryIds) {
+        setCategoryIds(prev =>
+            prev.includes(id)
+                ? prev.filter(x => x !== id)
+                : [...prev, id]
+        );
+        // Nếu đã có lỗi categoryIds → clear khi người dùng tương tác
+        if (errors.categoryIds) {
             setErrors(prev => {
                 const newErr = { ...prev };
                 delete newErr.categoryIds;
@@ -110,14 +110,14 @@ const ProductCreate = () => {
 
     const addVariant = () => {
         setVariants(prev => [
-        ...prev,
-        {
-            volume: "",
-            originalPrice: "",
-            stockQuantity: "",
-            discountPercent: 0,
-            isDefault: false
-        }
+            ...prev,
+            {
+                volume: "",
+                originalPrice: "",
+                stockQuantity: "",
+                discountPercent: 0,
+                isDefault: false
+            }
         ]);
     };
 
@@ -154,7 +154,7 @@ const ProductCreate = () => {
         if (!form.gender) err.gender = "Vui lòng chọn giới tính";
         if (!form.brandId) err.brandId = "Vui lòng chọn thương hiệu";
         if (categoryIds.length === 0)
-        err.categoryIds = "Vui lòng chọn ít nhất 1 danh mục";
+            err.categoryIds = "Vui lòng chọn ít nhất 1 danh mục";
 
         // Kiểm tra variant: chỉ validate những variant đã được nhập ít nhất 1 field
         let hasAnyVariant = false;
@@ -410,7 +410,7 @@ const ProductCreate = () => {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                    setVariants(prev => prev.filter((_, idx) => idx !== i))
+                                        setVariants(prev => prev.filter((_, idx) => idx !== i))
                                     }
                                     className="text-red-500 hover:text-red-700"
                                 >
@@ -422,16 +422,35 @@ const ProductCreate = () => {
                 ))}
             </div>
 
-            <Button
-                text="Thêm dung tích"
-                bgColor="bg-gray-200"
-                textColor="text-black"
-                onClick={addVariant}
-            />
-            <Button
-                text="Tạo sản phẩm"
-                onClick={handleSubmit}
-            />
+            <div className="flex justify-end">
+                <Button
+                    text="+ Thêm dung tích"
+                    bgColor="bg-blue-600"
+                    textColor="text-white"
+                    hoverBg="hover:bg-blue-500"
+                    hoverText="hover:none"
+                    outline="rounded-md"
+                    onClick={addVariant}
+                />
+            </div>
+            <div className="flex justify-center gap-4">
+                <Button
+                    text="Hủy"
+                    width="w-20"
+                    outline="rounded-md"
+                    bgColor="bg-gray-300"
+                    textColor="text-black"
+                    hoverBg="hover:bg-gray-400"
+                    onClick={() => navigate(-1)}
+                />
+                <Button
+                    text="Thêm"
+                    hoverBg="hover:bg-primary/80"
+                    hoverText="hover:none"
+                    outline="rounded-md"
+                    onClick={handleSubmit}
+                />
+            </div>
         </div>
     );
 };
