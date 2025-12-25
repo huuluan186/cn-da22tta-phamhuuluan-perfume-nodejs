@@ -261,3 +261,59 @@ export const getAllOrdersService = async (query = {}) => {
         throw error;
     }
 };
+
+// Xem chi tiết đơn hàng (Admin) 
+export const getOrderByIdService = async (orderId) => {
+    try {
+        const order = await db.Order.findByPk(orderId, {
+            include: orderIncludes
+        });
+
+        if (!order) {
+            return { err: 1, msg: 'Order not found' };
+        }
+
+        return { err: 0, msg: 'Order fetched successfully', order };
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng (Admin duyệt) 
+export const confirmOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép xác nhận khi đơn đang ở trạng thái Pending, Processing
+        if (order.orderStatus !== 'Pending' && order.orderStatus !== 'Processing') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", không thể xác nhận lại` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Confirmed
+        await order.update(
+            { orderStatus: 'Confirmed' },
+            { transaction }
+        );
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã được xác nhận thành công', 
+            order 
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};

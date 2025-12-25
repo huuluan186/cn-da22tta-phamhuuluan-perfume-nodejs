@@ -110,25 +110,42 @@ const Checkout = () => {
     }, [cart]);
 
     useEffect(() => {
-        if (!coupons?.data?.length) return
-        if (!couponCode) return
+        if (!coupons?.data?.length) return;
+        if (!couponCode) return;
 
-        const now = new Date()
+        const now = new Date();
 
-        const foundCoupon = coupons.data.find(c =>
-            c.code.toLowerCase() === couponCode &&
-            c.status === 'unused' &&
-            new Date(c.validFrom) <= now &&
-            new Date(c.validUntil) >= now
-        )
+        // Chuyển về chỉ ngày (bỏ giờ phút giây)
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        const foundCoupon = coupons?.data?.find(c => {
+            const codeMatch = c.code.toUpperCase() === couponCode.toUpperCase(); // không phân biệt hoa thường
+            if (!codeMatch) return false;
+
+            if (c.status !== 'unused') return false;
+
+            // So sánh chỉ theo ngày
+            const validFromDate = new Date(c.validFrom);
+            const validFromDay = new Date(validFromDate.getFullYear(), validFromDate.getMonth(), validFromDate.getDate());
+
+            const validUntilDate = c.validUntil ? new Date(c.validUntil) : null;
+            const validUntilDay = validUntilDate
+                ? new Date(validUntilDate.getFullYear(), validUntilDate.getMonth(), validUntilDate.getDate())
+                : null;
+
+            const isFromValid = validFromDay <= today;
+            const isUntilValid = !validUntilDay || validUntilDay >= today;
+
+            return isFromValid && isUntilValid;
+        });
 
         if (!foundCoupon) {
-            setAppliedCoupon(null)
-            setDiscountAmount(0)
-            setDiscountDisplay('')
-            setTotal(subtotal)
-            setCouponError('Mã giảm giá không hợp lệ hoặc đã hết hạn')
-            return
+            setAppliedCoupon(null);
+            setDiscountAmount(0);
+            setDiscountDisplay('');
+            setTotal(subtotal);
+            setCouponError('Mã giảm giá không hợp lệ hoặc đã hết hạn');
+            return;
         }
         // hợp lệ
         setCouponError('')

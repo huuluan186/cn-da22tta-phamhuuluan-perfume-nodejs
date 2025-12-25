@@ -52,7 +52,12 @@ export default (sequelize, DataTypes) => {
                 min: 1,
                 max: 5,
             },
-        }
+        },
+        isApproved: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false, // mặc định duyệt ngay khi user đăng
+        },
     },
     {
         sequelize,

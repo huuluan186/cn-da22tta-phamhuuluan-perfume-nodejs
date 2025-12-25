@@ -62,7 +62,16 @@ export const orderIncludes = [
                     {
                         model: db.Product,
                         as: 'product',
-                        attributes: ['id', 'name'] // chỉ cần name là đủ
+                        attributes: ['id', 'name'], 
+                        include: [
+                            {
+                                model: db.ProductImage,
+                                as: 'images',  // association đúng tên
+                                attributes: ['id', 'url', 'isThumbnail', 'sortOrder'],
+                                separate: true, // quan trọng khi 1 product có nhiều ảnh
+                                order: [['sortOrder', 'ASC']], // sắp xếp theo thứ tự
+                            }
+                        ]
                     }
                 ]
             }

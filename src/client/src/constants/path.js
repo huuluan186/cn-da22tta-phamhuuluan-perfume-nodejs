@@ -38,6 +38,10 @@ export const path={
     BRAND_MANAGER: "brand-manager",
     CATEGORY_MANAGER: "category-manager",
     PRODUCT_MANAGER: "product-manager",
+    ORDER_MANAGER: "order-manager",
+    COUPON_MANAGER: "coupon-manager",
+    REVIEW_MANAGER: "review-manager",
     ADD: "add",
     UPDATE: "update/:id",
+    ASSIGN: "assign/:id"
 }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/actions/auth";
 import { path } from "../../constants/path";
 import icons from '../../assets/react-icons/icon'
-const {FiHome, FiLock, FiLogOut} = icons;
+const { FiHome, FiLock, FiLogOut } = icons;
 
 const AdminHeader = () => {
     const { user } = useSelector(state => state.user);
@@ -14,7 +14,7 @@ const AdminHeader = () => {
         <header className="h-16 bg-white shadow-md flex items-center justify-between px-6">
             {/* Left */}
             <h1 className="text-xl font-bold text-primary tracking-wide">
-                Admin Dashboard
+                Administration Panel
             </h1>
 
             {/* Right */}

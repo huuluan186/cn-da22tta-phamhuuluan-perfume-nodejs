@@ -19,11 +19,11 @@ export const getUserCoupons = async (userId, page, limit) => {
                     as: 'coupon',
                 }
             ],
-             order: [
+            order: [
                 [db.sequelize.where(col('usedAt'), Op.is, null), 'DESC'],  
                 ['createdAt', 'ASC']  
             ],
-            distinct: true,
+            //distinct: true,
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 
@@ -51,7 +51,7 @@ export const getUserCoupons = async (userId, page, limit) => {
 // === 2. Tạo coupon mới (Admin) ===
 export const createCouponService = async (data) => {
     try {
-        const { code, discountType, discountValue, validFrom, validUntil } = data
+        const { code, discountType, discountValue} = data
 
         const existed = await db.Coupon.findOne({ where: { code } })
         if (existed) {
@@ -66,8 +66,6 @@ export const createCouponService = async (data) => {
             code: code?.trim(),
             discountType,
             discountValue,
-            validFrom,
-            validUntil,
         })
 
         return {
@@ -143,8 +141,8 @@ export const assignCouponManualService = async (couponId, payload) => {
             couponId,
             status: 'unused',
             usedAt: null,
-            validFrom: validFrom || coupon.validFrom || now,
-            validUntil: validUntil || coupon.validUntil || null
+            validFrom: validFrom || new Date(),
+            validUntil: validUntil || null
         }))
 
         // 7. Insert
@@ -171,88 +169,117 @@ export const autoCreateAndAssignCouponForUser = async (userId, transaction = nul
     const result = {
         WELCOME: null,
         ORDER5TH: null,
-        MILESTONE: null
-    }
+        MILESTONE: []
+    };
 
-    /* ---------------- 1. ĐĂNG KÝ (WELCOME) ---------------- */
-    const totalOrders = await db.Order.count({
-        where: { userId },
-        transaction
-    })
+    const t = transaction || await db.sequelize.transaction();
 
-    if (totalOrders === 0) {
-        const rule = COUPON_RULES.WELCOME
-
-        const coupon = await getOrCreateCoupon({
-            code: rule.code,
-            discountType: rule.discountType,
-            discountValue: rule.discountValue
-        })
-
-        result.WELCOME = await assignCouponToUser(userId, coupon, transaction)
-    }
-
-
-    /* ---------------- 2. ĐỦ 5 ĐƠN (ORDER5TH) ---------------- */
-    const completedOrders = await db.Order.count({
-        where: { userId, orderStatus: "Completed" },
-        transaction
-    })
-
-    if (completedOrders === 5) {
-        const rule = COUPON_RULES.ORDER5TH
-
-        const coupon = await getOrCreateCoupon({
-            code: rule.code,
-            discountType: rule.discountType,
-            discountValue: rule.discountValue
-        })
-
-        result.ORDER5TH = await assignCouponToUser(userId, coupon, transaction)
-    }
-
-    /* ---------------- 3. MỐC 2TR - 4TR - 6TR... (MILESTONE) ---------------- */
-    const orders = await db.Order.findAll({
-        where: { userId, orderStatus: "Completed" },
-        attributes: ['totalAmount'],
-        transaction
-    })
-
-    const totalAmount = orders.reduce((sum, order) => {
-        return sum + Number(order.totalAmount)
-    }, 0)
-
-    const milestoneCode = generateAmountCode(totalAmount)
-
-    if (milestoneCode) {
-        const coupon = await getOrCreateCoupon({
-            code: milestoneCode,
-            discountType: COUPON_RULES.MILESTONE.discountType,
-            discountValue: COUPON_RULES.MILESTONE.discountValue
-        })
-
-        result.MILESTONE = await assignCouponToUser(userId, coupon, transaction)
-    }
-
-    return result
-}
-
-// === 4. Xoá coupon (Admin) ===
-export const deleteCouponService = async (couponId) => {
     try {
-        const coupon = await db.Coupon.findByPk(couponId);
+        // ===== 1. WELCOME COUPON - Gán nếu chưa có =====
+        const hasWelcome = await db.UserCoupon.findOne({
+            where: { userId },
+            include: [{
+                model: db.Coupon,
+                as: 'coupon',
+                where: { code: COUPON_RULES.WELCOME.code }
+            }],
+            transaction: t
+        });
 
-        if (!coupon)
-            return { err: 1, msg: "Coupon not found" };
+        if (!hasWelcome) {
+            const coupon = await getOrCreateCoupon({
+                code: COUPON_RULES.WELCOME.code,
+                discountType: COUPON_RULES.WELCOME.discountType,
+                discountValue: COUPON_RULES.WELCOME.discountValue
+            }, t);
 
-        await coupon.destroy(); 
+            const assigned = await assignCouponToUser(userId, coupon, t);
+            result.WELCOME = assigned ? 'Gán WELCOME thành công' : null;
+        }
 
-        return {
-            err: 0,
-            msg: "Coupon soft deleted successfully"
-        };
+        // ===== 2. ORDER5TH - Chỉ gán đúng khi đủ 5 đơn Completed và chưa có =====
+        const completedOrders = await db.Order.count({
+            where: { userId, orderStatus: "Completed" },
+            transaction: t
+        });
+
+        const hasOrder5th = await db.UserCoupon.findOne({
+            where: { userId },
+            include: [{
+                model: db.Coupon,
+                as: 'coupon',
+                where: { code: COUPON_RULES.ORDER5TH.code }
+            }],
+            transaction: t
+        });
+
+        if (completedOrders >= 5 && !hasOrder5th) {  // >= để tránh bỏ lỡ nếu >5
+            const coupon = await getOrCreateCoupon({
+                code: COUPON_RULES.ORDER5TH.code,
+                discountType: COUPON_RULES.ORDER5TH.discountType,
+                discountValue: COUPON_RULES.ORDER5TH.discountValue
+            }, t);
+
+            const assigned = await assignCouponToUser(userId, coupon, t);
+            result.ORDER5TH = assigned ? 'Gán ORDER5TH thành công' : null;
+        }
+
+        // ===== 3. MILESTONE - Gán TẤT CẢ các mốc chưa có =====
+        const orders = await db.Order.findAll({
+            where: { userId, orderStatus: "Completed" },
+            attributes: ['totalAmount'],
+            transaction: t
+        });
+
+        const totalAmount = orders.reduce((sum, order) => sum + Number(order.totalAmount), 0);
+
+        // Lấy các milestone coupon user đã có
+        const existingMilestones = await db.UserCoupon.findAll({
+            where: { userId },
+            include: [{
+                model: db.Coupon,
+                as: 'coupon',
+                where: { code: { [Op.like]: 'AMOUNT%' } }
+            }],
+            transaction: t
+        });
+
+        const existingCodes = existingMilestones.map(uc => uc.coupon.code);
+
+        // Tính tất cả mốc từ 2tr đến mốc cao nhất hiện tại
+        const maxMilestone = Math.floor(totalAmount / 2000000) * 2000000;
+        const newMilestones = [];
+
+        for (let m = 2000000; m <= maxMilestone; m += 2000000) {
+            const code = `AMOUNT${m / 1000}`;
+            if (!existingCodes.includes(code)) {
+                newMilestones.push(code);
+            }
+        }
+
+        for (const code of newMilestones) {
+            const coupon = await getOrCreateCoupon({
+                code,
+                discountType: COUPON_RULES.MILESTONE.discountType,
+                discountValue: COUPON_RULES.MILESTONE.discountValue
+            }, t);
+
+            const assigned = await assignCouponToUser(userId, coupon, t);
+            if (assigned) {
+                result.MILESTONE.push(code);
+            }
+        }
+
+        if (transaction === null) {
+            await t.commit();
+        }
+
+        return result;
 
     } catch (error) {
+        if (transaction === null) {
+            await t.rollback();
+        }
         throw error;
     }
 };
@@ -272,6 +299,7 @@ export const getAllCouponsService = async (query) => {
 
         const { rows, count } = await db.Coupon.findAndCountAll({
             where,
+            paranoid: false,
             order: [["createdAt", "DESC"]],
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
@@ -287,6 +315,26 @@ export const getAllCouponsService = async (query) => {
             )
         };
 
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteCouponService = async (couponId) => {
+    try {
+        const coupon = await db.Coupon.findByPk(couponId);
+
+        if (!coupon) {
+            return { err: 1, msg: "Coupon not found" };
+        }
+
+        // XÓA CỨNG - destroy() sẽ xóa hoàn toàn khỏi DB
+        await coupon.destroy();
+
+        return {
+            err: 0,
+            msg: "Coupon deleted permanently"
+        };
     } catch (error) {
         throw error;
     }

@@ -15,7 +15,7 @@ export const apiGetAllRoles = async () => {
 // CREATE ROLE
 export const apiCreateRole = async (payload) => {
     try {
-        const response = await axiosConfig.post('/api/roles', payload);
+        const response = await axiosConfig.post('/api/admin/roles', payload);
         return response.data;
     } catch (error) {
         throw error;
@@ -25,7 +25,7 @@ export const apiCreateRole = async (payload) => {
 // UPDATE ROLE
 export const apiUpdateRole = async (roleId, payload) => {
     try {
-        const response = await axiosConfig.put(`/api/roles/${roleId}`, payload);
+        const response = await axiosConfig.put(`/api/admin/roles/${roleId}`, payload);
         return response.data;
     } catch (error) {
         throw error;
@@ -35,7 +35,7 @@ export const apiUpdateRole = async (roleId, payload) => {
 // DELETE ROLE (soft delete)
 export const apiDeleteRole = async (roleId) => {
     try {
-        const response = await axiosConfig.delete(`/api/roles/${roleId}`);
+        const response = await axiosConfig.delete(`/api/admin/roles/${roleId}`);
         return response.data;
     } catch (error) {
         throw error;

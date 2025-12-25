@@ -9,7 +9,8 @@ import couponReducer from "./couponReducer";
 import cartReducer from "./cartReducer";
 import orderReducer from "./orderReducer"
 import roleReducer from "./roleReducer"
-
+import reviewReducer from "./reviewReducer"
+import statisticReducer from './statisticReducer'
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -23,7 +24,9 @@ const rootReducer = combineReducers({
     coupon: couponReducer,
     cart: cartReducer,
     order: orderReducer,
-    role: roleReducer
+    role: roleReducer,
+    review: reviewReducer,
+    statistics: statisticReducer
 })
 
 export default rootReducer;

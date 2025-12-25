@@ -121,7 +121,7 @@ export const apiGetAllUsers = async (params={}) => {
 export const apiUpdateUserRoles = async (userId, roleIds) => {
     try {
         const response = await axiosConfig.patch(
-            `/api/users/${userId}/roles`, roleIds
+            `/api/admin/users/${userId}/roles`, roleIds
         );
         return response.data;
     } catch (error) {
@@ -140,7 +140,7 @@ export const apiDeleteUser = async (userId) => {
 
 export const apiGetAllRoles = async () => {
     try {
-        const response = await axiosConfig.get('/api/roles');
+        const response = await axiosConfig.get('/api/admin/roles');
         return response.data;
     } catch (error) {
         throw error;

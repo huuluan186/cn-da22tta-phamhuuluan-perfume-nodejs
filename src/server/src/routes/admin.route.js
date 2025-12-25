@@ -9,6 +9,8 @@ import * as prodController from '../controllers/product.controller.js';
 import * as prodVController from '../controllers/product_variant.controller.js';
 import * as prodImgController from '../controllers/product_image.controller.js';
 import * as categoryController from '../controllers/category.controller.js';
+import * as reviewController from '../controllers/review.controller.js'
+import * as statisticController from '../controllers/statistic.controller.js';
 import { verifyToken } from '../middlewares/verifyToken.middleware.js';
 import { isAdmin } from '../middlewares/userAuthentication.js';
 import { uploadMultipleImages } from '../middlewares/upload.middleware.js'
@@ -40,6 +42,8 @@ router.patch('/contacts/:id/status', verifyToken, isAdmin, contactController.upd
 
 // ORDER
 router.get('/orders', verifyToken, isAdmin, orderController.getAllOrdersController);
+router.get('/orders/:id', verifyToken, isAdmin, orderController.getOrderDetailController);
+router.patch('/orders/:id/confirm', verifyToken, isAdmin, orderController.confirmOrderController);
 
 // ROLE
 router.get('/roles', verifyToken, isAdmin, roleController.getAllRolesController);
@@ -67,4 +71,20 @@ router.delete('/variants/:id', prodVController.deleteVariant);
 router.post('/products/:id/images', uploadMultipleImages('products', 10), prodImgController.addProductImages);
 router.delete('/products/images/:id', prodImgController.deleteProductImage);
 router.patch('/products/:id/thumbnail',verifyToken,isAdmin,prodImgController.setThumbnail);
+
+//REVIEW
+router.get('/reviews', verifyToken, isAdmin, reviewController.getAllReviewsAdmin);
+router.get('/reviews/:id', verifyToken, isAdmin, reviewController.getReviewDetailAdmin); 
+router.delete('/reviews/:id', verifyToken, isAdmin, reviewController.deleteReviewAdmin);
+router.patch('/reviews/:id', verifyToken, isAdmin, reviewController.toggleReviewApproval);
+
+// REPORT - Thống kê doanh thu
+router.get('/statistics/kpis', verifyToken, isAdmin, statisticController.getKPIs);
+router.get('/statistics/revenue-trend', verifyToken, isAdmin, statisticController.getRevenueTrend);
+router.get('/statistics/top-products', verifyToken, isAdmin, statisticController.getTopProducts);
+router.get('/statistics/revenue-by-category', verifyToken, isAdmin, statisticController.getRevenueByCategory);
+router.get('/statistics/revenue-by-brand', verifyToken, isAdmin, statisticController.getRevenueByBrand);
+router.get('/statistics/revenue-by-payment', verifyToken, isAdmin, statisticController.getRevenueByPayment);
+router.get('/statistics/top-customers', verifyToken, isAdmin, statisticController.getTopCustomers);
+
 export default router;

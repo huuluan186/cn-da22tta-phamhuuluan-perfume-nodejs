@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate, CategoryLayout, CategoryList, CategoryCreate, CategoryUpdate, ProductLayout, AdminProductList, ProductCreate, ProductUpdate} from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate, CategoryLayout, CategoryList, CategoryCreate, CategoryUpdate, ProductLayout, AdminProductList, ProductCreate, ProductUpdate, OrderLayout, OrderList, CouponLayout, CouponList, CouponCreate, CouponAssign, ReviewLayout, ReviewList, StatisticLayout, StatisticDashboard} from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -112,7 +112,11 @@ function App() {
                             <AdminLayout />
                         </ProtectedRoute>
                     }
-                >
+                >   
+                <Route index element={<Navigate to={path.ADMIN_DASHBOARD} replace />} />
+                    <Route path={path.ADMIN_DASHBOARD} element={<StatisticLayout />}>
+                        <Route index element={<StatisticDashboard />} />
+                    </Route>
                     <Route path={path.USER_MANAGER} element={<UserLayout />}>
                         <Route index element={<UserList />} />
                         <Route path={path.UPDATE} element={<UserEditRole />} />
@@ -136,6 +140,18 @@ function App() {
                         <Route index element={<AdminProductList />} />
                         <Route path={path.ADD} element={<ProductCreate />} />
                         <Route path={path.UPDATE} element={<ProductUpdate />} />
+                    </Route>
+                    <Route path={path.ORDER_MANAGER} element={<OrderLayout />}>
+                        <Route index element={<OrderList />} />
+                    </Route>
+                    <Route path={path.COUPON_MANAGER} element={<CouponLayout />}>
+                        <Route index element={<CouponList />} />
+                        <Route path={path.ADD} element={<CouponCreate />} />
+                        <Route path={path.ASSIGN} element={<CouponAssign />} />
+                    </Route>
+                    <Route path={path.REVIEW_MANAGER} element={<ReviewLayout />}>
+                        <Route index element={<ReviewList />} />
+                        {/* <Route path={path.UPDATE} element={<ProductUpdate />} /> */}
                     </Route>
                 </Route>
             </Routes>

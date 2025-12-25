@@ -218,7 +218,11 @@ export const getProductReviewsService = async (productId) => {
                         }
                     ]
                 }
-            ]
+            ],
+            where: {
+                isApproved: true,     // Chỉ tính review đã duyệt
+                deletedAt: null       // Chỉ tính review chưa xóa
+            }
         });
 
         // 3. Lấy danh sách Review chi tiết
@@ -259,7 +263,7 @@ export const getProductReviewsService = async (productId) => {
             err: 0,
             msg: "Get product reviews successfully!",
             response: {
-                averagaRating: avg,
+                averageRating: avg,
                 totalReviews: total,
                 reviews
             }

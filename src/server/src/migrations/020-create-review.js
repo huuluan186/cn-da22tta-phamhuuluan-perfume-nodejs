@@ -37,6 +37,11 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.INTEGER,
             allowNull: true,
         },
+        isApproved: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: false, // mặc định duyệt ngay khi user đăng
+        },
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE,

@@ -7,6 +7,7 @@ const initialState = {
         limit: null,
         data: []
     },
+    adminCouponList: null,
     msg: '',
 };
 
@@ -24,6 +25,17 @@ const couponReducer = (state = initialState, action) => {
                 ...state,
                 coupons: initialState.coupons,
                 msg: action.msg
+            };
+
+        case actionTypes.GET_ALL_COUPONS_ADMIN_SUCCESS:
+            return {
+                ...state,
+                adminCouponList: action.adminCouponList
+            };
+
+        case actionTypes.GET_ALL_ORDERS_ADMIN_FAIL:
+            return {
+                ...state,
             };
 
         default:

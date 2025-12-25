@@ -37,7 +37,7 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 reviews: action.response.reviews || [],
-                avgRating: action.response.averagaRating || "0.0",
+                avgRating: action.response.averageRating || "0.0",
                 totalReviews: action.response.totalReviews || 0,
                 reviewError: null,
             };

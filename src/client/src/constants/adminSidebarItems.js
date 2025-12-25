@@ -1,7 +1,6 @@
 import { path } from './path';
 import icons from '../assets/react-icons/icon'
 const {
-    MdDashboard,
     MdCategory,
     MdLocalOffer,
     MdRateReview,
@@ -10,14 +9,16 @@ const {
     FaUserShield,
     FaBox,
     FaTrademark,
-    FaShoppingCart
+    FaShoppingCart,
+    TbPresentationAnalyticsFilled,
+    TbPerfume
 } = icons
 
 export const adminSidebarItems = [
     {
         label: "Thống kê",
-        to: "/admin/dashboard",
-        icon: <MdDashboard />
+        to: path.ADMIN_DASHBOARD,
+        icon: <TbPresentationAnalyticsFilled />
     },
     {
         label: "Người dùng",
@@ -42,21 +43,21 @@ export const adminSidebarItems = [
     {
         label: "Sản phẩm",
         to: path.PRODUCT_MANAGER,
-        icon: <FaBox />
+        icon: <TbPerfume />
     },
     {
         label: "Đơn hàng",
-        to: "/admin/orders",
+        to: path.ORDER_MANAGER,
         icon: <FaShoppingCart />
     },
     {
         label: "Coupon",
-        to: "/admin/coupons",
+        to: path.COUPON_MANAGER,
         icon: <MdLocalOffer />
     },
     {
         label: "Đánh giá",
-        to: "/admin/reviews",
+        to: path.REVIEW_MANAGER,
         icon: <MdRateReview />
     },
     {
