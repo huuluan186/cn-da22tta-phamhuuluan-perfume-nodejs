@@ -8,6 +8,7 @@ import passport from './src/config/passport.config.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { autoExpireCoupons, cancelExpiredOrders } from './src/utils/index.js';
+import { swaggerSpec, swaggerUi } from './src/config/swagger.js';
 
 const app = express()
 
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 }, mainRouter)
 
 // chỉ mount /api một lần duy nhất
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(passport.initialize());
 app.use('/api', mainRouter);
 
