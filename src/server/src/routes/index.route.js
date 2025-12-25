@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.use('/auth', authRouter);
 router.use('/users', userRouter);
-router.use('/locations', locationRouter)
+router.use('/locations', locationRouter);
 router.use('/categories', categoryRouter);
 router.use('/brands', brandRouter);
 router.use('/products', productRouter);
