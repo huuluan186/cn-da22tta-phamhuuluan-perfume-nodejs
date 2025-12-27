@@ -40,7 +40,7 @@ const OrderList = () => {
     const renderPaymentMethod = (method) => method === "COD" ? "COD" : "ZaloPay";
 
     const columns = [
-        { key: "id", label: "Mã đơn" },
+        { key: "id", label: "Mã đơn", minWidth: "80px", maxWidth: "180px" },
         { key: "createdAt", label: "Ngày đặt", render: r => formatDateTime(r.createdAt) },
         { key: "totalAmount", label: "Tổng tiền", render: r => <span className="font-bold text-green-700">{Number(r.totalAmount).toLocaleString("vi-VN")}₫</span> },
         { key: "orderStatus", label: "Trạng thái", render: r => renderStatus(r.orderStatus) },

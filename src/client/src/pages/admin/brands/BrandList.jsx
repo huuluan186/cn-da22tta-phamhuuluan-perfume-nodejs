@@ -26,14 +26,16 @@ const BrandList = () => {
     const hasPagination = true;
 
     useEffect(() => {
-        dispatch(getAllBrandsAdmin({ page, limit, hasPagination,  }));
+        dispatch(getAllBrandsAdmin({ page, limit, hasPagination, }));
     }, [dispatch, page, limit, hasPagination]);
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         {
             key: "logoUrl",
             label: "Logo",
+            width: "120px",
+            minWidth: "120px",
             render: row => (
                 <img
                     src={row.logoUrl}

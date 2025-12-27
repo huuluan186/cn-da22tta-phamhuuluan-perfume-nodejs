@@ -14,14 +14,11 @@ const ReviewList = ({ reviews = [] }) => {
 
     // Lọc review để hiển thị
     const visibleReviews = reviews.filter((review) => {
-        const isOwner = currentUserId && review.user?.id === currentUserId;
-        const isApproved = review.isApproved === true;
         const isNotDeleted = !review.deletedAt;
 
         // Quy tắc hiển thị:
-        // - Nếu đã duyệt + chưa xóa → tất cả đều thấy
-        // - Nếu là chủ bài viết → thấy luôn (dù chưa duyệt hoặc đã xóa mềm)
-        return (isApproved && isNotDeleted) || isOwner;
+        // - Chỉ cần bình luận chưa bị xóa là hiển thị
+        return isNotDeleted;
     });
 
     return (

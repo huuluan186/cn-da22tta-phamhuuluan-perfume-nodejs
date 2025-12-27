@@ -220,7 +220,6 @@ export const getProductReviewsService = async (productId) => {
                 }
             ],
             where: {
-                isApproved: true,     // Chỉ tính review đã duyệt
                 deletedAt: null       // Chỉ tính review chưa xóa
             }
         });

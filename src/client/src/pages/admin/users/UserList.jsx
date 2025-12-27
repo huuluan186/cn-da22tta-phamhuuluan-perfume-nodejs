@@ -22,7 +22,7 @@ const UserList = () => {
     }, [dispatch, page, limit, hasPagination]);
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         { key: "email", label: "Email" },
         {
             key: "roles",

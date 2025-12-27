@@ -34,7 +34,7 @@ const CouponList = () => {
     }, [dispatch, page]);
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         {
             key: "code",
             label: "Mã coupon",

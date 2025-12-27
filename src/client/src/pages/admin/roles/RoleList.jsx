@@ -24,7 +24,7 @@ const RoleList = () => {
     }, [dispatch]);
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         { key: "name", label: "Tên quyền" },
         { key: "description", label: "Mô tả" },
         {

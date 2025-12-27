@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { AdminSidebar, AdminHeader } from "../components";
+import { AdminSidebar, AdminHeader, AdminFooter } from "../components";
 
 const SIDEBAR_WIDTH = 256; // w-64
 const HEADER_HEIGHT = 80;  // h-20
 
 const AdminLayout = () => {
     return (
-        <div className="bg-gray-100 min-h-screen">
+        <div className="bg-gray-100 min-h-screen flex flex-col">
             {/* Sidebar fixed */}
             <AdminSidebar />
 
@@ -18,17 +18,22 @@ const AdminLayout = () => {
                 <AdminHeader />
             </div>
 
-            {/* Main content */}
-            <main
-                className="p-6 overflow-y-auto"
+            {/* Main content wrapper */}
+            <div
+                className="flex flex-col flex-1"
                 style={{
                     marginLeft: SIDEBAR_WIDTH,
                     paddingTop: HEADER_HEIGHT,
-                    height: "100vh"
                 }}
             >
-                <Outlet />
-            </main>
+                {/* Scrollable content */}
+                <main className="flex-1 overflow-y-auto p-6">
+                    <Outlet />
+                </main>
+
+                {/* Footer at bottom */}
+                <AdminFooter />
+            </div>
         </div>
     );
 };

@@ -30,7 +30,7 @@ const CategoryList = () => {
     }, [dispatch, page, limit, hasPagination]);
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         { key: "name", label: "Tên danh mục" },
         { key: "slug", label: "Slug" },
         {
@@ -113,8 +113,8 @@ const CategoryList = () => {
                         <div>
                             <b>Ngày xóa:</b>{" "}
                             {
-                                selectedCategory.deletedAt ? 
-                                    formatDateTime(selectedCategory.deletedAt) 
+                                selectedCategory.deletedAt ?
+                                    formatDateTime(selectedCategory.deletedAt)
                                     : null
                             }
                         </div>

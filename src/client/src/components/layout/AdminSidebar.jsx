@@ -37,7 +37,7 @@ const AdminSidebar = () => {
                                 isActive
                                     ? "bg-white text-primary font-semibold shadow-lg"
                                     : "hover:bg-white/20"
-                        )}
+                            )}
                         >
                             {/* Hover gradient overlay (NỔI HƠN) */}
                             {!isActive && (
@@ -52,10 +52,10 @@ const AdminSidebar = () => {
                             {/* Icon */}
                             <span
                                 className={clsx(
-                                "relative z-10 text-lg transition-all duration-300",
-                                isActive
-                                    ? "text-primary scale-110"
-                                    : "text-white group-hover:text-orange-200 group-hover:scale-125"
+                                    "relative z-10 text-lg transition-all duration-300",
+                                    isActive
+                                        ? "text-primary scale-110"
+                                        : "text-white group-hover:text-orange-200 group-hover:scale-125"
                                 )}
                             >
                                 {item.icon}
@@ -64,10 +64,10 @@ const AdminSidebar = () => {
                             {/* Label */}
                             <span
                                 className={clsx(
-                                "relative z-10 transition-all duration-300",
-                                isActive
-                                    ? "text-primary"
-                                    : "group-hover:text-orange-100"
+                                    "relative z-10 transition-all duration-300",
+                                    isActive
+                                        ? "text-primary"
+                                        : "group-hover:text-orange-100"
                                 )}
                             >
                                 {item.label}

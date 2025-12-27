@@ -4,14 +4,14 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
     return (
         <div className="bg-white rounded-xl shadow overflow-x-auto relative">
             {/* table-fixed để sticky + scroll hoạt động ổn định */}
-            <table className="w-full table-fixed border-collapse text-sm">
+            <table className="w-full table-auto border-collapse text-sm">
                 <thead className="bg-gray-100 text-gray-700 text-sm sticky top-0 z-10">
                     <tr>
                         {columns.map(col => (
                             <th
                                 key={col.key}
                                 className="px-5 py-4 text-left font-semibold"
-                                style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px' }}
+                                style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px', maxWidth: col.maxWidth }}
                             >
                                 {col.label}
                             </th>
@@ -60,8 +60,8 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
                                 {columns.map(col => (
                                     <td
                                         key={col.key}
-                                        className="px-5 py-4 text-left align-top" // align-top để nội dung dài căn trên
-                                        style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px' }}
+                                        className="px-5 py-4 text-left align-middle"
+                                        style={{ width: col.width || 'auto', minWidth: col.minWidth || '150px', maxWidth: col.maxWidth }}
                                     >
                                         {/* Cho phép xuống dòng tự nhiên */}
                                         <div className="break-words">
@@ -78,7 +78,7 @@ const DataTable = ({ columns = [], data = [], actions = [], loading = false }) =
                                         style={{ width: '180px', minWidth: '180px' }}
                                     >
                                         <div className={
-                                            actions.length > 3 
+                                            actions.length > 3
                                                 ? "flex flex-col items-end gap-2 pr-4"   // ≥ 3 nút → xếp dọc, căn phải
                                                 : "flex justify-end gap-2 pr-4"         // < 3 nút → xếp ngang như cũ
                                         }>

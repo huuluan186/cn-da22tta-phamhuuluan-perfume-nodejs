@@ -92,7 +92,7 @@ const ContactList = () => {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         { key: "name", label: "Họ tên" },
         { key: "email", label: "Email" },
         {

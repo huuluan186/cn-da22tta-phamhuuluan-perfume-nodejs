@@ -79,7 +79,7 @@ const ReviewList = () => {
     };
 
     const columns = [
-        { key: "id", label: "ID" },
+        { key: "id", label: "ID", minWidth: "60px", maxWidth: "150px" },
         {
             key: "product",
             label: "Sản phẩm",
