@@ -24,6 +24,7 @@ export const buildProductFilters = ({ categoryId, brandIds, priceRange, keyword 
             as: "categories",
             where: { id: categoryId },
             attributes: [],
+            required: true // Bắt buộc phải có category này (Inner Join)
         });
     }
 

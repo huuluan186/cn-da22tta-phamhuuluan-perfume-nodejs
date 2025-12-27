@@ -6,7 +6,7 @@ export const getAllProductsController = async (req, res) => {
 
         // Chuyển các giá trị filter từ query string sang object
         const filters = {
-            categoryId: categoryId ? Number(categoryId) : undefined,
+            categoryId: categoryId || undefined,
             brandIds: brandIds ? brandIds.split(',').map(id => +id) : undefined,
             priceRange: priceRange ? priceRange.split(',').map(p => +p) : undefined,
             rating: rating ? +rating : undefined,
