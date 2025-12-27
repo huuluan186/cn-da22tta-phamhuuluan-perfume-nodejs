@@ -2,9 +2,11 @@
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 
 export async function up(queryInterface, Sequelize) {
-    const admins = JSON.parse(fs.readFileSync('./data/userAdmin.json', 'utf8'));
+    const usersFile = path.join(process.cwd(), 'data', 'userAdmin.json');
+    const admins = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
 
     // 1️⃣ Lấy tất cả roles từ DB
     const rolesInDB = await queryInterface.sequelize.query(

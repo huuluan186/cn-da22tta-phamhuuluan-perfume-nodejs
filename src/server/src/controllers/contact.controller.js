@@ -46,3 +46,35 @@ export const updateContactStatusController = async (req, res) => {
         return res.status(500).json({ err: -1, msg: 'Failed to update contact status: ' + error.message });
     }
 };
+
+// 4. GET /admin/contacts/:id - admin lấy chi tiết contact
+export const getContactDetailController = async (req, res) => {
+    try {
+        const contactId = req.params.id;
+        const result = await contactService.getContactDetailService(contactId);
+        
+        if (result.err) {
+            return res.status(404).json(result);
+        }
+        
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ err: -1, msg: 'Failed to get contact detail: ' + error.message });
+    }
+};
+
+// 5. DELETE /admin/contacts/:id - admin xóa mềm contact
+export const deleteContactController = async (req, res) => {
+    try {
+        const contactId = req.params.id;
+        const result = await contactService.deleteContactService(contactId);
+        
+        if (result.err) {
+            return res.status(404).json(result);
+        }
+        
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ err: -1, msg: 'Failed to delete contact: ' + error.message });
+    }
+};

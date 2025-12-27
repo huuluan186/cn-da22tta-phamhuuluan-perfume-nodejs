@@ -53,7 +53,7 @@ app.use('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 connectDatabase().then(async () => {
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
         console.log(`Website listening on port ${port}`);
     });
 });
