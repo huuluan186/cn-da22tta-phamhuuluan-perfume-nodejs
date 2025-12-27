@@ -504,7 +504,7 @@ router.get('/orders/:id', verifyToken, isAdmin, orderController.getOrderDetailCo
  *   patch:
  *     tags: ['[ADMIN] Orders']
  *     summary: "[ADMIN] Xác nhận đơn hàng"
- *     description: Admin xác nhận đơn hàng (chuyển từ Pending/Processing sang Confirmed). Chỉ admin.
+ *     description: Admin xác nhận đơn hàng (chuyển từ Pending/Processing sang Confirmed). Tự động gán coupon thành tựu nếu đủ điều kiện. Chỉ admin.
  *     security:
  *       - cookieAuth: []
  *     parameters:
@@ -515,11 +515,89 @@ router.get('/orders/:id', verifyToken, isAdmin, orderController.getOrderDetailCo
  *           type: string
  *     responses:
  *       200:
- *         description: Xác nhận đơn hàng thành công
+ *         description: Xác nhận đơn hàng thành công, có thể nhận được coupon mới
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: integer
+ *                   example: 0
+ *                 msg:
+ *                   type: string
+ *                   example: Đơn hàng đã được xác nhận thành công
+ *                 order:
+ *                   type: object
+ *                 newCoupons:
+ *                   type: object
+ *                   description: Thông tin về các coupon mới được gán (ORDER5TH, MILESTONE)
  *       400:
  *         description: Đơn hàng không ở trạng thái hợp lệ để xác nhận
  */
 router.patch('/orders/:id/confirm', verifyToken, isAdmin, orderController.confirmOrderController);
+
+/**
+ * @swagger
+ * /admin/orders/{id}/ship:
+ *   patch:
+ *     tags: ['[ADMIN] Orders']
+ *     summary: "[ADMIN] Giao đơn hàng"
+ *     description: Admin chuyển trạng thái đơn hàng sang Shipped (chuyển từ Confirmed sang Shipped). Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Chuyển đơn hàng sang trạng thái giao hàng thành công
+ *       400:
+ *         description: Đơn hàng không ở trạng thái Confirmed
+ */
+router.patch('/orders/:id/ship', verifyToken, isAdmin, orderController.shipOrderController);
+
+/**
+ * @swagger
+ * /admin/orders/{id}/complete:
+ *   patch:
+ *     tags: ['[ADMIN] Orders']
+ *     summary: "[ADMIN] Hoàn thành đơn hàng"
+ *     description: Admin đánh dấu đơn hàng hoàn thành (chuyển từ Shipped sang Completed). Tự động gán coupon thành tựu nếu đủ điều kiện. Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Hoàn thành đơn hàng thành công, có thể nhận được coupon mới
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 err:
+ *                   type: integer
+ *                   example: 0
+ *                 msg:
+ *                   type: string
+ *                   example: Đơn hàng đã hoàn thành
+ *                 order:
+ *                   type: object
+ *                 newCoupons:
+ *                   type: object
+ *                   description: Thông tin về các coupon mới được gán (WELCOME, ORDER5TH, MILESTONE)
+ *       400:
+ *         description: Đơn hàng không ở trạng thái Shipped
+ */
+router.patch('/orders/:id/complete', verifyToken, isAdmin, orderController.completeOrderController);
 
 // ==================== ROLES ====================
 /**

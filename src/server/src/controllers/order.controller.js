@@ -75,3 +75,35 @@ export const confirmOrderController = async (req, res) => {
         res.status(500).json({ err: 1, msg: 'Lỗi server' });
     }
 };
+
+// Cập nhật trạng thái đơn hàng sang Shipped
+export const shipOrderController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await orderService.shipOrderService(id);
+
+        if (result.err) {
+            return res.status(400).json(result);
+        }
+
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ err: 1, msg: 'Lỗi server' });
+    }
+};
+
+// Cập nhật trạng thái đơn hàng sang Completed (tự động gán coupon)
+export const completeOrderController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await orderService.completeOrderService(id);
+
+        if (result.err) {
+            return res.status(400).json(result);
+        }
+
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ err: 1, msg: 'Lỗi server' });
+    }
+};

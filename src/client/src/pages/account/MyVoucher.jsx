@@ -43,10 +43,9 @@ const MyVoucher = () => {
                                 }
                             </p>
                             <p className="text-gray-500 text-xs italic mt-1">
-                                HSD: {formatDate(item.validFrom)}
                                 {item.validUntil
-                                    ? ` - ${formatDate(item.validUntil)}`
-                                    : " (Không giới hạn)"
+                                    ? `HSD: ${formatDate(item.validFrom)} - ${formatDate(item.validUntil)}`
+                                    : "Hiệu lực: Không thời hạn"
                                 }
                             </p>
                         </div>

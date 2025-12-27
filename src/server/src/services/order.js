@@ -3,6 +3,7 @@ import * as utils from '../utils/index.js';
 import moment from 'moment';
 import { nanoid } from 'nanoid';
 import { createZaloPayOrder, formatPaginatedResponse,getPagination, orderIncludes } from '../utils/index.js';
+import { autoCreateAndAssignCouponForUser } from './coupon.js';
 
 // Tạo đơn hàng từ giỏ hàng
 export const createOrderService = async (userId, addressId, couponCode, paymentMethod = "COD") => {
@@ -305,12 +306,99 @@ export const confirmOrderService = async (orderId) => {
             { transaction }
         );
 
+        // Tự động kiểm tra và gán coupon cho user (ORDER5TH và MILESTONE)
+        // Vì hệ thống không giao hàng, Confirmed là trạng thái cuối cùng
+        const couponResult = await autoCreateAndAssignCouponForUser(order.userId, transaction);
+
         await transaction.commit();
 
         return { 
             err: 0, 
             msg: 'Đơn hàng đã được xác nhận thành công', 
+            order,
+            newCoupons: couponResult // Thông tin về coupon mới được gán
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng sang Shipped (Admin)
+export const shipOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép ship khi đơn đang ở trạng thái Confirmed
+        if (order.orderStatus !== 'Confirmed') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", chỉ có thể ship đơn đã Confirmed` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Shipped
+        await order.update(
+            { orderStatus: 'Shipped' },
+            { transaction }
+        );
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã được chuyển sang trạng thái giao hàng', 
             order 
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng sang Completed và tự động gán coupon (Admin)
+export const completeOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép complete khi đơn đang ở trạng thái Shipped
+        if (order.orderStatus !== 'Shipped') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", chỉ có thể hoàn thành đơn đã Shipped` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Completed
+        await order.update(
+            { orderStatus: 'Completed' },
+            { transaction }
+        );
+
+        // Tự động kiểm tra và gán coupon cho user (ORDER5TH và MILESTONE)
+        const couponResult = await autoCreateAndAssignCouponForUser(order.userId, transaction);
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã hoàn thành', 
+            order,
+            newCoupons: couponResult // Thông tin về coupon mới được gán
         };
     } catch (error) {
         await transaction.rollback();

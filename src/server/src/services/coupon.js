@@ -166,6 +166,8 @@ export const assignCouponManualService = async (couponId, payload) => {
 
 // === 3. Tự động tạo và gán coupon cho user khi đạt điều kiện ===
 export const autoCreateAndAssignCouponForUser = async (userId, transaction = null) => {
+    console.log('🎫 [COUPON] Checking coupons for userId:', userId);
+    
     const result = {
         WELCOME: null,
         ORDER5TH: null,
@@ -197,11 +199,13 @@ export const autoCreateAndAssignCouponForUser = async (userId, transaction = nul
             result.WELCOME = assigned ? 'Gán WELCOME thành công' : null;
         }
 
-        // ===== 2. ORDER5TH - Chỉ gán đúng khi đủ 5 đơn Completed và chưa có =====
+        // ===== 2. ORDER5TH - Chỉ gán đúng khi đủ 5 đơn Confirmed và chưa có =====
         const completedOrders = await db.Order.count({
-            where: { userId, orderStatus: "Completed" },
+            where: { userId, orderStatus: "Confirmed" },
             transaction: t
         });
+        
+        console.log(`🎫 [ORDER5TH] User has ${completedOrders} confirmed orders`);
 
         const hasOrder5th = await db.UserCoupon.findOne({
             where: { userId },
@@ -214,6 +218,7 @@ export const autoCreateAndAssignCouponForUser = async (userId, transaction = nul
         });
 
         if (completedOrders >= 5 && !hasOrder5th) {  // >= để tránh bỏ lỡ nếu >5
+            console.log('🎫 [ORDER5TH] Assigning ORDER5TH coupon...');
             const coupon = await getOrCreateCoupon({
                 code: COUPON_RULES.ORDER5TH.code,
                 discountType: COUPON_RULES.ORDER5TH.discountType,
@@ -226,12 +231,14 @@ export const autoCreateAndAssignCouponForUser = async (userId, transaction = nul
 
         // ===== 3. MILESTONE - Gán TẤT CẢ các mốc chưa có =====
         const orders = await db.Order.findAll({
-            where: { userId, orderStatus: "Completed" },
+            where: { userId, orderStatus: "Confirmed" },
             attributes: ['totalAmount'],
             transaction: t
         });
 
         const totalAmount = orders.reduce((sum, order) => sum + Number(order.totalAmount), 0);
+        
+        console.log(`🎫 [MILESTONE] Total amount from confirmed orders: ${totalAmount.toLocaleString()} VND`);
 
         // Lấy các milestone coupon user đã có
         const existingMilestones = await db.UserCoupon.findAll({
@@ -256,8 +263,11 @@ export const autoCreateAndAssignCouponForUser = async (userId, transaction = nul
                 newMilestones.push(code);
             }
         }
+        
+        console.log(`🎫 [MILESTONE] New milestones to assign:`, newMilestones);
 
         for (const code of newMilestones) {
+            console.log(`🎫 [MILESTONE] Assigning ${code}...`);
             const coupon = await getOrCreateCoupon({
                 code,
                 discountType: COUPON_RULES.MILESTONE.discountType,

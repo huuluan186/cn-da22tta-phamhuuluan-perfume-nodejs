@@ -2,6 +2,7 @@ import db from '../models/index.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import {v4} from 'uuid'
+import { autoCreateAndAssignCouponForUser } from './coupon.js'
 
 if (!process.env.SECRET_KEY) {
     console.error('❌ Missing SECRET_KEY in .env');
@@ -47,6 +48,10 @@ export const registerService = async ({ firstname, lastname, password, email}, i
         // Sequelize sẽ tự: SELECT id FROM Roles WHERE name = 'customer' LIMIT 1
         await newUser.addRole(customerRole, { transaction });
         // Tương đương newUser.addRoles(['customer', 'vip']) nếu gán nhiều
+
+        // 4. Tự động gán WELCOME coupon cho user mới
+        await autoCreateAndAssignCouponForUser(newUser.id, transaction);
+
         await transaction.commit();
 
         //Nếu admin tạo user từ dashboard -> không cần token
@@ -127,6 +132,9 @@ export const socialLoginService = async (payload) => {
 
             if (customerRole) await user.addRole(customerRole, { transaction });
             else console.warn('Role customer không tồn tại khi social login!');
+
+            // Tự động gán WELCOME coupon cho user mới từ social login
+            await autoCreateAndAssignCouponForUser(user.id, transaction);
             
         }
 
