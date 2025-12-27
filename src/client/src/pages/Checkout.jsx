@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -119,7 +120,7 @@ const Checkout = () => {
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         const foundCoupon = coupons?.data?.find(c => {
-            const codeMatch = c.code.toUpperCase() === couponCode.toUpperCase(); // không phân biệt hoa thường
+            const codeMatch = c.code === couponCode; // phân biệt hoa thường
             if (!codeMatch) return false;
 
             if (c.status !== 'unused') return false;
@@ -145,6 +146,7 @@ const Checkout = () => {
             setDiscountDisplay('');
             setTotal(subtotal);
             setCouponError('Mã giảm giá không hợp lệ hoặc đã hết hạn');
+            // Nếu không tìm thấy, không làm gì ở đây biến này change liên tục khi gõ
             return;
         }
         // hợp lệ
@@ -182,6 +184,49 @@ const Checkout = () => {
         setCouponError('')
         // gọi API lấy coupon của user
         await dispatch(getMyCoupons())
+
+        // Sau khi dispatch xong, check lại trong list coupons mới
+        // Logic check ở useEffect sẽ chạy, nhưng ta cần toast thông báo ngay lúc này
+        // Tuy nhiên useEffect chạy sau render.
+        // Ta có thể check thủ công ngay đây dựa vào list cũ hoặc đợi update.
+        // Đơn giản nhất: dùng 1 flag hoặc check trực tiếp sau 1 khoảng nhỏ (không khuyến khích)
+        // Cách tốt hơn: Lặp lại logic findCoupon ở đây để toast
+
+        // Lấy lại list mới nhất (thực tế dispatch là async nhưng redux update state có thể chưa kịp ngay lập tức trong dòng code tiếp theo nếu không dùng thunk return promise chuẩn)
+        // Nhưng ở đây action getMyCoupons trả về gì? Xem action. 
+        // Giả sử ta check theo logic tương tự useEffect:
+
+        // Tạm thời user yêu cầu khi bấm áp dụng mới hiện thông báo
+        // Ta sẽ check dựa trên existing coupons + logic
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        const found = coupons?.data?.find(c => {
+            const codeMatch = c.code === couponCode;
+            if (!codeMatch) return false;
+
+            if (c.status !== 'unused') return false;
+
+            const validFromDate = new Date(c.validFrom);
+            const validFromDay = new Date(validFromDate.getFullYear(), validFromDate.getMonth(), validFromDate.getDate());
+
+            const validUntilDate = c.validUntil ? new Date(c.validUntil) : null;
+            const validUntilDay = validUntilDate
+                ? new Date(validUntilDate.getFullYear(), validUntilDate.getMonth(), validUntilDate.getDate())
+                : null;
+
+            const isFromValid = validFromDay <= today;
+            const isUntilValid = !validUntilDay || validUntilDay >= today;
+
+            return isFromValid && isUntilValid;
+        });
+
+        if (found) {
+            toast.success("Áp dụng mã giảm giá thành công!")
+        } else {
+            toast.error("Mã giảm giá không hợp lệ hoặc không tìm thấy!")
+        }
     }
 
     const handleChange = (e) => {

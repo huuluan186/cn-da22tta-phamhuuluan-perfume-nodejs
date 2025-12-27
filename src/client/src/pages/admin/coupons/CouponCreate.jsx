@@ -61,7 +61,7 @@ const CouponCreate = () => {
 
         try {
             const payload = {
-                code: form.code.trim().toUpperCase(),
+                code: form.code.trim(),
                 discountType: form.discountType,
                 discountValue: Number(form.discountValue),
                 validFrom: form.validFrom,
