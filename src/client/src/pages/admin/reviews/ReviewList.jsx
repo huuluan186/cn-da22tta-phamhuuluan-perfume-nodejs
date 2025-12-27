@@ -21,7 +21,7 @@ import { ADMIN_PER_PAGE } from "../../../constants/pagination";
 import { formatDateTime, getImageUrl } from "../../../utils";
 import icons from "../../../assets/react-icons/icon";
 
-const { MdOutlineVisibility, MdOutlineVisibilityOff } = icons;
+const { MdCheckCircle, MdBlock } = icons;
 
 const ReviewList = () => {
     const dispatch = useDispatch();
@@ -135,7 +135,7 @@ const ReviewList = () => {
 
                 return (
                     <Button
-                        text={isApproved ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+                        text={isApproved ? <MdBlock /> : <MdCheckCircle />}
                         bgColor={
                             isDeleted
                                 ? "bg-gray-300"

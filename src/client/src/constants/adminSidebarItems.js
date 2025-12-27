@@ -62,7 +62,7 @@ export const adminSidebarItems = [
     },
     {
         label: "Liên hệ",
-        to: "/admin/contacts",
+        to: path.CONTACT_MANAGER,
         icon: <MdContactMail />
     }
 ];

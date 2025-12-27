@@ -10,6 +10,7 @@ import cartReducer from "./cartReducer";
 import orderReducer from "./orderReducer"
 import roleReducer from "./roleReducer"
 import reviewReducer from "./reviewReducer"
+import contactReducer from "./contactReducer"
 import statisticReducer from './statisticReducer'
 import { combineReducers } from "redux";
 
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     order: orderReducer,
     role: roleReducer,
     review: reviewReducer,
+    contact: contactReducer,
     statistics: statisticReducer
 })
 

@@ -66,7 +66,29 @@ const UserList = () => {
             setMode('view');
         }),
 
-        CrudActions.editRole(path.UPDATE),
+        // Custom edit role action với kiểm tra admin
+        {
+            Component: ({ row: user }) => {
+                const isAdmin = user.roles?.some(r => r.name === 'admin');
+                const isDeleted = !!user.deletedAt;
+                const isDisabled = isAdmin || isDeleted;
+
+                return CrudActions.editRole(path.UPDATE, {
+                    isDisabled,
+                    tooltipText: isAdmin
+                        ? "Không thể thay đổi quyền của admin"
+                        : isDeleted
+                            ? "Người dùng đã bị xóa"
+                            : "Chỉnh sửa quyền",
+                    onClick: () => {
+                        if (isAdmin) {
+                            toast.warning("Không thể thay đổi quyền của admin!");
+                            return false; // Prevent navigation
+                        }
+                    }
+                }).Component({ row: user });
+            }
+        },
 
         CrudActions.softDelete(user => {
             if (user.roles?.some(r => r.name === 'admin')) {
@@ -82,8 +104,8 @@ const UserList = () => {
     return (
         <>
             <div>
-                <DataTable columns={columns} data={users?.data || []} actions={actions} loading={loading}/>
-    
+                <DataTable columns={columns} data={users?.data || []} actions={actions} loading={loading} />
+
                 {/* VIEW DETAIL */}
                 {selectedUser && mode === 'view' && (
                     <DetailModal
@@ -146,7 +168,7 @@ const UserList = () => {
             <div className="pt-10">
                 <Pagination
                     currentPage={page}
-                    totalPages={Math.ceil((users?.total || users?.data?.length || 0)/limit) }
+                    totalPages={Math.ceil((users?.total || users?.data?.length || 0) / limit)}
                     onPageChange={setPage}
                 />
             </div>

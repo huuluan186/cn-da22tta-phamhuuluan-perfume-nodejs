@@ -41,6 +41,7 @@ export const path={
     ORDER_MANAGER: "order-manager",
     COUPON_MANAGER: "coupon-manager",
     REVIEW_MANAGER: "review-manager",
+    CONTACT_MANAGER: "contact-manager",
     ADD: "add",
     UPDATE: "update/:id",
     ASSIGN: "assign/:id"

@@ -33,6 +33,7 @@ export const getAllContactsService = async (query = {}) => {
 
         const { rows, count } = await db.Contact.findAndCountAll({
             where,
+            paranoid: false,
             order: [['createdAt', 'DESC']],
             offset: hasPagination ? offset : undefined,
             limit: hasPagination ? limitNum : undefined
@@ -69,3 +70,43 @@ export const updateContactStatusService = async (contactId, status) => {
     }
 };
 
+// Lấy chi tiết một contact (Admin)
+export const getContactDetailService = async (contactId) => {
+    try {
+        const contact = await db.Contact.findByPk(contactId, {
+            paranoid: false // lấy cả contact đã xóa
+        });
+
+        if (!contact) {
+            return { err: 1, msg: 'Contact not found' };
+        }
+
+        return {
+            err: 0,
+            msg: 'Get contact detail successfully',
+            response: contact
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Xóa mềm contact (Admin)
+export const deleteContactService = async (contactId) => {
+    try {
+        const contact = await db.Contact.findByPk(contactId);
+        
+        if (!contact) {
+            return { err: 1, msg: 'Contact not found' };
+        }
+
+        await contact.destroy();
+        
+        return {
+            err: 0,
+            msg: 'Contact deleted successfully'
+        };
+    } catch (error) {
+        throw error;
+    }
+};

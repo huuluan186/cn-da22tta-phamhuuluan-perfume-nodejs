@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate, CategoryLayout, CategoryList, CategoryCreate, CategoryUpdate, ProductLayout, AdminProductList, ProductCreate, ProductUpdate, OrderLayout, OrderList, CouponLayout, CouponList, CouponCreate, CouponAssign, ReviewLayout, ReviewList, StatisticLayout, StatisticDashboard} from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate, CategoryLayout, CategoryList, CategoryCreate, CategoryUpdate, ProductLayout, AdminProductList, ProductCreate, ProductUpdate, OrderLayout, OrderList, CouponLayout, CouponList, CouponCreate, CouponAssign, ReviewLayout, ReviewList, ContactLayout, ContactList, StatisticLayout, StatisticDashboard} from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
 import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
@@ -152,6 +152,9 @@ function App() {
                     <Route path={path.REVIEW_MANAGER} element={<ReviewLayout />}>
                         <Route index element={<ReviewList />} />
                         {/* <Route path={path.UPDATE} element={<ProductUpdate />} /> */}
+                    </Route>
+                    <Route path={path.CONTACT_MANAGER} element={<ContactLayout />}>
+                        <Route index element={<ContactList />} />
                     </Route>
                 </Route>
             </Routes>

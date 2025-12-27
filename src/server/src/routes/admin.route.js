@@ -1276,4 +1276,115 @@ router.get('/statistics/revenue-by-payment', verifyToken, isAdmin, statisticCont
  */
 router.get('/statistics/top-customers', verifyToken, isAdmin, statisticController.getTopCustomers);
 
+// ==================== CONTACTS ====================
+/**
+ * @swagger
+ * /admin/contacts:
+ *   get:
+ *     tags: [Admin - Contacts]
+ *     summary: "[ADMIN] Lấy tất cả liên hệ"
+ *     description: Lấy danh sách tất cả form liên hệ từ khách hàng với filter và phân trang. Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *       - in: query
+ *         name: status
+ *         schema:
+ *           type: string
+ *           enum: [new, replied, ignored]
+ *         description: Lọc theo trạng thái
+ *     responses:
+ *       200:
+ *         description: Lấy danh sách liên hệ thành công
+ */
+router.get('/contacts', verifyToken, isAdmin, contactController.getAllContactsController);
+
+/**
+ * @swagger
+ * /admin/contacts/{id}:
+ *   get:
+ *     tags: [Admin - Contacts]
+ *     summary: "[ADMIN] Lấy chi tiết liên hệ"
+ *     description: Lấy thông tin chi tiết một form liên hệ. Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Lấy chi tiết liên hệ thành công
+ *       404:
+ *         description: Không tìm thấy liên hệ
+ */
+router.get('/contacts/:id', verifyToken, isAdmin, contactController.getContactDetailController);
+
+/**
+ * @swagger
+ * /admin/contacts/{id}/status:
+ *   patch:
+ *     tags: [Admin - Contacts]
+ *     summary: "[ADMIN] Cập nhật trạng thái liên hệ"
+ *     description: Cập nhật trạng thái xử lý của form liên hệ. Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - status
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [new, replied, ignored]
+ *                 example: replied
+ *     responses:
+ *       200:
+ *         description: Cập nhật trạng thái thành công
+ */
+router.patch('/contacts/:id/status', verifyToken, isAdmin, contactController.updateContactStatusController);
+
+/**
+ * @swagger
+ * /admin/contacts/{id}:
+ *   delete:
+ *     tags: [Admin - Contacts]
+ *     summary: "[ADMIN] Xóa liên hệ"
+ *     description: Xóa mềm form liên hệ. Chỉ admin.
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Xóa liên hệ thành công
+ */
+router.delete('/contacts/:id', verifyToken, isAdmin, contactController.deleteContactController);
+
 export default router;

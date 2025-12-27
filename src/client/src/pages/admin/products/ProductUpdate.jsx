@@ -210,17 +210,32 @@ const ProductUpdate = () => {
         if (categoryIds.length === 0)
             err.categoryIds = "Vui lòng chọn ít nhất 1 danh mục";
 
-        const filledVariants = variants.filter(
-            (v) => +v.volume || +v.originalPrice || +v.stockQuantity);
+        // Kiểm tra từng variant
+        variants.forEach((v, i) => {
+            const hasVolume = v.volume && v.volume.toString().trim() !== "";
+            const hasPrice = v.originalPrice && v.originalPrice.toString().trim() !== "";
+            const hasStock = v.stockQuantity && v.stockQuantity.toString().trim() !== "";
 
-        filledVariants.forEach((v, i) => {
-            if (!+v.volume || !+v.originalPrice || !+v.stockQuantity) {
-                err[`variant_${i}`] = "Vui lòng nhập đủ: dung tích, giá và số lượng";
+            // Nếu đã nhập bất kỳ trường nào
+            const hasAnyField = hasVolume || hasPrice || hasStock;
+
+            if (hasAnyField) {
+                // Thì phải nhập đủ cả 3
+                if (!hasVolume || !hasPrice || !hasStock) {
+                    err[`variant_${i}`] = "Vui lòng nhập đầy đủ: dung tích, giá gốc và số lượng";
+                }
             }
         });
 
+        // Kiểm tra phiên bản mặc định (chỉ khi có variant hợp lệ)
+        const validVariants = variants.filter((v) =>
+            v.volume && v.volume.toString().trim() !== "" &&
+            v.originalPrice && v.originalPrice.toString().trim() !== "" &&
+            v.stockQuantity && v.stockQuantity.toString().trim() !== ""
+        );
+
         const hasDefault = variants.some((v) => v.isDefault);
-        if (filledVariants.length > 0 && !hasDefault) {
+        if (validVariants.length > 0 && !hasDefault) {
             toast.error("Phải chọn 1 phiên bản mặc định");
             return false;
         }
@@ -258,10 +273,20 @@ const ProductUpdate = () => {
                 return;
             }
 
-            // 2. Tạo variant mới (chỉ những chưa có id)
+            // 2. Tạo variant mới (chỉ những chưa có id VÀ đã điền đủ thông tin)
             const newVariants = variants.filter((v) => !v.id);
-            if (newVariants.length > 0) {
-                for (const v of newVariants) {
+            const validNewVariants = newVariants.filter(
+                (v) => +v.volume && +v.originalPrice && +v.stockQuantity
+            );
+
+            // Kiểm tra nếu có variant mới nhưng chưa điền đủ
+            if (newVariants.length > validNewVariants.length) {
+                toast.error("Có variant chưa nhập đầy đủ thông tin (dung tích, giá, số lượng). Vui lòng nhập đầy đủ hoặc xóa variant đó.");
+                return;
+            }
+
+            if (validNewVariants.length > 0) {
+                for (const v of validNewVariants) {
                     const variantPayload = {
                         volume: Number(v.volume),
                         originalPrice: Number(v.originalPrice),
@@ -494,52 +519,58 @@ const ProductUpdate = () => {
                 </div>
 
                 {variants.map((v, i) => (
-                    <div
-                        key={v.id || i}
-                        className="grid grid-cols-7 items-center gap-2 px-3 py-2 border-t"
-                    >
-                        <InputField
-                            value={v.volume}
-                            onChange={(e) => updateVariant(i, "volume", e.target.value)}
-                            className="!mb-0"
-                        />
-                        <InputField
-                            value={v.originalPrice}
-                            onChange={(e) =>
-                                updateVariant(i, "originalPrice", e.target.value)
-                            }
-                            className="!mb-0"
-                        />
-                        <InputField
-                            value={v.stockQuantity}
-                            onChange={(e) =>
-                                updateVariant(i, "stockQuantity", e.target.value)
-                            }
-                            className="!mb-0"
-                        />
-                        <InputField
-                            value={v.discountPercent}
-                            onChange={(e) =>
-                                updateVariant(i, "discountPercent", e.target.value)
-                            }
-                            className="!mb-0"
-                        />
-                        <div className="flex justify-center">
-                            <input
-                                type="radio"
-                                checked={v.isDefault}
-                                onChange={() => setDefaultVariant(i)}
+                    <div key={v.id || i}>
+                        <div
+                            className="grid grid-cols-7 items-center gap-2 px-3 py-2 border-t"
+                        >
+                            <InputField
+                                value={v.volume}
+                                onChange={(e) => updateVariant(i, "volume", e.target.value)}
+                                className="!mb-0"
                             />
+                            <InputField
+                                value={v.originalPrice}
+                                onChange={(e) =>
+                                    updateVariant(i, "originalPrice", e.target.value)
+                                }
+                                className="!mb-0"
+                            />
+                            <InputField
+                                value={v.stockQuantity}
+                                onChange={(e) =>
+                                    updateVariant(i, "stockQuantity", e.target.value)
+                                }
+                                className="!mb-0"
+                            />
+                            <InputField
+                                value={v.discountPercent}
+                                onChange={(e) =>
+                                    updateVariant(i, "discountPercent", e.target.value)
+                                }
+                                className="!mb-0"
+                            />
+                            <div className="flex justify-center">
+                                <input
+                                    type="radio"
+                                    checked={v.isDefault}
+                                    onChange={() => setDefaultVariant(i)}
+                                />
+                            </div>
+                            <div className="flex justify-center">
+                                <button
+                                    type="button"
+                                    onClick={() => deleteVariant(v.id, i)}
+                                    className="text-red-500 hover:text-red-700"
+                                >
+                                    ✕
+                                </button>
+                            </div>
                         </div>
-                        <div className="flex justify-center">
-                            <button
-                                type="button"
-                                onClick={() => deleteVariant(v.id, i)}
-                                className="text-red-500 hover:text-red-700"
-                            >
-                                ✕
-                            </button>
-                        </div>
+                        {errors[`variant_${i}`] && (
+                            <div className="px-3 pb-2">
+                                <p className="text-red-500 text-sm">{errors[`variant_${i}`]}</p>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

@@ -126,7 +126,18 @@ const ProductDetail = () => {
 
             window.dispatchEvent(new Event("favoritesUpdated"));
         } catch (err) {
-            console.error("Lỗi toggle favorite:", err);
+            // Check if error is 401 (chưa đăng nhập)
+            if (err.response?.status === 401) {
+                setInfoModal({
+                    show: true,
+                    message: "Vui lòng đăng nhập để thêm sản phẩm yêu thích",
+                    icon: <MdCancel className="text-orange-500 text-5xl" />,
+                    autoClose: 1500,
+                    //onClose: () => navigate(path.LOGIN)
+                });
+            } else {
+                console.error("Lỗi toggle favorite:", err);
+            }
         }
     };
 
@@ -162,12 +173,23 @@ const ProductDetail = () => {
             }
             await dispatch(getMyCart());
         } catch (err) {
-            setInfoModal({
-                show: true,
-                message: "Có lỗi xảy ra, vui lòng thử lại!",
-                icon: <MdCancel className="text-red-500 text-5xl" />,
-                autoClose: 2000
-            });
+            // Check if error is 401 (Unauthorized - chưa đăng nhập)
+            if (err.response?.status === 401) {
+                setInfoModal({
+                    show: true,
+                    message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng",
+                    icon: <MdCancel className="text-orange-500 text-5xl" />,
+                    autoClose: 1500,
+                    //onClose: () => navigate(path.LOGIN)
+                });
+            } else {
+                setInfoModal({
+                    show: true,
+                    message: "Có lỗi xảy ra, vui lòng thử lại!",
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            }
         }
     };
 

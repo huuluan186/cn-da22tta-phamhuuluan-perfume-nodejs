@@ -235,13 +235,34 @@ export const getAllUsersService = async (query={}) => {
 export const updateUserRoleService = async (userId, roleIds = []) => {
     const transaction = await db.sequelize.transaction();
     try {
-        const user = await db.User.findByPk(userId, { transaction });
+        const user = await db.User.findByPk(userId, { 
+            include: [
+                {
+                    model: db.Role,
+                    as: 'roles',
+                    attributes: ['name'],
+                    through: { attributes: [] }
+                }
+            ],
+            transaction 
+        });
 
         if (!user) {
             await transaction.rollback();
             return {
                 err: 1,
                 msg: 'User not found!',
+            };
+        }
+
+        // 🔥 Kiểm tra xem user hiện tại có phải admin không
+        const isAdmin = user.roles?.some(role => role.name === 'admin');
+        
+        if (isAdmin) {
+            await transaction.rollback();
+            return {
+                err: 1,
+                msg: 'Không thể thay đổi quyền của admin!',
             };
         }
 
