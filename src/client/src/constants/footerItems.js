@@ -19,20 +19,20 @@ const footerItems = [
     {
         title: 'Hướng dẫn',
         items: [
-            { type: 'a', href: '/chinh-sach-thanh-toan-va-huong-dan-mua-hang', label: 'Hướng dẫn mua hàng' },
-            { type: 'a', href: "/chinh-sach-thanh-toan-va-huong-dan-mua-hang", label: 'Hướng dẫn thanh toán' },
-            { type: 'a', href:"/chinh-sach-kiem-hang", label: 'Hướng dẫn kiểm hàng' },
-            { type: 'a', href: "/dieu-khoan-su-dung", label: 'Điều khoản sử dụng' },
+            { type: 'a', href: path.PUCHARSE_GUIDE, label: 'Hướng dẫn mua hàng' },
+            { type: 'a', href: path.PUCHARSE_GUIDE, label: 'Hướng dẫn thanh toán' },
+            { type: 'a', href: path.INSPECTION_GUIDE, label: 'Hướng dẫn kiểm hàng' },
+            { type: 'a', href: path.TERM_OF_USE, label: 'Điều khoản sử dụng' },
         ]
     },
     {
         title: 'Chính sách',
         items: [
-            { type: 'a', href: '/chinh-sach-mua-hang', label: 'Chính sách mua hàng' },
-            { type: 'a', href: "/chinh-sach-bao-mat-thong-tin", label: 'Chính sách bảo mật thông tin' },
-            { type: 'a', href:"/chinh-sach-giao-hang", label: 'Chính sách giao hàng' },
-            { type: 'a', href: "/chinh-sach-doi-tra-bao-hanh", label: 'Chính sách đổi trả - bảo hành' },
-            { type: 'a', href: "/chinh-sach-bao-mat-thanh-toan", label: 'Chính sách bảo mật thanh toán' },
+            { type: 'a', href: path.PURCHASE_POLICY, label: 'Chính sách mua hàng' },
+            { type: 'a', href: path.PRIVACY_POLICY, label: 'Chính sách bảo mật thông tin' },
+            { type: 'a', href: path.SHIPPING_POLICY, label: 'Chính sách giao hàng' },
+            { type: 'a', href: path.RETURN_POLICY, label: 'Chính sách đổi trả - bảo hành' },
+            { type: 'a', href: path.PAYMENT_SECURITY_POLICY, label: 'Chính sách bảo mật thanh toán' },
         ]
     },
 ]
@@ -43,15 +43,15 @@ const methodPayment = [
 ]
 
 const socialMedia = [
-    { img: facebook, label: 'Facebook', href: 'https://www.facebook.com/PerfumeStoreVN' },
-    { img: instagram, label: 'Instagram', href: 'https://www.instagram.com/perfumestorevn/' },
-    { img: ggmap, label: 'Google Maps', href: 'https://goo.gl/maps/3m3N1g1YwLJ2' },
+    { img: facebook, label: 'Facebook', href: 'https://www.facebook.com/huu.luan.791758/' },
+    { img: instagram, label: 'Instagram', href: 'https://www.instagram.com/21.yunglp/' },
+    { img: ggmap, label: 'Google Maps', href: 'https://maps.app.goo.gl/LLb4cUsJkc8qJakY6' },
 ]
 
 const contactItems = [
     { type: 'text', label: 'Hộ Kinh doanh PERFUMORA' },
     { type: 'text', label: 'Số ĐKKD 41H8185878 cấp ngày 24/3/2022 tại UBND phường Trà Vinh, tỉnh Vĩnh Long' },
-    { type: 'text', label: 'Địa chỉ: 123 Nguyễn Thiện Thành, phường Trà Vinh, tỉnh Vĩnh Long' },
+    { type: 'text', label: 'Địa chỉ: 126 Nguyễn Thiện Thành, phường Trà Vinh, tỉnh Vĩnh Long' },
     { type: 'text', label: 'Hotline: 0123 456 789' },
     { type: 'a', href: 'mailto: luanphamhuu2004@gmail.com', label: 'Email: luanphamhuu2004@gmail.com' },
 ]

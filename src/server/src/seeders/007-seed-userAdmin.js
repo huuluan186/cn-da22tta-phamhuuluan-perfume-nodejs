@@ -2,9 +2,11 @@
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 
 export async function up(queryInterface, Sequelize) {
-    const admins = JSON.parse(fs.readFileSync('./data/userAdmin.json', 'utf8'));
+    const usersFile = path.join(process.cwd(), 'data', 'userAdmin.json');
+    const admins = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
 
     // 1️⃣ Lấy tất cả roles từ DB
     const rolesInDB = await queryInterface.sequelize.query(
@@ -45,18 +47,29 @@ export async function up(queryInterface, Sequelize) {
 }
 
 export async function down(queryInterface, Sequelize) {
-    const admins = JSON.parse(fs.readFileSync('./data/admins.json', 'utf8'));
+    const admins = JSON.parse(fs.readFileSync('./data/userAdmin.json', 'utf8'));
     const emails = admins.map(a => a.email);
 
+    if (!emails.length) return;
+
     const users = await queryInterface.sequelize.query(
-        `SELECT id FROM "Users" WHERE email IN (${emails.map(e => `'${e}'`).join(",")})`,
+        `
+        SELECT id 
+        FROM \`Users\` 
+        WHERE email IN (${emails.map(e => `'${e}'`).join(",")})
+        `,
         { type: Sequelize.QueryTypes.SELECT }
     );
 
     const userIds = users.map(u => u.id);
 
     if (userIds.length) {
-        await queryInterface.bulkDelete('UserRoles', { userId: userIds }, {});
-        await queryInterface.bulkDelete('Users', { id: userIds }, {});
+        await queryInterface.bulkDelete('UserRoles', {
+            userId: userIds
+        });
+
+        await queryInterface.bulkDelete('Users', {
+            id: userIds
+        });
     }
 }

@@ -57,7 +57,23 @@ export const orderIncludes = [
                         'createdAt', 'updatedAt', 'deletedAt', 
                         'isDefault'
                     ] 
-                }
+                },
+                include: [
+                    {
+                        model: db.Product,
+                        as: 'product',
+                        attributes: ['id', 'name'], 
+                        include: [
+                            {
+                                model: db.ProductImage,
+                                as: 'images',  // association đúng tên
+                                attributes: ['id', 'url', 'isThumbnail', 'sortOrder'],
+                                separate: true, // quan trọng khi 1 product có nhiều ảnh
+                                order: [['sortOrder', 'ASC']], // sắp xếp theo thứ tự
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },

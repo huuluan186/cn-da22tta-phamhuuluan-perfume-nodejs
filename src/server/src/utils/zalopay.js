@@ -25,7 +25,7 @@ export const createZaloPayOrder = async ({ orderId, app_trans_id, amount, descri
         amount,
         description,
         bank_code: "",
-        app_user: "user123" // giống mẫu Zalopay
+        app_user: "user123", // giống mẫu Zalopay,
     };
 
     // 🔥 Chuỗi MAC chuẩn ZaloPay:

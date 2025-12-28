@@ -2,6 +2,7 @@ import actionTypes from "../actions/actionTypes";
 
 const initState = {
     user: null,
+    users: null,
     msg:'',
     update: false,
     loading: true, //để chờ fetch user khi reload trang
@@ -23,6 +24,20 @@ const userReducer = (state = initState, action) => {
                 msg: action.msg || 'Failed to get current user',
                 loading: false
             }
+        case actionTypes.GET_USERS_SUCCESS:
+            return {
+                ...state,
+                users: action.users,
+                loading: false
+            };
+
+        case actionTypes.GET_USERS_FAIL:
+            return {
+                ...state,
+                users: [],
+                msg: action.msg || '',
+                loading: false
+            };
         case actionTypes.LOGOUT:
             return { ...initState, loading: false };
         default:

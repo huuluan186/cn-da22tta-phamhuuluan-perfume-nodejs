@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes'
-import { apiGetCurrentUser, apiUpdateCurrentUser } from '../../api/user'
+import { apiGetCurrentUser, apiGetAllUsers } from '../../api/user'
 import { logout } from './auth';
 
 export const getCurrentUser = () => async (dispatch) => {
@@ -34,5 +34,34 @@ export const getCurrentUser = () => async (dispatch) => {
             dispatch(logout());
         }
         return { data: { err: 1, msg: 'Lỗi khi lấy thông tin người dùng' } };
+    }
+};
+
+// ================= GET USERS =================
+export const getAllUsers = (params = {}) => async (dispatch) => {
+    try {
+        const response = await apiGetAllUsers(params);
+
+        if (response?.data?.err === 0) {
+            dispatch({
+                type: actionTypes.GET_USERS_SUCCESS,
+                users: response.data.response
+            });
+        } else {
+            dispatch({
+                type: actionTypes.GET_USERS_FAIL,
+                msg: response?.data?.msg
+            });
+        }
+
+        return response?.data;
+    } catch (error) {
+        if (error.response?.status === 401) {
+            dispatch(logout());
+        }
+        dispatch({
+            type: actionTypes.GET_USERS_FAIL,
+            msg: 'Failed to get users'
+        });
     }
 };

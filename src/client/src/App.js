@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { path } from "./constants/path";
-import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, Cart, Checkout } from './pages/index'
+import { Homepage, Register, Login, AccountInfo, OrderHistory, ResetPassword, ChangePassword, AddressBook, ProductList, ProductDetail, Wishlist, MyVoucher, BrandsListPage, BrandDetailPage, Cart, Checkout, Contact, Introduce, PurchaseGuide, InspectionGuide, TermOfUse, PurchasePolicy, PrivacyPolicy, ReturnPolicy, ShippingPolicy, PaymentSecurityPolicy, UserLayout, UserEditRole, UserList, RoleLayout, RoleList, RoleUpdate, RoleCreate, BrandLayout, BrandList, BrandCreate, BrandUpdate, CategoryLayout, CategoryList, CategoryCreate, CategoryUpdate, ProductLayout, AdminProductList, ProductCreate, ProductUpdate, OrderLayout, OrderList, CouponLayout, CouponList, CouponCreate, CouponAssign, ReviewLayout, ReviewList, ContactLayout, ContactList, StatisticLayout, StatisticDashboard} from './pages/index'
 import { Callback, ProtectedRoute, QuickViewModal } from "./components/index";
-import { MainLayout, AccountLayout, CollectionLayout } from "./layouts/index";
+import { MainLayout, AccountLayout, CollectionLayout, AdminLayout } from "./layouts/index";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getCurrentUser } from "./store/actions/user";
@@ -88,10 +88,75 @@ function App() {
                             </ProtectedRoute>
                         }  
                     />
+                    <Route path={path.BRANDS} element={<BrandsListPage/>} />
+                    <Route path={path.BRAND_DETAIL} element={<BrandDetailPage/>} />
                     <Route path={path.PRODUCT_DETAIL} element={<ProductDetail/>} />
+                    <Route path={path.CONTACT} element={<Contact/>} />
+                    <Route path={path.INTRODUCE} element={<Introduce/>} />
+                    <Route path={path.PUCHARSE_GUIDE} element={<PurchaseGuide/>} />
+                    <Route path={path.INSPECTION_GUIDE} element={<InspectionGuide/>} />
+                    <Route path={path.TERM_OF_USE} element={<TermOfUse/>} />
+                    <Route path={path.PURCHASE_POLICY} element={<PurchasePolicy/>} />
+                    <Route path={path.PRIVACY_POLICY} element={<PrivacyPolicy/>} />
+                    <Route path={path.RETURN_POLICY} element={<ReturnPolicy/>} />
+                    <Route path={path.SHIPPING_POLICY} element={<ShippingPolicy/>} />
+                    <Route path={path.PAYMENT_SECURITY_POLICY} element={<PaymentSecurityPolicy/>} />
                     <Route path="*" element={<Navigate to={path.HOME} replace />} />
                 </Route>
                 <Route path={path.CHECKOUT} element={<Checkout/>} />
+                {/* Admin routes */}
+                <Route
+                    path={path.ADMIN}
+                    element={
+                        <ProtectedRoute requireAdmin>
+                            <AdminLayout />
+                        </ProtectedRoute>
+                    }
+                >   
+                <Route index element={<Navigate to={path.ADMIN_DASHBOARD} replace />} />
+                    <Route path={path.ADMIN_DASHBOARD} element={<StatisticLayout />}>
+                        <Route index element={<StatisticDashboard />} />
+                    </Route>
+                    <Route path={path.USER_MANAGER} element={<UserLayout />}>
+                        <Route index element={<UserList />} />
+                        <Route path={path.UPDATE} element={<UserEditRole />} />
+                    </Route>
+                    <Route path={path.ROLE_MANAGER} element={<RoleLayout />}>
+                        <Route index element={<RoleList />} />
+                        <Route path={path.ADD} element={<RoleCreate />} />
+                        <Route path={path.UPDATE} element={<RoleUpdate />} />
+                    </Route>
+                    <Route path={path.BRAND_MANAGER} element={<BrandLayout />}>
+                        <Route index element={<BrandList />} />
+                        <Route path={path.ADD} element={<BrandCreate />} />
+                        <Route path={path.UPDATE} element={<BrandUpdate />} />
+                    </Route>
+                    <Route path={path.CATEGORY_MANAGER} element={<CategoryLayout />}>
+                        <Route index element={<CategoryList />} />
+                        <Route path={path.ADD} element={<CategoryCreate />} />
+                        <Route path={path.UPDATE} element={<CategoryUpdate />} />
+                    </Route>
+                    <Route path={path.PRODUCT_MANAGER} element={<ProductLayout />}>
+                        <Route index element={<AdminProductList />} />
+                        <Route path={path.ADD} element={<ProductCreate />} />
+                        <Route path={path.UPDATE} element={<ProductUpdate />} />
+                    </Route>
+                    <Route path={path.ORDER_MANAGER} element={<OrderLayout />}>
+                        <Route index element={<OrderList />} />
+                    </Route>
+                    <Route path={path.COUPON_MANAGER} element={<CouponLayout />}>
+                        <Route index element={<CouponList />} />
+                        <Route path={path.ADD} element={<CouponCreate />} />
+                        <Route path={path.ASSIGN} element={<CouponAssign />} />
+                    </Route>
+                    <Route path={path.REVIEW_MANAGER} element={<ReviewLayout />}>
+                        <Route index element={<ReviewList />} />
+                        {/* <Route path={path.UPDATE} element={<ProductUpdate />} /> */}
+                    </Route>
+                    <Route path={path.CONTACT_MANAGER} element={<ContactLayout />}>
+                        <Route index element={<ContactList />} />
+                    </Route>
+                </Route>
             </Routes>
 
             <ToastContainer

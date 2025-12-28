@@ -3,6 +3,7 @@ import * as utils from '../utils/index.js';
 import moment from 'moment';
 import { nanoid } from 'nanoid';
 import { createZaloPayOrder, formatPaginatedResponse,getPagination, orderIncludes } from '../utils/index.js';
+import { autoCreateAndAssignCouponForUser } from './coupon.js';
 
 // Tạo đơn hàng từ giỏ hàng
 export const createOrderService = async (userId, addressId, couponCode, paymentMethod = "COD") => {
@@ -145,25 +146,60 @@ export const createOrderService = async (userId, addressId, couponCode, paymentM
                 description: `Thanh toán đơn hàng #${newOrder.id}`
             });
 
-            // Lưu lại để callback tìm được đơn
-            await newOrder.update({
-                paymentGatewayData: {
-                    app_trans_id: appTransId,
-                    order_url: zaloOrder.order_url,
-                    created_at: new Date(),
-                    couponId: appliedCoupon ? appliedCoupon.id : null  // Lưu tạm để callback dùng
+            // ✅ SANDBOX: coi như thanh toán thành công
+            if (zaloOrder.return_code === 1) {
+                // 1️⃣ Update order
+                await newOrder.update({
+                    paymentStatus: 'Paid',
+                    orderStatus: 'Processing',
+                    paymentTransactionId: zaloOrder.order_token,
+                    paymentGatewayData: {
+                        sandbox: true,
+                        app_trans_id: appTransId,
+                        zp_token: zaloOrder.order_token,
+                        order_url: zaloOrder.order_url,
+                        paid_at: new Date(),
+                        couponId: appliedCoupon ? appliedCoupon.id : null
+                    }
+                }, { transaction });
+
+                // 2️⃣ Trừ kho
+                const stockUpdate = await utils.updateProductStock(cartItems, transaction);
+                if (stockUpdate.err) {
+                    await transaction.rollback();
+                    return stockUpdate;
                 }
-            }, { transaction });
 
-            await transaction.commit()
+                // 3️⃣ Đánh dấu coupon
+                if (appliedCoupon) {
+                    const userCoupon = await db.UserCoupon.findOne({
+                        where: {
+                            userId,
+                            couponId: appliedCoupon.id,
+                            status: "unused"
+                        },
+                        transaction
+                    });
+                    if (userCoupon) {
+                        await utils.markUserCouponUsed(userCoupon, transaction);
+                    }
+                }
 
-            return {
-                err: 0,
-                msg: "Redirect to ZaloPay",
-                order: newOrder,
-                paymentUrl: zaloOrder.order_url, // hoặc QR, app link...
-                appTransId
+                // 4️⃣ Xóa giỏ hàng
+                await db.CartItem.destroy({ where: { cartId: cart.id }, transaction });
+
+                await transaction.commit();
+
+                return {
+                    err: 0,
+                    msg: "Payment success (ZaloPay sandbox)",
+                    order: newOrder,
+                    paymentUrl: zaloOrder.order_url
+                };
             }
+
+            await transaction.rollback();
+            return { err: 1, msg: "ZaloPay payment failed" };
         }
     } catch (error) {
         await transaction.rollback();
@@ -183,6 +219,8 @@ export const getMyOrdersService = async (userId, query = {}) => {
 
         const { rows, count } = await db.Order.findAndCountAll({
             where,
+            distinct: true,
+            col: 'id',
             attributes: { exclude: ['paymentGatewayData', 'addressId'] },
             include: orderIncludes,
             order: [['createdAt', 'DESC']],
@@ -211,14 +249,161 @@ export const getAllOrdersService = async (query = {}) => {
 
         const { rows, count } = await db.Order.findAndCountAll({
             where,
+            distinct: true,              
+            col: 'id',
             attributes: { exclude: ['paymentGatewayData', 'addressId'] },
-            include: orderIncludes,
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 
         return formatPaginatedResponse(rows, count, hasPagination ? pageNum : null, hasPagination ? limitNum : null);
     } catch (error) {
+        throw error;
+    }
+};
+
+// Xem chi tiết đơn hàng (Admin) 
+export const getOrderByIdService = async (orderId) => {
+    try {
+        const order = await db.Order.findByPk(orderId, {
+            include: orderIncludes
+        });
+
+        if (!order) {
+            return { err: 1, msg: 'Order not found' };
+        }
+
+        return { err: 0, msg: 'Order fetched successfully', order };
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng (Admin duyệt) 
+export const confirmOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép xác nhận khi đơn đang ở trạng thái Pending, Processing
+        if (order.orderStatus !== 'Pending' && order.orderStatus !== 'Processing') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", không thể xác nhận lại` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Confirmed
+        await order.update(
+            { orderStatus: 'Confirmed' },
+            { transaction }
+        );
+
+        // Tự động kiểm tra và gán coupon cho user (ORDER5TH và MILESTONE)
+        // Vì hệ thống không giao hàng, Confirmed là trạng thái cuối cùng
+        const couponResult = await autoCreateAndAssignCouponForUser(order.userId, transaction);
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã được xác nhận thành công', 
+            order,
+            newCoupons: couponResult // Thông tin về coupon mới được gán
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng sang Shipped (Admin)
+export const shipOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép ship khi đơn đang ở trạng thái Confirmed
+        if (order.orderStatus !== 'Confirmed') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", chỉ có thể ship đơn đã Confirmed` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Shipped
+        await order.update(
+            { orderStatus: 'Shipped' },
+            { transaction }
+        );
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã được chuyển sang trạng thái giao hàng', 
+            order 
+        };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+// Cập nhật trạng thái đơn hàng sang Completed và tự động gán coupon (Admin)
+export const completeOrderService = async (orderId) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const order = await db.Order.findByPk(orderId, { transaction });
+        
+        if (!order) {
+            await transaction.rollback();
+            return { err: 1, msg: 'Không tìm thấy đơn hàng' };
+        }
+
+        // Chỉ cho phép complete khi đơn đang ở trạng thái Shipped
+        if (order.orderStatus !== 'Shipped') {
+            await transaction.rollback();
+            return { 
+                err: 1, 
+                msg: `Đơn hàng đang ở trạng thái "${order.orderStatus}", chỉ có thể hoàn thành đơn đã Shipped` 
+            };
+        }
+
+        // Cập nhật trạng thái thành Completed
+        await order.update(
+            { orderStatus: 'Completed' },
+            { transaction }
+        );
+
+        // Tự động kiểm tra và gán coupon cho user (ORDER5TH và MILESTONE)
+        const couponResult = await autoCreateAndAssignCouponForUser(order.userId, transaction);
+
+        await transaction.commit();
+
+        return { 
+            err: 0, 
+            msg: 'Đơn hàng đã hoàn thành', 
+            order,
+            newCoupons: couponResult // Thông tin về coupon mới được gán
+        };
+    } catch (error) {
+        await transaction.rollback();
         throw error;
     }
 };

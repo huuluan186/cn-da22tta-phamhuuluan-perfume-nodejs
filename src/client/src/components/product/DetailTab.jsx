@@ -66,7 +66,7 @@ const DetailTab = ({ product, selectedVariant  }) => {
             {product?.description && (
                 <div className="max-w-4xl">
                     <div
-                        className="prose prose-sm text-gray-700 leading-relaxed text-justify"
+                        className="prose prose-sm text-gray-700 leading-relaxed text-justify whitespace-pre-wrap"
                         dangerouslySetInnerHTML={{ __html: product.description }}
                     />
                 </div>

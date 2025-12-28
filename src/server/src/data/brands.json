@@ -1,40 +1,306 @@
 [
-    { "id": "1", "name": "Christian Dior", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-christian-dior.png" },
-    { "id": "2", "name": "Chanel", "country": "France", "logoUrl": "https://upload.wikimedia.org/wikipedia/en/9/92/Chanel_logo_interlocking_cs.svg" },
-    { "id": "3", "name": "Gucci", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-gucci.png" },
-    { "id": "4", "name": "Versace", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-versace.png" },
-    { "id": "5", "name": "Burberry", "country": "United Kingdom", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-burberry.png" },
-    { "id": "6", "name": "Yves Saint Laurent", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-yves-saint-laurent.png" },
-    { "id": "7", "name": "Creed", "country": "France", "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Creed_%28Logo%29.png" },
-    { "id": "8", "name": "Tom Ford", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-tom-ford.png" },
-    { "id": "9", "name": "Calvin Klein", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-calvin-klein.png" },
-    { "id": "10", "name": "Jo Malone", "country": "United Kingdom", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-jo-malone.png" },
-    { "id": "11", "name": "Maison Francis Kurkdjian", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-maison-francis-kurkdjian.png" },
-    { "id": "12", "name": "Giorgio Armani", "country": "Italy", "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Giorgio_Armani.svg" },
-    { "id": "13", "name": "Lancôme", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-lancome.png" },
-    { "id": "14", "name": "Hermès", "country": "France", "logoUrl": "https://upload.wikimedia.org/wikipedia/en/e/e4/Herm%C3%A8s.svg" },
-    { "id": "15", "name": "Bvlgari", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-bvlgari.png" },
-    { "id": "16", "name": "Prada", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-prada.png" },
-    { "id": "17", "name": "Montblanc", "country": "Germany", "logoUrl": "https://upload.wikimedia.org/wikipedia/en/2/2c/Montblanc_Logo.svg" },
-    { "id": "18", "name": "Valentino", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-valentino.png" },
-    { "id": "19", "name": "Penhaligon’s", "country": "United Kingdom", "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Penhaligon%27s_logo.svg" },
-    { "id": "20", "name": "Diptyque", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-diptyque.png" },
-    { "id": "21", "name": "Byredo", "country": "Sweden", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-byredo.png" },
-    { "id": "22", "name": "Le Labo", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-le-labo.png" },
-    { "id": "23", "name": "Narciso Rodriguez", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-narciso-rodriguez.png" },
-    { "id": "24", "name": "Jean Paul Gaultier", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-jean-paul-gaultier.png" },
-    { "id": "25", "name": "Paco Rabanne", "country": "Spain", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-paco-rabanne.png" },
-    { "id": "26", "name": "Thierry Mugler", "country": "France", "logoUrl": "https://logohistory.net/wp-content/uploads/2024/02/Thierry-Mugler-Logo.png" },
-    { "id": "27", "name": "Dolce & Gabbana", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-dolce-gabbana.png" },
-    { "id": "28", "name": "Salvatore Ferragamo", "country": "Italy", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-salvatore-ferragamo.png" },
-    { "id": "29", "name": "Carolina Herrera", "country": "Venezuela", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-carolina-herrera.png" },
-    { "id": "30", "name": "Victoria’s Secret", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-victorias-secret.png" },
-    { "id": "31", "name": "Elizabeth Arden", "country": "United States", "logoUrl": "https://logoeps.com/wp-content/uploads/2012/10/elizabeth-arden-logo-vector.png" },
-    { "id": "32", "name": "Ralph Lauren", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-ralph-lauren.png" },
-    { "id": "33", "name": "Kenzo", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-kenzo.png" },
-    { "id": "34", "name": "Montale", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-montale.png" },
-    { "id": "35", "name": "Amouage", "country": "Oman", "logoUrl": "https://thefragranceclinic.com.au/wp-content/uploads/2023/01/amouage-australia.png" },
-    { "id": "36", "name": "Jimmy Choo", "country": "United Kingdom", "logoUrl": "https://1000logos.net/wp-content/uploads/2022/07/Jimmy-Choo-Logo-1996.png" },
-    { "id": "37", "name": "Louis Vuitton", "country": "France", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-louis-vuitton.png" },
-    { "id": "38", "name": "Marc Jacobs", "country": "United States", "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-marc-jacobs.png" }
+  {
+    "id": "1",
+    "name": "Christian Dior",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-christian-dior.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-dior.jpg",
+    "description": "Christian Dior là thương hiệu thời trang cao cấp đến từ Pháp, nổi tiếng với các dòng nước hoa sang trọng, tinh tế và đầy quyến rũ."
+  },
+  {
+    "id": "2",
+    "name": "Chanel",
+    "country": "France",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/9/92/Chanel_logo_interlocking_cs.svg",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-chanel.jpg",
+    "description": "Chanel là biểu tượng của sự thanh lịch và đẳng cấp, mang đến những mùi hương kinh điển vượt thời gian."
+  },
+  {
+    "id": "3",
+    "name": "Gucci",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-gucci.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-gucci.jpg",
+    "description": "Gucci là thương hiệu thời trang xa xỉ của Ý với phong cách táo bạo, hiện đại và đầy cá tính trong từng mùi hương."
+  },
+  {
+    "id": "4",
+    "name": "Versace",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-versace.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-versace.jpg",
+    "description": "Versace mang đến những dòng nước hoa gợi cảm, mạnh mẽ và đậm chất Ý dành cho những cá tính nổi bật."
+  },
+  {
+    "id": "5",
+    "name": "Burberry",
+    "country": "United Kingdom",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-burberry.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-burberry.jpg",
+    "description": "Burberry kết hợp tinh thần cổ điển Anh Quốc với phong cách hiện đại, tạo nên những mùi hương thanh lịch."
+  },
+  {
+    "id": "6",
+    "name": "Yves Saint Laurent",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-yves-saint-laurent.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-ysl.jpg",
+    "description": "Yves Saint Laurent nổi bật với các dòng nước hoa táo bạo, quyến rũ và đậm chất thời trang Pháp."
+  },
+  {
+    "id": "7",
+    "name": "Creed",
+    "country": "France",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Creed_%28Logo%29.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-creed.jpg",
+    "description": "Creed là thương hiệu nước hoa niche cao cấp, nổi tiếng với nguyên liệu tự nhiên và lịch sử lâu đời."
+  },
+  {
+    "id": "8",
+    "name": "Tom Ford",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-tom-ford.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-tom-ford.jpg",
+    "description": "Tom Ford mang đến những mùi hương sang trọng, gợi cảm và đầy cá tính dành cho giới thượng lưu."
+  },
+  {
+    "id": "9",
+    "name": "Calvin Klein",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-calvin-klein.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-calvin-klein.jpg",
+    "description": "Calvin Klein nổi tiếng với các dòng nước hoa tối giản, trẻ trung và dễ sử dụng hàng ngày."
+  },
+  {
+    "id": "10",
+    "name": "Jo Malone",
+    "country": "United Kingdom",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-jo-malone.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-jo-malone.jpg",
+    "description": "Jo Malone mang phong cách Anh Quốc tinh tế với các mùi hương nhẹ nhàng, thanh khiết và dễ layer."
+  },
+  {
+    "id": "11",
+    "name": "Maison Francis Kurkdjian",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-maison-francis-kurkdjian.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-mfk.jpg",
+    "description": "Maison Francis Kurkdjian nổi tiếng với những mùi hương niche tinh xảo, sang trọng và đầy nghệ thuật."
+  },
+  {
+    "id": "12",
+    "name": "Giorgio Armani",
+    "country": "Italy",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Giorgio_Armani.svg",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-armani.jpg",
+    "description": "Giorgio Armani mang phong cách Ý tinh tế, tối giản và sang trọng trong từng mùi hương."
+  },
+  {
+    "id": "13",
+    "name": "Lancôme",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-lancome.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-lancome.jpg",
+    "description": "Lancôme là thương hiệu Pháp nổi tiếng với những dòng nước hoa nữ tính, quyến rũ và thanh lịch."
+  },
+  {
+    "id": "14",
+    "name": "Hermès",
+    "country": "France",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/e/e4/Herm%C3%A8s.svg",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-hermes.jpg",
+    "description": "Hermès mang đến những mùi hương tinh tế, nghệ thuật và mang đậm dấu ấn thủ công Pháp."
+  },
+  {
+    "id": "15",
+    "name": "Bvlgari",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-bvlgari.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-bvlgari.jpg",
+    "description": "Bvlgari kết hợp sự sang trọng Ý với phong cách táo bạo và hiện đại trong từng chai nước hoa."
+  },
+  {
+    "id": "16",
+    "name": "Prada",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-prada.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-prada.jpg",
+    "description": "Prada mang đến những mùi hương độc đáo, hiện đại và mang tính nghệ thuật cao."
+  },
+  {
+    "id": "17",
+    "name": "Montblanc",
+    "country": "Germany",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/en/2/2c/Montblanc_Logo.svg",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-montblanc.jpg",
+    "description": "Montblanc nổi tiếng với phong cách nam tính, lịch lãm và sang trọng."
+  },
+  {
+    "id": "18",
+    "name": "Valentino",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-valentino.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-valentino.jpg",
+    "description": "Valentino mang đến những mùi hương lãng mạn, sang trọng và đậm chất Ý."
+  },
+  {
+    "id": "19",
+    "name": "Penhaligon’s",
+    "country": "United Kingdom",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Penhaligon%27s_logo.svg",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-penhaligons.jpg",
+    "description": "Penhaligon’s là thương hiệu nước hoa cổ điển Anh Quốc với phong cách hoàng gia và độc đáo."
+  },
+  {
+    "id": "20",
+    "name": "Diptyque",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-diptyque.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-diptyque.jpg",
+    "description": "Diptyque nổi tiếng với các mùi hương nghệ thuật, tinh tế và giàu cảm xúc."
+  },
+  {
+    "id": "21",
+    "name": "Byredo",
+    "country": "Sweden",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-byredo.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-byredo.jpg",
+    "description": "Byredo mang phong cách Bắc Âu tối giản, hiện đại và đầy chiều sâu cảm xúc."
+  },
+  {
+    "id": "22",
+    "name": "Le Labo",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-le-labo.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-le-labo.jpg",
+    "description": "Le Labo nổi tiếng với nước hoa thủ công, cá nhân hóa và đậm chất nghệ thuật."
+  },
+  {
+    "id": "23",
+    "name": "Narciso Rodriguez",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-narciso-rodriguez.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-narciso.jpg",
+    "description": "Narciso Rodriguez mang phong cách gợi cảm, tinh tế và rất đặc trưng."
+  },
+  {
+    "id": "24",
+    "name": "Jean Paul Gaultier",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-jean-paul-gaultier.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-jpg.jpg",
+    "description": "Jean Paul Gaultier nổi bật với phong cách táo bạo, cá tính và không giới hạn."
+  },
+  {
+    "id": "25",
+    "name": "Paco Rabanne",
+    "country": "Spain",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-paco-rabanne.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-paco.jpg",
+    "description": "Paco Rabanne mang đến những mùi hương mạnh mẽ, trẻ trung và đầy năng lượng."
+  },
+  {
+    "id": "26",
+    "name": "Thierry Mugler",
+    "country": "France",
+    "logoUrl": "https://logohistory.net/wp-content/uploads/2024/02/Thierry-Mugler-Logo.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-mugler.jpg",
+    "description": "Thierry Mugler nổi tiếng với các mùi hương độc lạ, đậm cá tính và khác biệt."
+  },
+  {
+    "id": "27",
+    "name": "Dolce & Gabbana",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-dolce-gabbana.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-dg.jpg",
+    "description": "Dolce & Gabbana mang phong cách Địa Trung Hải gợi cảm và sang trọng."
+  },
+  {
+    "id": "28",
+    "name": "Salvatore Ferragamo",
+    "country": "Italy",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-salvatore-ferragamo.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-ferragamo.jpg",
+    "description": "Salvatore Ferragamo mang phong cách cổ điển Ý kết hợp sự tinh tế hiện đại."
+  },
+  {
+    "id": "29",
+    "name": "Carolina Herrera",
+    "country": "Venezuela",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-carolina-herrera.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-carolina.jpg",
+    "description": "Carolina Herrera nổi tiếng với những mùi hương sang trọng, gợi cảm và nữ tính."
+  },
+  {
+    "id": "30",
+    "name": "Victoria’s Secret",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-victorias-secret.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-vs.jpg",
+    "description": "Victoria’s Secret mang đến những mùi hương ngọt ngào, trẻ trung và quyến rũ."
+  },
+  {
+    "id": "31",
+    "name": "Elizabeth Arden",
+    "country": "United States",
+    "logoUrl": "https://logoeps.com/wp-content/uploads/2012/10/elizabeth-arden-logo-vector.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-arden.jpg",
+    "description": "Elizabeth Arden nổi tiếng với các mùi hương thanh lịch, cổ điển và dễ dùng."
+  },
+  {
+    "id": "32",
+    "name": "Ralph Lauren",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-ralph-lauren.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-ralph.jpg",
+    "description": "Ralph Lauren mang phong cách Mỹ cổ điển, nam tính và đầy tinh thần tự do."
+  },
+  {
+    "id": "33",
+    "name": "Kenzo",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-kenzo.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-kenzo.jpg",
+    "description": "Kenzo mang đến những mùi hương sáng tạo, trẻ trung và đầy màu sắc."
+  },
+  {
+    "id": "34",
+    "name": "Montale",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-montale.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-montale.jpg",
+    "description": "Montale nổi tiếng với các mùi hương đậm, lưu hương lâu và mang phong cách Trung Đông."
+  },
+  {
+    "id": "35",
+    "name": "Amouage",
+    "country": "Oman",
+    "logoUrl": "https://thefragranceclinic.com.au/wp-content/uploads/2023/01/amouage-australia.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-amouage.jpg",
+    "description": "Amouage là thương hiệu niche cao cấp với những mùi hương xa xỉ và phức tạp."
+  },
+  {
+    "id": "36",
+    "name": "Jimmy Choo",
+    "country": "United Kingdom",
+    "logoUrl": "https://1000logos.net/wp-content/uploads/2022/07/Jimmy-Choo-Logo-1996.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-jimmy-choo.jpg",
+    "description": "Jimmy Choo mang đến những mùi hương gợi cảm, hiện đại và đầy quyến rũ."
+  },
+  {
+    "id": "37",
+    "name": "Louis Vuitton",
+    "country": "France",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-louis-vuitton.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-lv.jpg",
+    "description": "Louis Vuitton mang đến những mùi hương sang trọng, đậm chất du hành và di sản Pháp."
+  },
+  {
+    "id": "38",
+    "name": "Marc Jacobs",
+    "country": "United States",
+    "logoUrl": "https://theme.hstatic.net/1000340570/1000964732/14/logo-brand-marc-jacobs.png",
+    "posterUrl": "https://theme.hstatic.net/1000340570/1000964732/14/brand-banner-marc-jacobs.jpg",
+    "description": "Marc Jacobs nổi tiếng với những mùi hương trẻ trung, sáng tạo và hiện đại."
+  }
 ]

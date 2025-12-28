@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../store/actions/category";
 import { getAllBrands } from "../../store/actions/brand";
 import { path } from '../../constants/path'
+import { useNavigate } from "react-router-dom";
+import { toSlug } from "../../utils";
 
 const { MdKeyboardArrowDown } = icons;
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const location = useLocation();
     const { categories } = useSelector(state => state.category);
     const { brands } = useSelector(state => state.brand);
@@ -20,7 +23,8 @@ const Navbar = () => {
     const dynamicNavbarItems = [...navbarItems];
     dynamicNavbarItems[2].submenu = brands.map(brand => ({
         label: brand.name,
-        path: `/nuoc-hoa/${brand.name}`
+        path: `${path.BRANDS}/${toSlug(brand.name)}`,
+        state: { brandId: brand.id }
     }));
     dynamicNavbarItems[3].submenu = categories.map(category => ({
         label: category.name,
@@ -38,18 +42,20 @@ const Navbar = () => {
                 {dynamicNavbarItems.map((item, index) => (
                     <li 
                         key={item.label}
-                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-primary/30"
+                        className="flex-1 relative group transition-colors duration-200 text-base sm:text-sm md:text-lg text-center hover:bg-primary/80 hover:text-white"
                     >
                         <NavLink 
                             to={item.path} 
                              className={({ isActive }) => {
-
+                                const isBrandActive = location.pathname.startsWith(path.BRANDS);
                                 const isCollectionActive = location.pathname.startsWith(path.COLLECTIONS);
 
                                 const customActive =
-                                index === 3   // BỘ SƯU TẬP
-                                    ? isCollectionActive
-                                    : isActive;
+                                    index === 2   // THƯƠNG HIỆU
+                                        ? isBrandActive
+                                        : index === 3 // BỘ SƯU TẬP
+                                        ? isCollectionActive
+                                        : isActive;
 
                                 return `block py-2 font-semibold hover:font-bold ${
                                     customActive 
@@ -58,6 +64,7 @@ const Navbar = () => {
                                 } flex items-center justify-center gap-1.5`;
                             }}
                         >
+                            {item?.icon && <item.icon className="inline-block mr-1 text-lg" />}
                             {item?.label}
                             {item?.hasDropdown && (
                                 <span className="inline-block transition-transform duration-700 ease-in-out">
@@ -71,7 +78,7 @@ const Navbar = () => {
                             <DropdownMenu 
                                 items={item.submenu.map(sub => ({
                                     label: sub.label,
-                                    onClick: () => { window.location.href = sub.path }
+                                    onClick: () => navigate(sub.path, { state: sub.state })
                                 }))}
                                 width={item.label === 'THƯƠNG HIỆU' ? 'w-[160vh]' : 'w-72'}
                                 align="center"

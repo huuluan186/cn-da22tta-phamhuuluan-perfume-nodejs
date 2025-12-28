@@ -2,6 +2,7 @@ import db from '../models/index.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import {v4} from 'uuid'
+import { autoCreateAndAssignCouponForUser } from './coupon.js'
 
 if (!process.env.SECRET_KEY) {
     console.error('❌ Missing SECRET_KEY in .env');
@@ -14,24 +15,44 @@ const hashPassword = password => bcrypt.hashSync(password,bcrypt.genSaltSync(12)
 export const registerService = async ({ firstname, lastname, password, email}, isSelfRegister = true) => {
     const transaction = await db.sequelize.transaction();
     try {
-        // 1. Kiểm tra email có trùng hay không
-        const existingUser = await db.User.findOne({ where: {email}, transaction });
-        if (existingUser) {
-            await transaction.rollback();
-            return { err: 1, msg: 'Email đã được sử dụng!'};
-        } 
+        // 1. Kiểm tra email có trùng hay không (bao gồm cả soft deleted)
+        const existingUser = await db.User.findOne({ 
+            where: { email }, 
+            paranoid: false, // Tìm cả user đã xóa mềm
+            transaction 
+        });
 
-        // 2. Tạo user mới
-        const newUser = await db.User.create(
-            {
-                id: v4(),
-                firstname,
-                lastname,
-                email,
-                password: hashPassword(password),
-            },
-            { transaction }
-        );
+        let newUser;
+
+        if (existingUser) {
+            // Nếu user đã bị xóa mềm -> Restore và cập nhật thông tin
+            if (existingUser.deletedAt) {
+                await existingUser.restore({ transaction });
+                
+                // Cập nhật thông tin mới
+                newUser = await existingUser.update({
+                    firstname,
+                    lastname,
+                    password: hashPassword(password),
+                }, { transaction });
+            } else {
+                // Nếu user vẫn còn active -> Báo lỗi trùng email
+                await transaction.rollback();
+                return { err: 1, msg: 'Email đã được sử dụng!' };
+            }
+        } else {
+            // 2. Nếu chưa có -> Tạo user mới
+            newUser = await db.User.create(
+                {
+                    id: v4(),
+                    firstname,
+                    lastname,
+                    email,
+                    password: hashPassword(password),
+                },
+                { transaction }
+            );
+        }
 
         // 3. TÌM ROLE CUSTOMER RỒI GÁN
         const customerRole = await db.Role.findOne({
@@ -44,9 +65,16 @@ export const registerService = async ({ firstname, lastname, password, email}, i
             console.error('ROLE CUSTOMER KHÔNG TỒN TẠI TRONG DATABASE!');
             return { err: -1, msg: 'Hệ thống lỗi: Không tìm thấy vai trò khách hàng.' };
         }
-        // Sequelize sẽ tự: SELECT id FROM Roles WHERE name = 'customer' LIMIT 1
-        await newUser.addRole(customerRole, { transaction });
-        // Tương đương newUser.addRoles(['customer', 'vip']) nếu gán nhiều
+        
+        // Kiểm tra xem user đã có role này chưa (trường hợp restore)
+        const hasRole = await newUser.hasRole(customerRole, { transaction });
+        if (!hasRole) {
+             await newUser.addRole(customerRole, { transaction });
+        }
+
+        // 4. Tự động gán WELCOME coupon cho user mới
+        await autoCreateAndAssignCouponForUser(newUser.id, transaction);
+
         await transaction.commit();
 
         //Nếu admin tạo user từ dashboard -> không cần token
@@ -103,9 +131,10 @@ export const socialLoginService = async (payload) => {
             return { err: 1, msg: 'Missing required fields' };
         }
 
-        // Kiểm tra có user chưa
+        // Kiểm tra có user chưa (bao gồm cả soft deleted)
         let user = await db.User.findOne({
             where: { email: payload.email },
+            paranoid: false,
             transaction
         });
 
@@ -127,7 +156,23 @@ export const socialLoginService = async (payload) => {
 
             if (customerRole) await user.addRole(customerRole, { transaction });
             else console.warn('Role customer không tồn tại khi social login!');
+
+            // Tự động gán WELCOME coupon cho user mới từ social login
+            await autoCreateAndAssignCouponForUser(user.id, transaction);
             
+        } else if (user.deletedAt) {
+            // Nếu user tồn tại nhưng đã xóa mềm -> Restore
+             await user.restore({ transaction });
+             
+             // Check role nếu cần (tương tự logic login thường, nhưng thường social login user đã có role trước đó)
+              const customerRole = await db.Role.findOne({
+                where: { name: 'customer' },
+                transaction
+            });
+             const hasRole = await user.hasRole(customerRole, { transaction });
+             if (!hasRole && customerRole) {
+                  await user.addRole(customerRole, { transaction });
+             }
         }
 
         // Kiểm tra AuthProvider (google/facebook)

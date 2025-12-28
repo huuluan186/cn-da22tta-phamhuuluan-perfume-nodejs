@@ -1,17 +1,15 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import Slider from "react-slick";
-import { getProductsList } from "../../store/actions/product";
 import { CustomArrow, ProductCard } from "../index";
+import { SORT_KEYS } from '../../constants/sortKeys'
+import { useProducts } from "../../hooks/useProducts";
 
 const NewArrivalsSection = () => {
-    const dispatch = useDispatch();
-    const { products } = useSelector(state => state.product);
-
-    // Lấy 8 sản phẩm mới nhất
-    useEffect(() => {
-        dispatch(getProductsList({ page: 1, limit: 8, sort: "latest" }));
-    }, [dispatch]);
+    const { products } = useProducts({
+        page: 1,
+        limit: 8,
+        sort: SORT_KEYS.LATEST
+    });
+    if (!products.length) return null;
 
     // Config slider: hiển thị 6 sp 1 dòng, có 2 mũi tên
     const settings = {
@@ -35,7 +33,7 @@ const NewArrivalsSection = () => {
     if (!products || !products.length) return null; // nếu chưa có data
 
     return (
-        <div className="w-full mb-10">
+        <div className="w-full">
             {/* Header */}
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl md:text-3xl text-gray-700 font-medium cursor-pointer">

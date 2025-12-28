@@ -1,7 +1,8 @@
 import db from "../models/index.js";
-import { fn, col } from 'sequelize'
-import { buildProductFilters, buildProductSort } from "../utils/index.js"
+import { fn, col, Op } from 'sequelize'
+import { buildProductFilters, buildProductSort, sortProducts, getPagination, formatPaginatedResponse, slugify, filterEmptyFields } from "../utils/index.js"
 import { nanoid } from 'nanoid';
+import { v4 } from 'uuid';
 
 //LẤY DANH SÁCH SẢN PHẨM (CÓ HOẶC KHÔNG ĐIỀU KIỆN LỌC)
 export const getAllProductsService = async ( page, limit, filters = {} ) => {
@@ -16,11 +17,12 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             limitNum = limit && +limit > 0 ? +limit : +process.env.DEFAULT_PAGE_LIMIT || 9;
             hasPagination = page !== undefined && page !== '' && limitNum > 0;
         }
-        const offset = hasPagination ? (pageNum - 1) * limitNum : 0; // tính offset cho pagination
         
         // === 2. XÂY DỰNG TRUY VẤN ===
         const { where, include } = buildProductFilters(filters); // Lấy object `where` và `include` từ hàm buildProductFilters
-        const order = buildProductSort(filters?.sort); // Lấy mảng order (sort) nếu có
+
+        const isJsSort = ["price_asc", "price_desc", "bestseller"].includes(filters.sort);
+        const order = !isJsSort ? buildProductSort(filters.sort) : undefined;
 
         // Nếu filter theo rating được truyền, join thêm các review để tính avgRating
         if (filters.rating) {
@@ -47,11 +49,10 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             where,
             include,
             distinct: true, // tránh duplicate khi join
-            order,
-            ...(hasPagination ? { offset, limit: limitNum } : {})
+            ...(order ? { order } : {})
         };
         
-        // === 2a. Thực thi query ===
+        // === 3. Thực thi query ===
         const products = await db.Product.findAndCountAll(findOptions);
         if (!products || products.rows.length === 0) {
             return {
@@ -61,11 +62,17 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
             };
         }
 
-        // === 3. XỬ LÝ FORMAT DỮ LIỆU ===
+        // === 4. XỬ LÝ FORMAT DỮ LIỆU ===
         // Map ra format card: giá từ thấp → cao
         let rows = products.rows.map(prod => {
             // Lấy tất cả giá của variants, lọc NaN
             const prices = prod.variants.map(v => +v.price).filter(p => !isNaN(p));
+            const discounts = [];
+            prod.variants.forEach(v => {
+                if (!isNaN(+v.discountPercent)) {
+                    discounts.push(+v.discountPercent);
+                }
+            });
     
             const priceInfo = {};
             if (prices.length === 1) {
@@ -86,27 +93,48 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
                 avgRating = ratings.length ? ratings.reduce((a,b) => a+b,0) / ratings.length : null;
             }
 
+            // LẤY KHUYẾN MÃI CAO NHẤT
+            const maxDiscount = discounts.length ? Math.max(...discounts) : 0;
+            const totalSold = prod.variants.reduce(
+                (sum, v) => sum + (+v.soldQuantity || 0), 0
+            );
+
             return {
                 id: prod.id,
                 name: prod.name,
                 brand: prod.brand,
                 thumbnail: prod.images[0]?.url || null,
+                maxDiscount,
+                totalSold,
                 ...priceInfo,
                 avgRating
             };
         });
 
-        // === 3a. LỌC THEO RATING ===
+        // === 5. LỌC THEO RATING ===
         if (filters.rating) {
             rows = rows.filter(p => p.avgRating >= +filters.rating);
         }
 
-        // === 4. TRẢ VỀ KẾT QUẢ ===
+        // == 6. SORT JS cho các field không có trong Product
+        rows = sortProducts(rows, filters.sort);
+
+        // =========================
+        // 7. PHÂN TRANG SAU KHI SORT
+        // =========================
+        const total = rows.length;
+
+        if (hasPagination) {
+            const start = (pageNum - 1) * limitNum;
+            rows = rows.slice(start, start + limitNum);
+        }
+
+        // === 8. TRẢ VỀ KẾT QUẢ ===
         return {
             err: 0,
             msg: 'Get product list successfully!',
             response: {
-                total: products.count,
+                total,
                 page: hasPagination ? pageNum : null,
                 limit: hasPagination ? limitNum : null,
                 data: rows
@@ -120,41 +148,34 @@ export const getAllProductsService = async ( page, limit, filters = {} ) => {
 // LẤY THÔNG TIN CHI TIẾT MỘT SẢN PHẨM
 export const getProductDetailService = async (productId) => {
     try {
-        const product = await db.Product.findOne({
-            where: {id: productId},
+        const product = await db.Product.findByPk(productId, {
+            paranoid: false,
             attributes: {
                 exclude: ['brandId']
             },
             include: [
                 {
-                    model: db.ProductImage,
-                    as: 'images',
-                    attributes: {
-                        exclude: ['createdAt', 'updatedAt']
-                    }
-                },
-                {
-                    model: db.ProductVariant,
-                    as: 'variants',
-                    attributes: {
-                        exclude: ['createdAt', 'updatedAt', 'deletedAt']
-                    }
-                },
-                {
                     model: db.Brand,
                     as: 'brand',
-                    attributes: ['id','name']
                 },
                 {
                     model: db.Category,
                     as: 'categories',
-                    attributes: { 
-                        exclude: ['createdAt', 'updatedAt', 'deletedAt'] 
-                    },
-                    through: { attributes: [] } // Không lấy cột productId/categoryId
-                }
-            ]
-        })
+                    through: { attributes: [] },
+                },
+                {
+                    model: db.ProductVariant,
+                    as: 'variants',
+                    where: { deletedAt: null },
+                    paranoid: false,
+                    required: false
+                },
+                {
+                    model: db.ProductImage,
+                    as: 'images',
+                },
+            ],
+        });
 
         return {
             err: product ? 0 : 1,
@@ -197,7 +218,10 @@ export const getProductReviewsService = async (productId) => {
                         }
                     ]
                 }
-            ]
+            ],
+            where: {
+                deletedAt: null       // Chỉ tính review chưa xóa
+            }
         });
 
         // 3. Lấy danh sách Review chi tiết
@@ -238,7 +262,7 @@ export const getProductReviewsService = async (productId) => {
             err: 0,
             msg: "Get product reviews successfully!",
             response: {
-                averagaRating: avg,
+                averageRating: avg,
                 totalReviews: total,
                 reviews
             }
@@ -320,3 +344,190 @@ export const addProductReviewsService = async ({ userId, orderItemId, title, con
         throw error
     }
 }
+
+export const getAllProductsAdminService = async (query = {}) => {
+    try {
+        const { page, limit, hasPagination } = query;
+
+        const { offset, limitNum, pageNum } = getPagination(
+            page,
+            limit,
+            process.env.DEFAULT_PAGE_LIMIT
+        );
+
+        const { rows, count } = await db.Product.findAndCountAll({
+            paranoid: false,
+            distinct: true,
+            include: [
+                {
+                    model: db.Brand,
+                    as: 'brand',
+                    attributes: ['id', 'name'],
+                },
+                {
+                    model: db.Category,
+                    as: 'categories',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] },
+                },
+                {
+                    model: db.ProductVariant,
+                    as: 'variants',
+                    paranoid: false,
+                },
+                {
+                    model: db.ProductImage,
+                    as: 'images',
+                },
+            ],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
+            ...(hasPagination ? { offset, limit: limitNum } : {}),
+        });
+
+        return {
+            err: 0,
+            msg: 'Fetched products successfully',
+            products: formatPaginatedResponse(
+                rows,
+                count,
+                hasPagination ? pageNum : null,
+                hasPagination ? limitNum : null
+            ),
+        };
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const createProductService = async (payload) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const inputSlug = slugify(payload.name);
+
+        const existedProducts = await db.Product.findAll({
+            attributes: ["name"],
+            transaction
+        });
+
+        const isDuplicate = existedProducts.some(
+            p => slugify(p.name) === inputSlug
+        );
+
+        if (isDuplicate) {
+            await transaction.rollback();
+            return { err: 1, msg: "Product name already exists" };
+        }
+
+        const productId = v4()
+        const data = await db.Product.create(
+            {
+                id: productId,
+                name: payload.name,
+                brandId: payload.brandId || null,
+                gender: payload.gender,
+                origin: payload.origin,
+                releaseYear: payload.releaseYear,
+                fragranceGroup: payload.fragranceGroup,
+                style: payload.style,
+                scentNotes: payload.scentNotes,
+                description: payload.description
+            },
+            { transaction }
+        );
+
+        if (Array.isArray(payload.categoryIds) && payload.categoryIds.length > 0) {
+            await db.ProductCategory.bulkCreate(
+                payload.categoryIds.map(cid => ({
+                    productId,
+                    categoryId: cid
+                })),
+                { transaction }
+            );
+        }
+
+        await transaction.commit();
+        return { err: 0, msg: "Product created successfully", data};
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+/* =========================
+   UPDATE PRODUCT
+========================= */
+export const updateProductService = async (productId, payload) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const product = await db.Product.findByPk(productId, { transaction });
+        if (!product) return { err: 1, msg: "Product not found!" };
+
+        // Check trùng tên nếu có thay đổi name
+        if (payload.name) {
+            const inputSlug = slugify(payload.name);
+
+            const existedProducts = await db.Product.findAll({
+                attributes: ["id", "name"],
+                where: { id: { [Op.ne]: productId } },
+                transaction
+            });
+
+            const isDuplicate = existedProducts.some(
+                p => slugify(p.name) === inputSlug
+            );
+
+            if (isDuplicate) {
+                await transaction.rollback();
+                return { err: 1, msg: "Product name already exists" };
+            }
+        }
+
+        // Update các field cơ bản
+        const cleanPayload = filterEmptyFields(payload);
+        await product.update(cleanPayload, { transaction });
+
+        // === THÊM PHẦN XỬ LÝ DANH MỤC ===
+        if (Array.isArray(payload.categoryIds)) {
+            // Xóa hết danh mục cũ
+            await db.ProductCategory.destroy({
+                where: { productId },
+                transaction
+            });
+
+            // Thêm danh mục mới
+            if (payload.categoryIds.length > 0) {
+                await db.ProductCategory.bulkCreate(
+                    payload.categoryIds.map(cid => ({
+                        productId,
+                        categoryId: cid
+                    })),
+                    { transaction }
+                );
+            }
+        }
+        // === KẾT THÚC ===
+
+        await transaction.commit();
+        return { err: 0, msg: "Product updated successfully" };
+    } catch (error) {
+        await transaction.rollback();
+        throw error;
+    }
+};
+
+export const deleteProductService = async (productId) => {
+    try {
+        const product = await db.Product.findByPk(productId);
+        if (!product) return { err: 1, msg: 'Product not found!' };
+
+        await product.destroy();
+
+        return { err: 0, msg: 'Product deleted successfully' };
+    } catch (error) {
+        throw error;
+    }
+};

@@ -13,7 +13,7 @@ const slugify = (str) => {
 
 export async function up(queryInterface, Sequelize) {
     // 📂 Đọc file stats.json
-    const filePath = path.resolve('./data/stats.json');
+    const filePath = path.join(process.cwd(), 'data', 'stats.json'); 
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
     // 🏘️ Chuẩn bị dữ liệu phường/xã

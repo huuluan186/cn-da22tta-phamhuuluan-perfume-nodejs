@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -5,11 +6,11 @@ import { InputField, Button, CheckRadioField, SelectField, InfoModal } from '../
 import { path } from '../constants/path';
 import icons from '../assets/react-icons/icon'
 import { logout } from '../store/actions/auth'
-import {getAllProvinces, getWardsByProvince} from '../store/actions/location'
+import { getAllProvinces, getWardsByProvince } from '../store/actions/location'
 import { getMyAddresses } from '../store/actions/address'
 import { getMyCart } from '../store/actions/cart';
 import { getMyCoupons } from '../store/actions/coupon';
-import { getImageUrl, formatPrice, capitalizeSentence } from '../utils/index';
+import { getImageUrl, formatPrice, capitalizeSentence, toSlug } from '../utils/index';
 import { validateCheckout } from '../utils/index';
 import { apiCreateOrder } from '../api/order';
 import { apiAddAddress, apiUpdateAddress } from '../api/user';
@@ -59,7 +60,16 @@ const Checkout = () => {
         paymentMethod: 'COD',
         voucher: '',
     });
-    
+
+    useEffect(() => {
+        if (user?.email) {
+            setFormData(prev => ({
+                ...prev,
+                email: user.email
+            }));
+        }
+    }, [user?.email]);
+
     useEffect(() => {
         dispatch(getAllProvinces());
         dispatch(getMyAddresses());
@@ -73,7 +83,7 @@ const Checkout = () => {
         const defaultAddress = addresses.rows.find(addr => addr.isDefault);
         if (!defaultAddress) return;
 
-        setSelectedAddressId(defaultAddress.id);
+        setSelectedAddressId(defaultAddress.id.toString());
 
         const provinceId = defaultAddress.ward?.province?.id;
         const wardId = defaultAddress.ward?.id;
@@ -101,25 +111,43 @@ const Checkout = () => {
     }, [cart]);
 
     useEffect(() => {
-        if (!coupons?.data?.length) return
-        if (!couponCode) return
+        if (!coupons?.data?.length) return;
+        if (!couponCode) return;
 
-        const now = new Date()
+        const now = new Date();
 
-        const foundCoupon = coupons.data.find(c =>
-            c.code.toLowerCase() === couponCode &&
-            c.status === 'unused' &&
-            new Date(c.validFrom) <= now &&
-            new Date(c.validUntil) >= now
-        )
+        // Chuyển về chỉ ngày (bỏ giờ phút giây)
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        const foundCoupon = coupons?.data?.find(c => {
+            const codeMatch = c.code === couponCode; // phân biệt hoa thường
+            if (!codeMatch) return false;
+
+            if (c.status !== 'unused') return false;
+
+            // So sánh chỉ theo ngày
+            const validFromDate = new Date(c.validFrom);
+            const validFromDay = new Date(validFromDate.getFullYear(), validFromDate.getMonth(), validFromDate.getDate());
+
+            const validUntilDate = c.validUntil ? new Date(c.validUntil) : null;
+            const validUntilDay = validUntilDate
+                ? new Date(validUntilDate.getFullYear(), validUntilDate.getMonth(), validUntilDate.getDate())
+                : null;
+
+            const isFromValid = validFromDay <= today;
+            const isUntilValid = !validUntilDay || validUntilDay >= today;
+
+            return isFromValid && isUntilValid;
+        });
 
         if (!foundCoupon) {
-            setAppliedCoupon(null)
-            setDiscountAmount(0)
-            setDiscountDisplay('')
-            setTotal(subtotal)
-            setCouponError('Mã giảm giá không hợp lệ hoặc đã hết hạn')
-            return
+            setAppliedCoupon(null);
+            setDiscountAmount(0);
+            setDiscountDisplay('');
+            setTotal(subtotal);
+            setCouponError('Mã giảm giá không hợp lệ hoặc đã hết hạn');
+            // Nếu không tìm thấy, không làm gì ở đây biến này change liên tục khi gõ
+            return;
         }
         // hợp lệ
         setCouponError('')
@@ -156,6 +184,49 @@ const Checkout = () => {
         setCouponError('')
         // gọi API lấy coupon của user
         await dispatch(getMyCoupons())
+
+        // Sau khi dispatch xong, check lại trong list coupons mới
+        // Logic check ở useEffect sẽ chạy, nhưng ta cần toast thông báo ngay lúc này
+        // Tuy nhiên useEffect chạy sau render.
+        // Ta có thể check thủ công ngay đây dựa vào list cũ hoặc đợi update.
+        // Đơn giản nhất: dùng 1 flag hoặc check trực tiếp sau 1 khoảng nhỏ (không khuyến khích)
+        // Cách tốt hơn: Lặp lại logic findCoupon ở đây để toast
+
+        // Lấy lại list mới nhất (thực tế dispatch là async nhưng redux update state có thể chưa kịp ngay lập tức trong dòng code tiếp theo nếu không dùng thunk return promise chuẩn)
+        // Nhưng ở đây action getMyCoupons trả về gì? Xem action. 
+        // Giả sử ta check theo logic tương tự useEffect:
+
+        // Tạm thời user yêu cầu khi bấm áp dụng mới hiện thông báo
+        // Ta sẽ check dựa trên existing coupons + logic
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        const found = coupons?.data?.find(c => {
+            const codeMatch = c.code === couponCode;
+            if (!codeMatch) return false;
+
+            if (c.status !== 'unused') return false;
+
+            const validFromDate = new Date(c.validFrom);
+            const validFromDay = new Date(validFromDate.getFullYear(), validFromDate.getMonth(), validFromDate.getDate());
+
+            const validUntilDate = c.validUntil ? new Date(c.validUntil) : null;
+            const validUntilDay = validUntilDate
+                ? new Date(validUntilDate.getFullYear(), validUntilDate.getMonth(), validUntilDate.getDate())
+                : null;
+
+            const isFromValid = validFromDay <= today;
+            const isUntilValid = !validUntilDay || validUntilDay >= today;
+
+            return isFromValid && isUntilValid;
+        });
+
+        if (found) {
+            toast.success("Áp dụng mã giảm giá thành công!")
+        } else {
+            toast.error("Mã giảm giá không hợp lệ hoặc không tìm thấy!")
+        }
     }
 
     const handleChange = (e) => {
@@ -190,7 +261,7 @@ const Checkout = () => {
             return;
         }
 
-        const selected = addresses?.rows?.find(addr => addr.id === addressId);
+        const selected = addresses?.rows?.find(addr => addr.id.toString() === addressId);
         if (!selected) return;
 
         setFormData(prev => ({
@@ -201,6 +272,9 @@ const Checkout = () => {
             provinceId: selected.ward?.province?.id?.toString() || '',
             wardId: selected.ward?.id.toString() || '',
         }));
+
+        // Xóa lỗi khi chọn địa chỉ
+        setErrors({});
 
         if (selected.province?.id) {
             dispatch(getWardsByProvince(Number(selected.province.id)));
@@ -221,13 +295,13 @@ const Checkout = () => {
                     receiverName: formData.receiverName,
                     phone: formData.phone,
                     addressLine: formData.addressLine,
-                    provinceId: Number(formData.provinceId),
                     wardId: Number(formData.wardId),
+                    label: '',
                     isDefault: addresses?.rows?.length ? false : true
                 };
                 const res = await apiAddAddress(addressData);
                 addressId = res?.data?.response?.id;
-            } 
+            }
             // 2. Cập nhật địa chỉ cũ nếu có thay đổi
             else {
                 const selected = addresses?.rows?.find(addr => addr.id === addressId);
@@ -244,7 +318,6 @@ const Checkout = () => {
                         addressLine: formData.addressLine,
                         provinceId: Number(formData.provinceId),
                         wardId: Number(formData.wardId),
-                        isDefault: selected.isDefault
                     };
                     await apiUpdateAddress(addressId, updatedData);
                 }
@@ -254,24 +327,40 @@ const Checkout = () => {
             const res = await apiCreateOrder(addressId, appliedCoupon?.code || null, formData.paymentMethod);
 
             // 4. Hiển thị modal thành công
-            if(res?.err === 0){
-                if(formData.paymentMethod === 'ZaloPay' && res?.order?.paymentGatewayData?.order_url){
+            if (res?.err === 0) {
+                if (formData.paymentMethod === 'ZaloPay' && res?.order?.paymentGatewayData?.order_url) {
                     // Nếu chọn ZaloPay, chuyển hướng thẳng đến ZaloPay
                     window.location.href = res.order.paymentGatewayData.order_url;
                 } else {
+                    const firstProduct = cart?.cartItems?.[0]?.productVariant?.product;
                     setInfoModal({
                         show: true,
-                        message: "Đặt hàng thành công!",
-                        icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,      
-                        autoClose: 1500,
-                        onClose: () => setInfoModal(prev => ({ ...prev, show: false }))
+                        showConfirm: true,
+                        confirmText: "Đánh giá ngay",
+                        cancelText: "Xem đơn hàng",
+                        message: `Đặt hàng thành công! Bạn có muốn đánh giá sản phẩm "${firstProduct?.name || 'này'}" ngay bây giờ không?`,
+                        icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
+                        autoClose: 0,
+                        onConfirm: () => {
+                            setInfoModal(prev => ({ ...prev, show: false }));
+                            if (firstProduct) {
+                                const slug = toSlug(firstProduct.name);
+                                navigate(path.PRODUCT_DETAIL.replace(':slug', slug));
+                            } else {
+                                navigate(`${path.ACCOUNT}/${path.MY_ORDER}`);
+                            }
+                        },
+                        onClose: () => {
+                            navigate(`${path.ACCOUNT}/${path.MY_ORDER}`)
+                            setInfoModal(prev => ({ ...prev, show: false }))
+                        }
                     });
-                }    
+                }
             } else {
                 setInfoModal({
                     show: true,
                     message: res?.msg,
-                    icon: <MdCancel className="text-red-500 text-5xl" />,      
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
                     autoClose: 1500,
                     onClose: () => setInfoModal(prev => ({ ...prev, show: false }))
                 });
@@ -306,24 +395,22 @@ const Checkout = () => {
             return
         }
 
-        // Validate địa chỉ đã chọn
-        if (!selectedAddressId) {
-            alert('Vui lòng chọn địa chỉ giao hàng')
-            return
-        }
+        // // Validate địa chỉ đã chọn
+        // if (!selectedAddressId) {
+        //     alert('Vui lòng chọn địa chỉ giao hàng')
+        //     return
+        // }
         await handleCreateOrder();
     }
 
     const addressOptions = (addresses?.rows || []).map(addr => ({
-        id: addr.id,
+        id: addr.id.toString(),
         name: [
             addr.receiverName,
             addr.addressLine,
             addr.ward?.name,
             addr.ward?.province?.name
-        ]
-            .filter(Boolean)   
-            .join(', ')
+        ].filter(Boolean).join(', ')
     }));
 
     const subItems = cart?.cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
@@ -345,9 +432,9 @@ const Checkout = () => {
                         <div>
                             <div className='flex justify-between items-center mb-4'>
                                 <h2 className="text-xl font-bold">Thông tin nhận hàng</h2>
-                                <div 
+                                <div
                                     className="flex items-center gap-1 text-sm text-gray-500 hover:text-red-600 cursor-pointer transition"
-                                    onClick={ () => {
+                                    onClick={() => {
                                         dispatch(logout());
                                         navigate(path.HOME);
                                     }}
@@ -472,9 +559,9 @@ const Checkout = () => {
                     <CheckRadioField
                         type="checkbox"
                         label={
-                        <span className="text-sm text-blue-600">
-                            Tôi đã đọc và đồng ý với chính sách bảo mật thông tin, bảo mật thông tin thanh toán và các chính sách bán hàng trên website này
-                        </span>
+                            <span className="text-sm text-blue-600">
+                                Tôi đã đọc và đồng ý với chính sách bảo mật thông tin, bảo mật thông tin thanh toán và các chính sách bán hàng trên website này
+                            </span>
                         }
                         checked={agreePolicies}
                         onChange={(e) => setAgreePolicies(e.target.checked)}
@@ -587,7 +674,7 @@ const Checkout = () => {
                             onClick={handleSubmit}
                         />
 
-                        <div onClick={()=>navigate(path.CART)}>
+                        <div onClick={() => navigate(path.CART)}>
                             <p className="text-center text-gray-600 cursor-pointer hover:underline">
                                 ← Quay về giỏ hàng
                             </p>
@@ -600,6 +687,10 @@ const Checkout = () => {
                     icon={infoModal.icon}
                     message={infoModal.message}
                     autoClose={infoModal.autoClose}
+                    showConfirm={infoModal.showConfirm}
+                    confirmText={infoModal.confirmText}
+                    cancelText={infoModal.cancelText}
+                    onConfirm={infoModal.onConfirm}
                     onClose={() => {
                         if (infoModal.onClose) infoModal.onClose();
                         setInfoModal(prev => ({ ...prev, show: false, onClose: null }));

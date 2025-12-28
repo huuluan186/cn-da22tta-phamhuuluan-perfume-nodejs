@@ -43,7 +43,8 @@ export const addToCart = (productVariantId, quantity) => async (dispatch) => {
             type: actionTypes.ADD_TO_CART_FAIL,
             msg: error.message
         });
-        return { err: 1, msg: error.message };
+        // Re-throw error để component có thể catch được (đặc biệt là 401)
+        throw error;
     }
 };
 
