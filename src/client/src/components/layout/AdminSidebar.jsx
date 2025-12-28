@@ -9,7 +9,7 @@ const AdminSidebar = () => {
     const { pathname } = useLocation();
 
     return (
-        <aside className="fixed top-0 left-0 h-screenw-64 bg-gradient-to-b from-primary to-green-700 text-white shadow-lg z-50 flex flex-col">
+        <aside className="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-primary to-green-700 text-white shadow-lg z-50 flex flex-col">
             {/* Logo */}
             <div className="h-20 flex items-center justify-center border-b border-white/20 px-4">
                 <img

@@ -135,11 +135,37 @@ cd server && npm install
 cd ../client && npm install
 ```
 ### 3. Cấu hình môi trường
-Sao chép file mẫu:
+
+#### Bước 1: Sao chép file .env.example
+**Linux/MacOS:**
 ```bash
-cp .env.example server/.env
+cp src/.env.example src/.env
 ```
-Chỉnh sửa .env theo hướng dẫn mẫu trong file .env.example (phải thêm chuỗi SECRET_KEY)
+
+**Windows (PowerShell):**
+```powershell
+Copy-Item src\.env.example src\.env
+```
+
+**Windows (CMD):**
+```cmd
+copy src\.env.example src\.env
+```
+
+#### Bước 2: Cấu hình các biến môi trường
+
+Mở file `src/.env` và điền các giá trị thực tế:
+
+**⚠️ BẮT BUỘC phải cấu hình:**
+- `JWT_SECRET` - Tạo bằng lệnh: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
+- `DB_PASSWORD` - Mật khẩu MySQL của bạn
+- `EMAIL_USER` và `EMAIL_PASSWORD` - Thông tin email để gửi mail
+
+**📌 Tùy chọn (nếu sử dụng):**
+- `GOOGLE_CLIENT_ID` và `GOOGLE_CLIENT_SECRET` - Nếu sử dụng đăng nhập Google
+- `ZALOPAY_APP_ID`, `ZALOPAY_KEY1`, `ZALOPAY_KEY2` - Nếu sử dụng thanh toán ZaloPay
+
+> **Lưu ý:** Không commit file `.env` lên Git (đã có trong `.gitignore`)
 
 ### 4. Chạy database migration (nếu tự chạy local mà không build Docker)
 ```bash
@@ -176,5 +202,7 @@ docker-compose up --build
 **Tác giả: Phạm Hữu Luân**  
 
 📧 Email: luanphamhuu2004@gmail.com
+
 📞 Điện thoại: 0386291762
+
 💻 GitHub: huuluan186 (https://github.com/huuluan186)

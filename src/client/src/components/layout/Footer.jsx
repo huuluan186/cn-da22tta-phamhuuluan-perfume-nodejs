@@ -99,7 +99,7 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <p className="text-xs text-gray-500 font-bold uppercase tracking-[0.2em] whitespace-nowrap">
+                    <p className="text-xs text-white font-bold uppercase tracking-[0.2em] whitespace-nowrap">
                         ĐỒ ÁN CHUYÊN NGÀNH • XÂY DỰNG HỆ THỐNG KINH DOANH NƯỚC HOA TRỰC TUYẾN
                     </p>
                 </div>
