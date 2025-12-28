@@ -131,7 +131,7 @@ export const apiUpdateUserRoles = async (userId, roleIds) => {
 
 export const apiDeleteUser = async (userId) => {
     try {
-        const response = await axiosConfig.delete(`/api/users/${userId}`);
+        const response = await axiosConfig.delete(`/api/admin/users/${userId}`);
         return response.data;
     } catch (error) {
         throw error;

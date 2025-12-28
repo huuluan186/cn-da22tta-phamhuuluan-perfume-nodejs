@@ -2,19 +2,24 @@ import { useState, useEffect } from "react";
 import { path } from "../../constants/path";
 import { useNavigate } from "react-router-dom";
 import { validateLogin } from "../../utils";
-import {InputField, Button} from '../index'
+import { InputField, Button } from '../index'
 import icons from '../../assets/react-icons/icon'
-import { useDispatch, useSelector  } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../store/actions/auth'
 import { toast } from "react-toastify";
 
-const {FaFacebookF, FaGoogle} = icons
+const { FaFacebookF, FaGoogle } = icons
 
 const LoginForm = ({ onForgotPassword }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
-    const { msg: loginMsg, errorToggle } = useSelector(state => state.auth) 
+    const { msg: loginMsg, errorToggle } = useSelector(state => state.auth)
+
+    // Reset thông báo lỗi cũ khi vào trang đăng nhập
+    useEffect(() => {
+        dispatch({ type: 'CLEAR_AUTH_MSG' })
+    }, [dispatch]);
 
     const isLoggedIn = !!user;
 
@@ -57,17 +62,17 @@ const LoginForm = ({ onForgotPassword }) => {
         //if (!submitted) return; // chỉ chạy khi đã submit form
         if (!loginMsg) return;
         if (isLoggedIn) {
-            if(loginMsg) toast.success(loginMsg);
+            if (loginMsg) toast.success(loginMsg);
             const isAdmin = user?.roles?.some(r => r.name === "admin");
             if (isAdmin) navigate(path.ADMIN);
             else navigate(path.HOME);
         } else if (loginMsg) {
-           toast.error(loginMsg);
+            toast.error(loginMsg);
         }
     }, [isLoggedIn, loginMsg, errorToggle, navigate, user]);
 
     return (
-        <form 
+        <form
             className='bg-white shadow-[0_0_30px_10px_rgba(34,197,94,0.4)] rounded-md px-10 py-8 my-12 space-y-3'
         >
             <h2 className="text-2xl font-semibold text-center mb-6 text-primary">
@@ -96,8 +101,8 @@ const LoginForm = ({ onForgotPassword }) => {
                 setError={setErrors}
             />
 
-           <div className="py-4">
-                <Button 
+            <div className="py-4">
+                <Button
                     type="submit"
                     text={"Đăng nhập"}
                     textSize={'text-lg'}
@@ -107,7 +112,7 @@ const LoginForm = ({ onForgotPassword }) => {
                     rounded={'rounded-sm'}
                     onClick={handleSubmit}
                 />
-           </div>
+            </div>
 
             <div className="text-sm text-center my-3 space-y-2 text-gray-700">
                 <p>
@@ -119,7 +124,7 @@ const LoginForm = ({ onForgotPassword }) => {
                         Đăng ký tại đây
                     </span>
                 </p>
-                <p 
+                <p
                     className="text-primary cursor-pointer hover:underline"
                     onClick={onForgotPassword}
                 >
@@ -129,7 +134,7 @@ const LoginForm = ({ onForgotPassword }) => {
             </div>
 
             <div className="flex flex-col space-y-3 pt-2">
-                <Button 
+                <Button
                     text={'Google'}
                     textSize="text-sm"
                     IcBefore={FaGoogle}
@@ -138,7 +143,7 @@ const LoginForm = ({ onForgotPassword }) => {
                     hoverBg="hover:bg-red-500"
                     onClick={handleGoogleLogin}
                 />
-                <Button 
+                <Button
                     text={'Facebook'}
                     textSize="text-sm"
                     IcBefore={FaFacebookF}

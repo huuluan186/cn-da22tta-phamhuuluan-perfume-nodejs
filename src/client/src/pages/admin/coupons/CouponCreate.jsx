@@ -38,12 +38,12 @@ const CouponCreate = () => {
 
         // === VALIDATE BẰNG JS THUẦN ===
         if (!form.code.trim()) {
-            toast.error("Mã coupon là bắt buộc");
+            toast.error("Mã giảm giá là bắt buộc");
             return;
         }
 
         if (form.code.trim().length < 3) {
-            toast.error("Mã coupon phải có ít nhất 3 ký tự");
+            toast.error("Mã giảm giá phải có ít nhất 3 ký tự");
             return;
         }
 
@@ -71,13 +71,13 @@ const CouponCreate = () => {
             const res = await apiCreateCoupon(payload);
 
             if (res?.err === 0) {
-                toast.success(`Tạo coupon "${payload.code}" thành công!`);
+                toast.success(`Tạo mã giảm giá "${payload.code}" thành công!`);
                 navigate(-1); // Quay về trang list
             } else {
-                toast.error(res?.msg || "Tạo coupon thất bại");
+                toast.error(res?.msg || "Tạo mã giảm giá thất bại");
             }
         } catch (error) {
-            const msg = error?.msg || "Có lỗi khi tạo coupon";
+            const msg = error?.msg || "Có lỗi khi tạo mã giảm giá";
             toast.error(msg);
         } finally {
             setSaving(false);
@@ -91,7 +91,7 @@ const CouponCreate = () => {
         >
             {/* Header */}
             <div className="text-center mb-10">
-                <h3 className="text-xl font-bold">Tạo Coupon Mới</h3>
+                <h3 className="text-xl font-bold">Tạo mã giảm giá</h3>
             </div>
 
             {/* Form */}
@@ -159,7 +159,7 @@ const CouponCreate = () => {
 
                 <Button
                     type="submit"
-                    text={saving ? "Đang tạo..." : "Tạo coupon"}
+                    text={saving ? "Đang tạo..." : "Tạo mã giảm giá"}
                     width="w-32"
                     outline="rounded-md"
                     hoverBg="hover:bg-primary/80"

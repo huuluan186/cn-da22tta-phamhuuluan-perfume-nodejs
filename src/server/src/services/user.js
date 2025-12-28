@@ -135,7 +135,7 @@ export const forgotPasswordService = async (email) => {
     try {
         const user = await db.User.findOne({
             where: { email },
-            attributes: ['id', 'email', 'firstname', 'lastname'],
+            attributes: ['id', 'email', 'firstname', 'lastname', 'password'],
             transaction
         });
         // Luôn trả về thành công dù email có tồn tại hay không, chống enum
@@ -147,11 +147,13 @@ export const forgotPasswordService = async (email) => {
             };
         }
 
-        // Tạo token reset (hiệu lực 15p) nếu email tồn tại
+        // Tạo token reset (hiệu lực 15p) - Dùng secret động: SECRET + password hash
+        // Nếu user đổi mật khẩu -> password hash thay đổi -> token cũ vô hiệu
+        const secret = process.env.JWT_RESET_SECRET + user.password;
         const resetToken = jwt.sign(
             { id: user.id },
-            process.env.JWT_RESET_SECRET,
-            {expiresIn: "15m"}
+            secret,
+            {expiresIn: "10m"}  
         );
 
         // Gửi email
@@ -171,15 +173,30 @@ export const forgotPasswordService = async (email) => {
 
 export const resetPasswordService = async (token, newPassword) => {
     try {
-        // Xác minh token
-        const decoded = jwt.verify(token, process.env.JWT_RESET_SECRET);
+        // 1. Decode token (không verify) để lấy userId
+        const decoded = jwt.decode(token);
+        if (!decoded || !decoded.id) {
+             return { err: 1, msg: 'Invalid token format!' };
+        }
+        
         const userId = decoded.id;
-
         const user = await db.User.findByPk(userId);
         if (!user) {
             return {
                 err: 1,
-                msg: 'Invalid or expired token!',
+                msg: 'User not found!',
+            };
+        }
+
+        // 2. Verify token với secret động (SECRET + password hiện tại)
+        const secret = process.env.JWT_RESET_SECRET + user.password;
+        
+        try {
+            jwt.verify(token, secret);
+        } catch (error) {
+             return {
+                err: 1,
+                msg: 'Token invalid or expired (link has been used)!',
             };
         }
 
@@ -215,10 +232,15 @@ export const getAllUsersService = async (query={}) => {
                     model: db.Role,
                     as: 'roles',
                     attributes: ['id', 'name'],
-                    through: { attributes: [] }
+                    through: { attributes: [] },
+                    where: { name: 'customer' }, // Chỉ lấy user có role 'customer'
+                    required: true // INNER JOIN - bắt buộc phải có role 'customer'
                 }
             ],
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 
@@ -324,7 +346,6 @@ export const softDeleteUserService = async (userId) => {
                 msg: 'Cannot delete admin user!',
             };
         }
-
         await user.destroy(); // soft delete
 
         return {

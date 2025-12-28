@@ -10,7 +10,7 @@ import { getAllProvinces, getWardsByProvince } from '../store/actions/location'
 import { getMyAddresses } from '../store/actions/address'
 import { getMyCart } from '../store/actions/cart';
 import { getMyCoupons } from '../store/actions/coupon';
-import { getImageUrl, formatPrice, capitalizeSentence } from '../utils/index';
+import { getImageUrl, formatPrice, capitalizeSentence, toSlug } from '../utils/index';
 import { validateCheckout } from '../utils/index';
 import { apiCreateOrder } from '../api/order';
 import { apiAddAddress, apiUpdateAddress } from '../api/user';
@@ -332,11 +332,24 @@ const Checkout = () => {
                     // Nếu chọn ZaloPay, chuyển hướng thẳng đến ZaloPay
                     window.location.href = res.order.paymentGatewayData.order_url;
                 } else {
+                    const firstProduct = cart?.cartItems?.[0]?.productVariant?.product;
                     setInfoModal({
                         show: true,
-                        message: "Đặt hàng thành công!",
+                        showConfirm: true,
+                        confirmText: "Đánh giá ngay",
+                        cancelText: "Xem đơn hàng",
+                        message: `Đặt hàng thành công! Bạn có muốn đánh giá sản phẩm "${firstProduct?.name || 'này'}" ngay bây giờ không?`,
                         icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
-                        autoClose: 1500,
+                        autoClose: 0,
+                        onConfirm: () => {
+                            setInfoModal(prev => ({ ...prev, show: false }));
+                            if (firstProduct) {
+                                const slug = toSlug(firstProduct.name);
+                                navigate(path.PRODUCT_DETAIL.replace(':slug', slug));
+                            } else {
+                                navigate(`${path.ACCOUNT}/${path.MY_ORDER}`);
+                            }
+                        },
                         onClose: () => {
                             navigate(`${path.ACCOUNT}/${path.MY_ORDER}`)
                             setInfoModal(prev => ({ ...prev, show: false }))
@@ -674,6 +687,10 @@ const Checkout = () => {
                     icon={infoModal.icon}
                     message={infoModal.message}
                     autoClose={infoModal.autoClose}
+                    showConfirm={infoModal.showConfirm}
+                    confirmText={infoModal.confirmText}
+                    cancelText={infoModal.cancelText}
+                    onConfirm={infoModal.onConfirm}
                     onClose={() => {
                         if (infoModal.onClose) infoModal.onClose();
                         setInfoModal(prev => ({ ...prev, show: false, onClose: null }));

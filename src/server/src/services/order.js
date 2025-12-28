@@ -252,8 +252,10 @@ export const getAllOrdersService = async (query = {}) => {
             distinct: true,              
             col: 'id',
             attributes: { exclude: ['paymentGatewayData', 'addressId'] },
-            include: orderIncludes,
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 

@@ -1,26 +1,27 @@
-import {memo} from "react";
+import { memo } from "react";
 
-const Button = ({ 
+const Button = ({
     type = "button",
-    text, 
-    textSize = 'text-base', 
-    textColor = 'text-white', 
-    bgColor = 'bg-primary', 
+    text,
+    textSize = 'text-base',
+    textColor = 'text-white',
+    bgColor = 'bg-primary',
     hoverText = "hover:text-primary",
     hoverBg = "hover:bg-white",
-    IcAfter, 
-    IcBefore, 
-    onClick, 
-    width = 'w-full', 
+    IcAfter,
+    IcBefore,
+    onClick,
+    width = 'w-full',
     height = 'h-full',
-    rounded='',
-    outline, 
-    className='',
+    rounded = '',
+    outline,
+    className = '',
+    title = '', // Thêm title prop
 }) => {
     return (
         <div className='relative flex justify-center items-center'>
-            <button 
-                type = { type } 
+            <button
+                type={type}
                 className={
                     `py-2 px-4 
                     ${textSize}
@@ -34,12 +35,13 @@ const Button = ({
                     ${rounded} 
                     ${className}
                     flex font-medium items-center justify-center gap-2 `
-                } 
+                }
                 onClick={onClick}
+                title={title} // Thêm title attribute
             >
-                {IcBefore && <span className="text-2xl"> <IcBefore/> </span>}
-                <span className = {`${textSize ? textSize : ''}`}> {text} </span>
-                {IcAfter && <span className="text-2xl ml-[-8px]"> <IcAfter/> </span>}
+                {IcBefore && <span className="text-2xl"> <IcBefore /> </span>}
+                <span className={`${textSize ? textSize : ''}`}> {text} </span>
+                {IcAfter && <span className="text-2xl ml-[-8px]"> <IcAfter /> </span>}
             </button>
         </div>
     );

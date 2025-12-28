@@ -44,12 +44,3 @@ export const apiAssignCouponManual = async (couponId, payload) => {
         throw error.response?.data || error;
     }
 };
-
-export const apiAutoRewardCoupon = async () => {
-    try {
-        const response = await axiosConfig.post('/api/users/me/auto-reward');
-        return response.data;
-    } catch (error) {
-        throw error.response?.data || error;
-    }
-};

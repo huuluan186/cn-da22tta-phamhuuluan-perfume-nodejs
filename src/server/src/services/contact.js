@@ -34,7 +34,10 @@ export const getAllContactsService = async (query = {}) => {
         const { rows, count } = await db.Contact.findAndCountAll({
             where,
             paranoid: false,
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             offset: hasPagination ? offset : undefined,
             limit: hasPagination ? limitNum : undefined
         });

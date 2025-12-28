@@ -17,14 +17,14 @@ const CouponLayout = () => {
             <div className="mb-4">
                 {/* Title - center */}
                 <h2 className="text-2xl font-bold text-primary text-center mb-3">
-                    QUẢN LÝ COUPON
+                    QUẢN LÝ MÃ GIẢM GIÁ
                 </h2>
 
                 {/* Action - right */}
                 {isList && (
                     <div className="flex justify-end">
                         <Button
-                            text="Thêm coupon"
+                            text="Thêm mã giảm giá"
                             bgColor="bg-primary"
                             hoverBg="hover:bg-white"
                             outline="rounded-md border border-primary"

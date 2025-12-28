@@ -9,9 +9,16 @@ export const getOrCreateCoupon = async ({
     minOrderValue = 0,
     validUntil = null
 }) => {
-    let coupon = await db.Coupon.findOne({ where: { code } })
+    let coupon = await db.Coupon.findOne({ 
+        where: { code },
+        paranoid: false 
+    })
 
-    if (!coupon) {
+    if (coupon) {
+        if (coupon.deletedAt) {
+            await coupon.restore()
+        }
+    } else {
         coupon = await db.Coupon.create({
             id: nanoid(4),
             code,

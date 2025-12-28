@@ -37,7 +37,7 @@ const CouponAssign = () => {
         if (!adminCouponList?.data) return;
 
         if (!couponInfo) {
-            toast.error("Không tìm thấy coupon này");
+            toast.error("Không tìm thấy mã giảm giá này");
             navigate(-1);
         }
     }, [adminCouponList, couponInfo, navigate]);

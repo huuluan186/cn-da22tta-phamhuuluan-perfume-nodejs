@@ -33,6 +33,7 @@ export const getAllBrandsAdminService  = async (query = {}) => {
         const { rows, count } = await db.Brand.findAndCountAll({
             paranoid: false,
             order: [
+                ['deletedAt', 'ASC'],
                 [sortBy, order.toUpperCase()],
                 ['name', 'ASC'],
             ],
@@ -117,6 +118,7 @@ export const updateBrandService = async (brandId, payload) => {
                 where: {
                     name: payload.name.trim(),
                     id: { [db.Sequelize.Op.ne]: brandId },
+                    deletedAt: null, // Ensure we only check against non-deleted brands
                 },
             });
 

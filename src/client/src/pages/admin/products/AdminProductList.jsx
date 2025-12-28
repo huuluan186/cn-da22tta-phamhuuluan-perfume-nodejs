@@ -25,6 +25,11 @@ const AdminProductList = () => {
     }, [dispatch, page, limit]);
 
     const columns = [
+        {
+            key: "id",
+            label: "ID",
+            render: r => <span title={r.id}>#{r.id?.slice(0, 8).toUpperCase()}</span>
+        },
         { key: "name", label: "Tên sản phẩm" },
         {
             key: "brand",
@@ -41,9 +46,24 @@ const AdminProductList = () => {
             )
         },
         {
-            key: "origin",
-            label: "Xuất xứ",
-            render: r => r.origin || "—"
+            key: "stock",
+            label: "Số lượng kho",
+            render: r => {
+                const activeVariants = r.variants?.filter(v => !v.deletedAt) || [];
+                const totalStock = activeVariants.reduce((sum, v) => sum + (+v.stockQuantity || 0), 0);
+
+                let className = "text-gray-700";
+                if (totalStock === 0) className = "text-red-600 font-bold";
+                else if (totalStock < 10) className = "text-red-500 font-bold";
+                else if (totalStock < 50) className = "text-yellow-600 font-bold";
+                else className = "text-green-600 font-semibold";
+
+                return (
+                    <span className={className}>
+                        {totalStock}
+                    </span>
+                );
+            }
         },
         {
             key: "variants",
@@ -55,7 +75,7 @@ const AdminProductList = () => {
                 if (activeVariants.length === 0) {
                     return (
                         <span className="text-red-500 text-sm">
-                            Chưa có 
+                            Chưa có
                         </span>
                     );
                 }
@@ -79,8 +99,8 @@ const AdminProductList = () => {
             label: "Trạng thái",
             render: r =>
                 r.deletedAt
-                ? <span className="text-red-500">Ngừng bán</span>
-                : <span className="text-green-600">Đang bán</span>
+                    ? <span className="text-red-500">Ngừng bán</span>
+                    : <span className="text-green-600">Đang bán</span>
         }
     ];
 
@@ -145,7 +165,7 @@ const AdminProductList = () => {
             <div className="pt-8">
                 <Pagination
                     currentPage={page}
-                    totalPages={Math.ceil( (adminProductList?.total || 0) / limit)}
+                    totalPages={Math.ceil((adminProductList?.total || 0) / limit)}
                     onPageChange={setPage}
                 />
             </div>

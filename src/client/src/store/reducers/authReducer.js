@@ -20,6 +20,7 @@ const authReducer = (state=initState,action)=>{
                 errorToggle:!state.errorToggle
             };
         case actionTypes.LOGIN_REQUEST: // **thêm để reset msg cũ**
+        case actionTypes.CLEAR_AUTH_MSG:
             return {
                 ...state,
                 msg: ''

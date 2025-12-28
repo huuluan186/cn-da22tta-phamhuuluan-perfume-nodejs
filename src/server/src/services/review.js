@@ -65,7 +65,10 @@ export const getAllReviewsAdminService = async (query = {}) => {
                     attributes: ['id', 'url', 'sortOrder'],
                 }
             ],
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             distinct: true,
             ...(hasPagination ? { offset, limit: limitNum } : {}),
         });

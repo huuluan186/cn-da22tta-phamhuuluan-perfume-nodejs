@@ -7,7 +7,10 @@ export const getAllRolesService = async () => {
     try {
         const roles = await db.Role.findAll({
             paranoid: false,
-            order: [['createdAt', 'ASC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'ASC']
+            ],
         });
 
         return {

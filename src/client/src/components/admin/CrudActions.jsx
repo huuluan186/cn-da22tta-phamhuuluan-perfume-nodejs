@@ -15,6 +15,7 @@ const createAction = ({
     hoverBg,
     onClick,
     disabledCheck = isDeleted,
+    title = "", // Thêm title parameter
 }) => ({
     Component: ({ row }) => {
         const disabled = disabledCheck(row);
@@ -29,6 +30,7 @@ const createAction = ({
                 bgColor={disabled ? "bg-gray-300" : bgColor}
                 hoverBg={disabled ? "" : hoverBg}
                 className={disabled ? "cursor-not-allowed opacity-60" : ""}
+                title={disabled ? "Không thể thực hiện" : title}
                 onClick={() => {
                     if (!disabled) onClick(row);
                 }}
@@ -48,6 +50,7 @@ export const CrudActions = {
             hoverBg: "hover:bg-blue-600",
             onClick: onView,
             disabledCheck: () => false,
+            title: "Xem chi tiết",
         }),
 
     edit: (pathTemplate) => ({
@@ -65,6 +68,7 @@ export const CrudActions = {
                     bgColor={disabled ? "bg-gray-300" : "bg-orange-500"}
                     hoverBg={disabled ? "" : "hover:bg-orange-600"}
                     className={disabled ? "cursor-not-allowed opacity-60" : ""}
+                    title={disabled ? "Không thể chỉnh sửa" : "Chỉnh sửa"}
                     onClick={() => {
                         if (!disabled) {
                             navigate(pathTemplate.replace(":id", row.id));
@@ -90,6 +94,7 @@ export const CrudActions = {
                     bgColor={disabled ? "bg-gray-300" : "bg-indigo-500"}
                     hoverBg={disabled ? "" : "hover:bg-indigo-600"}
                     className={disabled ? "cursor-not-allowed opacity-60" : ""}
+                    title={disabled ? "Không thể chỉnh sửa quyền" : "Chỉnh sửa quyền"}
                     onClick={() => {
                         if (!disabled) {
                             navigate(pathTemplate.replace(":id", row.id));
@@ -107,5 +112,6 @@ export const CrudActions = {
             hoverBg: "hover:bg-red-600",
             onClick: onDelete,
             disabledCheck: options.disabledCheck || isDeleted,
+            title: "Xóa",
         }),
 };

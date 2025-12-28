@@ -35,6 +35,7 @@ export const getAllCategoriesAdminService = async (query = {}) => {
         const { rows, count } = await db.Category.findAndCountAll({
             paranoid: false,
             order: [
+                ['deletedAt', 'ASC'],
                 [sortBy, order.toUpperCase()],
                 ['name', 'ASC'],
             ],

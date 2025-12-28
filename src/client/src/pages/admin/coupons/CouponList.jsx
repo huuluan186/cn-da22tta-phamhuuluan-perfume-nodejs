@@ -47,7 +47,7 @@ const CouponList = () => {
         {
             key: "discountType",
             label: "Loại giảm",
-            render: row => row.discountType === "fixed" ? "Giảm tiền" : "Giảm %"
+            render: row => row.discountType === "fixed" ? "Giảm lượng tiền" : "Giảm %"
         },
         {
             key: "discountValue",
@@ -143,7 +143,7 @@ const CouponList = () => {
             {selectedCoupon && mode === "view" && (
                 <DetailModal
                     open={true}
-                    title={`Chi tiết coupon: ${selectedCoupon.code}`}
+                    title={`Chi tiết mã giảm giá: ${selectedCoupon.code}`}
                     onClose={() => {
                         setSelectedCoupon(null);
                         setMode(null);
@@ -152,7 +152,7 @@ const CouponList = () => {
                     <div className="space-y-3 text-sm">
                         <div><b>ID:</b> {selectedCoupon.id}</div>
                         <div>
-                            <b>Mã coupon:</b>{" "}
+                            <b>Mã giảm giá:</b>{" "}
                             <span className="font-mono text-2xl font-bold text-primary ml-2">
                                 {selectedCoupon.code}
                             </span>
@@ -183,7 +183,7 @@ const CouponList = () => {
             {selectedCoupon && mode === "delete" && (
                 <InfoModal
                     icon={<span className="text-red-500 text-4xl">⚠️</span>}
-                    message={`Bạn có chắc muốn xóa coupon "${selectedCoupon.code}"?`}
+                    message={`Bạn có chắc muốn xóa mã giảm giá "${selectedCoupon.code}"?`}
                     showConfirm
                     confirmText="Xóa vĩnh viễn"
                     onConfirm={handleDelete}

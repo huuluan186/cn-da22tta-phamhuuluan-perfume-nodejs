@@ -20,7 +20,6 @@ export const getUserCoupons = async (userId, page, limit) => {
                 }
             ],
             order: [
-                [db.sequelize.where(col('usedAt'), Op.is, null), 'DESC'],  
                 ['createdAt', 'ASC']  
             ],
             //distinct: true,
@@ -310,7 +309,10 @@ export const getAllCouponsService = async (query) => {
         const { rows, count } = await db.Coupon.findAndCountAll({
             where,
             paranoid: false,
-            order: [["createdAt", "DESC"]],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             ...(hasPagination ? { offset, limit: limitNum } : {})
         });
 

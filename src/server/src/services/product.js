@@ -380,7 +380,10 @@ export const getAllProductsAdminService = async (query = {}) => {
                     as: 'images',
                 },
             ],
-            order: [['createdAt', 'DESC']],
+            order: [
+                ['deletedAt', 'ASC'],
+                ['createdAt', 'DESC']
+            ],
             ...(hasPagination ? { offset, limit: limitNum } : {}),
         });
 

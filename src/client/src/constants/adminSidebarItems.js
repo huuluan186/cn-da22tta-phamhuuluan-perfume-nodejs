@@ -51,7 +51,7 @@ export const adminSidebarItems = [
         icon: <FaShoppingCart />
     },
     {
-        label: "Coupon",
+        label: "Mã giảm giá",
         to: path.COUPON_MANAGER,
         icon: <MdLocalOffer />
     },
