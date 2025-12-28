@@ -6,11 +6,11 @@ import { Op } from "sequelize";
  */
 
 //bộ lọc
-export const buildProductFilters = ({ categoryId, brandIds, rating, priceRange, keyword }) => {
+export const buildProductFilters = ({ categoryId, brandIds, priceRange, keyword }) => {
     const include = [
         { model: db.Brand, as: 'brand', attributes: ['id', 'name', 'logoUrl'] },
         { model: db.ProductImage, as: 'images', where: { isThumbnail: true }, required: false, attributes: ['url'] },
-        { model: db.ProductVariant, as: 'variants', attributes: ['price'] },
+        { model: db.ProductVariant, as: 'variants', attributes: ['price', 'discountPercent', 'soldQuantity'] },
     ];
 
     const where = {};
@@ -24,6 +24,7 @@ export const buildProductFilters = ({ categoryId, brandIds, rating, priceRange, 
             as: "categories",
             where: { id: categoryId },
             attributes: [],
+            required: true // Bắt buộc phải có category này (Inner Join)
         });
     }
 
@@ -50,11 +51,73 @@ export const buildProductSort = (sortKey) => {
     switch (sortKey) {
         case 'latest': return [['createdAt', 'DESC']];
         case 'oldest': return [['createdAt', 'ASC']];
-        case 'price_asc': return [['variants', 'price', 'ASC']];
-        case 'price_desc': return [['variants', 'price', 'DESC']];
         case 'name_asc': return [['name', 'ASC']];
         case 'name_desc': return [['name', 'DESC']];
-        case 'bestseller': return [['sold', 'DESC']];
         default: return [['createdAt', 'DESC']];
     }
+};
+
+export const sortProducts = (rows, sortKey) => {
+    switch (sortKey) {
+        case "price_asc":
+            return rows.sort((a, b) =>
+                (a.minPrice ?? a.price ?? Infinity) -
+                (b.minPrice ?? b.price ?? Infinity)
+            );
+
+        case "price_desc":
+            return rows.sort((a, b) =>
+                (b.maxPrice ?? b.price ?? -Infinity) -
+                (a.maxPrice ?? a.price ?? -Infinity)
+            );
+
+        case "bestseller":
+            return rows.sort((a, b) => b.totalSold - a.totalSold);
+
+        default:
+            return rows;
+    }
+};
+
+export const updateProductStock = async (items, transaction) => {
+    try {
+        for (let item of items) {
+            const variant = await db.ProductVariant.findByPk(
+                item.productVariantId,
+                { transaction }
+            );
+
+            if (!variant)
+                return { err: 1, msg: `Variant not found (${item.productVariantId})` };
+
+            if (variant.stockQuantity < item.quantity)
+                return { err: 1, msg: `Variant out of stock (${variant.sku})` };
+
+            await variant.update({
+                stockQuantity: variant.stockQuantity - item.quantity,
+                soldQuantity: variant.soldQuantity + item.quantity
+            }, { transaction });
+        }
+
+        return { err: 0 };
+
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const filterEmptyFields = (payload = {}) => {
+    const cleaned = {};
+
+    Object.entries(payload).forEach(([key, value]) => {
+        // bỏ undefined / null
+        if (value === undefined || value === null) return;
+
+        // bỏ string rỗng
+        if (typeof value === 'string' && value.trim() === '') return;
+
+        cleaned[key] = value;
+    });
+
+    return cleaned;
 };

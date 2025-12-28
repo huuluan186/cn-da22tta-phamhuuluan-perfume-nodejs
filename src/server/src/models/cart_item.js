@@ -8,7 +8,19 @@ export default (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            // CartItem thuộc về 1 Cart
+            CartItem.belongsTo(models.Cart, {
+                foreignKey: 'cartId',
+                as: 'cart',
+                onDelete: 'CASCADE',
+            });
+
+            // CartItem thuộc về 1 ProductVariant
+            CartItem.belongsTo(models.ProductVariant, {
+                foreignKey: 'productVariantId',
+                as: 'productVariant',
+                onDelete: 'CASCADE',
+            });
         }
     }
     CartItem.init({

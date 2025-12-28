@@ -1,19 +1,24 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { getProductDetail, getProductsList, getProductReviews  } from "../../store/actions/product";
+import { getProductDetail, getProductsList, getProductReviews } from "../../store/actions/product";
 import { toSlug } from "../../utils";
 import { getImageUrl, formatPrice } from "../../utils";
-import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, Modal } from '../../components/index'
+import { Button, ProductTabs, RatingSummary, ReviewList, ReviewModal, InfoModal } from '../../components/index'
 import icons from "../../assets/react-icons/icon";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
+import { addToCart, getMyCart } from "../../store/actions/cart";
+import { getMyOrders } from "../../store/actions/order";
+import { path } from "../../constants/path";
 
-const { FaHeart, FaRegHeart, FaRegCheckCircle} = icons;
+const { FaHeart, FaRegHeart, FaRegCheckCircle, MdCancel } = icons;
 
 const ProductDetail = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { slug } = useParams();
     const { products, product, reviews, avgRating, totalReviews } = useSelector(state => state.product);
+    const { orders } = useSelector(state => state.order);
     const [currentProductId, setCurrentProductId] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
     const [selectedVariant, setSelectedVariant] = useState(null);
@@ -22,6 +27,14 @@ const ProductDetail = () => {
     const [openModal, setOpenModal] = useState(false);
     const [reloadReview, setReloadReview] = useState(false); // tín hiệu khi thêm bình luận xong
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [currentOrderItemId, setCurrentOrderItemId] = useState(null);
+    const [infoModal, setInfoModal] = useState({
+        show: false,
+        message: "",
+        icon: null,
+        autoClose: 1500, // tự đóng sau x giấy,
+        onClose: null
+    });
 
     // 1. Nếu products chưa load, gọi API danh sách sản phẩm
     useEffect(() => {
@@ -29,6 +42,10 @@ const ProductDetail = () => {
             dispatch(getProductsList());
         }
     }, [products.length, dispatch]);
+
+    useEffect(() => {
+        dispatch(getMyOrders())
+    }, [dispatch]);
 
     // 2. Khi products có sẵn, tìm productId từ slug
     useEffect(() => {
@@ -53,20 +70,26 @@ const ProductDetail = () => {
         }
     }, [product]);
 
+    const validVariants = product?.variants?.filter(v => !v.deletedAt) || [];
+    const hasVariant = validVariants.length > 0;
+
     // Chọn variant hợp lệ: ưu tiên isDefault → còn hàng → cái đầu tiên
     useEffect(() => {
-        if (product?.variants?.length > 0) {
-            const defaultVariant = product.variants.find(v => v.isDefault);
-            const availableVariant = product.variants.find(v => v.stockQuantity > 0);
-
-            if (defaultVariant && defaultVariant.stockQuantity > 0) {
-                setSelectedVariant(defaultVariant);
-            } else if (availableVariant) {
-                setSelectedVariant(availableVariant);
-            } else {
-                setSelectedVariant(product.variants[0]); // tất cả hết → vẫn chọn 1 cái để hiển thị
-            }
+        if (!hasVariant) {
+            setSelectedVariant(null)
+            return
         }
+
+        const defaultVariant = validVariants.find(
+            v => v.isDefault && v.stockQuantity > 0
+        )
+        const availableVariant = validVariants.find(
+            v => v.stockQuantity > 0
+        )
+
+        setSelectedVariant(
+            defaultVariant || availableVariant || validVariants[0]
+        )
     }, [product]);
 
     useEffect(() => {
@@ -103,12 +126,79 @@ const ProductDetail = () => {
 
             window.dispatchEvent(new Event("favoritesUpdated"));
         } catch (err) {
-            console.error("Lỗi toggle favorite:", err);
+            // Check if error is 401 (chưa đăng nhập)
+            if (err.response?.status === 401) {
+                setInfoModal({
+                    show: true,
+                    message: "Vui lòng đăng nhập để thêm sản phẩm yêu thích",
+                    icon: <MdCancel className="text-orange-500 text-5xl" />,
+                    autoClose: 1500,
+                    //onClose: () => navigate(path.LOGIN)
+                });
+            } else {
+                console.error("Lỗi toggle favorite:", err);
+            }
+        }
+    };
+
+    const handleAddToCart = async (buyNow = false) => {
+        if (!hasVariant || !selectedInStock) {
+            setInfoModal({
+                show: true,
+                message: "Sản phẩm hiện chưa thể mua",
+                icon: <MdCancel className="text-red-500 text-5xl" />,
+                autoClose: 2000
+            })
+            return
+        }
+
+        try {
+            const response = await dispatch(addToCart(selectedVariant.id, quantity));
+
+            if (response?.err === 0) {
+                setInfoModal({
+                    show: true,
+                    message: buyNow ? "Đã thêm vào giỏ hàng! Chuyển tới thanh toán..." : "Đã thêm vào giỏ hàng!",
+                    icon: <FaRegCheckCircle className="text-green-500 text-5xl" />,
+                    autoClose: 1500,
+                    onClose: buyNow ? () => navigate(path.CHECKOUT) : null
+                });
+            } else {
+                setInfoModal({
+                    show: true,
+                    message: response.msg || "Số lượng bạn muốn mua vượt quá kho",
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            }
+            await dispatch(getMyCart());
+        } catch (err) {
+            // Check if error is 401 (Unauthorized - chưa đăng nhập)
+            if (err.response?.status === 401) {
+                setInfoModal({
+                    show: true,
+                    message: "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng",
+                    icon: <MdCancel className="text-orange-500 text-5xl" />,
+                    autoClose: 1500,
+                    //onClose: () => navigate(path.LOGIN)
+                });
+            } else {
+                setInfoModal({
+                    show: true,
+                    message: "Có lỗi xảy ra, vui lòng thử lại!",
+                    icon: <MdCancel className="text-red-500 text-5xl" />,
+                    autoClose: 2000
+                });
+            }
         }
     };
 
     // Variant đang chọn có còn hàng không?
-    const selectedInStock = selectedVariant?.stockQuantity > 0;
+    const selectedInStock = Boolean(
+        hasVariant &&
+        selectedVariant &&
+        selectedVariant.stockQuantity > 0
+    )
 
     const handleQuantityChange = (delta) => {
         const max = selectedVariant?.stockQuantity || 1;
@@ -121,9 +211,30 @@ const ProductDetail = () => {
         .sort((a, b) => a.sortOrder - b.sortOrder);
 
     // sort variant theo thứ tự volume tăng dần
-    const sortedVariants = product?.variants
-    ?.slice()
-    .sort((a, b) => a.volume - b.volume);
+    const sortedVariants = validVariants
+        ?.slice()
+        .sort((a, b) => a.volume - b.volume);
+
+    const openReviewModal = () => {
+        console.log("Orders:", orders);
+        console.log("Current product id:", product?.id);
+
+        let found = false;
+        for (let order of orders?.data || []) {
+            const item = order?.orderItems?.find(oi => oi.variant?.productId === product.id);
+            if (item) {
+                setCurrentOrderItemId(item.id); // lấy orderItemId đúng
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            console.warn("Không tìm thấy orderItem nào cho sản phẩm này trong orders của user!");
+        }
+
+        setOpenModal(true);
+    }
 
     return (
         <div className="container py-6 bg-contentBg">
@@ -131,9 +242,9 @@ const ProductDetail = () => {
             <div className="border shadow-sm">
                 <div className="grid grid-cols-12 lg:grid-cols-12 gap-10">
                     <div className="col-span-5 p-4">
-                         {/* Ảnh lớn */}
+                        {/* Ảnh lớn */}
                         <div className="w-full border-4 border-primary rounded">
-                            <img 
+                            <img
                                 src={previewImage}
                                 alt={product?.name}
                                 className="w-full h-96 object-contain"
@@ -148,9 +259,8 @@ const ProductDetail = () => {
                                         <div
                                             key={img.id}
                                             onClick={() => setPreviewImage(imgUrl)}
-                                            className={`w-14 h-14 rounded cursor-pointer transition flex-shrink-0 ${
-                                                previewImage === imgUrl && "border border-black"
-                                            }`}
+                                            className={`w-14 h-14 rounded cursor-pointer transition flex-shrink-0 ${previewImage === imgUrl && "border border-black"
+                                                }`}
                                         >
                                             <img
                                                 src={imgUrl}
@@ -184,24 +294,39 @@ const ProductDetail = () => {
                         {/* Tình trạng tổng: còn hàng nếu có ít nhất 1 variant còn */}
                         <p className="font-medium text-gray-600 my-2">
                             Tình trạng:
-                            <span className={`font-bold ${selectedInStock ? "text-green-600" : "text-red-600"}`}>
-                                {selectedInStock ? " Còn hàng" : " Hết hàng"} •
+                            <span
+                                className={`font-bold ${!hasVariant
+                                    ? "text-gray-500"
+                                    : selectedInStock
+                                        ? "text-green-600"
+                                        : "text-red-600"
+                                    }`}
+                            >
+                                {!hasVariant
+                                    ? " Chưa mở bán"
+                                    : selectedInStock
+                                        ? " Còn hàng"
+                                        : " Hết hàng"} •
                             </span>
                         </p>
 
                         {/* Giá */}
                         <div className="mb-3">
-                            {selectedVariant?.discountPercent > 0 ? (
+                            {!hasVariant ? (
+                                <span className="italic text-gray-500">
+                                    Chưa có giá bán
+                                </span>
+                            ) : selectedVariant?.discountPercent > 0 ? (
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-center gap-3">
                                         <span className="text-gray-500 line-through text-lg">
                                             {formatPrice(selectedVariant.originalPrice)}₫
                                         </span>
-    
+
                                         <span className="text-primary text-2xl font-bold">
                                             {formatPrice(selectedVariant.price)}₫
                                         </span>
-                                        
+
                                         <span className="text-base">
                                             (Tiết kiệm {selectedVariant.discountPercent}%)
                                         </span>
@@ -258,50 +383,56 @@ const ProductDetail = () => {
                         {/* Các dung tích */}
                         <div className="mb-4 space-y-1">
                             <h3 className="font-semibold text-gray-800">Dung tích</h3>
-                            <div className="flex flex-wrap gap-3">
-                                {sortedVariants?.map(v => {
-                                    const isOutOfStock = v.stockQuantity === 0;
-                                    const isSelected = selectedVariant?.id === v.id;
-    
-                                    let bgColor = isSelected ? "bg-white" : "bg-white";
-                                    let textColor = isSelected ? "text-primary" : "text-gray-00";
-                                    let hoverText
-                                    let textSize = isSelected ? "font-medium text-sm" : "font-normal text-sm";
-                                    let outline = isSelected ? "border border-primary" : "border border-gray-300";
+                            {!hasVariant ? (
+                                <p className="italic text-gray-500">
+                                    Sản phẩm hiện chưa có phiên bản bán
+                                </p>
+                            ) : (
+                                <div className="flex flex-wrap gap-3">
+                                    {sortedVariants?.map(v => {
+                                        const isOutOfStock = v.stockQuantity === 0;
+                                        const isSelected = selectedVariant?.id === v.id;
 
-                                    // Luôn cho click, kể cả hết hàng
-                                    const handleVariantClick = () => setSelectedVariant(v);
-    
-                                    if (isOutOfStock) {
-                                        bgColor = "bg-gray-50";
-                                        textColor = "text-gray-400";
-                                        hoverText = "hover:none"
-                                        outline = "border border-dashed border-gray-400";
-                                    }
-    
-                                    return (
-                                        <div key={v.id} className="relative">
-                                            <Button
-                                                text={`${v.volume}ml${isOutOfStock ? " (Hết hàng)" : ""}`}
-                                                onClick={handleVariantClick}
-                                                width="w-auto"
-                                                height="h-auto"
-                                                textSize={textSize}
-                                                bgColor={bgColor}
-                                                textColor={textColor}
-                                                outline={outline}
-                                                hoverBg='hover:none'
-                                                hoverText={hoverText}
-                                            />
-                                            {isOutOfStock && (
-                                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                                    <div className="w-full h-px bg-gray-400 rotate-12"></div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                                        let bgColor = isSelected ? "bg-white" : "bg-white";
+                                        let textColor = isSelected ? "text-primary" : "text-gray-00";
+                                        let hoverText
+                                        let textSize = isSelected ? "font-medium text-sm" : "font-normal text-sm";
+                                        let outline = isSelected ? "border border-primary" : "border border-gray-300";
+
+                                        // Luôn cho click, kể cả hết hàng
+                                        const handleVariantClick = () => setSelectedVariant(v);
+
+                                        if (isOutOfStock) {
+                                            bgColor = "bg-gray-50";
+                                            textColor = "text-gray-400";
+                                            hoverText = "hover:none"
+                                            outline = "border border-dashed border-gray-400";
+                                        }
+
+                                        return (
+                                            <div key={v.id} className="relative">
+                                                <Button
+                                                    text={`${v.volume}ml${isOutOfStock ? " (Hết hàng)" : ""}`}
+                                                    onClick={handleVariantClick}
+                                                    width="w-auto"
+                                                    height="h-auto"
+                                                    textSize={textSize}
+                                                    bgColor={bgColor}
+                                                    textColor={textColor}
+                                                    outline={outline}
+                                                    hoverBg='hover:none'
+                                                    hoverText={hoverText}
+                                                />
+                                                {isOutOfStock && (
+                                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                        <div className="w-full h-px bg-gray-400 rotate-12"></div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
 
                         {/* Tăng - giảm số lượng mua */}
@@ -350,12 +481,21 @@ const ProductDetail = () => {
                                 </p>
                             )}
                         </div>
-                            
+
                         {/* NÚT MUA - THÊM */}
                         <div className="grid grid-cols-2 gap-4 w-full mb-4">
-                            { selectedInStock ? (
+                            {!hasVariant ? (
+                                <Button
+                                    text='CHƯA MỞ BÁN'
+                                    width="w-full"
+                                    height="h-14"
+                                    rounded="rounded-md"
+                                    textSize="text-xl"
+                                    className="pointer-events-none cursor-not-allowed opacity-50"
+                                />
+                            ) : selectedInStock ? (
                                 <>
-                                    <Button 
+                                    <Button
                                         text='MUA NGAY'
                                         width="w-full"
                                         height="h-14"
@@ -363,8 +503,9 @@ const ProductDetail = () => {
                                         textSize="text-xl"
                                         hoverBg="hover:bg-secondary"
                                         hoverText="hover:text-light"
+                                        onClick={() => handleAddToCart(true)}
                                     />
-                                    <Button 
+                                    <Button
                                         text='THÊM VÀO GIỎ HÀNG'
                                         width="w-full"
                                         height="h-14"
@@ -372,10 +513,11 @@ const ProductDetail = () => {
                                         textSize="text-xl"
                                         hoverBg="hover:bg-secondary"
                                         hoverText="hover:text-light"
+                                        onClick={() => handleAddToCart(false)}
                                     />
                                 </>
                             ) : (
-                                <Button 
+                                <Button
                                     text='HẾT HÀNG'
                                     width="w-full"
                                     height="h-14"
@@ -390,7 +532,7 @@ const ProductDetail = () => {
                         <div className="inline-flex items-center justify-center">
                             <Button
                                 onClick={toggleFavorite}
-                                text={isFavorite ? <FaHeart/> : <FaRegHeart/>}
+                                text={isFavorite ? <FaHeart /> : <FaRegHeart />}
                                 width="w-auto"
                                 height="h-10"
                                 textSize="text-lg"
@@ -419,48 +561,68 @@ const ProductDetail = () => {
 
             {/* ================== KHỐI 2: 3 TAB CHI TIẾT ================== */}
             <div className="border shadow-sm mt-8">
-                <ProductTabs product={product} selectedVariant={selectedVariant}/> 
+                <ProductTabs product={product} selectedVariant={selectedVariant} />
             </div>
 
             {/* ================== KHỐI 3: ĐÁNH GIÁ SẢN PHẨM ================== */}
             <div className="mt-8 space-y-6">
-                <h3 className="text-2xl font-bold bg-gray-200 px-4 py-2 -mb-2 rounded-md">
+                <h3 className="text-2xl font-bold bg-white text-gray-800 px-6 py-3 mb-0 rounded-md shadow-md border-l-4 border-primary">
                     Đánh giá và Nhận xét ({totalReviews})
                 </h3>
                 <RatingSummary
                     avgRating={avgRating}
                     totalReviews={totalReviews}
-                    reviews={reviews} 
-                    onRateClick={()=>setOpenModal(true)}
+                    reviews={reviews}
+                    onRateClick={openReviewModal}
                 />
 
                 <ReviewList reviews={reviews} />
             </div>
 
             {/* review modal */}
-            {openModal && (
-                <ReviewModal 
-                    product={product} 
-                    onClose={() => {
-                        setOpenModal(false);           // Đóng ReviewModal
-                        setShowSuccessModal(true);    // Hiện modal thành công
-                    }} 
-                />
-            )}
+            {
+                openModal && (
+                    <ReviewModal
+                        product={product}
+                        orderItemId={currentOrderItemId}
+                        onClose={(success) => {
+                            setOpenModal(false);           // Đóng ReviewModal
+                            if (success) {
+                                setShowSuccessModal(true);
+                            }
+                        }}
+                    />
+                )
+            }
 
             {/* Modal thông báo thành công */}
-            {showSuccessModal && (
-                <Modal
-                    icon={<FaRegCheckCircle size={50} className="text-primary" />}
-                    message="Cảm ơn bạn đã để lại đánh giá!"
-                    onClose={() => {
-                        setShowSuccessModal(false);
-                        setReloadReview(prev => !prev); // Reload lại review
-                    }}
-                    autoClose={2000}
-                />
-            )}
-        </div>
+            {
+                showSuccessModal && (
+                    <InfoModal
+                        icon={<FaRegCheckCircle size={50} className="text-primary" />}
+                        message="Cảm ơn bạn đã để lại đánh giá!"
+                        onClose={() => {
+                            setShowSuccessModal(false);
+                            setReloadReview(prev => !prev); // Reload lại review
+                        }}
+                        autoClose={2000}
+                    />
+                )
+            }
+            {
+                infoModal.show && (
+                    <InfoModal
+                        icon={infoModal.icon}
+                        message={infoModal.message}
+                        autoClose={infoModal.autoClose}
+                        onClose={() => {
+                            if (infoModal.onClose) infoModal.onClose();
+                            setInfoModal(prev => ({ ...prev, show: false, onClose: null }));
+                        }}
+                    />
+                )
+            }
+        </div >
     )
 }
 

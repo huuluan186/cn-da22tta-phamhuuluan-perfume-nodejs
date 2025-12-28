@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
     const { user, loading } = useSelector(state => state.user);
     const location = useLocation();
+    const isAdmin = user?.roles?.some(r => r.name === "admin");
 
     // Nếu vẫn đang fetch user (vừa reload xong) → không redirect, không render
     if (loading) return null;
@@ -21,7 +22,12 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
     }
 
     // Nếu route yêu cầu admin mà user không phải admin
-    if (requireAdmin && !user.isAdmin) {
+    if (requireAdmin && !isAdmin) {
+        if (!toast.isActive("forbidden-warning")) {
+            toast.error("Bạn không có quyền truy cập trang này!", {
+                toastId: "forbidden-warning",
+            });
+        }
         return <Navigate to={path.HOME} replace />;
     }
 

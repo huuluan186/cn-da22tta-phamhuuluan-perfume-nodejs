@@ -1,10 +1,12 @@
 'use strict';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 
 export async function up(queryInterface, Sequelize) {
-    const roles = JSON.parse(fs.readFileSync('./data/roles.json', 'utf8'));
-
+    const rolesFile = path.join(process.cwd(), 'data', 'roles.json');
+    const roles = JSON.parse(fs.readFileSync(rolesFile, 'utf8'));
+    
     // Tạo dữ liệu với UUID động
     const rolesData = roles.map(role => ({
         id: uuidv4(),

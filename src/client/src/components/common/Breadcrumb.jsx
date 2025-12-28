@@ -8,6 +8,7 @@ const Breadcrumb = () => {
     const { slug } = useParams();
     const { categories } = useSelector(state => state.category);
     const { product } = useSelector(state => state.product);
+    const { brandDetail } = useSelector(state => state.brand);
 
      // Tìm key khớp trong breadcrumbMap (có hỗ trợ route động)
     const findBreadcrumbKey = () => {
@@ -32,6 +33,9 @@ const Breadcrumb = () => {
     // Nếu là trang product detail và product đã load 
     if (matchedKey === path.PRODUCT_DETAIL && product) {
         dynamicTrail = [{ label: product.name }];
+    }
+    else if (matchedKey === path.BRAND_DETAIL && brandDetail) {
+        dynamicTrail = [{ label: brandDetail.name }];
     }
     // Nếu là category slug 
     else if (slug) { 

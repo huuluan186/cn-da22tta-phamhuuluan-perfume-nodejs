@@ -14,7 +14,8 @@ const slugify = (str) => {
 export async function up(queryInterface, Sequelize) {
     try {
         // 📂 Đọc file stats.json
-        const filePath = path.resolve('./data/stats.json'); // hoặc './src/data/stats.json'
+        const filePath = path.join(process.cwd(), 'data', 'stats.json'); 
+        // hoặc './src/data/stats.json'
         const rawData = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(rawData);
 

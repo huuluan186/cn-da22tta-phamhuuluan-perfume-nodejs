@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { path } from "../../constants/path";
 import { apiAddFavorite, apiRemoveFavorite, apiGetMyFavorites } from "../../api/user";
 import { useState, useEffect } from "react";
+
 /**
     * Component hiển thị 1 sản phẩm dạng thẻ
     * @param {Object} product - Thông tin sản phẩm
@@ -13,7 +14,7 @@ import { useState, useEffect } from "react";
     * Local state: isFavorite để toggle, loading để tránh click liên tục
 */
 
-const {FaCartPlus, FaEye, FaRegHeart, FaHeart } = icons
+const { FaEye, FaRegHeart, FaHeart } = icons
 
 const ProductCard = ({ 
     product, 
@@ -68,7 +69,6 @@ const ProductCard = ({
     };
 
     const iconsList = [
-        { Icon: FaCartPlus },
         {   
             Icon: FaEye,
             onClick: (e) => {
@@ -165,6 +165,12 @@ const ProductCard = ({
         >
             {/* Ảnh sản phẩm */}
             <div className="w-full h-48 bg-white flex items-center justify-center py-2">
+                {/* BADGE GIẢM GIÁ */}
+                {product.maxDiscount > 0 && (
+                    <span className="absolute top-2 right-0 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                        -{product.maxDiscount}%
+                    </span>
+                )}
                 <img
                     src={getImageUrl(product.thumbnail)}
                     alt={product.name}
@@ -188,10 +194,10 @@ const ProductCard = ({
                     </h4>
                 </div>
 
-                <div className="relative h-6">
+                <div className="relative h-8">
                     {/* Giá (ẩn khi hover) */}
                     {priceText && (
-                        <p className="absolute inset-0 text-sm text-red-500 font-semibold truncate transition-all duration-300 group-hover:translate-y-3 group-hover:opacity-0">
+                        <p className="absolute inset-0 text-[0.9rem] text-red-500 font-semibold truncate transition-all duration-300 group-hover:translate-y-3 group-hover:opacity-0">
                             {priceText}₫
                         </p>
                     )}

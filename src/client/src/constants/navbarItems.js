@@ -1,9 +1,12 @@
 import { path } from "./path";
+import icons from '../assets/react-icons/icon'
+const {IoHome} = icons;
 
 export const navbarItems = [
     { 
         label: "TRANG CHỦ", 
         path: path.HOME, 
+        icon: IoHome
     },
     { 
         label: "GIỚI THIỆU", 

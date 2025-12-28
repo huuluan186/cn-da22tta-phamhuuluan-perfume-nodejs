@@ -37,7 +37,15 @@ export const breadcrumbMap = {
         { label: "Danh mục" },
     ],
 
+    [`${path.BRANDS}`]: [
+        { label: "Thương hiệu" },
+    ],
+
     [`${path.PRODUCT_DETAIL}`]: [
+        { label: "" },
+    ],
+
+    [`${path.BRAND_DETAIL}`]: [
         { label: "" },
     ],
 
@@ -47,5 +55,50 @@ export const breadcrumbMap = {
 
     [`${path.SEARCH}`]: [
         { label: "Kết quả tìm kiếm" }
-    ]
+    ],
+
+    [`${path.CART}`]: [
+        { label: "Giỏ hàng" }
+    ],
+
+    [`${path.CONTACT}`]: [
+        { label: "Liên hệ" }
+    ],
+
+    [`${path.INTRODUCE}`]: [
+        { label: "Giới thiệu" }
+    ],
+
+    [`${path.PUCHARSE_GUIDE}`]: [
+        { label: "Chính sách thanh toán & Hướng dẫn mua hàng" }
+    ],
+
+    [`${path.INSPECTION_GUIDE}`]: [
+        { label: "Hướng dẫn kiểm hàng" }
+    ],
+
+    [`${path.TERM_OF_USE}`]: [
+        { label: "Điều khoản sử dụng" }
+    ],
+
+    [`${path.PURCHASE_POLICY}`]: [
+        { label: "Chính sách mua hàng" }
+    ],
+
+    [`${path.PRIVACY_POLICY}`]: [
+        { label: "Chính sách bảo mật thông tin" }
+    ],
+
+    [`${path.RETURN_POLICY}`]: [
+        { label: "Chính sách đổi trả - bảo hành" }
+    ],
+
+    [`${path.SHIPPING_POLICY}`]: [
+        { label: "Chính sách giao hàng" }
+    ],
+
+    [`${path.PAYMENT_SECURITY_POLICY}`]: [
+        { label: "Chính sách bảo mật thanh toán" }
+    ],
+    
 };

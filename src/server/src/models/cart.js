@@ -15,6 +15,13 @@ export default (sequelize, DataTypes) => {
                 as: 'user',            
                 onDelete: 'CASCADE',
             });
+
+            // 1 Cart có nhiều CartItem
+            Cart.hasMany(models.CartItem, {
+                foreignKey: 'cartId',
+                as: 'cartItems',
+                onDelete: 'CASCADE',
+            });
         }
     }
     Cart.init({

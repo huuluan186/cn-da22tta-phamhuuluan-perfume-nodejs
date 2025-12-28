@@ -7,8 +7,16 @@ import mainRouter from './src/routes/index.route.js';
 import passport from './src/config/passport.config.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { autoExpireCoupons, cancelExpiredOrders } from './src/utils/index.js';
+import { swaggerSpec, swaggerUi } from './src/config/swagger.js';
 
 const app = express()
+
+// Khởi chạy cron job để tự động hết hạn coupon
+autoExpireCoupons();
+
+// Khởi chạy cron job để tự động hủy đơn ZaloPay quá hạn
+cancelExpiredOrders();
 
 app.use(cors({
     origin:process.env.CLIENT_URL,
@@ -31,7 +39,9 @@ app.use((req, res, next) => {
     res.set('Expires', '0');
     next();
 }, mainRouter)
+
 // chỉ mount /api một lần duy nhất
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(passport.initialize());
 app.use('/api', mainRouter);
 
@@ -43,7 +53,7 @@ app.use('/', (req, res) => {
 const port = process.env.PORT || 5000;
 
 connectDatabase().then(async () => {
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
         console.log(`Website listening on port ${port}`);
     });
 });

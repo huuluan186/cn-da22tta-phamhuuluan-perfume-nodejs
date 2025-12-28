@@ -108,3 +108,41 @@ export const apiRemoveFavorite = async (productId) => {
         throw error;
     }
 }
+
+export const apiGetAllUsers = async (params={}) => {
+    try {
+        const response = await axiosConfig.get('/api/admin/users', {params});
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiUpdateUserRoles = async (userId, roleIds) => {
+    try {
+        const response = await axiosConfig.patch(
+            `/api/admin/users/${userId}/roles`, roleIds
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiDeleteUser = async (userId) => {
+    try {
+        const response = await axiosConfig.delete(`/api/admin/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiGetAllRoles = async () => {
+    try {
+        const response = await axiosConfig.get('/api/admin/roles');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

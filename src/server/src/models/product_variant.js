@@ -20,6 +20,13 @@ export default (sequelize, DataTypes) => {
                 as: 'orderItems', 
                 onDelete: 'CASCADE' 
             });
+
+            // 1 biến thể có thể xuất hiện trong nhiều cart item
+            ProductVariant.hasMany(models.CartItem, {
+                foreignKey: 'productVariantId',
+                as: 'cartItems',
+                onDelete: 'CASCADE'
+            });
         }
     }
     ProductVariant.init({
