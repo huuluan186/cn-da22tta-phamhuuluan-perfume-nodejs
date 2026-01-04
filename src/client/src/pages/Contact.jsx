@@ -41,7 +41,7 @@ const Contact = () => {
                 {/* Cột trái: thông tin liên hệ + bản đồ */}
                 <div className="md:col-span-4 space-y-4">
                     <h2 className="text-xl font-semibold">Liên hệ</h2>
-                    <p>📍 126 Nguyễn Thiện Thành, phường Trà Vinh, tỉnh Vĩnh Long</p>
+                    <p>📍 126 Nguyễn Thiện Thành, Phường Hòa Thuận, tỉnh Vĩnh Long</p>
                     <p>📞 0123 456 789</p>
                     <p>✉️ luanphamhuu2004@gmail.com</p>
                     <div className="mt-4 w-full h-64">
@@ -83,26 +83,26 @@ const Contact = () => {
                                 onChange={handleChange}
                                 required
                             />
-                            </div>
+                        </div>
 
-                            {/* Nội dung */}
-                            <InputField
-                                label="Nội dung"
-                                name="message"
-                                type="textarea"
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                            />
+                        {/* Nội dung */}
+                        <InputField
+                            label="Nội dung"
+                            name="message"
+                            type="textarea"
+                            value={formData.message}
+                            onChange={handleChange}
+                            required
+                        />
 
-                            <Button
-                                type="submit"
-                                width="w-auto"
-                                text={loading ? "Đang gửi..." : "Gửi tin nhắn"}
-                                hoverBg='hover:none'
-                                hoverText="hover:none"
-                                disabled={loading}
-                            />
+                        <Button
+                            type="submit"
+                            width="w-auto"
+                            text={loading ? "Đang gửi..." : "Gửi tin nhắn"}
+                            hoverBg='hover:none'
+                            hoverText="hover:none"
+                            disabled={loading}
+                        />
                     </form>
                 </div>
             </div>

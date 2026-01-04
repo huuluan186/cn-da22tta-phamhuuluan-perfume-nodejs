@@ -50,8 +50,8 @@ const socialMedia = [
 
 const contactItems = [
     { type: 'text', label: 'Hộ Kinh doanh PERFUMORA' },
-    { type: 'text', label: 'Số ĐKKD 41H8185878 cấp ngày 24/3/2022 tại UBND phường Trà Vinh, tỉnh Vĩnh Long' },
-    { type: 'text', label: 'Địa chỉ: 126 Nguyễn Thiện Thành, phường Trà Vinh, tỉnh Vĩnh Long' },
+    { type: 'text', label: 'Số ĐKKD 41H8185878 cấp ngày 24/3/2022 tại UBND Phường Hòa Thuận, tỉnh Vĩnh Long' },
+    { type: 'text', label: 'Địa chỉ: 126 Nguyễn Thiện Thành, phường Hòa Thuận, tỉnh Vĩnh Long' },
     { type: 'text', label: 'Hotline: 0123 456 789' },
     { type: 'a', href: 'mailto: luanphamhuu2004@gmail.com', label: 'Email: luanphamhuu2004@gmail.com' },
 ]
