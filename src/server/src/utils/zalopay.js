@@ -5,12 +5,16 @@ const ZALO_APP_ID = process.env.ZALO_APP_ID;
 const ZALO_KEY1 = process.env.ZALO_KEY1;
 const ZALO_KEY2 = process.env.ZALO_KEY2;
 const ZALO_REDIRECT_URL = process.env.ZALO_REDIRECT_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 const ZALO_API_ENDPOINT = process.env.ZALO_API_ENDPOINT;
 
 // Hàm tạo đơn hàng ZaloPay
 export const createZaloPayOrder = async ({ orderId, app_trans_id, amount, description }) => {
+    // Ưu tiên ZALO_REDIRECT_URL nếu có, nếu không thì dùng CLIENT_URL + /account/orders
+    const redirectUrl = ZALO_REDIRECT_URL || `${CLIENT_URL}/account/orders`;
+    
     const embed_data = JSON.stringify({
-        redirecturl: ZALO_REDIRECT_URL,
+        redirecturl: redirectUrl,
         orderId
     });
 
@@ -106,5 +110,6 @@ export const zaloRedirectHandler = (req, res) => {
     }
 
     // Nếu ok → redirect FE
-    return res.redirect(process.env.ZALO_REDIRECT_URL);
+    const redirectUrl = ZALO_REDIRECT_URL || `${CLIENT_URL}/account/orders`;
+    return res.redirect(redirectUrl);
 };
