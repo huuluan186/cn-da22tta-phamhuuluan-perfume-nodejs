@@ -56,7 +56,7 @@ export default (sequelize, DataTypes) => {
         isApproved: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: false, // mặc định duyệt ngay khi user đăng
+            defaultValue: true, // ✅ Duyệt tự động, admin có thể ẩn sau
         },
     },
     {

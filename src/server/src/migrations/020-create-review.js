@@ -40,7 +40,7 @@ export async function up(queryInterface, Sequelize) {
         isApproved: {
             type: Sequelize.BOOLEAN,
             allowNull: false,
-            defaultValue: false, // mặc định duyệt ngay khi user đăng
+            defaultValue: true, // ✅ Duyệt tự động, admin có thể ẩn sau
         },
         createdAt: {
             allowNull: false,
