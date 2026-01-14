@@ -8,7 +8,8 @@ import { Op } from 'sequelize'
  */
 const getWhereClause = (startDate, endDate) => {
     const where = {
-        orderStatus: { [Op.in]: ['Processing', 'Confirmed', 'Shipped', 'Completed'] },
+        // Chỉ tính những đơn hàng đã được xác nhận trở lên (không tính Processing)
+        orderStatus: { [Op.in]: ['Confirmed', 'Shipped', 'Completed'] },
         [Op.or]: [
             { paymentMethod: 'COD' },
             {
@@ -41,7 +42,8 @@ export const getKPIsService = async ({ startDate, endDate }) => {
     try {
         const where = getWhereClause(startDate, endDate)
 
-        const total = await db.Order.findOne({
+        // Đơn đã duyệt (đã xác nhận trở lên)
+        const approvedOrders = await db.Order.findOne({
             where,
             attributes: [
                 [db.sequelize.fn('SUM', db.sequelize.col('totalAmount')), 'totalRevenue'],
@@ -50,20 +52,43 @@ export const getKPIsService = async ({ startDate, endDate }) => {
             raw: true
         })
 
+        // Đơn chưa duyệt (Processing hoặc Pending)
+        const dateWhere = {}
+        if (startDate || endDate) {
+            dateWhere.createdAt = {}
+            if (startDate) dateWhere.createdAt[Op.gte] = new Date(startDate)
+            if (endDate) {
+                const end = new Date(endDate)
+                end.setHours(23, 59, 59, 999)
+                dateWhere.createdAt[Op.lte] = end
+            }
+        }
+
+        const pendingOrders = await db.Order.count({
+            where: {
+                ...dateWhere,
+                orderStatus: { [Op.in]: ['Processing', 'Pending'] }
+            }
+        })
+
         const totalProductsSold = await db.OrderItem.sum('quantity', {
             include: [{ model: db.Order, as: 'order', where, attributes: [] }]
         })
+
+        const totalRevenue = Number(approvedOrders?.totalRevenue) || 0;
+        const approvedOrdersCount = Number(approvedOrders?.totalOrders) || 0;
 
         return {
             err: 0,
             msg: 'Get KPIs successfully',
             response: {
-                totalRevenue: Number(total?.totalRevenue || 0),
-                totalOrders: Number(total?.totalOrders || 0),
-                avgOrderValue: total?.totalOrders
-                    ? Number(total.totalRevenue / total.totalOrders).toFixed(2)
-                    : '0.00',
-                totalProductsSold: Number(totalProductsSold || 0)
+                totalRevenue: totalRevenue,
+                approvedOrders: approvedOrdersCount,
+                pendingOrders: Number(pendingOrders) || 0,
+                avgOrderValue: approvedOrdersCount > 0 
+                    ? Number((totalRevenue / approvedOrdersCount).toFixed(2))
+                    : 0,
+                totalProductsSold: Number(totalProductsSold) || 0
             }
         }
     } catch (error) {

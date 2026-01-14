@@ -33,9 +33,14 @@ const KPIsOverview = () => {
             color: "from-blue-500 to-blue-600",
         },
         {
-            label: "Tổng đơn hàng",
-            value: Number(kpis?.totalOrders || 0).toLocaleString(),
+            label: "Đơn đã duyệt",
+            value: Number(kpis?.approvedOrders || 0).toLocaleString(),
             color: "from-green-500 to-green-600",
+        },
+        {
+            label: "Đơn chưa duyệt",
+            value: Number(kpis?.pendingOrders || 0).toLocaleString(),
+            color: "from-yellow-500 to-yellow-600",
         },
         {
             label: "AOV trung bình",
@@ -55,33 +60,22 @@ const KPIsOverview = () => {
     ];
 
     return (
-        <div className="space-y-6">
-            {/* HÀNG 1 – 3 BOX */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {kpiList.slice(0, 3).map((item, index) => (
-                    <KPIBox key={index} item={item} />
-                ))}
-            </div>
-
-            {/* HÀNG 2 – 2 BOX CĂN GIỮA */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                {kpiList.slice(3).map((item, index) => (
-                    <KPIBox key={index} item={item} />
-                ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {kpiList.map((item, index) => (
+                <KPIBox key={index} item={item} />
+            ))}
         </div>
     );
 };
 
 const KPIBox = ({ item }) => (
     <div
-        className={`bg-gradient-to-br ${item.color} text-white rounded-xl shadow-lg p-5 transition hover:scale-105`}
+        className={`bg-gradient-to-br ${item.color} text-white rounded-lg shadow-md p-4 transition hover:scale-105`}
     >
-        {/* KHÔNG truncate để hiện full chữ */}
-        <h3 className="text-sm font-medium opacity-90 whitespace-normal">
+        <h3 className="text-sm font-medium opacity-90 mb-2">
             {item.label}
         </h3>
-        <p className="text-2xl font-bold mt-2 whitespace-normal">
+        <p className="text-2xl font-bold">
             {item.value}
         </p>
     </div>
