@@ -80,7 +80,7 @@ export const updateCurrentUserService = async (userId, updateData) => {
 
         // Nếu người dùng xóa 1 trong 2 nhưng vẫn giữ cái kia → cập nhật cái còn lại
         // Nếu cả 2 đều rỗng → giữ nguyên giá trị cũ
-        if (updateData.firstname.trim() === '' && updateData.lastname.trim() === '') {
+        if (updateData.firstname?.trim() === '' && updateData.lastname?.trim() === '') {
             filteredData.firstname = currentFirstname;
             filteredData.lastname = currentLastname;
         } else {
