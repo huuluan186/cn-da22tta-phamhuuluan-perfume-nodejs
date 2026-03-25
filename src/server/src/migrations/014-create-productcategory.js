@@ -5,6 +5,7 @@ export async function up(queryInterface, Sequelize) {
         productId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Products', 
                 key: 'id',
@@ -14,6 +15,7 @@ export async function up(queryInterface, Sequelize) {
         categoryId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Categories', 
                 key: 'id',
@@ -30,13 +32,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         },
-    });
-
-    // Ngăn trùng lặp sản phẩm – danh mục
-    await queryInterface.addConstraint('ProductCategories', {
-        fields: ['productId', 'categoryId'],
-        type: 'primary key',
-        name: 'pk_product_category',
     });
 }
 export async function down(queryInterface, Sequelize) {

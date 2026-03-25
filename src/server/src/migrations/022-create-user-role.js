@@ -5,6 +5,7 @@ export async function up(queryInterface, Sequelize) {
         userId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Users', 
                 key: 'id',
@@ -14,6 +15,7 @@ export async function up(queryInterface, Sequelize) {
         roleId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Roles', 
                 key: 'id',
@@ -30,12 +32,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         },
-    });
-
-    await queryInterface.addConstraint('UserRoles', {
-        fields: ['userId', 'roleId'],
-        type: 'primary key',
-        name: 'pk_user_roles', 
     });
 }
 export async function down(queryInterface, Sequelize) {

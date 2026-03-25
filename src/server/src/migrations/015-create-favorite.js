@@ -5,6 +5,7 @@ export async function up(queryInterface, Sequelize) {
         productId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Products', 
                 key: 'id',
@@ -14,6 +15,7 @@ export async function up(queryInterface, Sequelize) {
         userId: {
             type: Sequelize.STRING,
             allowNull: false,
+            primaryKey: true,
             references: {
                 model: 'Users', 
                 key: 'id',
@@ -30,12 +32,6 @@ export async function up(queryInterface, Sequelize) {
             type: Sequelize.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
         },
-    });
-
-    await queryInterface.addConstraint('Favorites', {
-        fields: ['userId', 'productId'],
-        type: 'primary key',
-        name: 'favorites_pkey'
     });
 }
 
