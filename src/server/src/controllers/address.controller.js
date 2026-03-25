@@ -1,7 +1,7 @@
 import * as service from '../services/address.js'
 import { addressSchema } from '../validations/addressValidation.js'
 import { validateData } from '../validations/validation.js';
-
+// Controller for handling user address-related operations
 export const getUserAddressesController = async (req, res) => {
     try {
         const { id } = req.user;
