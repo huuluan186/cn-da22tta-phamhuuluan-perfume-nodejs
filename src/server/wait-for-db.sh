@@ -11,6 +11,9 @@ done
 echo "✅ MySQL is up! Running migrations..."
 npx sequelize db:migrate --config ./src/config/config.js --migrations-path ./src/migrations
 
+echo "🧹 Removing old seeds..."
+npx sequelize db:seed:undo:all --config ./src/config/config.js --seeders-path ./src/seeders
+
 echo "🌱 Running seeders..."
 npx sequelize db:seed:all --config ./src/config/config.js --seeders-path ./src/seeders
 
