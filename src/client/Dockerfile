@@ -5,6 +5,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+# Khai báo ARG và gán vào ENV để React build nhận diện được
+ARG REACT_APP_SERVER_URL
+ENV REACT_APP_SERVER_URL=$REACT_APP_SERVER_URL
+
 RUN npm run build
 
 # Stage 2: Nginx serve build
