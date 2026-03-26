@@ -19,7 +19,7 @@ autoExpireCoupons();
 cancelExpiredOrders();
 
 app.use(cors({
-    origin:process.env.CLIENT_URL,
+    origin: true, // Chấp nhận mọi origin (mirror) thay vì fix cứng process.env.CLIENT_URL
     credentials: true, // cho phép gửi cookie hoặc auth headers có credentials
 }))
 
