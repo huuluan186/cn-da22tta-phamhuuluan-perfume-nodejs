@@ -4,7 +4,7 @@ import path from 'path';
 
 export async function up(queryInterface, Sequelize) {
     //const filePath = path.resolve('./data/categories.json');
-    const filePath = path.join(process.cwd(), 'data', 'categories.json'); 
+    const filePath = path.join(process.cwd(), 'src', 'data', 'categories.json'); 
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const now = new Date();
 

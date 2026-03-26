@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 
 export async function up(queryInterface, Sequelize) {
     //const dataPath = path.resolve('./data/products.json');
-    const filePath = path.join(process.cwd(), 'data', 'products.json'); 
+    const filePath = path.join(process.cwd(), 'src', 'data', 'products.json'); 
     const rawData = fs.readFileSync(filePath, 'utf-8');
     const products = JSON.parse(rawData);
 

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 
 export async function up(queryInterface, Sequelize) {
-    const usersFile = path.join(process.cwd(), 'data', 'userAdmin.json');
+    const usersFile = path.join(process.cwd(), 'src', 'data', 'userAdmin.json');
     const admins = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
 
     // 1️⃣ Lấy tất cả roles từ DB
@@ -47,7 +47,8 @@ export async function up(queryInterface, Sequelize) {
 }
 
 export async function down(queryInterface, Sequelize) {
-    const admins = JSON.parse(fs.readFileSync('./data/userAdmin.json', 'utf8'));
+    const usersFile = path.join(process.cwd(), 'src', 'data', 'userAdmin.json');
+    const admins = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
     const emails = admins.map(a => a.email);
 
     if (!emails.length) return;
