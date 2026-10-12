@@ -37,5 +37,11 @@ export default {
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT || "mysql",
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   }
 };
