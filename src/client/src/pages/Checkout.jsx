@@ -609,7 +609,7 @@ const Checkout = () => {
                     <div className="flex gap-3 mb-6">
                         <input
                             type="text"
-                            placeholder="Nhập mã giảm giá"
+                            placeholder=" (nếu có)"
                             className={`flex-1 border rounded px-3 py-2 text-sm 
                                 ${couponError ? 'border-red-500' : ''}`}
                             value={couponCode}
