@@ -139,3 +139,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 /server/src/public/uploads/
+
+# Tài liệu deploy (chứa thông tin nhạy cảm)
+walkthrough.md
+CICD_WORKFLOW.md
