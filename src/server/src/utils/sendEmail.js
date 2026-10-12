@@ -11,6 +11,9 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS,     // App Password nếu dùng Gmail
     },
     // Nếu dùng SendGrid/Mailgun thì cấu hình khác
+    connectionTimeout: 10000, // báo lỗi sau 10s thay vì treo ~2 phút khi cổng SMTP bị chặn
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
 });
 
 export const generateShortResetLink = async (userId, resetToken) => {
@@ -58,7 +61,18 @@ export const sendResetPasswordEmail = async (user, resetToken) => {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
+        if (process.env.BREVO_API_KEY) {
+            // Render Free chặn cổng SMTP => gửi qua HTTPS API của Brevo
+            await axios.post('https://api.brevo.com/v3/smtp/email', {
+                sender: { name: 'Perfumora.vn', email: process.env.EMAIL_USER },
+                to: [{ email: user.email }],
+                subject: mailOptions.subject,
+                htmlContent: mailOptions.html,
+                textContent: mailOptions.text,
+            }, { headers: { 'api-key': process.env.BREVO_API_KEY }, timeout: 15000 });
+        } else {
+            await transporter.sendMail(mailOptions);
+        }
         console.log('Reset password email sent to:', user.email);
     } catch (error) {
         console.error('Lỗi gửi email reset password:', error);
