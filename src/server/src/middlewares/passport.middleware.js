@@ -11,7 +11,12 @@ const oauth = (name, scope) => (req, res, next) => {
         scope,
         session: false,
         failureRedirect: "/api/auth/login"
-    })(req, res, next);
+    })(req, res, (err) => {
+        if (!err) return next();
+        // Lỗi đổi code lấy token (sai secret, redirect_uri, code đã dùng...) trước đây bị nuốt thành 500 trống
+        console.error(`[OAuth:${name}]`, err.name, err.message, err.oauthError?.data || '');
+        return res.status(502).json({ err: -1, msg: `Đăng nhập ${name} thất bại: ${err.message}`, detail: err.oauthError?.data });
+    });
 };
 
 // Google middleware
