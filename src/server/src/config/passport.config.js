@@ -44,6 +44,9 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
             clientID: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             callbackURL: `${SERVER_URL}/api/auth/facebook/callback`,
+            // passport-facebook mặc định gọi Graph API v3.2 (đã hết hạn) -> dùng URL không phiên bản = mặc định của app
+            tokenURL: 'https://graph.facebook.com/oauth/access_token',
+            profileURL: 'https://graph.facebook.com/me',
             profileFields: ['id', 'displayName']
         }, 
         async (accessToken, refreshToken, profile, done) => {
