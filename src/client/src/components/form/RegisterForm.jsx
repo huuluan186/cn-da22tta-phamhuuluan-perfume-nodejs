@@ -6,6 +6,7 @@ import {InputField, Button} from '../index'
 import icons from '../../assets/react-icons/icon'
 import { apiRegister } from "../../api/auth";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../utils/imageUtils";
 
 const {FaFacebookF, FaGoogle} = icons
 
@@ -49,11 +50,11 @@ const RegisterForm = () => {
     }
 
     const handleGoogleLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/google';
+        window.location.href = `${BASE_URL}/api/auth/google`;
     };
 
     const handleFacebookLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/facebook';
+        window.location.href = `${BASE_URL}/api/auth/facebook`;
     };
 
     return (

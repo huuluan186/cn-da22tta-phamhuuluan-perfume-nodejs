@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL || 'http://localhost:5000',
-    timeout: 10000,
+    timeout: 60000, // Render free có thể cold-start ~50s và CPU yếu (bcrypt chậm)
     withCredentials: true, // cookie HttpOnly sẽ gửi tự động
 });
 

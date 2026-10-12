@@ -9,8 +9,8 @@ if (!process.env.SECRET_KEY) {
     process.exit(1);
 }
 
-//hàm băm mật khẩu
-const hashPassword = password => bcrypt.hashSync(password,bcrypt.genSaltSync(12))
+//hàm băm mật khẩu (cost 10: chuẩn mặc định, nhanh hơn nhiều trên CPU yếu của Render free)
+const hashPassword = password => bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 
 export const registerService = async ({ firstname, lastname, password, email}, isSelfRegister = true) => {
     const transaction = await db.sequelize.transaction();

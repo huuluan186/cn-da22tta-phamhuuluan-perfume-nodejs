@@ -18,6 +18,9 @@ autoExpireCoupons();
 // Khởi chạy cron job để tự động hủy đơn ZaloPay quá hạn
 cancelExpiredOrders();
 
+// Render chạy sau reverse proxy (HTTPS) => cần trust proxy để cookie Secure hoạt động đúng
+app.set('trust proxy', 1);
+
 app.use(cors({
     origin: true, // Chấp nhận mọi origin (mirror) thay vì fix cứng process.env.CLIENT_URL
     credentials: true, // cho phép gửi cookie hoặc auth headers có credentials

@@ -9,13 +9,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
+// URL public của backend (Render) - dùng cho OAuth callback. Local mặc định localhost:5000
+const SERVER_URL = (process.env.SERVER_URL || 'http://localhost:5000').replace(/\/+$/, '');
+
 // Cấu hình Google Strategy nếu có cấu hình
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
     passport.use(new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: 'http://localhost:5000/api/auth/google/callback',
+            callbackURL: `${SERVER_URL}/api/auth/google/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -40,7 +43,7 @@ if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
         {
             clientID: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-            callbackURL: 'http://localhost:5000/api/auth/facebook/callback',
+            callbackURL: `${SERVER_URL}/api/auth/facebook/callback`,
             profileFields: ['id', 'displayName']
         }, 
         async (accessToken, refreshToken, profile, done) => {

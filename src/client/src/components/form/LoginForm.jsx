@@ -7,6 +7,7 @@ import icons from '../../assets/react-icons/icon'
 import { useDispatch, useSelector } from "react-redux";
 import { login } from '../../store/actions/auth'
 import { toast } from "react-toastify";
+import { BASE_URL } from "../../utils/imageUtils";
 
 const { FaFacebookF, FaGoogle } = icons
 
@@ -34,11 +35,11 @@ const LoginForm = ({ onForgotPassword }) => {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/google';
+        window.location.href = `${BASE_URL}/api/auth/google`;
     };
 
     const handleFacebookLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/facebook';
+        window.location.href = `${BASE_URL}/api/auth/facebook`;
     };
 
     const handleSubmit = async (e) => {
